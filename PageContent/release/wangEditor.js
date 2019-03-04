@@ -38,7 +38,7 @@ var polyfill = function () {
         };
     }
 
-    // IE 中兼容 Element.prototype.matches
+    // IE 中兼�?Element.prototype.matches
     if (!Element.prototype.matches) {
         Element.prototype.matches = Element.prototype.matchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.msMatchesSelector || Element.prototype.oMatchesSelector || Element.prototype.webkitMatchesSelector || function (s) {
             var matches = (this.document || this.ownerDocument).querySelectorAll(s),
@@ -61,7 +61,7 @@ function createElemByHTML(html) {
     return div.children;
 }
 
-// 是否是 DOM List
+// 是否�?DOM List
 function isDOMList(selector) {
     if (!selector) {
         return false;
@@ -85,22 +85,19 @@ function querySelectorAll(selector) {
 // 记录所有的事件绑定
 var eventList = [];
 
-// 创建构造函数
-function DomElement(selector) {
+// 创建构造函�?function DomElement(selector) {
     if (!selector) {
         return;
     }
 
-    // selector 本来就是 DomElement 对象，直接返回
-    if (selector instanceof DomElement) {
+    // selector 本来就是 DomElement 对象，直接返�?    if (selector instanceof DomElement) {
         return selector;
     }
 
     this.selector = selector;
     var nodeType = selector.nodeType;
 
-    // 根据 selector 得出的结果（如 DOM，DOM List）
-    var selectorResult = [];
+    // 根据 selector 得出的结果（�?DOM，DOM List�?    var selectorResult = [];
     if (nodeType === 9) {
         // document 节点
         selectorResult = [selector];
@@ -108,24 +105,21 @@ function DomElement(selector) {
         // 单个 DOM 节点
         selectorResult = [selector];
     } else if (isDOMList(selector) || selector instanceof Array) {
-        // DOM List 或者数组
-        selectorResult = selector;
+        // DOM List 或者数�?        selectorResult = selector;
     } else if (typeof selector === 'string') {
-        // 字符串
-        selector = selector.replace('/\n/mg', '').trim();
+        // 字符�?        selector = selector.replace('/\n/mg', '').trim();
         if (selector.indexOf('<') === 0) {
-            // 如 <div>
+            // �?<div>
             selectorResult = createElemByHTML(selector);
         } else {
-            // 如 #id .class
+            // �?#id .class
             selectorResult = querySelectorAll(selector);
         }
     }
 
     var length = selectorResult.length;
     if (!length) {
-        // 空数组
-        return this;
+        // 空数�?        return this;
     }
 
     // 加入 DOM 节点
@@ -162,8 +156,7 @@ DomElement.prototype = {
         return $(cloneList);
     },
 
-    // 获取第几个元素
-    get: function get(index) {
+    // 获取第几个元�?    get: function get(index) {
         var length = this.length;
         if (index >= length) {
             index = index % length;
@@ -171,13 +164,11 @@ DomElement.prototype = {
         return $(this[index]);
     },
 
-    // 第一个
-    first: function first() {
+    // 第一�?    first: function first() {
         return this.get(0);
     },
 
-    // 最后一个
-    last: function last() {
+    // 最后一�?    last: function last() {
         var length = this.length;
         return this.get(length - 1);
     },
@@ -190,8 +181,7 @@ DomElement.prototype = {
             selector = null;
         }
 
-        // type 是否有多个
-        var types = [];
+        // type 是否有多�?        var types = [];
         types = type.split(/\s+/);
 
         return this.forEach(function (elem) {
@@ -208,13 +198,11 @@ DomElement.prototype = {
                 });
 
                 if (!selector) {
-                    // 无代理
-                    elem.addEventListener(type, fn);
+                    // 无代�?                    elem.addEventListener(type, fn);
                     return;
                 }
 
-                // 有代理
-                elem.addEventListener(type, function (e) {
+                // 有代�?                elem.addEventListener(type, function (e) {
                     var target = e.target;
                     if (target.matches(selector)) {
                         fn.call(target, e);
@@ -231,14 +219,11 @@ DomElement.prototype = {
         });
     },
 
-    // 获取/设置 属性
-    attr: function attr(key, val) {
+    // 获取/设置 属�?    attr: function attr(key, val) {
         if (val == null) {
-            // 获取值
-            return this[0].getAttribute(key);
+            // 获取�?            return this[0].getAttribute(key);
         } else {
-            // 设置值
-            return this.forEach(function (elem) {
+            // 设置�?            return this.forEach(function (elem) {
                 elem.setAttribute(key, val);
             });
         }
@@ -252,8 +237,7 @@ DomElement.prototype = {
         return this.forEach(function (elem) {
             var arr = void 0;
             if (elem.className) {
-                // 解析当前 className 转换为数组
-                arr = elem.className.split(/\s/);
+                // 解析当前 className 转换为数�?                arr = elem.className.split(/\s/);
                 arr = arr.filter(function (item) {
                     return !!item.trim();
                 });
@@ -277,8 +261,7 @@ DomElement.prototype = {
         return this.forEach(function (elem) {
             var arr = void 0;
             if (elem.className) {
-                // 解析当前 className 转换为数组
-                arr = elem.className.split(/\s/);
+                // 解析当前 className 转换为数�?                arr = elem.className.split(/\s/);
                 arr = arr.filter(function (item) {
                     item = item.trim();
                     // 删除 class
@@ -301,10 +284,9 @@ DomElement.prototype = {
             var styleArr = void 0,
                 resultArr = [];
             if (style) {
-                // 将 style 按照 ; 拆分为数组
-                styleArr = style.split(';');
+                // �?style 按照 ; 拆分为数�?                styleArr = style.split(';');
                 styleArr.forEach(function (item) {
-                    // 对每项样式，按照 : 拆分为 key 和 value
+                    // 对每项样式，按照 : 拆分�?key �?value
                     var arr = item.split(':').map(function (i) {
                         return i.trim();
                     });
@@ -312,8 +294,7 @@ DomElement.prototype = {
                         resultArr.push(arr[0] + ':' + arr[1]);
                     }
                 });
-                // 替换或者新增
-                resultArr = resultArr.map(function (item) {
+                // 替换或者新�?                resultArr = resultArr.map(function (item) {
                     if (item.indexOf(key) === 0) {
                         return currentStyle;
                     } else {
@@ -326,8 +307,7 @@ DomElement.prototype = {
                 // 结果
                 elem.setAttribute('style', resultArr.join('; '));
             } else {
-                // style 无值
-                elem.setAttribute('style', currentStyle);
+                // style 无�?                elem.setAttribute('style', currentStyle);
             }
         });
     },
@@ -342,8 +322,7 @@ DomElement.prototype = {
         return this.css('display', 'none');
     },
 
-    // 获取子节点
-    children: function children() {
+    // 获取子节�?    children: function children() {
         var elem = this[0];
         if (!elem) {
             return null;
@@ -352,8 +331,7 @@ DomElement.prototype = {
         return $(elem.children);
     },
 
-    // 获取子节点（包括文本节点）
-    childNodes: function childNodes() {
+    // 获取子节点（包括文本节点�?    childNodes: function childNodes() {
         var elem = this[0];
         if (!elem) {
             return null;
@@ -362,8 +340,7 @@ DomElement.prototype = {
         return $(elem.childNodes);
     },
 
-    // 增加子节点
-    append: function append($children) {
+    // 增加子节�?    append: function append($children) {
         return this.forEach(function (elem) {
             $children.forEach(function (child) {
                 elem.appendChild(child);
@@ -383,8 +360,7 @@ DomElement.prototype = {
         });
     },
 
-    // 是否包含某个子节点
-    isContain: function isContain($child) {
+    // 是否包含某个子节�?    isContain: function isContain($child) {
         var elem = this[0];
         var child = $child[0];
         return elem.contains(child);
@@ -393,8 +369,7 @@ DomElement.prototype = {
     // 尺寸数据
     getSizeData: function getSizeData() {
         var elem = this[0];
-        return elem.getBoundingClientRect(); // 可得到 bottom height left right top width 的数据
-    },
+        return elem.getBoundingClientRect(); // 可得�?bottom height left right top width 的数�?    },
 
     // 封装 nodeName
     getNodeName: function getNodeName() {
@@ -402,13 +377,12 @@ DomElement.prototype = {
         return elem.nodeName;
     },
 
-    // 从当前元素查找
-    find: function find(selector) {
+    // 从当前元素查�?    find: function find(selector) {
         var elem = this[0];
         return $(elem.querySelectorAll(selector));
     },
 
-    // 获取当前元素的 text
+    // 获取当前元素�?text
     text: function text(val) {
         if (!val) {
             // 获取 text
@@ -459,7 +433,7 @@ DomElement.prototype = {
         var results = document.querySelectorAll(selector);
         var length = results.length;
         if (!length) {
-            // 传入的 selector 无效
+            // 传入�?selector 无效
             return null;
         }
 
@@ -490,8 +464,7 @@ DomElement.prototype = {
         }
     },
 
-    // 将该元素插入到某个元素前面
-    insertBefore: function insertBefore(selector) {
+    // 将该元素插入到某个元素前�?    insertBefore: function insertBefore(selector) {
         var $referenceNode = $(selector);
         var referenceNode = $referenceNode[0];
         if (!referenceNode) {
@@ -503,8 +476,7 @@ DomElement.prototype = {
         });
     },
 
-    // 将该元素插入到某个元素后面
-    insertAfter: function insertAfter(selector) {
+    // 将该元素插入到某个元素后�?    insertAfter: function insertAfter(selector) {
         var $referenceNode = $(selector);
         var referenceNode = $referenceNode[0];
         if (!referenceNode) {
@@ -513,18 +485,15 @@ DomElement.prototype = {
         return this.forEach(function (elem) {
             var parent = referenceNode.parentNode;
             if (parent.lastChild === referenceNode) {
-                // 最后一个元素
-                parent.appendChild(elem);
+                // 最后一个元�?                parent.appendChild(elem);
             } else {
-                // 不是最后一个元素
-                parent.insertBefore(elem, referenceNode.nextSibling);
+                // 不是最后一个元�?                parent.insertBefore(elem, referenceNode.nextSibling);
             }
         });
     }
 };
 
-// new 一个对象
-function $(selector) {
+// new 一个对�?function $(selector) {
     return new DomElement(selector);
 }
 
@@ -564,8 +533,7 @@ var config = {
 
     // 表情
     emotions: [{
-        // tab 的标题
-        title: '默认',
+        // tab 的标�?        title: '默认',
         // type -> 'emoji' / 'image'
         type: 'image',
         // content -> 数组
@@ -580,8 +548,7 @@ var config = {
             src: 'http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/3c/pcmoren_wu_org.png'
         }]
     }, {
-        // tab 的标题
-        title: '新浪',
+        // tab 的标�?        title: '新浪',
         // type -> 'emoji' / 'image'
         type: 'image',
         // content -> 数组
@@ -596,46 +563,34 @@ var config = {
             alt: '[浮云]'
         }]
     }, {
-        // tab 的标题
-        title: 'emoji',
+        // tab 的标�?        title: 'emoji',
         // type -> 'emoji' / 'image'
         type: 'emoji',
         // content -> 数组
         content: '😀 😃 😄 😁 😆 😅 😂 😊 😇 🙂 🙃 😉 😓 😪 😴 🙄 🤔 😬 🤐'.split(/\s/)
     }],
 
-    // 编辑区域的 z-index
+    // 编辑区域�?z-index
     zIndex: 10000,
 
-    // 是否开启 debug 模式（debug 模式下错误会 throw error 形式抛出）
-    debug: false,
+    // 是否开�?debug 模式（debug 模式下错误会 throw error 形式抛出�?    debug: false,
 
     // 插入链接时候的格式校验
     linkCheck: function linkCheck(text, link) {
         // text 是插入的文字
         // link 是插入的链接
-        return true; // 返回 true 即表示成功
-        // return '校验失败' // 返回字符串即表示失败的提示信息
-    },
+        return true; // 返回 true 即表示成�?        // return '校验失败' // 返回字符串即表示失败的提示信�?    },
 
-    // 插入网络图片的校验
-    linkImgCheck: function linkImgCheck(src) {
+    // 插入网络图片的校�?    linkImgCheck: function linkImgCheck(src) {
         // src 即图片的地址
-        return true; // 返回 true 即表示成功
-        // return '校验失败'  // 返回字符串即表示失败的提示信息
-    },
+        return true; // 返回 true 即表示成�?        // return '校验失败'  // 返回字符串即表示失败的提示信�?    },
 
-    // 粘贴过滤样式，默认开启
-    pasteFilterStyle: true,
+    // 粘贴过滤样式，默认开�?    pasteFilterStyle: true,
 
-    // 粘贴内容时，忽略图片。默认关闭
-    pasteIgnoreImg: false,
+    // 粘贴内容时，忽略图片。默认关�?    pasteIgnoreImg: false,
 
-    // 对粘贴的文字进行自定义处理，返回处理后的结果。编辑器会将处理后的结果粘贴到编辑区域中。
-    // IE 暂时不支持
-    pasteTextHandle: function pasteTextHandle(content) {
-        // content 即粘贴过来的内容（html 或 纯文本），可进行自定义处理然后返回
-        return content;
+    // 对粘贴的文字进行自定义处理，返回处理后的结果。编辑器会将处理后的结果粘贴到编辑区域中�?    // IE 暂时不支�?    pasteTextHandle: function pasteTextHandle(content) {
+        // content 即粘贴过来的内容（html �?纯文本），可进行自定义处理然后返�?        return content;
     },
 
     // onchange 事件
@@ -644,27 +599,24 @@ var config = {
     //     console.log(html)
     // },
 
-    // 是否显示添加网络图片的 tab
+    // 是否显示添加网络图片�?tab
     showLinkImg: true,
 
-    // 插入网络图片的回调
-    linkImgCallback: function linkImgCallback(url) {
+    // 插入网络图片的回�?    linkImgCallback: function linkImgCallback(url) {
         // console.log(url)  // url 即插入图片的地址
     },
 
     // 默认上传图片 max size: 5M
     uploadImgMaxSize: 5 * 1024 * 1024,
 
-    // 配置一次最多上传几个图片
-    // uploadImgMaxLength: 5,
+    // 配置一次最多上传几个图�?    // uploadImgMaxLength: 5,
 
-    // 上传图片，是否显示 base64 格式
+    // 上传图片，是否显�?base64 格式
     uploadImgShowBase64: false,
 
-    // 上传图片，server 地址（如果有值，则 base64 格式的配置则失效）
-    // uploadImgServer: '/upload',
+    // 上传图片，server 地址（如果有值，�?base64 格式的配置则失效�?    // uploadImgServer: '/upload',
 
-    // 自定义配置 filename
+    // 自定义配�?filename
     uploadFileName: '',
 
     // 上传图片的自定义参数
@@ -680,7 +632,7 @@ var config = {
     // 配置 XHR withCredentials
     withCredentials: false,
 
-    // 自定义上传图片超时时间 ms
+    // 自定义上传图片超时时�?ms
     uploadImgTimeout: 10000,
 
     // 上传图片 hook 
@@ -696,8 +648,7 @@ var config = {
         before: function before(xhr, editor, files) {
             // 图片上传之前触发
 
-            // 如果返回的结果是 {prevent: true, msg: 'xxxx'} 则表示用户放弃上传
-            // return {
+            // 如果返回的结果是 {prevent: true, msg: 'xxxx'} 则表示用户放弃上�?            // return {
             //     prevent: true,
             //     msg: '放弃上传'
             // }
@@ -709,14 +660,12 @@ var config = {
             // 图片上传并返回结果，但图片插入错误时触发
         },
         error: function error(xhr, editor) {
-            // 图片上传出错时触发
-        },
+            // 图片上传出错时触�?        },
         timeout: function timeout(xhr, editor) {
-            // 图片上传超时时触发
-        }
+            // 图片上传超时时触�?        }
     },
 
-    // 是否上传七牛云，默认为 false
+    // 是否上传七牛云，默认�?false
     qiniu: false
 
 };
@@ -725,8 +674,7 @@ var config = {
     工具
 */
 
-// 和 UA 相关的属性
-var UA = {
+// �?UA 相关的属�?var UA = {
     _ua: navigator.userAgent,
 
     // 是否 webkit
@@ -755,8 +703,7 @@ function objForEach(obj, fn) {
     }
 }
 
-// 遍历类数组
-function arrForEach(fakeArr, fn) {
+// 遍历类数�?function arrForEach(fakeArr, fn) {
     var i = void 0,
         item = void 0,
         result = void 0;
@@ -770,8 +717,7 @@ function arrForEach(fakeArr, fn) {
     }
 }
 
-// 获取随机数
-function getRandom(prefix) {
+// 获取随机�?function getRandom(prefix) {
     return prefix + Math.random().toString().slice(2);
 }
 
@@ -780,13 +726,13 @@ function replaceHtmlSymbol(html) {
     if (html == null) {
         return '';
     }
-    return html.replace(/</gm, '&lt;').replace(/>/gm, '&gt;').replace(/"/gm, '&quot;').replace(/(\r\n|\r|\n)/g, '<br/>');
+    return html.replace(/</gm, '&lt;').replace(/>/gm, '>').replace(/"/gm, '"').replace(/(\r\n|\r|\n)/g, '<br/>');
 }
 
 // 返回百分比的格式
 
 
-// 判断是不是 function
+// 判断是不�?function
 function isFunction(fn) {
     return typeof fn === 'function';
 }
@@ -794,14 +740,12 @@ function isFunction(fn) {
 /*
     bold-menu
 */
-// 构造函数
-function Bold(editor) {
+// 构造函�?function Bold(editor) {
     this.editor = editor;
     this.$elem = $('<div class="w-e-menu">\n            <i class="w-e-icon-bold"></i>\n        </div>');
     this.type = 'click';
 
-    // 当前是否 active 状态
-    this._active = false;
+    // 当前是否 active 状�?    this._active = false;
 }
 
 // 原型
@@ -810,14 +754,12 @@ Bold.prototype = {
 
     // 点击事件
     onClick: function onClick(e) {
-        // 点击菜单将触发这里
-
+        // 点击菜单将触发这�?
         var editor = this.editor;
         var isSeleEmpty = editor.selection.isSelectionEmpty();
 
         if (isSeleEmpty) {
-            // 选区是空的，插入并选中一个“空白”
-            editor.selection.createEmptyRange();
+            // 选区是空的，插入并选中一个“空白�?            editor.selection.createEmptyRange();
         }
 
         // 执行 bold 命令
@@ -830,8 +772,7 @@ Bold.prototype = {
         }
     },
 
-    // 试图改变 active 状态
-    tryChangeActive: function tryChangeActive(e) {
+    // 试图改变 active 状�?    tryChangeActive: function tryChangeActive(e) {
         var editor = this.editor;
         var $elem = this.$elem;
         if (editor.cmd.queryCommandState('bold')) {
@@ -871,12 +812,10 @@ var replaceLang = function (editor, str) {
 */
 var _emptyFn = function _emptyFn() {};
 
-// 构造函数
-function DropList(menu, opt) {
+// 构造函�?function DropList(menu, opt) {
     var _this = this;
 
-    // droplist 所依附的菜单
-    var editor = menu.editor;
+    // droplist 所依附的菜�?    var editor = menu.editor;
     this.menu = menu;
     this.opt = opt;
     // 容器
@@ -899,8 +838,7 @@ function DropList(menu, opt) {
     var type = opt.type || 'list'; // 'list' 列表形式（如“标题”菜单） / 'inline-block' 块状形式（如“颜色”菜单）
     var onClick = opt.onClick || _emptyFn;
 
-    // 加入 DOM 并绑定事件
-    var $list = $('<ul class="' + (type === 'list' ? 'w-e-list' : 'w-e-block') + '"></ul>');
+    // 加入 DOM 并绑定事�?    var $list = $('<ul class="' + (type === 'list' ? 'w-e-list' : 'w-e-block') + '"></ul>');
     $container.append($list);
     list.forEach(function (item) {
         var $elem = item.$elem;
@@ -933,11 +871,9 @@ function DropList(menu, opt) {
         }, 0);
     });
 
-    // 记录属性
-    this.$container = $container;
+    // 记录属�?    this.$container = $container;
 
-    // 基本属性
-    this._rendered = false;
+    // 基本属�?    this._rendered = false;
     this._show = false;
 }
 
@@ -945,11 +881,9 @@ function DropList(menu, opt) {
 DropList.prototype = {
     constructor: DropList,
 
-    // 显示（插入DOM）
-    show: function show() {
+    // 显示（插入DOM�?    show: function show() {
         if (this.hideTimeoutId) {
-            // 清除之前的定时隐藏
-            clearTimeout(this.hideTimeoutId);
+            // 清除之前的定时隐�?            clearTimeout(this.hideTimeoutId);
         }
 
         var menu = this.menu;
@@ -962,33 +896,28 @@ DropList.prototype = {
             // 显示
             $container.show();
         } else {
-            // 加入 DOM 之前先定位位置
-            var menuHeight = $menuELem.getSizeData().height || 0;
-            var width = this.opt.width || 100; // 默认为 100
+            // 加入 DOM 之前先定位位�?            var menuHeight = $menuELem.getSizeData().height || 0;
+            var width = this.opt.width || 100; // 默认�?100
             $container.css('margin-top', menuHeight + 'px').css('width', width + 'px');
 
-            // 加入到 DOM
+            // 加入�?DOM
             $menuELem.append($container);
             this._rendered = true;
         }
 
-        // 修改属性
-        this._show = true;
+        // 修改属�?        this._show = true;
     },
 
-    // 隐藏（移除DOM）
-    hide: function hide() {
+    // 隐藏（移除DOM�?    hide: function hide() {
         if (this.showTimeoutId) {
-            // 清除之前的定时显示
-            clearTimeout(this.showTimeoutId);
+            // 清除之前的定时显�?            clearTimeout(this.showTimeoutId);
         }
 
         var $container = this.$container;
         if (!this._show) {
             return;
         }
-        // 隐藏并需改属性
-        $container.hide();
+        // 隐藏并需改属�?        $container.hide();
         this._show = false;
     }
 };
@@ -996,23 +925,20 @@ DropList.prototype = {
 /*
     menu - header
 */
-// 构造函数
-function Head(editor) {
+// 构造函�?function Head(editor) {
     var _this = this;
 
     this.editor = editor;
     this.$elem = $('<div class="w-e-menu"><i class="w-e-icon-header"></i></div>');
     this.type = 'droplist';
 
-    // 当前是否 active 状态
-    this._active = false;
+    // 当前是否 active 状�?    this._active = false;
 
-    // 初始化 droplist
+    // 初始�?droplist
     this.droplist = new DropList(this, {
         width: 100,
         $title: $('<p>设置标题</p>'),
-        type: 'list', // droplist 以列表形式展示
-        list: [{ $elem: $('<h1>H1</h1>'), value: '<h1>' }, { $elem: $('<h2>H2</h2>'), value: '<h2>' }, { $elem: $('<h3>H3</h3>'), value: '<h3>' }, { $elem: $('<h4>H4</h4>'), value: '<h4>' }, { $elem: $('<h5>H5</h5>'), value: '<h5>' }, { $elem: $('<p>正文</p>'), value: '<p>' }],
+        type: 'list', // droplist 以列表形式展�?        list: [{ $elem: $('<h1>H1</h1>'), value: '<h1>' }, { $elem: $('<h2>H2</h2>'), value: '<h2>' }, { $elem: $('<h3>H3</h3>'), value: '<h3>' }, { $elem: $('<h4>H4</h4>'), value: '<h4>' }, { $elem: $('<h5>H5</h5>'), value: '<h5>' }, { $elem: $('<p>正文</p>'), value: '<p>' }],
         onClick: function onClick(value) {
             // 注意 this 是指向当前的 Head 对象
             _this._command(value);
@@ -1030,16 +956,13 @@ Head.prototype = {
 
         var $selectionElem = editor.selection.getSelectionContainerElem();
         if (editor.$textElem.equal($selectionElem)) {
-            // 不能选中多行来设置标题，否则会出现问题
-            // 例如选中的是 <p>xxx</p><p>yyy</p> 来设置标题，设置之后会成为 <h1>xxx<br>yyy</h1> 不符合预期
-            return;
+            // 不能选中多行来设置标题，否则会出现问�?            // 例如选中的是 <p>xxx</p><p>yyy</p> 来设置标题，设置之后会成�?<h1>xxx<br>yyy</h1> 不符合预�?            return;
         }
 
         editor.cmd.do('formatBlock', value);
     },
 
-    // 试图改变 active 状态
-    tryChangeActive: function tryChangeActive(e) {
+    // 试图改变 active 状�?    tryChangeActive: function tryChangeActive(e) {
         var editor = this.editor;
         var $elem = this.$elem;
         var reg = /^h/i;
@@ -1058,23 +981,20 @@ Head.prototype = {
     menu - fontSize
 */
 
-// 构造函数
-function FontSize(editor) {
+// 构造函�?function FontSize(editor) {
     var _this = this;
 
     this.editor = editor;
     this.$elem = $('<div class="w-e-menu"><i class="w-e-icon-text-heigh"></i></div>');
     this.type = 'droplist';
 
-    // 当前是否 active 状态
-    this._active = false;
+    // 当前是否 active 状�?    this._active = false;
 
-    // 初始化 droplist
+    // 初始�?droplist
     this.droplist = new DropList(this, {
         width: 160,
         $title: $('<p>字号</p>'),
-        type: 'list', // droplist 以列表形式展示
-        list: [{ $elem: $('<span style="font-size: x-small;">x-small</span>'), value: '1' }, { $elem: $('<span style="font-size: small;">small</span>'), value: '2' }, { $elem: $('<span>normal</span>'), value: '3' }, { $elem: $('<span style="font-size: large;">large</span>'), value: '4' }, { $elem: $('<span style="font-size: x-large;">x-large</span>'), value: '5' }, { $elem: $('<span style="font-size: xx-large;">xx-large</span>'), value: '6' }],
+        type: 'list', // droplist 以列表形式展�?        list: [{ $elem: $('<span style="font-size: x-small;">x-small</span>'), value: '1' }, { $elem: $('<span style="font-size: small;">small</span>'), value: '2' }, { $elem: $('<span>normal</span>'), value: '3' }, { $elem: $('<span style="font-size: large;">large</span>'), value: '4' }, { $elem: $('<span style="font-size: x-large;">x-large</span>'), value: '5' }, { $elem: $('<span style="font-size: xx-large;">xx-large</span>'), value: '6' }],
         onClick: function onClick(value) {
             // 注意 this 是指向当前的 FontSize 对象
             _this._command(value);
@@ -1097,27 +1017,23 @@ FontSize.prototype = {
     menu - fontName
 */
 
-// 构造函数
-function FontName(editor) {
+// 构造函�?function FontName(editor) {
     var _this = this;
 
     this.editor = editor;
     this.$elem = $('<div class="w-e-menu"><i class="w-e-icon-font"></i></div>');
     this.type = 'droplist';
 
-    // 当前是否 active 状态
-    this._active = false;
+    // 当前是否 active 状�?    this._active = false;
 
-    // 获取配置的字体
-    var config = editor.config;
+    // 获取配置的字�?    var config = editor.config;
     var fontNames = config.fontNames || [];
 
-    // 初始化 droplist
+    // 初始�?droplist
     this.droplist = new DropList(this, {
         width: 100,
         $title: $('<p>字体</p>'),
-        type: 'list', // droplist 以列表形式展示
-        list: fontNames.map(function (fontName) {
+        type: 'list', // droplist 以列表形式展�?        list: fontNames.map(function (fontName) {
             return { $elem: $('<span style="font-family: ' + fontName + ';">' + fontName + '</span>'), value: fontName };
         }),
         onClick: function onClick(value) {
@@ -1143,11 +1059,9 @@ FontName.prototype = {
 
 var emptyFn = function emptyFn() {};
 
-// 记录已经显示 panel 的菜单
-var _isCreatedPanelMenus = [];
+// 记录已经显示 panel 的菜�?var _isCreatedPanelMenus = [];
 
-// 构造函数
-function Panel(menu, opt) {
+// 构造函�?function Panel(menu, opt) {
     this.menu = menu;
     this.opt = opt;
 }
@@ -1156,14 +1070,12 @@ function Panel(menu, opt) {
 Panel.prototype = {
     constructor: Panel,
 
-    // 显示（插入DOM）
-    show: function show() {
+    // 显示（插入DOM�?    show: function show() {
         var _this = this;
 
         var menu = this.menu;
         if (_isCreatedPanelMenus.indexOf(menu) >= 0) {
-            // 该菜单已经创建了 panel 不能再创建
-            return;
+            // 该菜单已经创建了 panel 不能再创�?            return;
         }
 
         var editor = menu.editor;
@@ -1171,8 +1083,7 @@ Panel.prototype = {
         var $textContainerElem = editor.$textContainerElem;
         var opt = this.opt;
 
-        // panel 的容器
-        var $container = $('<div class="w-e-panel-container"></div>');
+        // panel 的容�?        var $container = $('<div class="w-e-panel-container"></div>');
         var width = opt.width || 300; // 默认 300px
         $container.css('width', width + 'px').css('margin-left', (0 - width) / 2 + 'px');
 
@@ -1209,27 +1120,24 @@ Panel.prototype = {
             title = replaceLang(editor, title);
             tpl = replaceLang(editor, tpl);
 
-            // 添加到 DOM
+            // 添加�?DOM
             var $title = $('<li class="w-e-item">' + title + '</li>');
             $tabTitleContainer.append($title);
             var $content = $(tpl);
             $tabContentContainer.append($content);
 
-            // 记录到内存
-            $title._index = tabIndex;
+            // 记录到内�?            $title._index = tabIndex;
             tabTitleArr.push($title);
             tabContentArr.push($content);
 
-            // 设置 active 项
-            if (tabIndex === 0) {
+            // 设置 active �?            if (tabIndex === 0) {
                 $title._active = true;
                 $title.addClass('w-e-active');
             } else {
                 $content.hide();
             }
 
-            // 绑定 tab 的事件
-            $title.on('click', function (e) {
+            // 绑定 tab 的事�?            $title.on('click', function (e) {
                 if ($title._active) {
                     return;
                 }
@@ -1242,7 +1150,7 @@ Panel.prototype = {
                     $content.hide();
                 });
 
-                // 显示当前的 tab
+                // 显示当前�?tab
                 $title._active = true;
                 $title.addClass('w-e-active');
                 $content.show();
@@ -1251,17 +1159,16 @@ Panel.prototype = {
 
         // 绑定关闭事件
         $container.on('click', function (e) {
-            // 点击时阻止冒泡
-            e.stopPropagation();
+            // 点击时阻止冒�?            e.stopPropagation();
         });
         $body.on('click', function (e) {
             _this.hide();
         });
 
-        // 添加到 DOM
+        // 添加�?DOM
         $textContainerElem.append($container);
 
-        // 绑定 opt 的事件，只有添加到 DOM 之后才能绑定成功
+        // 绑定 opt 的事件，只有添加�?DOM 之后才能绑定成功
         tabs.forEach(function (tab, index) {
             if (!tab) {
                 return;
@@ -1275,7 +1182,7 @@ Panel.prototype = {
                 $content.find(selector).on(type, function (e) {
                     e.stopPropagation();
                     var needToHide = fn(e);
-                    // 执行完事件之后，是否要关闭 panel
+                    // 执行完事件之后，是否要关�?panel
                     if (needToHide) {
                         _this.hide();
                     }
@@ -1283,31 +1190,28 @@ Panel.prototype = {
             });
         });
 
-        // focus 第一个 elem
+        // focus 第一�?elem
         var $inputs = $container.find('input[type=text],textarea');
         if ($inputs.length) {
             $inputs.get(0).focus();
         }
 
-        // 添加到属性
-        this.$container = $container;
+        // 添加到属�?        this.$container = $container;
 
         // 隐藏其他 panel
         this._hideOtherPanels();
-        // 记录该 menu 已经创建了 panel
+        // 记录�?menu 已经创建�?panel
         _isCreatedPanelMenus.push(menu);
     },
 
-    // 隐藏（移除DOM）
-    hide: function hide() {
+    // 隐藏（移除DOM�?    hide: function hide() {
         var menu = this.menu;
         var $container = this.$container;
         if ($container) {
             $container.remove();
         }
 
-        // 将该 menu 记录中移除
-        _isCreatedPanelMenus = _isCreatedPanelMenus.filter(function (item) {
+        // 将该 menu 记录中移�?        _isCreatedPanelMenus = _isCreatedPanelMenus.filter(function (item) {
             if (item === menu) {
                 return false;
             } else {
@@ -1316,7 +1220,7 @@ Panel.prototype = {
         });
     },
 
-    // 一个 panel 展示时，隐藏其他 panel
+    // 一�?panel 展示时，隐藏其他 panel
     _hideOtherPanels: function _hideOtherPanels() {
         if (!_isCreatedPanelMenus.length) {
             return;
@@ -1333,14 +1237,12 @@ Panel.prototype = {
 /*
     menu - link
 */
-// 构造函数
-function Link(editor) {
+// 构造函�?function Link(editor) {
     this.editor = editor;
     this.$elem = $('<div class="w-e-menu"><i class="w-e-icon-link"></i></div>');
     this.type = 'panel';
 
-    // 当前是否 active 状态
-    this._active = false;
+    // 当前是否 active 状�?    this._active = false;
 }
 
 // 原型
@@ -1353,13 +1255,11 @@ Link.prototype = {
         var $linkelem = void 0;
 
         if (this._active) {
-            // 当前选区在链接里面
-            $linkelem = editor.selection.getSelectionContainerElem();
+            // 当前选区在链接里�?            $linkelem = editor.selection.getSelectionContainerElem();
             if (!$linkelem) {
                 return;
             }
-            // 将该元素都包含在选取之内，以便后面整体替换
-            editor.selection.createRangeByElem($linkelem);
+            // 将该元素都包含在选取之内，以便后面整体替�?            editor.selection.createRangeByElem($linkelem);
             editor.selection.restoreSelection();
             // 显示 panel
             this._createPanel($linkelem.text(), $linkelem.attr('href'));
@@ -1369,8 +1269,7 @@ Link.prototype = {
                 // 选区是空的，未选中内容
                 this._createPanel('', '');
             } else {
-                // 选中内容了
-                this._createPanel(editor.selection.getSelectionText(), '');
+                // 选中内容�?                this._createPanel(editor.selection.getSelectionText(), '');
             }
         }
     },
@@ -1385,16 +1284,14 @@ Link.prototype = {
         var btnOkId = getRandom('btn-ok');
         var btnDelId = getRandom('btn-del');
 
-        // 是否显示“删除链接”
-        var delBtnDisplay = this._active ? 'inline-block' : 'none';
+        // 是否显示“删除链接�?        var delBtnDisplay = this._active ? 'inline-block' : 'none';
 
         // 初始化并显示 panel
         var panel = new Panel(this, {
             width: 300,
             // panel 中可包含多个 tab
             tabs: [{
-                // tab 的标题
-                title: '链接',
+                // tab 的标�?                title: '链接',
                 // 模板
                 tpl: '<div>\n                            <input id="' + inputTextId + '" type="text" class="block" value="' + text + '" placeholder="\u94FE\u63A5\u6587\u5B57"/></td>\n                            <input id="' + inputLinkId + '" type="text" class="block" value="' + link + '" placeholder="http://..."/></td>\n                            <div class="w-e-button-container">\n                                <button id="' + btnOkId + '" class="right">\u63D2\u5165</button>\n                                <button id="' + btnDelId + '" class="gray right" style="display:' + delBtnDisplay + '">\u5220\u9664\u94FE\u63A5</button>\n                            </div>\n                        </div>',
                 // 事件绑定
@@ -1411,7 +1308,7 @@ Link.prototype = {
                         var text = $text.val();
                         _this._insertLink(text, link);
 
-                        // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
+                        // 返回 true，表示该事件执行完之后，panel 要关闭。否�?panel 不会关闭
                         return true;
                     }
                 },
@@ -1423,7 +1320,7 @@ Link.prototype = {
                         // 执行删除链接
                         _this._delLink();
 
-                        // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
+                        // 返回 true，表示该事件执行完之后，panel 要关闭。否�?panel 不会关闭
                         return true;
                     }
                 }]
@@ -1434,8 +1331,7 @@ Link.prototype = {
         // 显示 panel
         panel.show();
 
-        // 记录属性
-        this.panel = panel;
+        // 记录属�?        this.panel = panel;
     },
 
     // 删除当前链接
@@ -1457,19 +1353,18 @@ Link.prototype = {
         var editor = this.editor;
         var config = editor.config;
         var linkCheck = config.linkCheck;
-        var checkResult = true; // 默认为 true
+        var checkResult = true; // 默认�?true
         if (linkCheck && typeof linkCheck === 'function') {
             checkResult = linkCheck(text, link);
         }
         if (checkResult === true) {
-            editor.cmd.do('insertHTML', '<a href="' + link + '" target="_blank">' + text + '</a>');
+            editor.cmd.do('insertHTML', '<a href="../../release/' + link + '" target="_blank">' + text + '</a>');
         } else {
             alert(checkResult);
         }
     },
 
-    // 试图改变 active 状态
-    tryChangeActive: function tryChangeActive(e) {
+    // 试图改变 active 状�?    tryChangeActive: function tryChangeActive(e) {
         var editor = this.editor;
         var $elem = this.$elem;
         var $selectionELem = editor.selection.getSelectionContainerElem();
@@ -1489,14 +1384,12 @@ Link.prototype = {
 /*
     italic-menu
 */
-// 构造函数
-function Italic(editor) {
+// 构造函�?function Italic(editor) {
     this.editor = editor;
     this.$elem = $('<div class="w-e-menu">\n            <i class="w-e-icon-italic"></i>\n        </div>');
     this.type = 'click';
 
-    // 当前是否 active 状态
-    this._active = false;
+    // 当前是否 active 状�?    this._active = false;
 }
 
 // 原型
@@ -1505,14 +1398,12 @@ Italic.prototype = {
 
     // 点击事件
     onClick: function onClick(e) {
-        // 点击菜单将触发这里
-
+        // 点击菜单将触发这�?
         var editor = this.editor;
         var isSeleEmpty = editor.selection.isSelectionEmpty();
 
         if (isSeleEmpty) {
-            // 选区是空的，插入并选中一个“空白”
-            editor.selection.createEmptyRange();
+            // 选区是空的，插入并选中一个“空白�?            editor.selection.createEmptyRange();
         }
 
         // 执行 italic 命令
@@ -1525,8 +1416,7 @@ Italic.prototype = {
         }
     },
 
-    // 试图改变 active 状态
-    tryChangeActive: function tryChangeActive(e) {
+    // 试图改变 active 状�?    tryChangeActive: function tryChangeActive(e) {
         var editor = this.editor;
         var $elem = this.$elem;
         if (editor.cmd.queryCommandState('italic')) {
@@ -1542,14 +1432,12 @@ Italic.prototype = {
 /*
     redo-menu
 */
-// 构造函数
-function Redo(editor) {
+// 构造函�?function Redo(editor) {
     this.editor = editor;
     this.$elem = $('<div class="w-e-menu">\n            <i class="w-e-icon-redo"></i>\n        </div>');
     this.type = 'click';
 
-    // 当前是否 active 状态
-    this._active = false;
+    // 当前是否 active 状�?    this._active = false;
 }
 
 // 原型
@@ -1558,8 +1446,7 @@ Redo.prototype = {
 
     // 点击事件
     onClick: function onClick(e) {
-        // 点击菜单将触发这里
-
+        // 点击菜单将触发这�?
         var editor = this.editor;
 
         // 执行 redo 命令
@@ -1570,14 +1457,12 @@ Redo.prototype = {
 /*
     strikeThrough-menu
 */
-// 构造函数
-function StrikeThrough(editor) {
+// 构造函�?function StrikeThrough(editor) {
     this.editor = editor;
     this.$elem = $('<div class="w-e-menu">\n            <i class="w-e-icon-strikethrough"></i>\n        </div>');
     this.type = 'click';
 
-    // 当前是否 active 状态
-    this._active = false;
+    // 当前是否 active 状�?    this._active = false;
 }
 
 // 原型
@@ -1586,14 +1471,12 @@ StrikeThrough.prototype = {
 
     // 点击事件
     onClick: function onClick(e) {
-        // 点击菜单将触发这里
-
+        // 点击菜单将触发这�?
         var editor = this.editor;
         var isSeleEmpty = editor.selection.isSelectionEmpty();
 
         if (isSeleEmpty) {
-            // 选区是空的，插入并选中一个“空白”
-            editor.selection.createEmptyRange();
+            // 选区是空的，插入并选中一个“空白�?            editor.selection.createEmptyRange();
         }
 
         // 执行 strikeThrough 命令
@@ -1606,8 +1489,7 @@ StrikeThrough.prototype = {
         }
     },
 
-    // 试图改变 active 状态
-    tryChangeActive: function tryChangeActive(e) {
+    // 试图改变 active 状�?    tryChangeActive: function tryChangeActive(e) {
         var editor = this.editor;
         var $elem = this.$elem;
         if (editor.cmd.queryCommandState('strikeThrough')) {
@@ -1623,14 +1505,12 @@ StrikeThrough.prototype = {
 /*
     underline-menu
 */
-// 构造函数
-function Underline(editor) {
+// 构造函�?function Underline(editor) {
     this.editor = editor;
     this.$elem = $('<div class="w-e-menu">\n            <i class="w-e-icon-underline"></i>\n        </div>');
     this.type = 'click';
 
-    // 当前是否 active 状态
-    this._active = false;
+    // 当前是否 active 状�?    this._active = false;
 }
 
 // 原型
@@ -1639,14 +1519,12 @@ Underline.prototype = {
 
     // 点击事件
     onClick: function onClick(e) {
-        // 点击菜单将触发这里
-
+        // 点击菜单将触发这�?
         var editor = this.editor;
         var isSeleEmpty = editor.selection.isSelectionEmpty();
 
         if (isSeleEmpty) {
-            // 选区是空的，插入并选中一个“空白”
-            editor.selection.createEmptyRange();
+            // 选区是空的，插入并选中一个“空白�?            editor.selection.createEmptyRange();
         }
 
         // 执行 underline 命令
@@ -1659,8 +1537,7 @@ Underline.prototype = {
         }
     },
 
-    // 试图改变 active 状态
-    tryChangeActive: function tryChangeActive(e) {
+    // 试图改变 active 状�?    tryChangeActive: function tryChangeActive(e) {
         var editor = this.editor;
         var $elem = this.$elem;
         if (editor.cmd.queryCommandState('underline')) {
@@ -1676,14 +1553,12 @@ Underline.prototype = {
 /*
     undo-menu
 */
-// 构造函数
-function Undo(editor) {
+// 构造函�?function Undo(editor) {
     this.editor = editor;
     this.$elem = $('<div class="w-e-menu">\n            <i class="w-e-icon-undo"></i>\n        </div>');
     this.type = 'click';
 
-    // 当前是否 active 状态
-    this._active = false;
+    // 当前是否 active 状�?    this._active = false;
 }
 
 // 原型
@@ -1692,8 +1567,7 @@ Undo.prototype = {
 
     // 点击事件
     onClick: function onClick(e) {
-        // 点击菜单将触发这里
-
+        // 点击菜单将触发这�?
         var editor = this.editor;
 
         // 执行 undo 命令
@@ -1704,23 +1578,20 @@ Undo.prototype = {
 /*
     menu - list
 */
-// 构造函数
-function List(editor) {
+// 构造函�?function List(editor) {
     var _this = this;
 
     this.editor = editor;
     this.$elem = $('<div class="w-e-menu"><i class="w-e-icon-list2"></i></div>');
     this.type = 'droplist';
 
-    // 当前是否 active 状态
-    this._active = false;
+    // 当前是否 active 状�?    this._active = false;
 
-    // 初始化 droplist
+    // 初始�?droplist
     this.droplist = new DropList(this, {
         width: 120,
         $title: $('<p>设置列表</p>'),
-        type: 'list', // droplist 以列表形式展示
-        list: [{ $elem: $('<span><i class="w-e-icon-list-numbered"></i> 有序列表</span>'), value: 'insertOrderedList' }, { $elem: $('<span><i class="w-e-icon-list2"></i> 无序列表</span>'), value: 'insertUnorderedList' }],
+        type: 'list', // droplist 以列表形式展�?        list: [{ $elem: $('<span><i class="w-e-icon-list-numbered"></i> 有序列表</span>'), value: 'insertOrderedList' }, { $elem: $('<span><i class="w-e-icon-list2"></i> 无序列表</span>'), value: 'insertUnorderedList' }],
         onClick: function onClick(value) {
             // 注意 this 是指向当前的 List 对象
             _this._command(value);
@@ -1751,7 +1622,7 @@ List.prototype = {
             return;
         }
         if ($selectionElem.equal($textElem)) {
-            // 证明是顶级标签，没有被 <p> 包裹
+            // 证明是顶级标签，没有�?<p> 包裹
             return;
         }
         var $parent = $selectionElem.parent();
@@ -1764,8 +1635,7 @@ List.prototype = {
         $parent.remove();
     },
 
-    // 试图改变 active 状态
-    tryChangeActive: function tryChangeActive(e) {
+    // 试图改变 active 状�?    tryChangeActive: function tryChangeActive(e) {
         var editor = this.editor;
         var $elem = this.$elem;
         if (editor.cmd.queryCommandState('insertUnOrderedList') || editor.cmd.queryCommandState('insertOrderedList')) {
@@ -1781,23 +1651,20 @@ List.prototype = {
 /*
     menu - justify
 */
-// 构造函数
-function Justify(editor) {
+// 构造函�?function Justify(editor) {
     var _this = this;
 
     this.editor = editor;
     this.$elem = $('<div class="w-e-menu"><i class="w-e-icon-paragraph-left"></i></div>');
     this.type = 'droplist';
 
-    // 当前是否 active 状态
-    this._active = false;
+    // 当前是否 active 状�?    this._active = false;
 
-    // 初始化 droplist
+    // 初始�?droplist
     this.droplist = new DropList(this, {
         width: 100,
         $title: $('<p>对齐方式</p>'),
-        type: 'list', // droplist 以列表形式展示
-        list: [{ $elem: $('<span><i class="w-e-icon-paragraph-left"></i> 靠左</span>'), value: 'justifyLeft' }, { $elem: $('<span><i class="w-e-icon-paragraph-center"></i> 居中</span>'), value: 'justifyCenter' }, { $elem: $('<span><i class="w-e-icon-paragraph-right"></i> 靠右</span>'), value: 'justifyRight' }],
+        type: 'list', // droplist 以列表形式展�?        list: [{ $elem: $('<span><i class="w-e-icon-paragraph-left"></i> 靠左</span>'), value: 'justifyLeft' }, { $elem: $('<span><i class="w-e-icon-paragraph-center"></i> 居中</span>'), value: 'justifyCenter' }, { $elem: $('<span><i class="w-e-icon-paragraph-right"></i> 靠右</span>'), value: 'justifyRight' }],
         onClick: function onClick(value) {
             // 注意 this 是指向当前的 List 对象
             _this._command(value);
@@ -1819,26 +1686,23 @@ Justify.prototype = {
 /*
     menu - Forecolor
 */
-// 构造函数
-function ForeColor(editor) {
+// 构造函�?function ForeColor(editor) {
     var _this = this;
 
     this.editor = editor;
     this.$elem = $('<div class="w-e-menu"><i class="w-e-icon-pencil2"></i></div>');
     this.type = 'droplist';
 
-    // 获取配置的颜色
-    var config = editor.config;
+    // 获取配置的颜�?    var config = editor.config;
     var colors = config.colors || [];
 
-    // 当前是否 active 状态
-    this._active = false;
+    // 当前是否 active 状�?    this._active = false;
 
-    // 初始化 droplist
+    // 初始�?droplist
     this.droplist = new DropList(this, {
         width: 120,
         $title: $('<p>文字颜色</p>'),
-        type: 'inline-block', // droplist 内容以 block 形式展示
+        type: 'inline-block', // droplist 内容�?block 形式展示
         list: colors.map(function (color) {
             return { $elem: $('<i style="color:' + color + ';" class="w-e-icon-pencil2"></i>'), value: color };
         }),
@@ -1863,26 +1727,23 @@ ForeColor.prototype = {
 /*
     menu - BackColor
 */
-// 构造函数
-function BackColor(editor) {
+// 构造函�?function BackColor(editor) {
     var _this = this;
 
     this.editor = editor;
     this.$elem = $('<div class="w-e-menu"><i class="w-e-icon-paint-brush"></i></div>');
     this.type = 'droplist';
 
-    // 获取配置的颜色
-    var config = editor.config;
+    // 获取配置的颜�?    var config = editor.config;
     var colors = config.colors || [];
 
-    // 当前是否 active 状态
-    this._active = false;
+    // 当前是否 active 状�?    this._active = false;
 
-    // 初始化 droplist
+    // 初始�?droplist
     this.droplist = new DropList(this, {
         width: 120,
-        $title: $('<p>背景色</p>'),
-        type: 'inline-block', // droplist 内容以 block 形式展示
+        $title: $('<p>背景�?/p>'),
+        type: 'inline-block', // droplist 内容�?block 形式展示
         list: colors.map(function (color) {
             return { $elem: $('<i style="color:' + color + ';" class="w-e-icon-paint-brush"></i>'), value: color };
         }),
@@ -1907,14 +1768,12 @@ BackColor.prototype = {
 /*
     menu - quote
 */
-// 构造函数
-function Quote(editor) {
+// 构造函�?function Quote(editor) {
     this.editor = editor;
     this.$elem = $('<div class="w-e-menu">\n            <i class="w-e-icon-quotes-left"></i>\n        </div>');
     this.type = 'click';
 
-    // 当前是否 active 状态
-    this._active = false;
+    // 当前是否 active 状�?    this._active = false;
 }
 
 // 原型
@@ -1931,17 +1790,16 @@ Quote.prototype = {
                 // 撤销 quote
                 editor.cmd.do('formatBlock', '<P>');
             } else {
-                // 转换为 quote
+                // 转换�?quote
                 editor.cmd.do('formatBlock', '<BLOCKQUOTE>');
             }
             return;
         }
 
-        // IE 中不支持 formatBlock <BLOCKQUOTE> ，要用其他方式兼容
-        var content = void 0,
+        // IE 中不支持 formatBlock <BLOCKQUOTE> ，要用其他方式兼�?        var content = void 0,
             $targetELem = void 0;
         if (nodeName === 'P') {
-            // 将 P 转换为 quote
+            // �?P 转换�?quote
             content = $selectionElem.text();
             $targetELem = $('<blockquote>' + content + '</blockquote>');
             $targetELem.insertAfter($selectionElem);
@@ -1975,14 +1833,12 @@ Quote.prototype = {
 /*
     menu - code
 */
-// 构造函数
-function Code(editor) {
+// 构造函�?function Code(editor) {
     this.editor = editor;
     this.$elem = $('<div class="w-e-menu">\n            <i class="w-e-icon-terminal"></i>\n        </div>');
     this.type = 'panel';
 
-    // 当前是否 active 状态
-    this._active = false;
+    // 当前是否 active 状�?    this._active = false;
 }
 
 // 原型
@@ -1998,12 +1854,11 @@ Code.prototype = {
         var $code = void 0;
 
         if (!$startElem.equal($endElem)) {
-            // 跨元素选择，不做处理
-            editor.selection.restoreSelection();
+            // 跨元素选择，不做处�?            editor.selection.restoreSelection();
             return;
         }
         if (!isSeleEmpty) {
-            // 选取不是空，用 <code> 包裹即可
+            // 选取不是空，�?<code> 包裹即可
             $code = $('<code>' + selectionText + '</code>');
             editor.cmd.do('insertElem', $code);
             editor.selection.createRangeByElem($code, false);
@@ -2013,11 +1868,9 @@ Code.prototype = {
 
         // 选取是空，且没有夸元素选择，则插入 <pre><code></code></prev>
         if (this._active) {
-            // 选中状态，将编辑内容
-            this._createPanel($startElem.html());
+            // 选中状态，将编辑内�?            this._createPanel($startElem.html());
         } else {
-            // 未选中状态，将创建内容
-            this._createPanel();
+            // 未选中状态，将创建内�?            this._createPanel();
         }
     },
 
@@ -2032,7 +1885,7 @@ Code.prototype = {
 
         var panel = new Panel(this, {
             width: 500,
-            // 一个 Panel 包含多个 tab
+            // 一�?Panel 包含多个 tab
             tabs: [{
                 // 标题
                 title: '插入代码',
@@ -2049,14 +1902,13 @@ Code.prototype = {
                         var text = $text.val() || $text.html();
                         text = replaceHtmlSymbol(text);
                         if (type === 'new') {
-                            // 新插入
-                            _this._insertCode(text);
+                            // 新插�?                            _this._insertCode(text);
                         } else {
                             // 编辑更新
                             _this._updateCode(text);
                         }
 
-                        // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
+                        // 返回 true，表示该事件执行完之后，panel 要关闭。否�?panel 不会关闭
                         return true;
                     }
                 }]
@@ -2067,8 +1919,7 @@ Code.prototype = {
         // 显示 panel
         panel.show();
 
-        // 记录属性
-        this.panel = panel;
+        // 记录属�?        this.panel = panel;
     },
 
     // 插入代码
@@ -2088,8 +1939,7 @@ Code.prototype = {
         editor.selection.restoreSelection();
     },
 
-    // 试图改变 active 状态
-    tryChangeActive: function tryChangeActive(e) {
+    // 试图改变 active 状�?    tryChangeActive: function tryChangeActive(e) {
         var editor = this.editor;
         var $elem = this.$elem;
         var $selectionELem = editor.selection.getSelectionContainerElem();
@@ -2110,14 +1960,12 @@ Code.prototype = {
 /*
     menu - emoticon
 */
-// 构造函数
-function Emoticon(editor) {
+// 构造函�?function Emoticon(editor) {
     this.editor = editor;
     this.$elem = $('<div class="w-e-menu">\n            <i class="w-e-icon-happy"></i>\n        </div>');
     this.type = 'panel';
 
-    // 当前是否 active 状态
-    this._active = false;
+    // 当前是否 active 状�?    this._active = false;
 }
 
 // 原型
@@ -2136,8 +1984,7 @@ Emoticon.prototype = {
         // 获取表情配置
         var emotions = config.emotions || [];
 
-        // 创建表情 dropPanel 的配置
-        var tabConfig = [];
+        // 创建表情 dropPanel 的配�?        var tabConfig = [];
         emotions.forEach(function (emotData) {
             var emotType = emotData.type;
             var content = emotData.content || [];
@@ -2159,8 +2006,7 @@ Emoticon.prototype = {
                     var src = item.src;
                     var alt = item.alt;
                     if (src) {
-                        // 加一个 data-w-e 属性，点击图片的时候不再提示编辑图片
-                        faceHtml += '<span class="w-e-item"><img src="' + src + '" alt="' + alt + '" data-w-e="1"/></span>';
+                        // 加一�?data-w-e 属性，点击图片的时候不再提示编辑图�?                        faceHtml += '<span class="w-e-item"><img src="../../release/' + src + '" alt="' + alt + '" data-w-e="1"/></span>';
                     }
                 });
             }
@@ -2186,7 +2032,7 @@ Emoticon.prototype = {
                         }
 
                         _this._insert(insertHtml);
-                        // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
+                        // 返回 true，表示该事件执行完之后，panel 要关闭。否�?panel 不会关闭
                         return true;
                     }
                 }]
@@ -2196,15 +2042,14 @@ Emoticon.prototype = {
         var panel = new Panel(this, {
             width: 300,
             height: 200,
-            // 一个 Panel 包含多个 tab
+            // 一�?Panel 包含多个 tab
             tabs: tabConfig
         });
 
         // 显示 panel
         panel.show();
 
-        // 记录属性
-        this.panel = panel;
+        // 记录属�?        this.panel = panel;
     },
 
     // 插入表情
@@ -2217,14 +2062,12 @@ Emoticon.prototype = {
 /*
     menu - table
 */
-// 构造函数
-function Table(editor) {
+// 构造函�?function Table(editor) {
     this.editor = editor;
     this.$elem = $('<div class="w-e-menu"><i class="w-e-icon-table2"></i></div>');
     this.type = 'panel';
 
-    // 当前是否 active 状态
-    this._active = false;
+    // 当前是否 active 状�?    this._active = false;
 }
 
 // 原型
@@ -2236,8 +2079,7 @@ Table.prototype = {
             // 编辑现有表格
             this._createEditPanel();
         } else {
-            // 插入新表格
-            this._createInsertPanel();
+            // 插入新表�?            this._createInsertPanel();
         }
     },
 
@@ -2245,7 +2087,7 @@ Table.prototype = {
     _createInsertPanel: function _createInsertPanel() {
         var _this = this;
 
-        // 用到的 id
+        // 用到�?id
         var btnInsertId = getRandom('btn');
         var textRowNum = getRandom('row');
         var textColNum = getRandom('col');
@@ -2260,8 +2102,7 @@ Table.prototype = {
                 tpl: '<div>\n                        <p style="text-align:left; padding:5px 0;">\n                            \u521B\u5EFA\n                            <input id="' + textRowNum + '" type="text" value="5" style="width:40px;text-align:center;"/>\n                            \u884C\n                            <input id="' + textColNum + '" type="text" value="5" style="width:40px;text-align:center;"/>\n                            \u5217\u7684\u8868\u683C\n                        </p>\n                        <div class="w-e-button-container">\n                            <button id="' + btnInsertId + '" class="right">\u63D2\u5165</button>\n                        </div>\n                    </div>',
                 // 事件绑定
                 events: [{
-                    // 点击按钮，插入表格
-                    selector: '#' + btnInsertId,
+                    // 点击按钮，插入表�?                    selector: '#' + btnInsertId,
                     type: 'click',
                     fn: function fn() {
                         var rowNum = parseInt($('#' + textRowNum).val());
@@ -2272,7 +2113,7 @@ Table.prototype = {
                             _this._insert(rowNum, colNum);
                         }
 
-                        // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
+                        // 返回 true，表示该事件执行完之后，panel 要关闭。否�?panel 不会关闭
                         return true;
                     }
                 }]
@@ -2283,8 +2124,7 @@ Table.prototype = {
         // 展示 panel
         panel.show();
 
-        // 记录属性
-        this.panel = panel;
+        // 记录属�?        this.panel = panel;
     },
 
     // 插入表格
@@ -2312,16 +2152,16 @@ Table.prototype = {
         var editor = this.editor;
         editor.cmd.do('insertHTML', html);
 
-        // 防止 firefox 下出现 resize 的控制点
+        // 防止 firefox 下出�?resize 的控制点
         editor.cmd.do('enableObjectResizing', false);
         editor.cmd.do('enableInlineTableEditing', false);
     },
 
-    // 创建编辑表格的 panel
+    // 创建编辑表格�?panel
     _createEditPanel: function _createEditPanel() {
         var _this2 = this;
 
-        // 可用的 id
+        // 可用�?id
         var addRowBtnId = getRandom('add-row');
         var addColBtnId = getRandom('add-col');
         var delRowBtnId = getRandom('del-row');
@@ -2339,39 +2179,35 @@ Table.prototype = {
                 tpl: '<div>\n                        <div class="w-e-button-container" style="border-bottom:1px solid #f1f1f1;padding-bottom:5px;margin-bottom:5px;">\n                            <button id="' + addRowBtnId + '" class="left">\u589E\u52A0\u884C</button>\n                            <button id="' + delRowBtnId + '" class="red left">\u5220\u9664\u884C</button>\n                            <button id="' + addColBtnId + '" class="left">\u589E\u52A0\u5217</button>\n                            <button id="' + delColBtnId + '" class="red left">\u5220\u9664\u5217</button>\n                        </div>\n                        <div class="w-e-button-container">\n                            <button id="' + delTableBtnId + '" class="gray left">\u5220\u9664\u8868\u683C</button>\n                        </dv>\n                    </div>',
                 // 事件绑定
                 events: [{
-                    // 增加行
-                    selector: '#' + addRowBtnId,
+                    // 增加�?                    selector: '#' + addRowBtnId,
                     type: 'click',
                     fn: function fn() {
                         _this2._addRow();
-                        // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
+                        // 返回 true，表示该事件执行完之后，panel 要关闭。否�?panel 不会关闭
                         return true;
                     }
                 }, {
-                    // 增加列
-                    selector: '#' + addColBtnId,
+                    // 增加�?                    selector: '#' + addColBtnId,
                     type: 'click',
                     fn: function fn() {
                         _this2._addCol();
-                        // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
+                        // 返回 true，表示该事件执行完之后，panel 要关闭。否�?panel 不会关闭
                         return true;
                     }
                 }, {
-                    // 删除行
-                    selector: '#' + delRowBtnId,
+                    // 删除�?                    selector: '#' + delRowBtnId,
                     type: 'click',
                     fn: function fn() {
                         _this2._delRow();
-                        // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
+                        // 返回 true，表示该事件执行完之后，panel 要关闭。否�?panel 不会关闭
                         return true;
                     }
                 }, {
-                    // 删除列
-                    selector: '#' + delColBtnId,
+                    // 删除�?                    selector: '#' + delColBtnId,
                     type: 'click',
                     fn: function fn() {
                         _this2._delCol();
-                        // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
+                        // 返回 true，表示该事件执行完之后，panel 要关闭。否�?panel 不会关闭
                         return true;
                     }
                 }, {
@@ -2380,7 +2216,7 @@ Table.prototype = {
                     type: 'click',
                     fn: function fn() {
                         _this2._delTable();
-                        // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
+                        // 返回 true，表示该事件执行完之后，panel 要关闭。否�?panel 不会关闭
                         return true;
                     }
                 }]
@@ -2390,8 +2226,7 @@ Table.prototype = {
         panel.show();
     },
 
-    // 获取选中的单元格的位置信息
-    _getLocationData: function _getLocationData() {
+    // 获取选中的单元格的位置信�?    _getLocationData: function _getLocationData() {
         var result = {};
         var editor = this.editor;
         var $selectionELem = editor.selection.getSelectionContainerElem();
@@ -2409,8 +2244,7 @@ Table.prototype = {
         var tdLength = $tds.length;
         $tds.forEach(function (td, index) {
             if (td === $selectionELem[0]) {
-                // 记录并跳出循环
-                result.td = {
+                // 记录并跳出循�?                result.td = {
                     index: index,
                     elem: td,
                     length: tdLength
@@ -2425,8 +2259,7 @@ Table.prototype = {
         var trLength = $trs.length;
         $trs.forEach(function (tr, index) {
             if (tr === $tr[0]) {
-                // 记录并跳出循环
-                result.tr = {
+                // 记录并跳出循�?                result.tr = {
                     index: index,
                     elem: tr,
                     length: trLength
@@ -2439,8 +2272,7 @@ Table.prototype = {
         return result;
     },
 
-    // 增加行
-    _addRow: function _addRow() {
+    // 增加�?    _addRow: function _addRow() {
         // 获取当前单元格的位置信息
         var locationData = this._getLocationData();
         if (!locationData) {
@@ -2463,8 +2295,7 @@ Table.prototype = {
         $(newTr).insertAfter($currentTr);
     },
 
-    // 增加列
-    _addCol: function _addCol() {
+    // 增加�?    _addCol: function _addCol() {
         // 获取当前单元格的位置信息
         var locationData = this._getLocationData();
         if (!locationData) {
@@ -2484,14 +2315,13 @@ Table.prototype = {
             var $currentTd = $tds.get(tdIndex);
             var name = $currentTd.getNodeName().toLowerCase();
 
-            // new 一个 td，并插入
+            // new 一�?td，并插入
             var newTd = document.createElement(name);
             $(newTd).insertAfter($currentTd);
         });
     },
 
-    // 删除行
-    _delRow: function _delRow() {
+    // 删除�?    _delRow: function _delRow() {
         // 获取当前单元格的位置信息
         var locationData = this._getLocationData();
         if (!locationData) {
@@ -2502,8 +2332,7 @@ Table.prototype = {
         $currentTr.remove();
     },
 
-    // 删除列
-    _delCol: function _delCol() {
+    // 删除�?    _delCol: function _delCol() {
         // 获取当前单元格的位置信息
         var locationData = this._getLocationData();
         if (!locationData) {
@@ -2540,8 +2369,7 @@ Table.prototype = {
         $table.remove();
     },
 
-    // 试图改变 active 状态
-    tryChangeActive: function tryChangeActive(e) {
+    // 试图改变 active 状�?    tryChangeActive: function tryChangeActive(e) {
         var editor = this.editor;
         var $elem = this.$elem;
         var $selectionELem = editor.selection.getSelectionContainerElem();
@@ -2562,14 +2390,12 @@ Table.prototype = {
 /*
     menu - video
 */
-// 构造函数
-function Video(editor) {
+// 构造函�?function Video(editor) {
     this.editor = editor;
     this.$elem = $('<div class="w-e-menu"><i class="w-e-icon-play"></i></div>');
     this.type = 'panel';
 
-    // 当前是否 active 状态
-    this._active = false;
+    // 当前是否 active 状�?    this._active = false;
 }
 
 // 原型
@@ -2590,7 +2416,7 @@ Video.prototype = {
         // 创建 panel
         var panel = new Panel(this, {
             width: 350,
-            // 一个 panel 多个 tab
+            // 一�?panel 多个 tab
             tabs: [{
                 // 标题
                 title: '插入视频',
@@ -2612,7 +2438,7 @@ Video.prototype = {
                             _this._insert(val);
                         }
 
-                        // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
+                        // 返回 true，表示该事件执行完之后，panel 要关闭。否�?panel 不会关闭
                         return true;
                     }
                 }]
@@ -2623,8 +2449,7 @@ Video.prototype = {
         // 显示 panel
         panel.show();
 
-        // 记录属性
-        this.panel = panel;
+        // 记录属�?        this.panel = panel;
     },
 
     // 插入视频
@@ -2637,16 +2462,14 @@ Video.prototype = {
 /*
     menu - img
 */
-// 构造函数
-function Image(editor) {
+// 构造函�?function Image(editor) {
     this.editor = editor;
     var imgMenuId = getRandom('w-e-img');
     this.$elem = $('<div class="w-e-menu" id="' + imgMenuId + '"><i class="w-e-icon-image"></i></div>');
     editor.imgMenuId = imgMenuId;
     this.type = 'panel';
 
-    // 当前是否 active 状态
-    this._active = false;
+    // 当前是否 active 状�?    this._active = false;
 }
 
 // 原型
@@ -2687,7 +2510,7 @@ Image.prototype = {
                     if ($img) {
                         $img.css('max-width', '30%');
                     }
-                    // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
+                    // 返回 true，表示该事件执行完之后，panel 要关闭。否�?panel 不会关闭
                     return true;
                 }
             }, {
@@ -2698,7 +2521,7 @@ Image.prototype = {
                     if ($img) {
                         $img.css('max-width', '50%');
                     }
-                    // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
+                    // 返回 true，表示该事件执行完之后，panel 要关闭。否�?panel 不会关闭
                     return true;
                 }
             }, {
@@ -2709,7 +2532,7 @@ Image.prototype = {
                     if ($img) {
                         $img.css('max-width', '100%');
                     }
-                    // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
+                    // 返回 true，表示该事件执行完之后，panel 要关闭。否�?panel 不会关闭
                     return true;
                 }
             }, {
@@ -2720,21 +2543,19 @@ Image.prototype = {
                     if ($img) {
                         $img.remove();
                     }
-                    // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
+                    // 返回 true，表示该事件执行完之后，panel 要关闭。否�?panel 不会关闭
                     return true;
                 }
             }]
         }];
 
-        // 创建 panel 并显示
-        var panel = new Panel(this, {
+        // 创建 panel 并显�?        var panel = new Panel(this, {
             width: 300,
             tabs: tabsConfig
         });
         panel.show();
 
-        // 记录属性
-        this.panel = panel;
+        // 记录属�?        this.panel = panel;
     },
 
     _createInsertPanel: function _createInsertPanel() {
@@ -2748,8 +2569,7 @@ Image.prototype = {
         var linkUrlId = getRandom('link-url');
         var linkBtnId = getRandom('link-btn');
 
-        // tabs 的配置
-        var tabsConfig = [{
+        // tabs 的配�?        var tabsConfig = [{
             title: '上传图片',
             tpl: '<div class="w-e-up-img-container">\n                    <div id="' + upTriggerId + '" class="w-e-up-btn">\n                        <i class="w-e-icon-upload2"></i>\n                    </div>\n                    <div style="display:none;">\n                        <input id="' + upFileId + '" type="file" multiple="multiple" accept="image/jpg,image/jpeg,image/png,image/gif,image/bmp"/>\n                    </div>\n                </div>',
             events: [{
@@ -2762,7 +2582,7 @@ Image.prototype = {
                     if (fileElem) {
                         fileElem.click();
                     } else {
-                        // 返回 true 可关闭 panel
+                        // 返回 true 可关�?panel
                         return true;
                     }
                 }
@@ -2774,17 +2594,17 @@ Image.prototype = {
                     var $file = $('#' + upFileId);
                     var fileElem = $file[0];
                     if (!fileElem) {
-                        // 返回 true 可关闭 panel
+                        // 返回 true 可关�?panel
                         return true;
                     }
 
-                    // 获取选中的 file 对象列表
+                    // 获取选中�?file 对象列表
                     var fileList = fileElem.files;
                     if (fileList.length) {
                         uploadImg.uploadImg(fileList);
                     }
 
-                    // 返回 true 可关闭 panel
+                    // 返回 true 可关�?panel
                     return true;
                 }
             }]
@@ -2810,30 +2630,24 @@ Image.prototype = {
         } // second tab end
         ]; // tabs end
 
-        // 判断 tabs 的显示
-        var tabsConfigResult = [];
+        // 判断 tabs 的显�?        var tabsConfigResult = [];
         if ((config.uploadImgShowBase64 || config.uploadImgServer || config.customUploadImg) && window.FileReader) {
-            // 显示“上传图片”
-            tabsConfigResult.push(tabsConfig[0]);
+            // 显示“上传图片�?            tabsConfigResult.push(tabsConfig[0]);
         }
         if (config.showLinkImg) {
-            // 显示“网络图片”
-            tabsConfigResult.push(tabsConfig[1]);
+            // 显示“网络图片�?            tabsConfigResult.push(tabsConfig[1]);
         }
 
-        // 创建 panel 并显示
-        var panel = new Panel(this, {
+        // 创建 panel 并显�?        var panel = new Panel(this, {
             width: 300,
             tabs: tabsConfigResult
         });
         panel.show();
 
-        // 记录属性
-        this.panel = panel;
+        // 记录属�?        this.panel = panel;
     },
 
-    // 试图改变 active 状态
-    tryChangeActive: function tryChangeActive(e) {
+    // 试图改变 active 状�?    tryChangeActive: function tryChangeActive(e) {
         var editor = this.editor;
         var $elem = this.$elem;
         if (editor._selectedImg) {
@@ -2847,11 +2661,9 @@ Image.prototype = {
 };
 
 /*
-    所有菜单的汇总
-*/
+    所有菜单的汇�?*/
 
-// 存储菜单的构造函数
-var MenuConstructors = {};
+// 存储菜单的构造函�?var MenuConstructors = {};
 
 MenuConstructors.bold = Bold;
 
@@ -2896,8 +2708,7 @@ MenuConstructors.image = Image;
 /*
     菜单集合
 */
-// 构造函数
-function Menus(editor) {
+// 构造函�?function Menus(editor) {
     this.editor = editor;
     this.menus = {};
 }
@@ -2906,16 +2717,14 @@ function Menus(editor) {
 Menus.prototype = {
     constructor: Menus,
 
-    // 初始化菜单
-    init: function init() {
+    // 初始化菜�?    init: function init() {
         var _this = this;
 
         var editor = this.editor;
         var config = editor.config || {};
         var configMenus = config.menus || []; // 获取配置中的菜单
 
-        // 根据配置信息，创建菜单
-        configMenus.forEach(function (menuKey) {
+        // 根据配置信息，创建菜�?        configMenus.forEach(function (menuKey) {
             var MenuConstructor = MenuConstructors[menuKey];
             if (MenuConstructor && typeof MenuConstructor === 'function') {
                 // 创建单个菜单
@@ -2936,7 +2745,7 @@ Menus.prototype = {
         var $toolbarElem = editor.$toolbarElem;
         var menus = this.menus;
         var config = editor.config;
-        // config.zIndex 是配置的编辑区域的 z-index，菜单的 z-index 得在其基础上 +1
+        // config.zIndex 是配置的编辑区域�?z-index，菜单的 z-index 得在其基础�?+1
         var zIndex = config.zIndex + 1;
         objForEach(menus, function (key, menu) {
             var $elem = menu.$elem;
@@ -2961,7 +2770,7 @@ Menus.prototype = {
             var droplist = menu.droplist;
             var panel = menu.panel;
 
-            // 点击类型，例如 bold
+            // 点击类型，例�?bold
             if (type === 'click' && menu.onClick) {
                 $elem.on('click', function (e) {
                     if (editor.selection.getRange() == null) {
@@ -2989,22 +2798,21 @@ Menus.prototype = {
                 });
             }
 
-            // 弹框类型，例如 link
+            // 弹框类型，例�?link
             if (type === 'panel' && menu.onClick) {
                 $elem.on('click', function (e) {
                     e.stopPropagation();
                     if (editor.selection.getRange() == null) {
                         return;
                     }
-                    // 在自定义事件中显示 panel
+                    // 在自定义事件中显�?panel
                     menu.onClick(e);
                 });
             }
         });
     },
 
-    // 尝试修改菜单状态
-    changeActive: function changeActive() {
+    // 尝试修改菜单状�?    changeActive: function changeActive() {
         var menus = this.menus;
         objForEach(menus, function (key, menu) {
             if (menu.tryChangeActive) {
@@ -3017,8 +2825,7 @@ Menus.prototype = {
 };
 
 /*
-    粘贴信息的处理
-*/
+    粘贴信息的处�?*/
 
 // 获取粘贴的纯文本
 function getPasteText(e) {
@@ -3061,8 +2868,7 @@ function getPasteHtml(e, filterStyle, ignoreImg) {
     pasteHtml = pasteHtml.replace(/<(meta|script|link).+?>/igm, '');
     // 去掉注释
     pasteHtml = pasteHtml.replace(/<!--.*?-->/mg, '');
-    // 过滤 data-xxx 属性
-    pasteHtml = pasteHtml.replace(/\s?data-.+?=('|").+?('|")/igm, '');
+    // 过滤 data-xxx 属�?    pasteHtml = pasteHtml.replace(/\s?data-.+?=('|").+?('|")/igm, '');
 
     if (ignoreImg) {
         // 忽略图片
@@ -3080,13 +2886,11 @@ function getPasteHtml(e, filterStyle, ignoreImg) {
     return pasteHtml;
 }
 
-// 获取粘贴的图片文件
-function getPasteImgs(e) {
+// 获取粘贴的图片文�?function getPasteImgs(e) {
     var result = [];
     var txt = getPasteText(e);
     if (txt) {
-        // 有文字，就忽略图片
-        return result;
+        // 有文字，就忽略图�?        return result;
     }
 
     var clipboardData = e.clipboardData || e.originalEvent && e.originalEvent.clipboardData || {};
@@ -3109,7 +2913,7 @@ function getPasteImgs(e) {
     编辑区域
 */
 
-// 获取一个 elem.childNodes 的 JSON 数据
+// 获取一�?elem.childNodes �?JSON 数据
 function getChildrenJSON($elem) {
     var result = [];
     var $children = $elem.childNodes() || []; // 注意 childNodes() 可以获取文本节点
@@ -3123,7 +2927,7 @@ function getChildrenJSON($elem) {
             elemResult = replaceHtmlSymbol(elemResult);
         }
 
-        // 普通 DOM 节点
+        // 普�?DOM 节点
         if (nodeType === 1) {
             elemResult = {};
 
@@ -3141,8 +2945,7 @@ function getChildrenJSON($elem) {
                 });
             }
             elemResult.attrs = attrData;
-            // children（递归）
-            elemResult.children = getChildrenJSON($(curElem));
+            // children（递归�?            elemResult.children = getChildrenJSON($(curElem));
         }
 
         result.push(elemResult);
@@ -3150,8 +2953,7 @@ function getChildrenJSON($elem) {
     return result;
 }
 
-// 构造函数
-function Text(editor) {
+// 构造函�?function Text(editor) {
     this.editor = editor;
 }
 
@@ -3159,8 +2961,7 @@ function Text(editor) {
 Text.prototype = {
     constructor: Text,
 
-    // 初始化
-    init: function init() {
+    // 初始�?    init: function init() {
         // 绑定事件
         this._bindEvent();
     },
@@ -3177,14 +2978,13 @@ Text.prototype = {
         var html = void 0;
         if (val == null) {
             html = $textElem.html();
-            // 未选中任何内容的时候点击“加粗”或者“斜体”等按钮，就得需要一个空的占位符 &#8203 ，这里替换掉
+            // 未选中任何内容的时候点击“加粗”或者“斜体”等按钮，就得需要一个空的占位符 ? ，这里替换掉
             html = html.replace(/\u200b/gm, '');
             return html;
         } else {
             $textElem.html(val);
 
-            // 初始化选取，将光标定位到内容尾部
-            editor.initSelection();
+            // 初始化选取，将光标定位到内容尾�?            editor.initSelection();
         }
     },
 
@@ -3202,14 +3002,13 @@ Text.prototype = {
         var text = void 0;
         if (val == null) {
             text = $textElem.text();
-            // 未选中任何内容的时候点击“加粗”或者“斜体”等按钮，就得需要一个空的占位符 &#8203 ，这里替换掉
+            // 未选中任何内容的时候点击“加粗”或者“斜体”等按钮，就得需要一个空的占位符 ? ，这里替换掉
             text = text.replace(/\u200b/gm, '');
             return text;
         } else {
             $textElem.text('<p>' + val + '</p>');
 
-            // 初始化选取，将光标定位到内容尾部
-            editor.initSelection();
+            // 初始化选取，将光标定位到内容尾�?            editor.initSelection();
         }
     },
 
@@ -3219,8 +3018,7 @@ Text.prototype = {
         var $textElem = editor.$textElem;
         $textElem.append($(html));
 
-        // 初始化选取，将光标定位到内容尾部
-        editor.initSelection();
+        // 初始化选取，将光标定位到内容尾�?        editor.initSelection();
     },
 
     // 绑定事件
@@ -3231,11 +3029,10 @@ Text.prototype = {
         // 按回车建时的特殊处理
         this._enterKeyHandle();
 
-        // 清空时保留 <p><br></p>
+        // 清空时保�?<p><br></p>
         this._clearHandle();
 
-        // 粘贴事件（粘贴文字，粘贴图片）
-        this._pasteHandle();
+        // 粘贴事件（粘贴文字，粘贴图片�?        this._pasteHandle();
 
         // tab 特殊处理
         this._tabHandle();
@@ -3256,11 +3053,9 @@ Text.prototype = {
         function saveRange(e) {
             // 随时保存选区
             editor.selection.saveRange();
-            // 更新按钮 ative 状态
-            editor.menus.changeActive();
+            // 更新按钮 ative 状�?            editor.menus.changeActive();
         }
-        // 按键后保存
-        $textElem.on('keyup', saveRange);
+        // 按键后保�?        $textElem.on('keyup', saveRange);
         $textElem.on('mousedown', function (e) {
             // mousedown 状态下，鼠标滑动到编辑区域外面，也需要保存选区
             $textElem.on('mouseleave', saveRange);
@@ -3285,15 +3080,14 @@ Text.prototype = {
             $selectionElem.remove();
         }
 
-        // 将回车之后生成的非 <p> 的顶级标签，改为 <p>
+        // 将回车之后生成的�?<p> 的顶级标签，改为 <p>
         function pHandle(e) {
             var $selectionElem = editor.selection.getSelectionContainerElem();
             var $parentElem = $selectionElem.parent();
 
             if ($parentElem.html() === '<code><br></code>') {
-                // 回车之前光标所在一个 <p><code>.....</code></p> ，忽然回车生成一个空的 <p><code><br></code></p>
-                // 而且继续回车跳不出去，因此只能特殊处理
-                insertEmptyP($selectionElem);
+                // 回车之前光标所在一�?<p><code>.....</code></p> ，忽然回车生成一个空�?<p><code><br></code></p>
+                // 而且继续回车跳不出去，因此只能特殊处�?                insertEmptyP($selectionElem);
                 return;
             }
 
@@ -3313,20 +3107,18 @@ Text.prototype = {
                 return;
             }
 
-            // 插入 <p> ，并将选取定位到 <p>，删除当前标签
-            insertEmptyP($selectionElem);
+            // 插入 <p> ，并将选取定位�?<p>，删除当前标�?            insertEmptyP($selectionElem);
         }
 
         $textElem.on('keyup', function (e) {
             if (e.keyCode !== 13) {
-                // 不是回车键
-                return;
+                // 不是回车�?                return;
             }
-            // 将回车之后生成的非 <p> 的顶级标签，改为 <p>
+            // 将回车之后生成的�?<p> 的顶级标签，改为 <p>
             pHandle(e);
         });
 
-        // <pre><code></code></pre> 回车时 特殊处理
+        // <pre><code></code></pre> 回车�?特殊处理
         function codeHandle(e) {
             var $selectionElem = editor.selection.getSelectionContainerElem();
             if (!$selectionElem) {
@@ -3337,7 +3129,7 @@ Text.prototype = {
             var parentNodeName = $parentElem.getNodeName();
 
             if (selectionNodeName !== 'CODE' || parentNodeName !== 'PRE') {
-                // 不符合要求 忽略
+                // 不符合要�?忽略
                 return;
             }
 
@@ -3348,15 +3140,13 @@ Text.prototype = {
 
             // 处理：光标定位到代码末尾，联系点击两次回车，即跳出代码块
             if (editor._willBreakCode === true) {
-                // 此时可以跳出代码块
-                // 插入 <p> ，并将选取定位到 <p>
+                // 此时可以跳出代码�?                // 插入 <p> ，并将选取定位�?<p>
                 var $p = $('<p><br></p>');
                 $p.insertAfter($parentElem);
                 editor.selection.createRangeByElem($p, true);
                 editor.selection.restoreSelection();
 
-                // 修改状态
-                editor._willBreakCode = false;
+                // 修改状�?                editor._willBreakCode = false;
 
                 e.preventDefault();
                 return;
@@ -3364,18 +3154,17 @@ Text.prototype = {
 
             var _startOffset = editor.selection.getRange().startOffset;
 
-            // 处理：回车时，不能插入 <br> 而是插入 \n ，因为是在 pre 标签里面
+            // 处理：回车时，不能插�?<br> 而是插入 \n ，因为是�?pre 标签里面
             editor.cmd.do('insertHTML', '\n');
             editor.selection.saveRange();
             if (editor.selection.getRange().startOffset === _startOffset) {
-                // 没起作用，再来一遍
-                editor.cmd.do('insertHTML', '\n');
+                // 没起作用，再来一�?                editor.cmd.do('insertHTML', '\n');
             }
 
             var codeLength = $selectionElem.html().length;
             if (editor.selection.getRange().startOffset + 1 === codeLength) {
                 // 说明光标在代码最后的位置，执行了回车操作
-                // 记录下来，以便下次回车时候跳出 code
+                // 记录下来，以便下次回车时候跳�?code
                 editor._willBreakCode = true;
             }
 
@@ -3385,17 +3174,16 @@ Text.prototype = {
 
         $textElem.on('keydown', function (e) {
             if (e.keyCode !== 13) {
-                // 不是回车键
-                // 取消即将跳转代码块的记录
+                // 不是回车�?                // 取消即将跳转代码块的记录
                 editor._willBreakCode = false;
                 return;
             }
-            // <pre><code></code></pre> 回车时 特殊处理
+            // <pre><code></code></pre> 回车�?特殊处理
             codeHandle(e);
         });
     },
 
-    // 清空时保留 <p><br></p>
+    // 清空时保�?<p><br></p>
     _clearHandle: function _clearHandle() {
         var editor = this.editor;
         var $textElem = editor.$textElem;
@@ -3423,7 +3211,7 @@ Text.prototype = {
             if (!txtHtml || txtHtml === '<br>') {
                 // 内容空了
                 $p = $('<p><br/></p>');
-                $textElem.html(''); // 一定要先清空，否则在 firefox 下有问题
+                $textElem.html(''); // 一定要先清空，否则�?firefox 下有问题
                 $textElem.append($p);
                 editor.selection.createRangeByElem($p, false, true);
                 editor.selection.restoreSelection();
@@ -3431,8 +3219,7 @@ Text.prototype = {
         });
     },
 
-    // 粘贴事件（粘贴文字 粘贴图片）
-    _pasteHandle: function _pasteHandle() {
+    // 粘贴事件（粘贴文�?粘贴图片�?    _pasteHandle: function _pasteHandle() {
         var editor = this.editor;
         var config = editor.config;
         var pasteFilterStyle = config.pasteFilterStyle;
@@ -3440,15 +3227,13 @@ Text.prototype = {
         var ignoreImg = config.pasteIgnoreImg;
         var $textElem = editor.$textElem;
 
-        // 粘贴图片、文本的事件，每次只能执行一个
-        // 判断该次粘贴事件是否可以执行
+        // 粘贴图片、文本的事件，每次只能执行一�?        // 判断该次粘贴事件是否可以执行
         var pasteTime = 0;
         function canDo() {
             var now = Date.now();
             var flag = false;
             if (now - pasteTime >= 100) {
-                // 间隔大于 100 ms ，可以执行
-                flag = true;
+                // 间隔大于 100 ms ，可以执�?                flag = true;
             }
             pasteTime = now;
             return flag;
@@ -3462,17 +3247,14 @@ Text.prototype = {
             if (UA.isIE()) {
                 return;
             } else {
-                // 阻止默认行为，使用 execCommand 的粘贴命令
-                e.preventDefault();
+                // 阻止默认行为，使�?execCommand 的粘贴命�?                e.preventDefault();
             }
 
-            // 粘贴图片和文本，只能同时使用一个
-            if (!canDo()) {
+            // 粘贴图片和文本，只能同时使用一�?            if (!canDo()) {
                 return;
             }
 
-            // 获取粘贴的文字
-            var pasteHtml = getPasteHtml(e, pasteFilterStyle, ignoreImg);
+            // 获取粘贴的文�?            var pasteHtml = getPasteHtml(e, pasteFilterStyle, ignoreImg);
             var pasteText = getPasteText(e);
             pasteText = pasteText.replace(/\n/gm, '<br>');
 
@@ -3485,37 +3267,29 @@ Text.prototype = {
             // code 中只能粘贴纯文本
             if (nodeName === 'CODE' || nodeName === 'PRE') {
                 if (pasteTextHandle && isFunction(pasteTextHandle)) {
-                    // 用户自定义过滤处理粘贴内容
-                    pasteText = '' + (pasteTextHandle(pasteText) || '');
+                    // 用户自定义过滤处理粘贴内�?                    pasteText = '' + (pasteTextHandle(pasteText) || '');
                 }
                 editor.cmd.do('insertHTML', '<p>' + pasteText + '</p>');
                 return;
             }
 
-            // 先放开注释，有问题再追查 ————
-            // // 表格中忽略，可能会出现异常问题
-            // if (nodeName === 'TD' || nodeName === 'TH') {
+            // 先放开注释，有问题再追�?———�?            // // 表格中忽略，可能会出现异常问�?            // if (nodeName === 'TD' || nodeName === 'TH') {
             //     return
             // }
 
             if (!pasteHtml) {
-                // 没有内容，可继续执行下面的图片粘贴
-                resetTime();
+                // 没有内容，可继续执行下面的图片粘�?                resetTime();
                 return;
             }
             try {
-                // firefox 中，获取的 pasteHtml 可能是没有 <ul> 包裹的 <li>
-                // 因此执行 insertHTML 会报错
-                if (pasteTextHandle && isFunction(pasteTextHandle)) {
-                    // 用户自定义过滤处理粘贴内容
-                    pasteHtml = '' + (pasteTextHandle(pasteHtml) || '');
+                // firefox 中，获取�?pasteHtml 可能是没�?<ul> 包裹�?<li>
+                // 因此执行 insertHTML 会报�?                if (pasteTextHandle && isFunction(pasteTextHandle)) {
+                    // 用户自定义过滤处理粘贴内�?                    pasteHtml = '' + (pasteTextHandle(pasteHtml) || '');
                 }
                 editor.cmd.do('insertHTML', pasteHtml);
             } catch (ex) {
-                // 此时使用 pasteText 来兼容一下
-                if (pasteTextHandle && isFunction(pasteTextHandle)) {
-                    // 用户自定义过滤处理粘贴内容
-                    pasteText = '' + (pasteTextHandle(pasteText) || '');
+                // 此时使用 pasteText 来兼容一�?                if (pasteTextHandle && isFunction(pasteTextHandle)) {
+                    // 用户自定义过滤处理粘贴内�?                    pasteText = '' + (pasteTextHandle(pasteText) || '');
                 }
                 editor.cmd.do('insertHTML', '<p>' + pasteText + '</p>');
             }
@@ -3529,26 +3303,22 @@ Text.prototype = {
                 e.preventDefault();
             }
 
-            // 粘贴图片和文本，只能同时使用一个
-            if (!canDo()) {
+            // 粘贴图片和文本，只能同时使用一�?            if (!canDo()) {
                 return;
             }
 
-            // 获取粘贴的图片
-            var pasteFiles = getPasteImgs(e);
+            // 获取粘贴的图�?            var pasteFiles = getPasteImgs(e);
             if (!pasteFiles || !pasteFiles.length) {
                 return;
             }
 
-            // 获取当前的元素
-            var $selectionElem = editor.selection.getSelectionContainerElem();
+            // 获取当前的元�?            var $selectionElem = editor.selection.getSelectionContainerElem();
             if (!$selectionElem) {
                 return;
             }
             var nodeName = $selectionElem.getNodeName();
 
-            // code 中粘贴忽略
-            if (nodeName === 'CODE' || nodeName === 'PRE') {
+            // code 中粘贴忽�?            if (nodeName === 'CODE' || nodeName === 'PRE') {
                 return;
             }
 
@@ -3583,8 +3353,7 @@ Text.prototype = {
                 // <pre><code> 里面
                 editor.cmd.do('insertHTML', '    ');
             } else {
-                // 普通文字
-                editor.cmd.do('insertHTML', '&nbsp;&nbsp;&nbsp;&nbsp;');
+                // 普通文�?                editor.cmd.do('insertHTML', '????');
             }
 
             e.preventDefault();
@@ -3596,7 +3365,7 @@ Text.prototype = {
         var editor = this.editor;
         var $textElem = editor.$textElem;
 
-        // 为图片增加 selected 样式
+        // 为图片增�?selected 样式
         $textElem.on('click', 'img', function (e) {
             var img = this;
             var $img = $(img);
@@ -3609,16 +3378,15 @@ Text.prototype = {
             // 记录当前点击过的图片
             editor._selectedImg = $img;
 
-            // 修改选区并 restore ，防止用户此时点击退格键，会删除其他内容
+            // 修改选区�?restore ，防止用户此时点击退格键，会删除其他内容
             editor.selection.createRangeByElem($img);
             editor.selection.restoreSelection();
         });
 
-        // 去掉图片的 selected 样式
+        // 去掉图片�?selected 样式
         $textElem.on('click  keyup', function (e) {
             if (e.target.matches('img')) {
-                // 点击的是图片，忽略
-                return;
+                // 点击的是图片，忽�?                return;
             }
             // 删除记录
             editor._selectedImg = null;
@@ -3652,11 +3420,10 @@ Text.prototype = {
 };
 
 /*
-    命令，封装 document.execCommand
+    命令，封�?document.execCommand
 */
 
-// 构造函数
-function Command(editor) {
+// 构造函�?function Command(editor) {
     this.editor = editor;
 }
 
@@ -3674,8 +3441,7 @@ Command.prototype = {
             editor._useStyleWithCSS = true;
         }
 
-        // 如果无选区，忽略
-        if (!editor.selection.getRange()) {
+        // 如果无选区，忽�?        if (!editor.selection.getRange()) {
             return;
         }
 
@@ -3692,8 +3458,7 @@ Command.prototype = {
             this._execCommand(name, value);
         }
 
-        // 修改菜单状态
-        editor.menus.changeActive();
+        // 修改菜单状�?        editor.menus.changeActive();
 
         // 最后，恢复选取保证光标在原来的位置闪烁
         editor.selection.saveRange();
@@ -3703,7 +3468,7 @@ Command.prototype = {
         editor.change && editor.change();
     },
 
-    // 自定义 insertHTML 事件
+    // 自定�?insertHTML 事件
     _insertHTML: function _insertHTML(html) {
         var editor = this.editor;
         var range = editor.selection.getRange();
@@ -3757,8 +3522,7 @@ Command.prototype = {
     selection range API
 */
 
-// 构造函数
-function API(editor) {
+// 构造函�?function API(editor) {
     this.editor = editor;
     this._currentRange = null;
 }
@@ -3787,14 +3551,12 @@ API.prototype = {
         }
         var range = selection.getRangeAt(0);
 
-        // 判断选区内容是否在编辑内容之内
-        var $containerElem = this.getSelectionContainerElem(range);
+        // 判断选区内容是否在编辑内容之�?        var $containerElem = this.getSelectionContainerElem(range);
         if (!$containerElem) {
             return;
         }
 
-        // 判断选区内容是否在不可编辑区域之内
-        if ($containerElem.attr('contenteditable') === 'false' || $containerElem.parentUntil('[contenteditable=false]')) {
+        // 判断选区内容是否在不可编辑区域之�?        if ($containerElem.attr('contenteditable') === 'false' || $containerElem.parentUntil('[contenteditable=false]')) {
             return;
         }
 
@@ -3809,7 +3571,7 @@ API.prototype = {
     // 折叠选区
     collapseRange: function collapseRange(toStart) {
         if (toStart == null) {
-            // 默认为 false
+            // 默认�?false
             toStart = false;
         }
         var range = this._currentRange;
@@ -3818,8 +3580,7 @@ API.prototype = {
         }
     },
 
-    // 选中区域的文字
-    getSelectionText: function getSelectionText() {
+    // 选中区域的文�?    getSelectionText: function getSelectionText() {
         var range = this._currentRange;
         if (range) {
             return this._currentRange.toString();
@@ -3828,7 +3589,7 @@ API.prototype = {
         }
     },
 
-    // 选区的 $Elem
+    // 选区�?$Elem
     getSelectionContainerElem: function getSelectionContainerElem(range) {
         range = range || this._currentRange;
         var elem = void 0;
@@ -3874,46 +3635,43 @@ API.prototype = {
         selection.addRange(this._currentRange);
     },
 
-    // 创建一个空白（即 &#8203 字符）选区
+    // 创建一个空白（�?? 字符）选区
     createEmptyRange: function createEmptyRange() {
         var editor = this.editor;
         var range = this.getRange();
         var $elem = void 0;
 
         if (!range) {
-            // 当前无 range
+            // 当前�?range
             return;
         }
         if (!this.isSelectionEmpty()) {
-            // 当前选区必须没有内容才可以
-            return;
+            // 当前选区必须没有内容才可�?            return;
         }
 
         try {
-            // 目前只支持 webkit 内核
+            // 目前只支�?webkit 内核
             if (UA.isWebkit()) {
-                // 插入 &#8203
-                editor.cmd.do('insertHTML', '&#8203;');
+                // 插入 ?
+                editor.cmd.do('insertHTML', '?');
                 // 修改 offset 位置
                 range.setEnd(range.endContainer, range.endOffset + 1);
                 // 存储
                 this.saveRange(range);
             } else {
-                $elem = $('<strong>&#8203;</strong>');
+                $elem = $('<strong>?</strong>');
                 editor.cmd.do('insertElem', $elem);
                 this.createRangeByElem($elem, true);
             }
         } catch (ex) {
-            // 部分情况下会报错，兼容一下
-        }
+            // 部分情况下会报错，兼容一�?        }
     },
 
     // 根据 $Elem 设置选区
     createRangeByElem: function createRangeByElem($elem, toStart, isContent) {
-        // $elem - 经过封装的 elem
+        // $elem - 经过封装�?elem
         // toStart - true 开始位置，false 结束位置
-        // isContent - 是否选中Elem的内容
-        if (!$elem.length) {
+        // isContent - 是否选中Elem的内�?        if (!$elem.length) {
             return;
         }
 
@@ -3936,8 +3694,7 @@ API.prototype = {
 };
 
 /*
-    上传进度条
-*/
+    上传进度�?*/
 
 function Progress(editor) {
     this.editor = editor;
@@ -3955,8 +3712,7 @@ Progress.prototype = {
     show: function show(progress) {
         var _this = this;
 
-        // 状态处理
-        if (this._isShow) {
+        // 状态处�?        if (this._isShow) {
             return;
         }
         this._isShow = true;
@@ -3992,8 +3748,7 @@ Progress.prototype = {
         var $bar = this.$bar;
         $bar.remove();
 
-        // 修改状态
-        this._time = 0;
+        // 修改状�?        this._time = 0;
         this._isShow = false;
         this._isRender = false;
     }
@@ -4009,8 +3764,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     上传图片
 */
 
-// 构造函数
-function UploadImg(editor) {
+// 构造函�?function UploadImg(editor) {
     this.editor = editor;
 }
 
@@ -4018,8 +3772,7 @@ function UploadImg(editor) {
 UploadImg.prototype = {
     constructor: UploadImg,
 
-    // 根据 debug 弹出不同的信息
-    _alert: function _alert(alertInfo, debugInfo) {
+    // 根据 debug 弹出不同的信�?    _alert: function _alert(alertInfo, debugInfo) {
         var editor = this.editor;
         var debug = editor.config.debug;
         var customAlert = editor.config.customAlert;
@@ -4051,16 +3804,14 @@ UploadImg.prototype = {
         if (linkImgCheck && typeof linkImgCheck === 'function') {
             checkResult = linkImgCheck(link);
             if (typeof checkResult === 'string') {
-                // 校验失败，提示信息
-                alert(checkResult);
+                // 校验失败，提示信�?                alert(checkResult);
                 return;
             }
         }
 
-        editor.cmd.do('insertHTML', '<img src="' + link + '" style="max-width:100%;"/>');
+        editor.cmd.do('insertHTML', '<img src="../../release/' + link + '" style="max-width:100%;"/>');
 
-        // 验证图片 url 是否有效，无效的话给出提示
-        var img = document.createElement('img');
+        // 验证图片 url 是否有效，无效的话给出提�?        var img = document.createElement('img');
         img.onload = function () {
             var callback = config.linkImgCallback;
             if (callback && typeof callback === 'function') {
@@ -4111,8 +3862,7 @@ UploadImg.prototype = {
         var customUploadImg = config.customUploadImg;
 
         if (!customUploadImg) {
-            // 没有 customUploadImg 的情况下，需要如下两个配置才能继续进行图片上传
-            if (!uploadImgServer && !uploadImgShowBase64) {
+            // 没有 customUploadImg 的情况下，需要如下两个配置才能继续进行图片上�?            if (!uploadImgServer && !uploadImgShowBase64) {
                 return;
             }
         }
@@ -4124,14 +3874,13 @@ UploadImg.prototype = {
             var name = file.name;
             var size = file.size;
 
-            // chrome 低版本 name === undefined
+            // chrome 低版�?name === undefined
             if (!name || !size) {
                 return;
             }
 
             if (/\.(jpg|jpeg|png|bmp|gif|webp)$/i.test(name) === false) {
-                // 后缀名不合法，不是图片
-                errInfo.push('\u3010' + name + '\u3011\u4E0D\u662F\u56FE\u7247');
+                // 后缀名不合法，不是图�?                errInfo.push('\u3010' + name + '\u3011\u4E0D\u662F\u56FE\u7247');
                 return;
             }
             if (maxSize < size) {
@@ -4140,8 +3889,7 @@ UploadImg.prototype = {
                 return;
             }
 
-            // 验证通过的加入结果列表
-            resultFiles.push(file);
+            // 验证通过的加入结果列�?            resultFiles.push(file);
         });
         // 抛出验证信息
         if (errInfo.length) {
@@ -4149,11 +3897,11 @@ UploadImg.prototype = {
             return;
         }
         if (resultFiles.length > maxLength) {
-            this._alert('一次最多上传' + maxLength + '张图片');
+            this._alert('一次最多上�? + maxLength + '张图�?);
             return;
         }
 
-        // ------------------------------ 自定义上传 ------------------------------
+        // ------------------------------ 自定义上�?------------------------------
         if (customUploadImg && typeof customUploadImg === 'function') {
             customUploadImg(resultFiles, this.insertLinkImg.bind(this));
 
@@ -4175,11 +3923,10 @@ UploadImg.prototype = {
             uploadImgServer = uploadImgServerArr[0];
             var uploadImgServerHash = uploadImgServerArr[1] || '';
             objForEach(uploadImgParams, function (key, val) {
-                // 因使用者反应，自定义参数不能默认 encode ，由 v3.1.1 版本开始注释掉
+                // 因使用者反应，自定义参数不能默�?encode ，由 v3.1.1 版本开始注释掉
                 // val = encodeURIComponent(val)
 
-                // 第一，将参数拼接到 url 中
-                if (uploadImgParamsWithUrl) {
+                // 第一，将参数拼接�?url �?                if (uploadImgParamsWithUrl) {
                     if (uploadImgServer.indexOf('?') > 0) {
                         uploadImgServer += '&';
                     } else {
@@ -4188,8 +3935,7 @@ UploadImg.prototype = {
                     uploadImgServer = uploadImgServer + key + '=' + val;
                 }
 
-                // 第二，将参数添加到 formdata 中
-                formdata.append(key, val);
+                // 第二，将参数添加�?formdata �?                formdata.append(key, val);
             });
             if (uploadImgServerHash) {
                 uploadImgServer += '#' + uploadImgServerHash;
@@ -4214,8 +3960,7 @@ UploadImg.prototype = {
             if (xhr.upload) {
                 xhr.upload.onprogress = function (e) {
                     var percent = void 0;
-                    // 进度条
-                    var progressBar = new Progress(editor);
+                    // 进度�?                    var progressBar = new Progress(editor);
                     if (e.lengthComputable) {
                         percent = e.loaded / e.total;
                         progressBar.show(percent);
@@ -4233,8 +3978,7 @@ UploadImg.prototype = {
                             hooks.error(xhr, editor);
                         }
 
-                        // xhr 返回状态错误
-                        _this3._alert('上传图片发生错误', '\u4E0A\u4F20\u56FE\u7247\u53D1\u751F\u9519\u8BEF\uFF0C\u670D\u52A1\u5668\u8FD4\u56DE\u72B6\u6001\u662F ' + xhr.status);
+                        // xhr 返回状态错�?                        _this3._alert('上传图片发生错误', '\u4E0A\u4F20\u56FE\u7247\u53D1\u751F\u9519\u8BEF\uFF0C\u670D\u52A1\u5668\u8FD4\u56DE\u72B6\u6001\u662F ' + xhr.status);
                         return;
                     }
 
@@ -4259,7 +4003,7 @@ UploadImg.prototype = {
                         }
 
                         // 数据错误
-                        _this3._alert('上传图片失败', '上传图片返回结果错误，返回结果 errno=' + result.errno);
+                        _this3._alert('上传图片失败', '上传图片返回结果错误，返回结�?errno=' + result.errno);
                     } else {
                         if (hooks.customInsert && typeof hooks.customInsert === 'function') {
                             // 使用者自定义插入方法
@@ -4285,25 +4029,23 @@ UploadImg.prototype = {
                 var beforeResult = hooks.before(xhr, editor, resultFiles);
                 if (beforeResult && (typeof beforeResult === 'undefined' ? 'undefined' : _typeof(beforeResult)) === 'object') {
                     if (beforeResult.prevent) {
-                        // 如果返回的结果是 {prevent: true, msg: 'xxxx'} 则表示用户放弃上传
-                        this._alert(beforeResult.msg);
+                        // 如果返回的结果是 {prevent: true, msg: 'xxxx'} 则表示用户放弃上�?                        this._alert(beforeResult.msg);
                         return;
                     }
                 }
             }
 
-            // 自定义 headers
+            // 自定�?headers
             objForEach(uploadImgHeaders, function (key, val) {
                 xhr.setRequestHeader(key, val);
             });
 
-            // 跨域传 cookie
+            // 跨域�?cookie
             xhr.withCredentials = withCredentials;
 
-            // 发送请求
-            xhr.send(formdata);
+            // 发送请�?            xhr.send(formdata);
 
-            // 注意，要 return 。不去操作接下来的 base64 显示方式
+            // 注意，要 return 。不去操作接下来�?base64 显示方式
             return;
         }
 
@@ -4322,45 +4064,35 @@ UploadImg.prototype = {
 };
 
 /*
-    编辑器构造函数
-*/
+    编辑器构造函�?*/
 
-// id，累加
-var editorId = 1;
+// id，累�?var editorId = 1;
 
-// 构造函数
-function Editor(toolbarSelector, textSelector) {
+// 构造函�?function Editor(toolbarSelector, textSelector) {
     if (toolbarSelector == null) {
-        // 没有传入任何参数，报错
-        throw new Error('错误：初始化编辑器时候未传入任何参数，请查阅文档');
+        // 没有传入任何参数，报�?        throw new Error('错误：初始化编辑器时候未传入任何参数，请查阅文档');
     }
-    // id，用以区分单个页面不同的编辑器对象
-    this.id = 'wangEditor-' + editorId++;
+    // id，用以区分单个页面不同的编辑器对�?    this.id = 'wangEditor-' + editorId++;
 
     this.toolbarSelector = toolbarSelector;
     this.textSelector = textSelector;
 
-    // 自定义配置
-    this.customConfig = {};
+    // 自定义配�?    this.customConfig = {};
 }
 
 // 修改原型
 Editor.prototype = {
     constructor: Editor,
 
-    // 初始化配置
-    _initConfig: function _initConfig() {
-        // _config 是默认配置，this.customConfig 是用户自定义配置，将它们 merge 之后再赋值
-        var target = {};
+    // 初始化配�?    _initConfig: function _initConfig() {
+        // _config 是默认配置，this.customConfig 是用户自定义配置，将它们 merge 之后再赋�?        var target = {};
         this.config = Object.assign(target, config, this.customConfig);
 
         // 将语言配置，生成正则表达式
         var langConfig = this.config.lang || {};
         var langArgs = [];
         objForEach(langConfig, function (key, val) {
-            // key 即需要生成正则表达式的规则，如“插入链接”
-            // val 即需要被替换成的语言，如“insert link”
-            langArgs.push({
+            // key 即需要生成正则表达式的规则，如“插入链接�?            // val 即需要被替换成的语言，如“insert link�?            langArgs.push({
                 reg: new RegExp(key, 'img'),
                 val: val
 
@@ -4369,7 +4101,7 @@ Editor.prototype = {
         this.config.langArgs = langArgs;
     },
 
-    // 初始化 DOM
+    // 初始�?DOM
     _initDom: function _initDom() {
         var _this = this;
 
@@ -4387,22 +4119,19 @@ Editor.prototype = {
             $children = void 0;
 
         if (textSelector == null) {
-            // 只传入一个参数，即是容器的选择器或元素，toolbar 和 text 的元素自行创建
-            $toolbarElem = $('<div></div>');
+            // 只传入一个参数，即是容器的选择器或元素，toolbar �?text 的元素自行创�?            $toolbarElem = $('<div></div>');
             $textContainerElem = $('<div></div>');
 
             // 将编辑器区域原有的内容，暂存起来
             $children = $toolbarSelector.children();
 
-            // 添加到 DOM 结构中
-            $toolbarSelector.append($toolbarElem).append($textContainerElem);
+            // 添加�?DOM 结构�?            $toolbarSelector.append($toolbarElem).append($textContainerElem);
 
             // 自行创建的，需要配置默认的样式
             $toolbarElem.css('background-color', '#f1f1f1').css('border', '1px solid #ccc');
             $textContainerElem.css('border', '1px solid #ccc').css('border-top', 'none').css('height', '300px');
         } else {
-            // toolbar 和 text 的选择器都有值，记录属性
-            $toolbarElem = $toolbarSelector;
+            // toolbar �?text 的选择器都有值，记录属�?            $toolbarElem = $toolbarSelector;
             $textContainerElem = $(textSelector);
             // 将编辑器区域原有的内容，暂存起来
             $children = $textContainerElem.children();
@@ -4412,8 +4141,7 @@ Editor.prototype = {
         $textElem = $('<div></div>');
         $textElem.attr('contenteditable', 'true').css('width', '100%').css('height', '100%');
 
-        // 初始化编辑区域内容
-        if ($children && $children.length) {
+        // 初始化编辑区域内�?        if ($children && $children.length) {
             $textElem.append($children);
         } else {
             $textElem.append($('<p><br></p>'));
@@ -4422,7 +4150,7 @@ Editor.prototype = {
         // 编辑区域加入DOM
         $textContainerElem.append($textElem);
 
-        // 设置通用的 class
+        // 设置通用�?class
         $toolbarElem.addClass('w-e-toolbar');
         $textContainerElem.addClass('w-e-text-container');
         $textContainerElem.css('z-index', zIndex);
@@ -4434,8 +4162,7 @@ Editor.prototype = {
         var textElemId = getRandom('text-elem');
         $textElem.attr('id', textElemId);
 
-        // 记录属性
-        this.$toolbarElem = $toolbarElem;
+        // 记录属�?        this.$toolbarElem = $toolbarElem;
         this.$textContainerElem = $textContainerElem;
         this.$textElem = $textElem;
         this.toolbarElemId = toolbarElemId;
@@ -4444,12 +4171,10 @@ Editor.prototype = {
         // 记录输入法的开始和结束
         var compositionEnd = true;
         $textContainerElem.on('compositionstart', function () {
-            // 输入法开始输入
-            compositionEnd = false;
+            // 输入法开始输�?            compositionEnd = false;
         });
         $textContainerElem.on('compositionend', function () {
-            // 输入法结束输入
-            compositionEnd = true;
+            // 输入法结束输�?            compositionEnd = true;
         });
 
         // 绑定 onchange
@@ -4461,14 +4186,12 @@ Editor.prototype = {
             this.change && this.change();
         });
 
-        //绑定 onfocus 与 onblur 事件
+        //绑定 onfocus �?onblur 事件
         if (config$$1.onfocus || config$$1.onblur) {
-            // 当前编辑器是否是焦点状态
-            this.isFocus = false;
+            // 当前编辑器是否是焦点状�?            this.isFocus = false;
 
             $(document).on('click', function (e) {
-                //判断当前点击元素是否在编辑器内
-                var isChild = $textElem.isContain($(e.target));
+                //判断当前点击元素是否在编辑器�?                var isChild = $textElem.isContain($(e.target));
 
                 //判断当前点击元素是否为工具栏
                 var isToolbar = $toolbarElem.isContain($(e.target));
@@ -4509,8 +4232,7 @@ Editor.prototype = {
         this.uploadImg = new UploadImg(this);
     },
 
-    // 初始化菜单
-    _initMenus: function _initMenus() {
+    // 初始化菜�?    _initMenus: function _initMenus() {
         this.menus = new Menus(this);
         this.menus.init();
     },
@@ -4521,8 +4243,7 @@ Editor.prototype = {
         this.txt.init();
     },
 
-    // 初始化选区，将光标定位到内容尾部
-    initSelection: function initSelection(newLine) {
+    // 初始化选区，将光标定位到内容尾�?    initSelection: function initSelection(newLine) {
         var $textElem = this.$textElem;
         var $children = $textElem.children();
         if (!$children.length) {
@@ -4535,11 +4256,10 @@ Editor.prototype = {
         var $last = $children.last();
 
         if (newLine) {
-            // 新增一个空行
-            var html = $last.html().toLowerCase();
+            // 新增一个空�?            var html = $last.html().toLowerCase();
             var nodeName = $last.getNodeName();
             if (html !== '<br>' && html !== '<br\/>' || nodeName !== 'P') {
-                // 最后一个元素不是 <p><br></p>，添加一个空行，重新设置选区
+                // 最后一个元素不�?<p><br></p>，添加一个空行，重新设置选区
                 $textElem.append($('<p><br></p>'));
                 this.initSelection();
                 return;
@@ -4566,27 +4286,23 @@ Editor.prototype = {
 
         var onchange = config$$1.onchange;
         if (onchange && typeof onchange === 'function') {
-            // 触发 change 的有三个场景：
-            // 1. $textContainerElem.on('click keyup')
+            // 触发 change 的有三个场景�?            // 1. $textContainerElem.on('click keyup')
             // 2. $toolbarElem.on('click')
             // 3. editor.cmd.do()
             this.change = function () {
-                // 判断是否有变化
-                var currentHtml = this.txt.html();
+                // 判断是否有变�?                var currentHtml = this.txt.html();
 
                 if (currentHtml.length === beforeChangeHtml.length) {
-                    // 需要比较每一个字符
-                    if (currentHtml === beforeChangeHtml) {
+                    // 需要比较每一个字�?                    if (currentHtml === beforeChangeHtml) {
                         return;
                     }
                 }
 
-                // 执行，使用节流
-                if (onChangeTimeoutId) {
+                // 执行，使用节�?                if (onChangeTimeoutId) {
                     clearTimeout(onChangeTimeoutId);
                 }
                 onChangeTimeoutId = setTimeout(function () {
-                    // 触发配置的 onchange 函数
+                    // 触发配置�?onchange 函数
                     onchange(currentHtml);
                     beforeChangeHtml = currentHtml;
                 }, onchangeTimeout);
@@ -4611,12 +4327,10 @@ Editor.prototype = {
         }
     },
 
-    // 创建编辑器
-    create: function create() {
-        // 初始化配置信息
-        this._initConfig();
+    // 创建编辑�?    create: function create() {
+        // 初始化配置信�?        this._initConfig();
 
-        // 初始化 DOM
+        // 初始�?DOM
         this._initDom();
 
         // 封装 command API
@@ -4628,14 +4342,12 @@ Editor.prototype = {
         // 添加 text
         this._initText();
 
-        // 初始化菜单
-        this._initMenus();
+        // 初始化菜�?        this._initMenus();
 
         // 添加 图片上传
         this._initUploadImg();
 
-        // 初始化选区，将光标定位到内容尾部
-        this.initSelection(true);
+        // 初始化选区，将光标定位到内容尾�?        this.initSelection(true);
 
         // 绑定事件
         this._bindEvent();
@@ -4657,11 +4369,9 @@ try {
 // polyfill
 polyfill();
 
-// 这里的 `inlinecss` 将被替换成 css 代码的内容，详情可去 ./gulpfile.js 中搜索 `inlinecss` 关键字
-var inlinecss = '.w-e-toolbar,.w-e-text-container,.w-e-menu-panel {  padding: 0;  margin: 0;  box-sizing: border-box;}.w-e-toolbar *,.w-e-text-container *,.w-e-menu-panel * {  padding: 0;  margin: 0;  box-sizing: border-box;}.w-e-clear-fix:after {  content: "";  display: table;  clear: both;}.w-e-toolbar .w-e-droplist {  position: absolute;  left: 0;  top: 0;  background-color: #fff;  border: 1px solid #f1f1f1;  border-right-color: #ccc;  border-bottom-color: #ccc;}.w-e-toolbar .w-e-droplist .w-e-dp-title {  text-align: center;  color: #999;  line-height: 2;  border-bottom: 1px solid #f1f1f1;  font-size: 13px;}.w-e-toolbar .w-e-droplist ul.w-e-list {  list-style: none;  line-height: 1;}.w-e-toolbar .w-e-droplist ul.w-e-list li.w-e-item {  color: #333;  padding: 5px 0;}.w-e-toolbar .w-e-droplist ul.w-e-list li.w-e-item:hover {  background-color: #f1f1f1;}.w-e-toolbar .w-e-droplist ul.w-e-block {  list-style: none;  text-align: left;  padding: 5px;}.w-e-toolbar .w-e-droplist ul.w-e-block li.w-e-item {  display: inline-block;  *display: inline;  *zoom: 1;  padding: 3px 5px;}.w-e-toolbar .w-e-droplist ul.w-e-block li.w-e-item:hover {  background-color: #f1f1f1;}@font-face {  font-family: \'w-e-icon\';  src: url(data:application/x-font-woff;charset=utf-8;base64,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) format(\'truetype\');  font-weight: normal;  font-style: normal;}[class^="w-e-icon-"],[class*=" w-e-icon-"] {  /* use !important to prevent issues with browser extensions that change fonts */  font-family: \'w-e-icon\' !important;  speak: none;  font-style: normal;  font-weight: normal;  font-variant: normal;  text-transform: none;  line-height: 1;  /* Better Font Rendering =========== */  -webkit-font-smoothing: antialiased;  -moz-osx-font-smoothing: grayscale;}.w-e-icon-close:before {  content: "\\f00d";}.w-e-icon-upload2:before {  content: "\\e9c6";}.w-e-icon-trash-o:before {  content: "\\f014";}.w-e-icon-header:before {  content: "\\f1dc";}.w-e-icon-pencil2:before {  content: "\\e906";}.w-e-icon-paint-brush:before {  content: "\\f1fc";}.w-e-icon-image:before {  content: "\\e90d";}.w-e-icon-play:before {  content: "\\e912";}.w-e-icon-location:before {  content: "\\e947";}.w-e-icon-undo:before {  content: "\\e965";}.w-e-icon-redo:before {  content: "\\e966";}.w-e-icon-quotes-left:before {  content: "\\e977";}.w-e-icon-list-numbered:before {  content: "\\e9b9";}.w-e-icon-list2:before {  content: "\\e9bb";}.w-e-icon-link:before {  content: "\\e9cb";}.w-e-icon-happy:before {  content: "\\e9df";}.w-e-icon-bold:before {  content: "\\ea62";}.w-e-icon-underline:before {  content: "\\ea63";}.w-e-icon-italic:before {  content: "\\ea64";}.w-e-icon-strikethrough:before {  content: "\\ea65";}.w-e-icon-table2:before {  content: "\\ea71";}.w-e-icon-paragraph-left:before {  content: "\\ea77";}.w-e-icon-paragraph-center:before {  content: "\\ea78";}.w-e-icon-paragraph-right:before {  content: "\\ea79";}.w-e-icon-terminal:before {  content: "\\f120";}.w-e-icon-page-break:before {  content: "\\ea68";}.w-e-icon-cancel-circle:before {  content: "\\ea0d";}.w-e-icon-font:before {  content: "\\ea5c";}.w-e-icon-text-heigh:before {  content: "\\ea5f";}.w-e-toolbar {  display: -webkit-box;  display: -ms-flexbox;  display: flex;  padding: 0 5px;  /* flex-wrap: wrap; */  /* 单个菜单 */}.w-e-toolbar .w-e-menu {  position: relative;  text-align: center;  padding: 5px 10px;  cursor: pointer;}.w-e-toolbar .w-e-menu i {  color: #999;}.w-e-toolbar .w-e-menu:hover i {  color: #333;}.w-e-toolbar .w-e-active i {  color: #1e88e5;}.w-e-toolbar .w-e-active:hover i {  color: #1e88e5;}.w-e-text-container .w-e-panel-container {  position: absolute;  top: 0;  left: 50%;  border: 1px solid #ccc;  border-top: 0;  box-shadow: 1px 1px 2px #ccc;  color: #333;  background-color: #fff;  /* 为 emotion panel 定制的样式 */  /* 上传图片的 panel 定制样式 */}.w-e-text-container .w-e-panel-container .w-e-panel-close {  position: absolute;  right: 0;  top: 0;  padding: 5px;  margin: 2px 5px 0 0;  cursor: pointer;  color: #999;}.w-e-text-container .w-e-panel-container .w-e-panel-close:hover {  color: #333;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-title {  list-style: none;  display: -webkit-box;  display: -ms-flexbox;  display: flex;  font-size: 14px;  margin: 2px 10px 0 10px;  border-bottom: 1px solid #f1f1f1;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-title .w-e-item {  padding: 3px 5px;  color: #999;  cursor: pointer;  margin: 0 3px;  position: relative;  top: 1px;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-title .w-e-active {  color: #333;  border-bottom: 1px solid #333;  cursor: default;  font-weight: 700;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content {  padding: 10px 15px 10px 15px;  font-size: 16px;  /* 输入框的样式 */  /* 按钮的样式 */}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content input:focus,.w-e-text-container .w-e-panel-container .w-e-panel-tab-content textarea:focus,.w-e-text-container .w-e-panel-container .w-e-panel-tab-content button:focus {  outline: none;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content textarea {  width: 100%;  border: 1px solid #ccc;  padding: 5px;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content textarea:focus {  border-color: #1e88e5;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content input[type=text] {  border: none;  border-bottom: 1px solid #ccc;  font-size: 14px;  height: 20px;  color: #333;  text-align: left;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content input[type=text].small {  width: 30px;  text-align: center;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content input[type=text].block {  display: block;  width: 100%;  margin: 10px 0;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content input[type=text]:focus {  border-bottom: 2px solid #1e88e5;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content .w-e-button-container button {  font-size: 14px;  color: #1e88e5;  border: none;  padding: 5px 10px;  background-color: #fff;  cursor: pointer;  border-radius: 3px;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content .w-e-button-container button.left {  float: left;  margin-right: 10px;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content .w-e-button-container button.right {  float: right;  margin-left: 10px;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content .w-e-button-container button.gray {  color: #999;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content .w-e-button-container button.red {  color: #c24f4a;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content .w-e-button-container button:hover {  background-color: #f1f1f1;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content .w-e-button-container:after {  content: "";  display: table;  clear: both;}.w-e-text-container .w-e-panel-container .w-e-emoticon-container .w-e-item {  cursor: pointer;  font-size: 18px;  padding: 0 3px;  display: inline-block;  *display: inline;  *zoom: 1;}.w-e-text-container .w-e-panel-container .w-e-up-img-container {  text-align: center;}.w-e-text-container .w-e-panel-container .w-e-up-img-container .w-e-up-btn {  display: inline-block;  *display: inline;  *zoom: 1;  color: #999;  cursor: pointer;  font-size: 60px;  line-height: 1;}.w-e-text-container .w-e-panel-container .w-e-up-img-container .w-e-up-btn:hover {  color: #333;}.w-e-text-container {  position: relative;}.w-e-text-container .w-e-progress {  position: absolute;  background-color: #1e88e5;  bottom: 0;  left: 0;  height: 1px;}.w-e-text {  padding: 0 10px;  overflow-y: scroll;}.w-e-text p,.w-e-text h1,.w-e-text h2,.w-e-text h3,.w-e-text h4,.w-e-text h5,.w-e-text table,.w-e-text pre {  margin: 10px 0;  line-height: 1.5;}.w-e-text ul,.w-e-text ol {  margin: 10px 0 10px 20px;}.w-e-text blockquote {  display: block;  border-left: 8px solid #d0e5f2;  padding: 5px 10px;  margin: 10px 0;  line-height: 1.4;  font-size: 100%;  background-color: #f1f1f1;}.w-e-text code {  display: inline-block;  *display: inline;  *zoom: 1;  background-color: #f1f1f1;  border-radius: 3px;  padding: 3px 5px;  margin: 0 3px;}.w-e-text pre code {  display: block;}.w-e-text table {  border-top: 1px solid #ccc;  border-left: 1px solid #ccc;}.w-e-text table td,.w-e-text table th {  border-bottom: 1px solid #ccc;  border-right: 1px solid #ccc;  padding: 3px 5px;}.w-e-text table th {  border-bottom: 2px solid #ccc;  text-align: center;}.w-e-text:focus {  outline: none;}.w-e-text img {  cursor: pointer;}.w-e-text img:hover {  box-shadow: 0 0 5px #333;}';
+// 这里�?`inlinecss` 将被替换�?css 代码的内容，详情可去 ./gulpfile.js 中搜�?`inlinecss` 关键�?var inlinecss = '.w-e-toolbar,.w-e-text-container,.w-e-menu-panel {  padding: 0;  margin: 0;  box-sizing: border-box;}.w-e-toolbar *,.w-e-text-container *,.w-e-menu-panel * {  padding: 0;  margin: 0;  box-sizing: border-box;}.w-e-clear-fix:after {  content: "";  display: table;  clear: both;}.w-e-toolbar .w-e-droplist {  position: absolute;  left: 0;  top: 0;  background-color: #fff;  border: 1px solid #f1f1f1;  border-right-color: #ccc;  border-bottom-color: #ccc;}.w-e-toolbar .w-e-droplist .w-e-dp-title {  text-align: center;  color: #999;  line-height: 2;  border-bottom: 1px solid #f1f1f1;  font-size: 13px;}.w-e-toolbar .w-e-droplist ul.w-e-list {  list-style: none;  line-height: 1;}.w-e-toolbar .w-e-droplist ul.w-e-list li.w-e-item {  color: #333;  padding: 5px 0;}.w-e-toolbar .w-e-droplist ul.w-e-list li.w-e-item:hover {  background-color: #f1f1f1;}.w-e-toolbar .w-e-droplist ul.w-e-block {  list-style: none;  text-align: left;  padding: 5px;}.w-e-toolbar .w-e-droplist ul.w-e-block li.w-e-item {  display: inline-block;  *display: inline;  *zoom: 1;  padding: 3px 5px;}.w-e-toolbar .w-e-droplist ul.w-e-block li.w-e-item:hover {  background-color: #f1f1f1;}@font-face {  font-family: \'w-e-icon\';  src: url(data:application/x-font-woff;charset=utf-8;base64,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) format(\'truetype\');  font-weight: normal;  font-style: normal;}[class^="w-e-icon-"],[class*=" w-e-icon-"] {  /* use !important to prevent issues with browser extensions that change fonts */  font-family: \'w-e-icon\' !important;  speak: none;  font-style: normal;  font-weight: normal;  font-variant: normal;  text-transform: none;  line-height: 1;  /* Better Font Rendering =========== */  -webkit-font-smoothing: antialiased;  -moz-osx-font-smoothing: grayscale;}.w-e-icon-close:before {  content: "\\f00d";}.w-e-icon-upload2:before {  content: "\\e9c6";}.w-e-icon-trash-o:before {  content: "\\f014";}.w-e-icon-header:before {  content: "\\f1dc";}.w-e-icon-pencil2:before {  content: "\\e906";}.w-e-icon-paint-brush:before {  content: "\\f1fc";}.w-e-icon-image:before {  content: "\\e90d";}.w-e-icon-play:before {  content: "\\e912";}.w-e-icon-location:before {  content: "\\e947";}.w-e-icon-undo:before {  content: "\\e965";}.w-e-icon-redo:before {  content: "\\e966";}.w-e-icon-quotes-left:before {  content: "\\e977";}.w-e-icon-list-numbered:before {  content: "\\e9b9";}.w-e-icon-list2:before {  content: "\\e9bb";}.w-e-icon-link:before {  content: "\\e9cb";}.w-e-icon-happy:before {  content: "\\e9df";}.w-e-icon-bold:before {  content: "\\ea62";}.w-e-icon-underline:before {  content: "\\ea63";}.w-e-icon-italic:before {  content: "\\ea64";}.w-e-icon-strikethrough:before {  content: "\\ea65";}.w-e-icon-table2:before {  content: "\\ea71";}.w-e-icon-paragraph-left:before {  content: "\\ea77";}.w-e-icon-paragraph-center:before {  content: "\\ea78";}.w-e-icon-paragraph-right:before {  content: "\\ea79";}.w-e-icon-terminal:before {  content: "\\f120";}.w-e-icon-page-break:before {  content: "\\ea68";}.w-e-icon-cancel-circle:before {  content: "\\ea0d";}.w-e-icon-font:before {  content: "\\ea5c";}.w-e-icon-text-heigh:before {  content: "\\ea5f";}.w-e-toolbar {  display: -webkit-box;  display: -ms-flexbox;  display: flex;  padding: 0 5px;  /* flex-wrap: wrap; */  /* 单个菜单 */}.w-e-toolbar .w-e-menu {  position: relative;  text-align: center;  padding: 5px 10px;  cursor: pointer;}.w-e-toolbar .w-e-menu i {  color: #999;}.w-e-toolbar .w-e-menu:hover i {  color: #333;}.w-e-toolbar .w-e-active i {  color: #1e88e5;}.w-e-toolbar .w-e-active:hover i {  color: #1e88e5;}.w-e-text-container .w-e-panel-container {  position: absolute;  top: 0;  left: 50%;  border: 1px solid #ccc;  border-top: 0;  box-shadow: 1px 1px 2px #ccc;  color: #333;  background-color: #fff;  /* �?emotion panel 定制的样�?*/  /* 上传图片�?panel 定制样式 */}.w-e-text-container .w-e-panel-container .w-e-panel-close {  position: absolute;  right: 0;  top: 0;  padding: 5px;  margin: 2px 5px 0 0;  cursor: pointer;  color: #999;}.w-e-text-container .w-e-panel-container .w-e-panel-close:hover {  color: #333;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-title {  list-style: none;  display: -webkit-box;  display: -ms-flexbox;  display: flex;  font-size: 14px;  margin: 2px 10px 0 10px;  border-bottom: 1px solid #f1f1f1;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-title .w-e-item {  padding: 3px 5px;  color: #999;  cursor: pointer;  margin: 0 3px;  position: relative;  top: 1px;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-title .w-e-active {  color: #333;  border-bottom: 1px solid #333;  cursor: default;  font-weight: 700;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content {  padding: 10px 15px 10px 15px;  font-size: 16px;  /* 输入框的样式 */  /* 按钮的样�?*/}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content input:focus,.w-e-text-container .w-e-panel-container .w-e-panel-tab-content textarea:focus,.w-e-text-container .w-e-panel-container .w-e-panel-tab-content button:focus {  outline: none;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content textarea {  width: 100%;  border: 1px solid #ccc;  padding: 5px;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content textarea:focus {  border-color: #1e88e5;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content input[type=text] {  border: none;  border-bottom: 1px solid #ccc;  font-size: 14px;  height: 20px;  color: #333;  text-align: left;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content input[type=text].small {  width: 30px;  text-align: center;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content input[type=text].block {  display: block;  width: 100%;  margin: 10px 0;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content input[type=text]:focus {  border-bottom: 2px solid #1e88e5;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content .w-e-button-container button {  font-size: 14px;  color: #1e88e5;  border: none;  padding: 5px 10px;  background-color: #fff;  cursor: pointer;  border-radius: 3px;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content .w-e-button-container button.left {  float: left;  margin-right: 10px;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content .w-e-button-container button.right {  float: right;  margin-left: 10px;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content .w-e-button-container button.gray {  color: #999;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content .w-e-button-container button.red {  color: #c24f4a;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content .w-e-button-container button:hover {  background-color: #f1f1f1;}.w-e-text-container .w-e-panel-container .w-e-panel-tab-content .w-e-button-container:after {  content: "";  display: table;  clear: both;}.w-e-text-container .w-e-panel-container .w-e-emoticon-container .w-e-item {  cursor: pointer;  font-size: 18px;  padding: 0 3px;  display: inline-block;  *display: inline;  *zoom: 1;}.w-e-text-container .w-e-panel-container .w-e-up-img-container {  text-align: center;}.w-e-text-container .w-e-panel-container .w-e-up-img-container .w-e-up-btn {  display: inline-block;  *display: inline;  *zoom: 1;  color: #999;  cursor: pointer;  font-size: 60px;  line-height: 1;}.w-e-text-container .w-e-panel-container .w-e-up-img-container .w-e-up-btn:hover {  color: #333;}.w-e-text-container {  position: relative;}.w-e-text-container .w-e-progress {  position: absolute;  background-color: #1e88e5;  bottom: 0;  left: 0;  height: 1px;}.w-e-text {  padding: 0 10px;  overflow-y: scroll;}.w-e-text p,.w-e-text h1,.w-e-text h2,.w-e-text h3,.w-e-text h4,.w-e-text h5,.w-e-text table,.w-e-text pre {  margin: 10px 0;  line-height: 1.5;}.w-e-text ul,.w-e-text ol {  margin: 10px 0 10px 20px;}.w-e-text blockquote {  display: block;  border-left: 8px solid #d0e5f2;  padding: 5px 10px;  margin: 10px 0;  line-height: 1.4;  font-size: 100%;  background-color: #f1f1f1;}.w-e-text code {  display: inline-block;  *display: inline;  *zoom: 1;  background-color: #f1f1f1;  border-radius: 3px;  padding: 3px 5px;  margin: 0 3px;}.w-e-text pre code {  display: block;}.w-e-text table {  border-top: 1px solid #ccc;  border-left: 1px solid #ccc;}.w-e-text table td,.w-e-text table th {  border-bottom: 1px solid #ccc;  border-right: 1px solid #ccc;  padding: 3px 5px;}.w-e-text table th {  border-bottom: 2px solid #ccc;  text-align: center;}.w-e-text:focus {  outline: none;}.w-e-text img {  cursor: pointer;}.w-e-text img:hover {  box-shadow: 0 0 5px #333;}';
 
-// 将 css 代码添加到 <style> 中
-var style = document.createElement('style');
+// �?css 代码添加�?<style> �?var style = document.createElement('style');
 style.type = 'text/css';
 style.innerHTML = inlinecss;
 document.getElementsByTagName('HEAD').item(0).appendChild(style);
