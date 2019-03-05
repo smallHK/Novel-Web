@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>主页</title>
+
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+
+		}
+		
+		.header {
+			padding: 20px;
+			background: #E7E7E7;
+			border-radius: 5px;
+			height: 60px;
+			width: 1290px;
+			margin: 0 auto;
+			border-bottom: #EEEEEE solid 1px;
+			box-shadow: 0 2px 20px #666;
+		}
+		
+		.account {
+
+			float: right;
+			margin-right: 60px;
+			background: #7FC8E1;
+			width: 100px;
+			height: 30px;
+			border-radius: 15px;
+			text-align: center;
+			padding: 2px;
+
+		}
+		
+		
+
+		.content {
+			background: #E7E7E7;
+			border-radius: 10px;
+			padding: 10px;
+			margin: 20px auto;
+			width: 850px;
+			
+		}
+		
+		.index {
+			display: inline-block;
+			
+		}
+		.index li {
+			list-style-type: none;
+			width: 40px;
+		}
+		.index a {
+			text-decoration: none;
+			
+		}
+		.item {
+			
+		}
+		.index{
+			float: left;
+		}
+		.focus {
+			float: right;
+		}
+		
+		.focus {
+			height: 300px;
+			overflow: hidden;
+		}
+		img {
+			height: 300px;
+		}
+		
+		.floc {
+			clear:both;
+		}
+		
+
+	</style>
+	
+	<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+	<script type="text/javascript" src="js/focus/myfocus-2.0.1.min.js"></script>
+	<script type="text/javascript" src="js/focus/mf-pattern/mF_kdui.js"></script>
+	<link href="js/focus/mf-pattern/mF_kdui.css" type="text/css" />
+
+</head>
+
+<body>
+	<header>
+		<div class="header">
+			<span>LOGO</span>
+			<a class="account">注册/登陆</a>
+		</div>
+	</header>
+	
+	<section>
+		<div class="content">
+			
+			<div class="index">
+				<ul>
+					<li><a href="#" class="item">玄幻</a></li>
+					<li><a href="#" class="item">奇幻</a></li>
+					<li><a href="#" class="item">修仙</a></li>
+				</ul>
+			</div>
+			<div class="focus" id="boxID">
+				<div class="pic">
+					<ul>
+						<li><a href="#"><img src="imgs/ad/ad1.jpg" alt="1"></a></li>
+						<li><a href="#"><img src="imgs/ad/ad2.jpg" alt="2"></a></li>
+						<li><a href="#"><img src="imgs/ad/ad3.jpg" alt="3"></a></li>
+						<li><a href="#"><img src="imgs/ad/ad4.jpg" alt="4"></a></li>
+					</ul>
+				</div>
+			</div><!--焦点图片div-->
+			
+			<div class="floc"></div>
+		</div>
+	</section>
+	
+	
+	
+</body>
+</html>
