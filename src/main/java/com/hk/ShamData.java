@@ -1,6 +1,4 @@
-package com.hk.data;
-
-import com.hk.Chapter;
+package com.hk;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +23,4 @@ public class ShamData {
         return data;
     }
 
-
-    public Chapter queryChapter() {
-        Chapter cha = new Chapter();
-        cha.setContent(getText());
-
-
-        return null;
-    }
 }
