@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>显示所有小说</title>
+</head>
+<body>
+<p><a href="addNovel.html" id="creatorCenterEntry">创建小说</a></p>
+<div>
+    <h2>小说列表</h2>
+
+    <ul th:each="novel:${novelList}">
+        <li th:text="${novel.novelName}"><a href="/creator/list"></a></li>
+    </ul>
+</div>
+
+</body>
+</html>

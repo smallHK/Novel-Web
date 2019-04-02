@@ -2,6 +2,8 @@ server:
   port: 8080
 
 spring:
+  thymeleaf:
+    suffix: .html
   datasource:
     url: jdbc:mysql://localhost:3306/story_world?serverTimezone=UTC
     username: root

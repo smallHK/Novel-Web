@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 th:text="${novelName}"></h1>
+<div th:each="volumeInfo :${volumeInfoList}">
+    <h2 th:text="${volumeInfo.volumeTitle}"></h2>
+    <ul>
+        <li th:each="chapter:${volumeInfo.chapterList}">
+            <a href="#" th:text="${chapter.title}"></a>
+        </li>
+    </ul>
+</div>
+
+<p><a href="addVolume.html" >添加卷</a></p>
+
+
+<p><a href="addChapter.html">添加章节</a></p>
+
+</body>
+</html>

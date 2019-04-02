@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="js/jquery-3.3.1.js"></script>
+    <script src="../js/jquery-3.3.1.js"></script>
 </head>
 <body>
 
 <form action="" method="post" id="create_novel_form">
     <h2>小说创建</h2>
     <p><input type="text" name="novel_title"></p>
-    <p><textarea rows="30" cols="60" name="brief_intro"></textarea></p>
+    <p><textarea rows="30" cols="50" name="brief_intro"></textarea></p>
     <p><input type="button" value="提交" id="create_novel_submit"></p>
 </form>
 
@@ -18,7 +18,8 @@
 <div>
 
 <h2>创建结果</h2>
-<p id="create_result"></p>
+    <p id="create_result"></p>
+    <a href="/creator/listAllNovel">小说管理</a>
 </div>
 
 <script>

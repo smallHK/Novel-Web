@@ -3,6 +3,7 @@ package com.hk.repository;
 import com.hk.entity.Novel;
 import org.springframework.data.repository.CrudRepository;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 /**
@@ -12,5 +13,7 @@ import java.util.List;
 public interface NovelRepository extends CrudRepository<Novel, Integer> {
 
     List<Novel> findAllByAuthorId(Integer authorId);
+
+    Novel findNovelById(Integer novelId);
 
 }
