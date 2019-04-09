@@ -12,4 +12,6 @@ import java.util.List;
 public interface ChapterRepository extends CrudRepository<Chapter, Integer> {
 
     List<Chapter> findAllByNovelId(Integer id);
+
+    Integer countAllByNovelIdAndVolumeId(Integer novelId, Integer voulmeId);
 }

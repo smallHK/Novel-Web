@@ -4,15 +4,16 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hk.entity.*;
 import com.hk.repository.*;
-import com.hk.vo.VolumeInfo;
+import com.hk.util.CommonUtil;
+import com.hk.po.VolumeInfo;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * smallHK
@@ -22,6 +23,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(path = "/creator")
+@EnableTransactionManagement
 public class CreatorService {
 
 
@@ -178,46 +180,6 @@ public class CreatorService {
     }
 
 
-    /**
-     * 创建新卷
-     *
-     * @return
-     */
-    @PostMapping(path = "/createVolume")
-    public @ResponseBody
-    JSONObject createVolume(@RequestParam Map<String, String> params) {
-
-        Integer novelId = Integer.valueOf(params.get("novel_id"));
-        String volumeTitle = params.get("volume_title");
-
-        Volume volume = new Volume();
-        volume.setNovelId(novelId);
-        volume.setVolumeTitle(volumeTitle);
-
-        Integer orderNum = volumeRepository.countAllByNovelId(novelId) + 1;
-        volume.setOrderNum(orderNum);
-
-        try {
-            volumeRepository.save(volume);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
-    /**
-     * 创建新的章节
-     *
-     * @return
-     */
-    @PostMapping(path = "/createChapter")
-
-    public @ResponseBody
-    JSONObject addNewChapter(@RequestParam Map<String, String> params) {
-
-        return null;
-    }
 
 
     /**
@@ -244,6 +206,7 @@ public class CreatorService {
                 VolumeInfo volumeInfo = new VolumeInfo();
                 volumeInfo.setVolumeTitle(volume.getVolumeTitle());
                 volumeInfo.setOrderNum(volume.getOrderNum());
+                volumeInfo.setVolumeId(volume.getId());
                 List<Chapter> voChapterList = new ArrayList<>();
                 for(Chapter chapter: chapterList) {
                     if(chapter.getVolumeId().equals(volume.getId())) {
@@ -253,7 +216,7 @@ public class CreatorService {
                 volumeInfo.setChapterList(voChapterList);
                 volumeInfoList.add(volumeInfo);
             }
-
+            modelAndView.addObject("novelId", novel.getId());
             modelAndView.addObject("novelName", novel.getNovelName());
             modelAndView.addObject("volumeInfoList", volumeInfoList);
             modelAndView.addObject("status", 0);
@@ -269,16 +232,125 @@ public class CreatorService {
 
 
     /**
+     * 创建新卷
+     *
+     * @return
+     */
+    @PostMapping(path = "/addNewVolume")
+    public ModelAndView createVolume(@RequestParam(value = "novel_id") Integer novelId, @RequestParam(value = "volume_title") String volumeTitle) {
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/result");
+        Volume volume = new Volume();
+        volume.setNovelId(novelId);
+        volume.setVolumeTitle(volumeTitle);
+        Integer orderNum = volumeRepository.countAllByNovelId(novelId) + 1;
+        volume.setOrderNum(orderNum);
+        try {
+            volumeRepository.save(volume);
+            modelAndView.addObject("msg", "success!");
+            modelAndView.addObject("status", 0);
+            return modelAndView;
+        } catch (Exception e) {
+            modelAndView.addObject("msg", "fail!");
+            modelAndView.addObject("status", 1);
+        }
+        return modelAndView;
+    }
+
+
+    /**
+     * 创建新的章节
+     *
+     */
+    @PostMapping(path = "/addNewChapter")
+    @Transactional
+    public ModelAndView addNewChapter(@RequestParam() Map<String, String> params) {
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/result");
+
+        Integer novelId = Integer.valueOf(params.get("novel_id"));
+        Integer volumeId = Integer.valueOf(params.get("volume_id"));
+        String chapterTitle = params.get("chapter_title");
+
+        String originChapterContent = params.get("chapter_content");
+        //文本处理
+        String chapterContent = CommonUtil.textProcessing(originChapterContent);
+
+        Integer wordCount = chapterContent.length();
+
+        Chapter chapter = new Chapter();
+        chapter.setNovelId(novelId);
+        chapter.setVolumeId(volumeId);
+        chapter.setTitle(chapterTitle);
+        chapter.setWordCount(wordCount);
+
+        try {
+            Integer count = chapterRepository.countAllByNovelIdAndVolumeId(novelId, volumeId);
+            chapter.setOrderNum(count + 1);
+
+            Chapter resultChapter = chapterRepository.save(chapter);
+
+            List<Paragraph> paragraphList = new ArrayList<>();
+            String[] contents = chapterContent.split("\n");
+            for(int i = 0; i < contents.length; i++) {
+                String line = contents[i];
+                Paragraph paragraph = new Paragraph();
+                paragraph.setChapterId(resultChapter.getId());
+                paragraph.setContent(line);
+                paragraph.setOrderNum(i + 1);
+                paragraphList.add(paragraph);
+            }
+            paragraphRepository.saveAll(paragraphList);
+
+            modelAndView.addObject("status", 0);
+            modelAndView.addObject("msg", "success!");
+
+        } catch (Exception e) {
+
+            modelAndView.addObject("status", 1);
+            modelAndView.addObject("msg", "fail!");
+            e.printStackTrace();
+        }
+
+        return modelAndView;
+    }
+
+
+    /**
+     * 跳转添加新章节页面
+     * @return
+     */
+    @GetMapping(path = "/enterAddChapterPage/{novelId}/{volumeId}")
+    public ModelAndView addNewChapter(@PathVariable("novelId") Integer novelId, @PathVariable("volumeId") Integer volumeId) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/creator/addChapter");
+        modelAndView.addObject("novelId", novelId);
+        modelAndView.addObject("volumeId", volumeId);
+        return modelAndView;
+    }
+
+
+
+    /**
      * 获取章节内容
-     * @param volumeId
      * @param chapterId
      */
-    @GetMapping(path = "/findChapterContent/{novelId}/{volumeId}/{chapterId}")
-    public ModelAndView findChapterContent(@PathVariable Integer volumeId, @PathVariable Integer chapterId) {
+    @Transactional
+    @GetMapping(path = "/findChapterContent/{chapterId}")
+    public ModelAndView findChapterContent(@PathVariable Integer chapterId) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("Content");
+        modelAndView.setViewName("/creator/Content");
         try {
+            Optional<Chapter> chapterWrapper = chapterRepository.findById(chapterId);
+            if (!chapterWrapper.isPresent()) {
+                throw  new RuntimeException("no chapter!");
+            }
+            Chapter chapter = chapterWrapper.get();
             List<Paragraph> paragraphList = paragraphRepository.findAllByChapterId(chapterId);
+            paragraphList.sort((p1, p2)->p1.getOrderNum().compareTo(p2.getOrderNum()));
+            modelAndView.addObject("chapterTitle", chapter.getTitle());
             modelAndView.addObject("paragraphList", paragraphList);
             modelAndView.addObject("msg", "success!");
             modelAndView.addObject("status", 0);

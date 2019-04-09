@@ -27,5 +27,6 @@ public class Paragraph {
     @Column(name = "order_num")
     private Integer orderNum;
 
+    @Column(insertable = false)
     private Integer status;
 }

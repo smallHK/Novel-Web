@@ -28,5 +28,6 @@ public class Volume {
     @Column(name = "novel_id")
     private Integer novelId;
 
+    @Column(insertable = false)
     private Integer status;
 }

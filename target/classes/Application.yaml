@@ -10,7 +10,4 @@ spring:
     password: smallhk
   jpa:
     hibernate:
-      dll-auto: update
-
-
-
+      dll-auto: none

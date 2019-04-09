@@ -12,8 +12,7 @@
 
     <ul>
         <li th:each="novel:${novelList}">
-            <a th:text="${novel.novelName}" th:href="@{/creator/findNovelIndex/{novelId}(novelId=${novel.id})}">
-            </a>
+            <a th:text="${novel.novelName}" th:href="@{/creator/findNovelIndex/{novelId}(novelId=${novel.id})}"></a>
         </li>
     </ul>
 </div>
