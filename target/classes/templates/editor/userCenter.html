@@ -23,27 +23,51 @@
 
 
 <div>
-    <button>显示申请审核小说</button>
-    <ul>
-        <li><a href="#"><span>弑神者</span></a></li>
-    </ul>
+    <button id="unpublished_novel_list_btn">显示申请审核小说</button>
+    <ul id="unpublished_novel_list_ul"></ul>
+</div>
+
+<hr>
+
+<div>
+    <button id="published_novel_list_btn">查看所有受管理小说</button>
+    <ul id="published_novel_list_ul"></ul>
 </div>
 
 <script>
-
     $("#unpublished_novel_list_btn").click(function () {
-        $.get("", "", function (data) {
-            var html = "";
-            var novelList = data.novels;
-            for(var novel in novelList) {
-                var line = "<li><a href=\"#\"><span></span></a></li>"
-                html += line;
+        $.get("/editor/listAllNoPublishedNovel", function (data) {
+            if(data.status === 0) {
+                var ul = $("#unpublished_novel_list_ul");
+                ul.empty();
+                var novelList = data.novelInfo.novels;
+                for(var i = 0; i < novelList.length; i++) {
+                    var novel = novelList[i];
+                    var li = $("<li></li>");
+                    var a = $("<a></a>");
+                    a.attr("href", "/editor/publishNovel/" + novel.id)
+                    var span = $("<span></span>").text(novel.novelName);
+                    ul.append(li.append(a.append(span)));
+                }
             }
-
-            $("#unpublished_novel_list_ul").html(html);
         })
     })
 
+    $("#published_novel_list_btn").click(function () {
+        $.get("/editor/listAllPublishedNovel", function (data) {
+            if(data.status === 0) {
+                var ul = $("#published_novel_list_ul");
+                ul.empty();
+                var novelList = data.novelInfo.novels;
+                for(var i = 0; i < novelList.length; i++) {
+                    var novel = novelList[i];
+                    var li = $("<li></li>");
+                    var span = $("<span></span>").text(novel.novelName);
+                    ul.append(li.append(span));
+                }
+            }
+        })
+    })
 </script>
 </body>
 </html>

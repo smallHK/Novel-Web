@@ -4,21 +4,22 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hk.entity.Editor;
 import com.hk.entity.Novel;
+import com.hk.entity.NovelPublish;
 import com.hk.entity.Profile;
 import com.hk.repository.EditorRepository;
+import com.hk.repository.NovelPublishRepo;
 import com.hk.repository.NovelRepository;
 import com.hk.repository.ProfileRepository;
 import com.hk.util.EntityStatus;
 import com.hk.util.EntityUtil;
 import com.hk.util.ResultUtil;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -29,6 +30,7 @@ import java.util.Optional;
  */
 @Controller
 @RequestMapping(path = "/editor")
+@EnableTransactionManagement
 public class EditorService {
 
     private ProfileRepository profileRepository;
@@ -37,10 +39,14 @@ public class EditorService {
 
     private NovelRepository novelRepository;
 
-    public EditorService(ProfileRepository profileRepository, EditorRepository editorRepository, NovelRepository novelRepository) {
+    private NovelPublishRepo novelPublishRepo;
+
+    public EditorService(ProfileRepository profileRepository,
+                         EditorRepository editorRepository, NovelRepository novelRepository, NovelPublishRepo novelPublishRepo) {
         this.profileRepository = profileRepository;
         this.editorRepository = editorRepository;
         this.novelRepository = novelRepository;
+        this.novelPublishRepo = novelPublishRepo;
 
     }
 
@@ -150,31 +156,99 @@ public class EditorService {
 
     /**
      * 查看所有申请小说
+     *
+     * 状态为提交审核（1）
      */
     @GetMapping("/listAllNoPublishedNovel")
-    public JSONObject listAllNoPublishedNovel() {
+    public @ResponseBody JSONObject listAllNoPublishedNovel() {
 
-        List<Novel> novelList = novelRepository.findAllByStatus(EntityStatus.NOVEL_NO_PUBLISH);
-        JSONArray novels = new JSONArray();
-        for(Novel novel: novelList){
-            JSONObject novelJson = EntityUtil.objectToJsonObject(novel, Novel.class);
-            novels.add(novelJson);
+        JSONObject result;
+        try {
+            List<Novel> novelList = novelRepository.findAllByStatus(EntityStatus.NOVEL_NO_PUBLISH);
+            JSONArray novels = new JSONArray();
+            for (Novel novel : novelList) {
+                JSONObject novelJson = EntityUtil.objectToJsonObject(novel, Novel.class);
+                novels.add(novelJson);
+            }
+            JSONObject novelInfo = new JSONObject();
+            novelInfo.put("novels", novels);
+
+            result = ResultUtil.success("success!").toJSONObject().fluentPut("novelInfo", novelInfo);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = ResultUtil.failure("failure!").toJSONObject();
         }
-        JSONObject novelInfo = new JSONObject();
-        novelInfo.put("novels", novels);
 
-
-        return null;
+        return result;
     }
 
 
     /**
      * 审批小说
      */
+    @GetMapping("/publishNovel/{novelId}")
+    @Transactional
+    public ModelAndView publishNovel(@PathVariable Integer novelId, HttpSession session) {
+
+        ModelAndView modelAndView = new ModelAndView();
+        Integer editorId = (Integer) session.getAttribute("login_editor_id");
+
+        try {
+            NovelPublish novelPublish = new NovelPublish();
+            novelPublish.setEditorId(editorId);
+            novelPublish.setNovelId(novelId);
+            novelPublishRepo.save(novelPublish);
+            Novel novel = novelRepository.findNovelById(novelId);
+            novel.setStatus(EntityStatus.NOVEL_PASSED);
+            novelRepository.save(novel);
+            modelAndView.setViewName("/editor/userCenter");
+            modelAndView.addObject("resultInfo", ResultUtil.success("success!").toJSONObject());
+            return modelAndView;
+        } catch (Exception e) {
+            e.printStackTrace();
+            modelAndView.addObject("resultInfo", ResultUtil.failure("failure!").toJSONObject());
+            modelAndView.setViewName("/result");
+            return modelAndView;
+        }
+    }
+
+    /**
+     * 查看所有申请小说
+     *
+     * 状态为提交审核（1）
+     */
+    @GetMapping("/listAllPublishedNovel")
+    public @ResponseBody JSONObject listAllPublishedNovel() {
+
+        JSONObject result;
+        try {
+            List<Novel> novelList = novelRepository.findAllByStatus(EntityStatus.NOVEL_PASSED);
+            JSONArray novels = new JSONArray();
+            for (Novel novel : novelList) {
+                JSONObject novelJson = EntityUtil.objectToJsonObject(novel, Novel.class);
+                novels.add(novelJson);
+            }
+            JSONObject novelInfo = new JSONObject();
+            novelInfo.put("novels", novels);
+            result = ResultUtil.success("success!").toJSONObject().fluentPut("novelInfo", novelInfo);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = ResultUtil.failure("failure!").toJSONObject();
+        }
+
+        return result;
+    }
 
 
     /**
      * 审批章节
      */
-
+    @GetMapping("/publishChapter")
+    @Transactional
+    public @ResponseBody
+    JSONObject publishChapter() {
+        return null;
+    }
 }

@@ -1,21 +1,89 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>显示所有小说</title>
+    <script src="/js/jquery-3.3.1.js"></script>
 </head>
 <body>
 <p><a href="addNovel.html" id="creatorCenterEntry">创建小说</a></p>
 <div>
     <h2>小说列表</h2>
-
     <ul>
         <li th:each="novel:${novelList}">
             <a th:text="${novel.novelName}" th:href="@{/creator/findNovelIndex/{novelId}(novelId=${novel.id})}"></a>
         </li>
     </ul>
 </div>
+<hr>
+<div>
+    <h2>未开放小说</h2>
+    <ul id="created_novel_list_ul"></ul>
+</div>
+<div>
+    <h2>正在审核小说</h2>
+    <ul id="unpublished_novel_list_ul">
+    </ul>
+</div>
+<div>
+    <h2>已开放小说</h2>
+    <ul id="published_novel_list_ul">
+        <!--<li><span>弑神者</span>&nbsp;&nbsp;编辑:<span><a href="#">滑稽</a></span></li>-->
+    </ul>
+</div>
+
+<script>
+    $(function () {
+        //获取未开放小说
+        $.get("/creator/listAllCreatedNovel", function (data) {
+            if(data.status === 0) {
+                var ul = $("#created_novel_list_ul");
+                ul.empty();
+                var novelList = data.novelList;
+                for(var i = 0; i < novelList.length; i++) {
+                    var novel = novelList[i];
+                    var li = $("<li></li>");
+                    var a = $("<a></a>");
+                    a.attr("href", "/creator/applyForPublish/" + novel.id)
+                    var span = $("<span></span>").text(novel.novelName);
+                    ul.append(li.append(a.append(span)));
+                }
+            }
+        })
+
+        //获取正在审核小说
+        $.get("/creator/listAllNoPublishedNovel", function (data) {
+            if(data.status === 0) {
+                var ul = $("#unpublished_novel_list_ul");
+                ul.empty();
+                var novelList = data.novelList;
+                for(var i = 0; i < novelList.length; i++) {
+                    var novel = novelList[i];
+                    var li = $("<li></li>");
+                    var span = $("<span></span>").text(novel.novelName);
+                    ul.append(li.append(span));
+                }
+            }
+        })
+
+        //获取所有通过审核小说
+        $.get("/creator/listAllPublishedNovel", function (data) {
+            if(data.status === 0) {
+                var ul = $("#published_novel_list_ul");
+                var novelAndEditorList = data.info;
+                var html = "";
+                for(var i = 0; i < novelAndEditorList.length; i++) {
+                    var line = "<li><span>"+ novelAndEditorList[i].novel.novelName
+                        + "</span>&nbsp;&nbsp;编辑:<span><a href=\"#\">"
+                        + novelAndEditorList[i].editor.editorName + "</a></span></li>";
+                    html += line;
+                }
+                ul.html(html);
+            }
+        })
+    })
+
+</script>
 
 </body>
 </html>

@@ -6,6 +6,9 @@ import com.hk.entity.*;
 import com.hk.repository.*;
 import com.hk.util.CommonUtil;
 import com.hk.po.VolumeInfo;
+import com.hk.util.EntityStatus;
+import com.hk.util.EntityUtil;
+import com.hk.util.ResultUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,14 +40,22 @@ public class CreatorService {
 
     private ParagraphRepository paragraphRepository;
 
+    private NovelPublishRepo novelPublishRepo;
+
+    private EditorRepository editorRepository;
+
     public CreatorService(CreatorRepository creatorRepository, NovelRepository novelRepository,
                           VolumeRepository volumeRepository, ChapterRepository chapterRepository,
-                          ParagraphRepository paragraphRepository) {
+                          ParagraphRepository paragraphRepository,
+                          NovelPublishRepo novelPublishRepo,
+                          EditorRepository editorRepository) {
         this.creatorRepository = creatorRepository;
         this.novelRepository = novelRepository;
         this.volumeRepository = volumeRepository;
         this.chapterRepository = chapterRepository;
         this.paragraphRepository = paragraphRepository;
+        this.novelPublishRepo = novelPublishRepo;
+        this.editorRepository = editorRepository;
     }
 
 
@@ -52,17 +63,19 @@ public class CreatorService {
      * 注册作者
      * 注册成功，返回注册成功页面
      * 注册失败，返回注册失败页面
+     *
      * @return 注册是否成功，返回新的页面
      */
     @PostMapping(path = "/register")
-    public @ResponseBody  JSONObject registerCreator(@RequestParam Map<String, String> params) {
+    public @ResponseBody
+    JSONObject registerCreator(@RequestParam Map<String, String> params) {
 
         String penName = params.get("penname");
         String password = params.get("password");
         Creator creator = new Creator();
         creator.setPenName(penName);
         creator.setPassword(password);
-        try{
+        try {
             creatorRepository.save(creator);
         } catch (Exception e) {
             return new JSONObject().fluentPut("msg", "failure!").fluentPut("status", "1");
@@ -72,25 +85,26 @@ public class CreatorService {
 
     /**
      * 检验笔名是否已经存在
+     *
      * @return 0表示不存在相同笔名，1表示存在相同笔名
      */
     @GetMapping(path = "checkPenNameExist")
-    public @ResponseBody  JSONObject existPenName(@RequestParam("penname") String penName) {
+    public @ResponseBody
+    JSONObject existPenName(@RequestParam("penname") String penName) {
 
         Integer count = creatorRepository.countCreatorByPenName(penName);
 
         JSONObject result = new JSONObject();
-        if(count > 0) {
+        if (count > 0) {
             result.fluentPut("msg", "pen name exist!");
             result.fluentPut("status", "1");
-        }else if(count == 0){
+        } else if (count == 0) {
             result.fluentPut("msg", "ok!");
             result.fluentPut("status", "0");
         }
 
         return result;
     }
-
 
 
     /**
@@ -122,8 +136,6 @@ public class CreatorService {
 
     /**
      * 添加图书
-     * @param params
-     * @return
      */
     @PostMapping(path = "/addNovel")
     public @ResponseBody
@@ -151,6 +163,7 @@ public class CreatorService {
 
     /**
      * 显示作者的所有创作的书籍
+     *
      * @return 成功返回小说列表
      */
     @GetMapping(path = "/listAllNovel")
@@ -163,9 +176,7 @@ public class CreatorService {
         modelAndView.setViewName("/creator/listNovel");
         try {
             List<Novel> novelList = novelRepository.findAllByAuthorId(creator_id);
-            if(novelList == null) novelList = new ArrayList<>();
-            JSONArray novels = new JSONArray();
-            novels.addAll(novelList);
+            if (novelList == null) novelList = new ArrayList<>();
             modelAndView.addObject("novelList", novelList);
             modelAndView.addObject("status", 0);
             modelAndView.addObject("msg", "success!");
@@ -180,14 +191,10 @@ public class CreatorService {
     }
 
 
-
-
     /**
      * 小说目录
      * 返回一个小说所有的章节以及相关卷名
      * 在小说没有章节与卷的情况下，返回一个空list对象
-     * @param novelId
-     * @return
      */
     @GetMapping("/findNovelIndex/{novel_id}")
     public ModelAndView findNovelIndex(@PathVariable(name = "novel_id") Integer novelId) {
@@ -196,20 +203,20 @@ public class CreatorService {
 
         try {
             List<Volume> volumeList = volumeRepository.findAllByNovelId(novelId);
-            List<Chapter>  chapterList = chapterRepository.findAllByNovelId(novelId);
+            List<Chapter> chapterList = chapterRepository.findAllByNovelId(novelId);
             Novel novel = novelRepository.findNovelById(novelId);
 
 
             List<VolumeInfo> volumeInfoList = new ArrayList<>();
 
-            for(Volume volume: volumeList) {
+            for (Volume volume : volumeList) {
                 VolumeInfo volumeInfo = new VolumeInfo();
                 volumeInfo.setVolumeTitle(volume.getVolumeTitle());
                 volumeInfo.setOrderNum(volume.getOrderNum());
                 volumeInfo.setVolumeId(volume.getId());
                 List<Chapter> voChapterList = new ArrayList<>();
-                for(Chapter chapter: chapterList) {
-                    if(chapter.getVolumeId().equals(volume.getId())) {
+                for (Chapter chapter : chapterList) {
+                    if (chapter.getVolumeId().equals(volume.getId())) {
                         voChapterList.add(chapter);
                     }
                 }
@@ -233,9 +240,7 @@ public class CreatorService {
 
     /**
      * 创建新卷
-     *
-     * @return
-     */
+     **/
     @PostMapping(path = "/addNewVolume")
     public ModelAndView createVolume(@RequestParam(value = "novel_id") Integer novelId, @RequestParam(value = "volume_title") String volumeTitle) {
 
@@ -261,7 +266,6 @@ public class CreatorService {
 
     /**
      * 创建新的章节
-     *
      */
     @PostMapping(path = "/addNewChapter")
     @Transactional
@@ -294,7 +298,7 @@ public class CreatorService {
 
             List<Paragraph> paragraphList = new ArrayList<>();
             String[] contents = chapterContent.split("\n");
-            for(int i = 0; i < contents.length; i++) {
+            for (int i = 0; i < contents.length; i++) {
                 String line = contents[i];
                 Paragraph paragraph = new Paragraph();
                 paragraph.setChapterId(resultChapter.getId());
@@ -320,8 +324,7 @@ public class CreatorService {
 
     /**
      * 跳转添加新章节页面
-     * @return
-     */
+     **/
     @GetMapping(path = "/enterAddChapterPage/{novelId}/{volumeId}")
     public ModelAndView addNewChapter(@PathVariable("novelId") Integer novelId, @PathVariable("volumeId") Integer volumeId) {
         ModelAndView modelAndView = new ModelAndView();
@@ -332,12 +335,11 @@ public class CreatorService {
     }
 
 
-
     /**
      * 获取章节内容
+     *
      * @param chapterId
      */
-    @Transactional
     @GetMapping(path = "/findChapterContent/{chapterId}")
     public ModelAndView findChapterContent(@PathVariable Integer chapterId) {
         ModelAndView modelAndView = new ModelAndView();
@@ -345,16 +347,16 @@ public class CreatorService {
         try {
             Optional<Chapter> chapterWrapper = chapterRepository.findById(chapterId);
             if (!chapterWrapper.isPresent()) {
-                throw  new RuntimeException("no chapter!");
+                throw new RuntimeException("no chapter!");
             }
             Chapter chapter = chapterWrapper.get();
             List<Paragraph> paragraphList = paragraphRepository.findAllByChapterId(chapterId);
-            paragraphList.sort((p1, p2)->p1.getOrderNum().compareTo(p2.getOrderNum()));
+            paragraphList.sort((p1, p2) -> p1.getOrderNum().compareTo(p2.getOrderNum()));
             modelAndView.addObject("chapterTitle", chapter.getTitle());
             modelAndView.addObject("paragraphList", paragraphList);
             modelAndView.addObject("msg", "success!");
             modelAndView.addObject("status", 0);
-            return  modelAndView;
+            return modelAndView;
         } catch (Exception e) {
             e.printStackTrace();
             modelAndView.addObject("status", 1);
@@ -363,14 +365,116 @@ public class CreatorService {
         return modelAndView;
     }
 
+    /**
+     * 获取所有未申请发布小说
+     */
+    @GetMapping("/listAllCreatedNovel")
+    public @ResponseBody
+    JSONObject listAllCreatedNovel(HttpSession session) {
+
+        Integer creatorId = (Integer) session.getAttribute("login_creator_id");
+        try {
+            List<Novel> novelList = novelRepository.findAllByStatusAndAuthorId(EntityStatus.NOVLE_CREATED, creatorId);
+            JSONArray novels = EntityUtil.entityListToJSONArray(novelList, Novel.class);
+            return ResultUtil.success("success!").toJSONObject().fluentPut("novelList", novels);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.success("failure!").toJSONObject();
+
+        }
+    }
+
 
     /**
      * 申请小说发布
      */
-    public @ResponseBody
-    JSONObject applyForPublish() {
+    @GetMapping("/applyForPublish/{novelId}")
+    public ModelAndView applyForPublish(@PathVariable Integer novelId) {
 
-        return null;
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            Novel novel = novelRepository.findNovelById(novelId);
+            novel.setStatus(EntityStatus.NOVEL_NO_PUBLISH);
+            novelRepository.save(novel);
+            modelAndView.setViewName("redirect:/creator/listAllNovel");
+            modelAndView.addObject("resultInfo", ResultUtil.success("success!").toJSONObject());
+        } catch (Exception e) {
+            e.printStackTrace();
+            modelAndView.setViewName("/result");
+            modelAndView.addObject("resultInfo", ResultUtil.failure("failure!").toJSONObject());
+        }
+        return modelAndView;
+    }
+
+
+    /**
+     * 获取所有申请审核的小说
+     * <p>
+     * 小说状态为正在申请
+     */
+    @GetMapping("/listAllNoPublishedNovel")
+    public @ResponseBody
+    JSONObject listAllNoPublishedNovel(HttpSession session) {
+
+        Integer creatorId = (Integer) session.getAttribute("login_creator_id");
+        try {
+            List<Novel> novelList = novelRepository.findAllByStatusAndAuthorId(EntityStatus.NOVEL_NO_PUBLISH, creatorId);
+            JSONArray novels = EntityUtil.entityListToJSONArray(novelList, Novel.class);
+            return ResultUtil.success("success!").toJSONObject().fluentPut("novelList", novels);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.success("failure!").toJSONObject();
+
+        }
+    }
+
+    /**
+     * 获取所有公开小说
+     * <p>
+     * 小说状态为通过审核
+     */
+    @GetMapping("/listAllPublishedNovel")
+    public @ResponseBody
+    JSONObject listAllPublishedNovel(HttpSession session) {
+
+        Integer creatorId = (Integer) session.getAttribute("login_creator_id");
+        try {
+            List<Novel> novelList = novelRepository.findAllByStatusAndAuthorId(EntityStatus.NOVEL_PASSED, creatorId);
+            List<Integer> novelIdList = new ArrayList<>();
+            for (Novel novel : novelList) {
+                novelIdList.add(novel.getId());
+            }
+            Iterable<NovelPublish> novelPublishList = novelPublishRepo.findAllById(novelIdList);
+            List<Integer> editorIdList = new ArrayList<>();
+            for (NovelPublish novelPublish : novelPublishList) {
+                editorIdList.add(novelPublish.getEditorId());
+            }
+            Iterable<Editor> editorIterable = editorRepository.findAllById(editorIdList);
+
+
+            JSONArray info = new JSONArray();
+            for (NovelPublish novelPublish : novelPublishList) {
+                JSONObject novelAndEditor = new JSONObject();
+                for (Novel novel : novelList) {
+                    if (novel.getId().equals(novelPublish.getNovelId())) {
+                        novelAndEditor.put("novel", novel);
+                        break;
+                    }
+                }
+                for (Editor editor : editorIterable) {
+                    if (editor.getId().equals(novelPublish.getEditorId())) {
+                        novelAndEditor.put("editor", editor);
+                        break;
+                    }
+                }
+                info.add(novelAndEditor);
+            }
+            return ResultUtil.success("success!").toJSONObject().fluentPut("info", info);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.success("failure!").toJSONObject();
+
+        }
     }
 
 

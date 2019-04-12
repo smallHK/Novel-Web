@@ -18,4 +18,6 @@ public interface NovelRepository extends CrudRepository<Novel, Integer> {
 
     List<Novel> findAllByStatus(Integer status);
 
+    List<Novel> findAllByStatusAndAuthorId(Integer status, Integer authorId);
+
 }
