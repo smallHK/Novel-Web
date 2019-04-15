@@ -30,9 +30,10 @@ public class NovelComment {
     @Column(name = "order_num")
     private Integer orderNum;
 
-    @Column(name = "agreement_num")
+    @Column(name = "agreement_num", insertable = false)
     private Integer agreementNum;
 
+    @Column(insertable = false)
     private Integer status;
 
 }
