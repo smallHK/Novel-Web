@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>章节内容</title>
+	<link href="../bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+	
+	<div class="container">
+	    <h2 th:text="${chapterTitle}">序章</h2>
+   		 <div>
+        	<p th:each="para: ${paragraphList}" th:text="${para.content}">正文</p>
+			<p>缓缓舞下的六角晶花，包裹着独自站在茫茫雪原中的诗歌。视野所及的，只是不断飘落的雪，把天地都迷茫了的皑皑的雪。</p>
+          	<p>诗歌孤零零地站着，世界仿佛只剩她一人。</p>
+    	</div>
+	</div>
+
+</body>
+</html>

@@ -9,13 +9,21 @@ import com.hk.po.VolumeInfo;
 import com.hk.util.EntityStatus;
 import com.hk.util.EntityUtil;
 import com.hk.util.ResultUtil;
+import org.dom4j.rule.Mode;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 import javax.servlet.http.HttpSession;
+import javax.xml.transform.Result;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -116,48 +124,82 @@ public class CreatorService {
      * @return 返回对登陆状态的判断
      */
     @PostMapping(path = "/login")
-    public @ResponseBody
-    JSONObject login(@RequestParam Map<String, String> params, HttpSession session) {
+    public ModelAndView login(@RequestParam Map<String, String> params, HttpSession session) {
 
-        Iterable<Creator> creatorList = creatorRepository.findAll();
-        String penname = params.get("penname");
-        String password = params.get("password");
-        for (Creator creator : creatorList) {
-            if (creator.getPenName().equals(penname) && creator.getPassword().equals(password)) {
-                session.setAttribute("login_penname", penname);
-                session.setAttribute("login_creator_id", creator.getId());
-                return new JSONObject().fluentPut("msg", "success!").fluentPut("status", "0");
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            Iterable<Creator> creatorList = creatorRepository.findAll();
+            String penname = params.get("penname");
+            String password = params.get("password");
+            for (Creator creator : creatorList) {
+                if (creator.getPenName().equals(penname) && creator.getPassword().equals(password)) {
+                    session.setAttribute("login_penname", penname);
+                    session.setAttribute("login_creator_id", creator.getId());
+                    modelAndView.setViewName("/creator/novelManagePage");
+                    modelAndView.addObject("resultInfo", ResultUtil.success("读者登陆成功！"));
+                    return modelAndView;
+                }
             }
+            modelAndView.setViewName("/result");
+            modelAndView.addObject("resultInfo", ResultUtil.failure("读者登陆失败！"));
+            return modelAndView;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            modelAndView.setViewName("/result");
+            modelAndView.addObject("resultInfo", ResultUtil.failure(e.getMessage()));
+            return modelAndView;
+
         }
 
-        return new JSONObject().fluentPut("msg", "fail!").fluentPut("status", "1");
     }
 
 
     /**
      * 添加图书
+     * 完成书籍添加，跳转到小说管理页面
      */
     @PostMapping(path = "/addNovel")
-    public @ResponseBody
-    JSONObject createNovel(@RequestParam Map<String, String> params, HttpSession session) {
+    public ModelAndView createNovel(@RequestParam Map<String, String> params, @RequestParam Map<String, MultipartFile> fileData, HttpSession session) {
 
-        Integer creator_id = (Integer) session.getAttribute("login_creator_id");
-        String novelName = params.get("novel_title");
-        String briefIntro = params.get("brief_intro");
-        Novel novel = new Novel();
-        novel.setAuthorId(creator_id);
-        novel.setBriefIntro(briefIntro);
-        novel.setNovelName(novelName);
-        novel.setStatus(0);
+        ModelAndView modelAndView = new ModelAndView();
 
         try {
+
+
+            Integer creator_id = (Integer) session.getAttribute("login_creator_id");
+            String novelName = params.get("novel_title");
+            String briefIntro = params.get("brief_intro");
+
+            String coverFileName = fileData.get("coverCoverImg").getOriginalFilename();
+            byte[] coverData = fileData.get("coverCoverImg").getBytes();
+
+            Path parent = Path.of("D:\\CurriculumDesign\\Novel-Web\\src\\main\\resources\\static\\data\\novelCover\\cover",creator_id.toString());
+            Files.createDirectories(parent);
+            Path target = Path.of(parent.toString(), coverFileName);
+
+            if(!Files.exists(target)) {
+                Files.createFile(target);
+                Files.write(target, coverData);
+            }
+
+            Novel novel = new Novel();
+            novel.setAuthorId(creator_id);
+            novel.setBriefIntro(briefIntro);
+            novel.setNovelName(novelName);
+            novel.setCoverImg("/data/novelCover/cover/" + creator_id + "/" + coverFileName);
+            novel.setStatus(0);
+
             novelRepository.save(novel);
-            return new JSONObject().fluentPut("status", 0).fluentPut("msg", "success!");
+            modelAndView.addObject("resultInfo", ResultUtil.success("添加成功！"));
+            modelAndView.setViewName("redirect:/creator/novelManagePage");
+            return modelAndView;
         } catch (Exception e) {
             e.printStackTrace();
+            modelAndView.addObject("resultInfo", ResultUtil.failure(e.getMessage()));
+            modelAndView.setViewName("/result");
+            return modelAndView;
         }
-
-        return new JSONObject().fluentPut("status", 1).fluentPut("msg", "fail!");
     }
 
 
@@ -166,7 +208,6 @@ public class CreatorService {
      *
      * @return 成功返回小说列表
      */
-    @GetMapping(path = "/listAllNovel")
     public ModelAndView listAllNovelByCreatorId(HttpSession session) {
 
         Integer creator_id = (Integer) session.getAttribute("login_creator_id");
@@ -189,6 +230,25 @@ public class CreatorService {
         modelAndView.addObject("msg", "fail!");
         return modelAndView;
     }
+
+
+    /**
+     * 返回登陆作者的所有小说
+     */
+    @GetMapping(path = "/listAllNovel")
+    public @ResponseBody JSONObject listAllNovelFromLoginCreator(HttpSession session) {
+
+        Integer creator_id = (Integer) session.getAttribute("login_creator_id");
+        try {
+            List<Novel> novelList = novelRepository.findAllByAuthorId(creator_id);
+            if (novelList == null) novelList = new ArrayList<>();
+            return ResultUtil.success("数据成功返回！").toJSONObject().fluentPut("novelList", novelList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.failure(e.getMessage()).toJSONObject();
+        }
+    }
+
 
 
     /**

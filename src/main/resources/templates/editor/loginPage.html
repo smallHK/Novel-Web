@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="/bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/content.css" rel="stylesheet">
+    <script src="/js/jquery-3.3.1.js"></script>
+    <script src="/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    <title>作者登陆页</title>
+</head>
+<body class="main-back">
+
+<div class="text-center">
+    <form class="form-signer" action="/creator/login" method="post">
+        <h1 class="h3 mb-3 font-weight-normal">作者登陆</h1>
+        <div class="form-group">
+            <label for="signInPenName" class="sr-only">笔名</label>
+            <input id="signInPenName" type="text" name="penname" class="form-control" placeholder="笔名" required>
+        </div>
+        <div class="form-group">
+            <label for="signInPassword" class="sr-only">密码</label>
+            <input id="signInPassword" type="text" name="password" class="form-control" placeholder="密码" required>
+        </div>
+        <div class="form-group">
+            <input type="button" value="登陆" id="loginButton" class="btn btn-primary btn-block" >
+        </div>
+        <a href="/creator/registerPage">没有帐户？</a>
+    </form>
+</div>
+
+
+</body>
+</html>

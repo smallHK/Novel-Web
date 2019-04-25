@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑主页</title>
+    <script src="../js/jquery-3.3.1.js"></script>
+	<link href="../bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css" rel="stylesheet">
+	<link href="../bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-light bg-dark sticky-top mb-3 px-3" > 
+	<a class="navbar-brand text-primary" href="../index.html">HK小说网</a> 
+	<div class="float-right text-white" >
+		欢迎！<span th:text="${session.login_editor_name}">小黑王HK</span>
+	</div>
+</nav>
+
+
+	
+
+<div>
+    <button id="unpublished_novel_list_btn">显示申请审核小说</button>
+    <ul id="unpublished_novel_list_ul"></ul>
+</div>
+
+<hr>
+
+<div>
+    <button id="published_novel_list_btn">查看所有受管理小说</button>
+    <ul id="published_novel_list_ul"></ul>
+</div>
+
+	
+
+<div>
+    <h2>修改个人信息</h2>
+    <form action="/editor/updatePersonalInfo" method="post">
+        <p>新账户名：<input type="text" name="editor_name"></p>
+        <p>新密码：<input type="password" name="password"></p>
+        <p><input type="submit" value="确认更改"></p>
+    </form>
+</div>
+<script>
+    $("#unpublished_novel_list_btn").click(function () {
+        $.get("/editor/listAllNoPublishedNovel", function (data) {
+            if(data.status === 0) {
+                var ul = $("#unpublished_novel_list_ul");
+                ul.empty();
+                var novelList = data.novelInfo.novels;
+                for(var i = 0; i < novelList.length; i++) {
+                    var novel = novelList[i];
+                    var li = $("<li></li>");
+                    var a = $("<a></a>");
+                    a.attr("href", "/editor/publishNovel/" + novel.id)
+                    var span = $("<span></span>").text(novel.novelName);
+                    ul.append(li.append(a.append(span)));
+                }
+            }
+        })
+    })
+
+    $("#published_novel_list_btn").click(function () {
+        $.get("/editor/listAllPublishedNovel", function (data) {
+            if(data.status === 0) {
+                var ul = $("#published_novel_list_ul");
+                ul.empty();
+                var novelList = data.novelInfo.novels;
+                for(var i = 0; i < novelList.length; i++) {
+                    var novel = novelList[i];
+                    var li = $("<li></li>");
+                    var span = $("<span></span>").text(novel.novelName);
+                    ul.append(li.append(span));
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

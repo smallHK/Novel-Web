@@ -37,7 +37,7 @@ public class ReaderService {
     /**
      * 注册读者用户
      */
-    @PostMapping("/registerNewReader")
+    @PostMapping("/register")
     public ModelAndView registerNewReader(@RequestParam Map<String, String> params) {
         ModelAndView modelAndView = new ModelAndView();
         String username = params.get("username");

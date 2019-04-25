@@ -27,6 +27,9 @@ public class Novel {
     @Column(name = "brief_intro")
     private String briefIntro;
 
+    @Column(name = "cover_img")
+    private String coverImg;
+
     @Column(name = "creator_id")
     private Integer authorId;
 
