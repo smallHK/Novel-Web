@@ -223,7 +223,7 @@ public class EditorController {
         ModelAndView modelAndView = new ModelAndView();
         NovelIndex index = novelService.findNovelIndex(novelId);
         modelAndView.setViewName("/editor/novelIndexPage");
-        modelAndView.addObject("indexInfo", index);
+        modelAndView.addObject("novelIndexInfo", index);
         modelAndView.addObject("resultInfo", ResultUtil.success("success!"));
         return modelAndView;
     }

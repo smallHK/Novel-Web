@@ -9,7 +9,7 @@
 	<link th:href="@{/css/content.css}" rel="stylesheet" href="../css/content.css">
 </head>
 <body class="main-back">
-<nav class="navbar navbar-light bg-dark sticky-top mb-3" > <a class="navbar-brand text-primary" th:href="@{/index}" href="../index.html">HK小说网</a> </nav>
+<nav class="navbar navbar-light bg-dark sticky-top mb-3" > <a class="navbar-brand text-primary" th:href="@{/editor/workSpacePage}" href="../index.html">HK小说网</a> </nav>
 
 <div class="c-w-80 mx-auto border shadow-lg p-3 rounded mb-5">
 	<div class="border-bottom p-5">
@@ -20,7 +20,7 @@
 			<h5 th:text="${volumeInfo.volumeTitle}"> 第零卷 </h5>
 		</div>
 		<div class="row my-3">
-			<div th:each="chapter: ${volumeInfo.chapterList}" class="col-3 my-2"><a class="btn btn-light btn-block" th:href="@{/showSpecialChapterContent/{chapterId}(chapterId=${chapter.id})}" href="#" title="" th:text="${chapter.title}">0.00 诗歌 The firs</a> </div>
+			<div th:each="chapter: ${volumeInfo.chapterList}" class="col-3 my-2"><a class="btn btn-light btn-block" th:href="@{/editor/showSpecialChapterContent/{chapterId}(chapterId=${chapter.id})}" href="#" title="" th:text="${chapter.title}">0.00 诗歌 The firs</a> </div>
 		</div>
 	</div>
 

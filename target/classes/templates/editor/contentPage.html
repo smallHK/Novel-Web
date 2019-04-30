@@ -12,12 +12,12 @@
 <body class="main-back">
 	
 <nav class="navbar navbar-light bg-dark sticky-top mb-3" > 
-	<a class="navbar-brand text-primary" th:href="@{/index}" href="../index.html">HK小说网</a>
+	<a class="navbar-brand text-primary" th:href="@{/editor/workSpacePage}" href="../index.html">HK小说网</a>
 </nav>
 	
 <nav class="c-w-80 mx-auto" aria-label="breadcrumb">
 	<ol class="breadcrumb">
-		<li class="breadcrumb-item"><a th:href="@{/showSpecialNovelIndex/{novelId}(novelId=${chapterInfo.novelId})}" href="#" th:text="${chapterInfo.novelTitle}">虫之歌</a></li>
+		<li class="breadcrumb-item"><a th:href="@{/editor/showSpecialNovelIndex/{novelId}(novelId=${chapterInfo.novelId})}" href="#" th:text="${chapterInfo.novelTitle}">虫之歌</a></li>
 		<li class="breadcrumb-item active" th:text="${chapterInfo.volumeTitle}">第零卷</li>
   	</ol>
 </nav>
