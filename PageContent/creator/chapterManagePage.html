@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+    <meta charset="UTF-8">
+    <title>虫之歌Bug</title>
+    <script th:src="@{/js/jquery-3.3.1.js}" src="../js/jquery-3.3.1.js"></script>
+	<link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css">
+	<link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+	<script src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../css/content.css">
+</head>
+<body class="main-back">
+<nav class="navbar navbar-light bg-dark sticky-top mb-3" > <a class="navbar-brand text-primary" href="../index.html">HK小说网</a> </nav>
+
+	
+<!--切换卷-->
+<div class="modal fade" id="switchVolume" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">卷列表</h5>
+			</div>
+			<div class="modal-body">
+				<div class="list-group">
+					<a class="list-group-item active list-group-item-action">
+						第一卷 Enemy of Mankind 上
+					</a>
+					<a class="list-group-item list-group-item-action">
+						第二卷 Enemy of Mankind 下
+					</a>
+					<a class="list-group-item list-group-item-action">
+						第三卷 人类之敌VS人类之敌
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	
+<!--查看卷信息-->
+<div class="modal fade" id="viewVolumeInfo" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">第一卷 Enemy of Mankind 上</h5>
+			</div>
+			<div class="modal-body">
+				<p>卷状态：<span>未开放</span></p>
+				<button class="btn btn-primary" type="submit">申请开放</button>
+			</div>
+		</div>
+	</div>
+</div>	
+<div class="c-w-80 mx-auto border shadow-lg p-3 rounded mb-5">
+	<div class="border-bottom p-5">
+		<h3 class="h3 text-align-center">东京侵域：Closed Eden</h3>
+	</div>
+	<div class="container my-5">
+		<div>
+			<div class="row">
+				<div class="col">
+					<h5>第一卷 Enemy of Mankind 上</h5>
+				</div>
+				<div class="col">
+					<a class="btn btn-light float-right" data-toggle="modal" data-target="#viewVolumeInfo">卷信息</a> 
+
+				</div>
+	
+			</div>
+
+		</div>
+		<div class="row my-3">
+			<div class="col-4">
+				<div class="my-1"><a class="btn btn-light btn-block" href="#" title="">序章 来袭</a> </div>
+				<div class="my-1"><a class="btn btn-light btn-block" href="#" title="">第一章 名为弓家叶方的搭档</a> </div>
+				<div class="my-1"><a class="btn btn-light btn-block" href="#" title="">第二章 名为大乡梦衣的心上人</a> </div>
+				<div class="my-1"><a class="btn btn-light btn-block" href="#" title="">第三章 名为HIMAWARI的飞行物</a> </div>
+				<div class="my-1"><a class="btn btn-light btn-block" href="#" title="">第四章 决战前</a> </div>
+				<div class="my-1"><a class="btn btn-light btn-block" href="#" title="">间章 两个世界</a> </div>
+				<div class="my-1"><a class="btn btn-light btn-block" href="#" title="">后记</a> </div>
+
+			</div>
+			
+			<div class="col-8 border rounded p-3">
+				<div class="">
+					<div>
+						<p>状态：<span>未开放</span> <a class="btn btn-light float-right">申请开放</a></p>
+						<p>字数：<span>6834</span></p>
+					</div>
+					<div>
+						<p>有个名叫东京的城市。</p>
+						<p>是日本的首都，同时也是一个人口千万以上的大都市。</p>
+						<p>在东京的一角，涉谷站前的全向十字路口——</p>
+						<p>「——」</p>
+						<p>初中二年级学生秋月莲次一步都动弹不得。</p>
+						<p>……</p>
+					</div>
+					<div>
+						<button class="btn btn-light btn-block">内容修改</button>
+						<button class="btn btn-light btn-block">查看章节</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container my-5">
+			<div><button class="btn btn-light btn-block" data-toggle="modal" data-target="#switchVolume">切换卷</button> </div>
+	</div>
+
+</div>	
+	
+</body>
+</html>
