@@ -1,0 +1,29 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+	<title th:text="${novelIndexInfo.novelName}">虫之歌</title>
+	<link th:href="@{/bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css}" rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css">
+	<link th:href="@{/bootstrap-4.3.1-dist/css/bootstrap.min.css}" rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+	<script th:src="@{/bootstrap-4.3.1-dist/js/bootstrap.min.js}" src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+	<link th:href="@{/css/content.css}" rel="stylesheet" href="../css/content.css">
+</head>
+<body class="main-back">
+<nav class="navbar navbar-light bg-dark sticky-top mb-3" > <a class="navbar-brand text-primary" th:href="@{/index}" href="../index.html">HK小说网</a> </nav>
+
+<div class="c-w-80 mx-auto border shadow-lg p-3 rounded mb-5">
+	<div class="border-bottom p-5">
+		<h3 class="h3 text-align-center" th:text="${novelIndexInfo.novelName}">虫之歌</h3>
+	</div>
+	<div th:each="volumeInfo :${novelIndexInfo.volumeInfoList}"  class="container my-5" >
+		<div>
+			<h5 th:text="${volumeInfo.volumeTitle}"> 第零卷 </h5>
+		</div>
+		<div class="row my-3">
+			<div th:each="chapter: ${volumeInfo.chapterList}" class="col-3 my-2"><a class="btn btn-light btn-block" th:href="@{/showSpecialChapterContent/{chapterId}(chapterId=${chapter.id})}" href="#" title="" th:text="${chapter.title}">0.00 诗歌 The firs</a> </div>
+		</div>
+	</div>
+
+</div>
+</body>
+</html>

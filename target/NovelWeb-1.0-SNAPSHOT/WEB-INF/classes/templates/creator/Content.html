@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2 th:text="${chapterTitle}"></h2>
+    <div>
+        <p th:each="para: ${paragraphList}" th:text="${para.content}">正文</p>
+    </div>
+</body>
+</html>

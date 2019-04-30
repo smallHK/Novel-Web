@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>编辑主页</title>
+<script src="../js/jquery-3.3.1.js"></script>
+<link href="../bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css" rel="stylesheet">
+<link href="../bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+<link href="../css/content.css" rel="stylesheet">
+</head>
+<body class="main-back">
+<nav class="navbar navbar-light bg-dark sticky-top mb-3 px-3" > <a class="navbar-brand text-primary" href="../index.html">HK小说网</a>
+	<div class="float-right text-white" > 欢迎！<span th:text="${session.login_editor_name}">小黑王HK</span> </div>
+</nav>
+<ul class="nav nav-tabs mb-5">
+	<li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#workspace">工作区域</a> </li>
+	<li class="nav-item"> <a class="nav-link " data-toggle="tab" href="#novel-data">小说数据页</a> </li>
+	<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#selectspace">选择区域</a> </li>
+</ul>
+<!--章节开放-->
+<div class="modal fade" id="viewVolumeInfo" tabindex="-1">
+	<div class="modal-dialog modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">终曲 MARRY CHRISMAS</h5>
+			</div>
+			<div class="modal-body">
+				<p>    当朝阳自窗外洒落进来的时候，少女微微张开双眼。
+
+    那是个有点害羞、神色娴静，很适合短发的可爱女孩。
+
+    整间病房充满洁净的白色。少女或许是被消毒水的气味给弄醒的.她一脸茫然地看着周遭.
+
+    室内一片寂静，只听得见窗外传来的鸟啭。</p>
+			</div>
+		</div>
+	</div>
+</div>	
+<div class="tab-content mb-5"> 
+	<!--工作区域-->
+	<div class="tab-pane fade show active" id="workspace">
+		<div class="text-align-center mb-3 p-2 border-bottom">
+			<h3>事件处理</h3>
+		</div>
+		<div class="mb-5 c-w-80 mx-auto">
+			<div class="row p-3"> 
+				<div class="event-width p-2 shadow-sm mx-1 rounded my-2">
+					<h5>章节开放申请</h5>
+					<p>小说名:<span>虫之歌</span></p>
+					<p>章节名：<span>终曲 MARRY CHRISMAS</span></p>
+					<button class="btn btn-light mx-1" data-toggle="modal" data-target="#viewVolumeInfo">查看章节内容</button>
+					<button class="btn btn-light mx-1">同意开放</button>
+				</div>
+				<div class="event-width p-2 shadow-sm  mx-1 rounded my-2">
+					<h5>章节开放申请</h5>
+					<p>小说名:<span>虫之歌</span></p>
+					<p>章节名：<span>终曲 MARRY CHRISMAS</span></p>
+				</div>
+				<div class="event-width p-2 shadow-sm  mx-1 rounded my-2">
+					<h5>章节开放申请</h5>
+					<p>小说名:<span>虫之歌</span></p>
+					<p>章节名：<span>终曲 MARRY CHRISMAS</span></p>
+				</div>
+
+				<div class="event-width p-2 shadow-sm mx-1 rounded my-2">
+					<h5>章节开放申请</h5>
+					<p>小说名:<span>虫之歌</span></p>
+					<p>章节名：<span>终曲 MARRY CHRISMAS</span></p>
+					<button class="btn btn-light mx-1" data-toggle="modal" data-target="#viewVolumeInfo">查看章节内容</button>
+					<button class="btn btn-light mx-1">同意开放</button>
+				</div>
+				<div class="event-width p-2 shadow-sm  mx-1 rounded my-2">
+					<h5>章节开放申请</h5>
+					<p>小说名:<span>虫之歌</span></p>
+					<p>章节名：<span>终曲 MARRY CHRISMAS</span></p>
+				</div>
+				<div class="event-width p-2 shadow-sm  mx-1 rounded my-2">
+					<h5>章节开放申请</h5>
+					<p>小说名:<span>虫之歌</span></p>
+					<p>章节名：<span>终曲 MARRY CHRISMAS</span></p>
+				</div>
+			</div>
+			<ul class="pagination justify-content-end">
+				<li class="page-item disabled">
+				  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+				</li>
+				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<li class="page-item"><a class="page-link" href="#">2</a></li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li class="page-item">
+				  <a class="page-link" href="#">Next</a>
+				</li>
+			</ul>		
+		</div>
+
+	</div>
+	
+	<!--小说区域-->
+	<div class="tab-pane fade" id="novel-data">
+		<div class="c-w-60 mx-auto">
+			<div>
+				<h5 class="h5">正在更新</h5>	
+			</div>
+			<div class=" border-top row p-3">
+				<div class="col-4">
+					<div class="list-group">
+						<a class="list-group-item list-group-item-action active" data-toggle="list" href="#work1">虫之歌</a>
+						<a class="list-group-item list-group-item-action" data-toggle="list" href="#work2">时钟机关之星</a>
+					</div>
+				</div>
+				<div class="col-8">
+					<div class="tab-content">
+						<div class="tab-pane fade show active" id="work1">
+							<div class="row mb-3">
+								<div class="col-4">								
+									<img class="book-cover-wrapper" src="../imgs/cover2.jpg" alt=".."/>
+								</div>
+								<div class="col-8">
+									<h5>东京侵域：Closed Eden</h5>
+									<span>岩井恭平</span>
+									<p>字数：<span>12045</span></p>
+									<p>
+										两年之前，『东京』遭遇了灾难——高中生秋月莲次和著名偶像弓家叶方有着一个共同的秘密。他们是侵入了『临界区域·东京』的『入侵者』，并使用AREA限定的特殊能力『SHOT』持续探索着。在与敌对的政府机关『救务厅』，还有AREA最可怕的怪物，人类之敌『EOM（Enemyof Mankind）』三方混战的情况下，他们能够兑现彼此许下的『诺言』吗！？
+										『弓家叶方一定会夺回弓家奏汰』
+										  弓家叶方
+										  常以人气偶像的一面活跃在世人眼前，但是私下底是寻找弟弟的『侵入者』。
+										  『秋月莲次一定会找回大乡梦衣』
+										  秋月莲次
+										  『东京厄袭』的生还者。正在寻找下落不明的青梅竹马。
+										  两人同时从胸口抽出了一根细棒。
+										  莲次将闪耀着红色光辉的它——
+										  叶方将闪耀着绿色光辉的它——
+										  「SHOT！」
+										  「SHOT！」
+										  ——伴着同时发出的喊声，刺入了自己的手腕。
+									</p>
+								</div>
+							</div>
+							<div class="w-100">
+								<button class="btn btn-light btn-block">小说目录</button>
+							</div>
+						</div>	
+						<div class="tab-pane fade" id="work2">
+							<div class="row">
+								<div class="col-4">								
+									<img class="book-cover-wrapper" src="../imgs/cover-sz.jpg" alt=".."/>
+								</div>
+								<div class="col-8">
+									<h5>时钟机关之星</h5>
+									<span>榎宫祐、暇奈椿</span>
+									<p>字数：<span>12045</span></p>
+									<p>
+——说来突兀，不过世界早就灭亡了。死亡后的地球，变成一切都是用齿轮与发条加以重现、再度建构的世界——“时钟机关之星”。
+见浦直人是个成绩吊车尾的高中生，某一天突然有个黑色箱子坠落在他家里，箱子里头是一具自动人偶少女。“不过是一处故障，就被迫停止运转两百年，人类的智能恐怕还没超越跳蚤的水准吧——？”
+在崩毁与残存之间来回反复，被改造的世界与不变的人类，当理想与现实产生剧烈冲突之时，直人与机械少女琉珠，以及天才少女玛莉与保镖哈尔达的两场相遇推动了命运的齿轮！
+									</p>
+								</div>
+							</div>
+							<div class="w-100">
+								<button class="btn btn-light btn-block">小说目录</button>
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="c-w-60 mx-auto">
+			<h5 class="h5">已完本</h5>
+		</div>
+	</div>
+	
+	<!--选择区域-->
+	<div class="tab-pane fade" id="selectspace">
+		<div class="c-w-60 mx-auto">
+			<div class="my-3">
+				<form class="form-inline">
+					<input type="text" class="form-control" placeholder="搜索小说">
+					<a href="#" class="btn btn-primary">搜索</a>
+				</form>
+			</div>
+			
+			<div class=" border-bottom">
+				<div class="row my-3">
+					<div class="col-4 my-2">
+						<div class="card">
+							<div class="book-cover-wrapper align-middle"><img src="../imgs/cover2.jpg" class="card-img-top book-cover-img" alt="..."></div>
+							<div class="card-body">
+								<h5 class="card-text">虫之歌</h5>
+								<a href="#" class="btn btn-primary">审核通过</a>
+								<a href="#" class="btn btn-primary">查看</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-4 my-2">
+						<div class="card">
+							<div class="book-cover-wrapper align-middle"><img src="../imgs/cover2.jpg" class="card-img-top book-cover-img" alt="..."></div>
+							<div class="card-body">
+								<h5 class="card-text">虫之歌</h5>
+								<a href="#" class="btn btn-primary">审核通过</a>
+								<a href="#" class="btn btn-primary">查看</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-4 my-2">
+						<div class="card">
+							<div class="book-cover-wrapper align-middle"><img src="../imgs/cover2.jpg" class="card-img-top book-cover-img" alt="..."></div>
+							<div class="card-body">
+								<h5 class="card-text">虫之歌</h5>
+								<a href="#" class="btn btn-primary">审核通过</a>
+								<a href="#" class="btn btn-primary">查看</a>
+							</div>
+						</div>
+					</div>
+										<div class="col-4 my-2">
+						<div class="card">
+							<div class="book-cover-wrapper align-middle"><img src="../imgs/cover2.jpg" class="card-img-top book-cover-img" alt="..."></div>
+							<div class="card-body">
+								<h5 class="card-text">虫之歌</h5>
+								<a href="#" class="btn btn-primary">审核通过</a>
+								<a href="#" class="btn btn-primary">查看</a>
+							</div>
+						</div>
+					</div>
+
+
+				</div>	
+				<nav aria-label="Page navigation example">
+				  <ul class="pagination justify-content-end">
+					<li class="page-item disabled">
+					  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+					</li>
+					<li class="page-item"><a class="page-link" href="#">1</a></li>
+					<li class="page-item"><a class="page-link" href="#">2</a></li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item">
+					  <a class="page-link" href="#">Next</a>
+					</li>
+				  </ul>
+				</nav>
+			</div>
+
+		
+		</div>
+
+	</div>
+</div>
+</body>
+</html>

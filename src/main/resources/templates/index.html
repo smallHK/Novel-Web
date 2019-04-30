@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="/bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/js/jquery-3.3.1.js"></script>
+    <script src="/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    <title>HK小说</title>
+</head>
+<body>
+<!--创作者登陆弹窗-->
+<div id="creatorModal" class="modal fade" tabinder="-1" role="dialog"  aria-labelledby="creatorLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="creatorLabel">作者登录</h5>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form action="/creator/login" method="post">
+                        <div class="form-group">
+                            <label>笔名</label>
+                            <input type="text" name="penname" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>密码</label>
+                            <input type="text" name="password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="登陆" class="btn btn-primary" >
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--编辑登陆弹窗-->
+<div id="editorModal" class="modal fade" tabinder="-1" role="dialog"  aria-labelledby="editorLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editorLabel">编辑登录</h5>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form action="/editor/login" method="post">
+                        <div class="form-group">
+                            <label>帐户名</label>
+                            <input type="text" name="editor_name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>密码</label>
+                            <input type="text" name="password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="登陆" class="btn btn-primary" >
+                        </div>
+                        <a href="/editor/applyForPage">申请成为编辑？</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--读者登陆弹窗-->
+<div id="readorModal" class="modal fade" tabinder="-1" role="dialog"  aria-labelledby="readorLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="readorLabel">读者登录</h5>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form action="/reader/login" method="post">
+                        <div class="form-group">
+                            <label>用户名</label>
+                            <input type="text" name="username" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>密码</label>
+                            <input type="text" name="password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="button" value="登陆" id="loginButton" class="btn btn-primary" >
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top"> <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<main role="main" class="container">
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">Hello, world!</h1>
+            <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+            <p><a class="btn btn-primary btn-lg" href="/visitor/novelMain" role="button">书城 »</a></p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card-deck">
+            <div class="card" style="width: 18rem"> <img src="imgs/index/4.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5>创作者中心</h5>
+                    <p>开始创作小说……</p>
+                    <button type="button" class="btn btn-primary" role="button"  data-toggle="modal" data-target="#creatorModal">GO!</button>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem"> <img src="imgs/index/2.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5>编辑中心</h5>
+                    <p>开始创作小说……</p>
+                    <button type="button" class="btn btn-primary" role="button"  data-toggle="modal" data-target="#editorModal">GO!</button>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem"> <img src="imgs/index/3.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5>读者中心</h5>
+                    <p>开始创作小说……</p>
+                    <button type="button" class="btn btn-primary" role="button"  data-toggle="modal" data-target="#readorModal">GO!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="container">
+    <p>© Company 2017-2019</p>
+</footer>
+</body>
+</html>

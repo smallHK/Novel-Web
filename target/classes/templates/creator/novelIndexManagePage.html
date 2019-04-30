@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title  th:text="${novelIndexInfo.novelName}">虫之歌</title>
+    <script th:src="@{/js/jquery-3.3.1.js}" src="/js/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="/bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <script src="/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/content.css">
+</head>
+<body class="main-back">
+<nav class="navbar navbar-light bg-dark sticky-top mb-3" > <a class="navbar-brand text-primary" href="../index.html">HK小说网</a> </nav>
+
+<!--添加新卷弹窗-->
+<div class="modal fade" id="addNewVolume" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">添加新卷</h5>
+            </div>
+            <div class="modal-body">
+                <form action="/creator/addNewVolume" method="post">
+                    <div class="form-group">
+                        <input type="hidden" name="novel_id" th:value="${novelIndexInfo.novelId}">
+                        <input type="text" class="form-control" placeholder="新卷卷名" name="volume_title" required>
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="确认" >
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="c-w-80 mx-auto border shadow-lg p-3 rounded mb-5">
+    <div class="border-bottom p-5">
+        <h3 class="h3 text-align-center" th:text="${novelIndexInfo.novelName}">虫之歌</h3>
+    </div>
+    <div th:each="volumeInfo :${novelIndexInfo.volumeInfoList}"  class="container my-5" >
+        <div>
+            <h5 th:text="${volumeInfo.volumeTitle}"> 第零卷 </h5>
+        </div>
+        <div class="row my-3">
+            <div th:each="chapter: ${volumeInfo.chapterList}" class="col-3 my-2"><a class="btn btn-light btn-block" href="#" title="" th:text="${chapter.title}">0.00 诗歌 The firs</a> </div>
+            <div class="col-3 my-2"><a class="btn btn-light btn-block"  th:href="@{/creator/enterAddChapterPage/{novelId}/{volumeId}(novelId=${novelIndexInfo.novelId}, volumeId=${volumeInfo.volumeId})}" href="/creator/enterAddChapterPage" title="">+添加章节</a> </div>
+        </div>
+    </div>
+
+    <div class="container my-5">
+        <div><button class="btn btn-light btn-block" data-toggle="modal" data-target="#addNewVolume">+添加新卷</button> </div>
+    </div>
+</div>
+
+</body>
+</html>

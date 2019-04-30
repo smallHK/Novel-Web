@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户中心</title>
+    <script src="/js/jquery-3.3.1.js"></script>
+</head>
+<body>
+<p>欢迎，<span th:text="${session.reader_name}"></span>！</p>
+
+<div>
+    <h2>查看所有小说</h2>
+    <div>
+        <ul id="novel_list_ul"></ul>
+    </div>
+</div>
+
+<div>
+    <h2>查看收藏夹内所有小说</h2>
+</div>
+
+
+<script>
+    $(function () {
+
+        //获取所有开放小说
+        $.get("/visitor/listAllPublishedNovel", function (data) {
+            if(data.status === 0) {
+                var ul = $("#novel_list_ul");
+                ul.empty();
+                var novelList = data.novelList;
+                for(var i = 0; i < novelList.length; i++) {
+                    var novel = novelList[i];
+                    var li = $("<li></li>");
+                    var a = $("<a></a>");
+                    a.attr("href", "/visitor/novelInfo/" + novel.id)
+                    var span = $("<span></span>").text(novel.novelName);
+                    ul.append(li.append(a.append(span)));
+                }
+            }
+        })
+
+    })
+
+</script>
+</body>
+</html>

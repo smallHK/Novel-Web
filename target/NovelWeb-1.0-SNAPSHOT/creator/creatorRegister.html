@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/jquery-3.3.1.js"></script>
+</head>
+<body>
+<form action="/creator/register" method="post">
+    <p>笔名:<input type="text" name="penname"></p>
+    <p>密码:<input type="text" name="password"></p>
+    <p><input type="submit" value="Submit"></p>
+</form>
+
+<form action="/creator/checkPenNameExist" method="get">
+    <p>笔名:<input type="text" name="penname"></p>
+    <p><input type="submit" value="Submit"></p>
+</form>
+
+
+<form id="creatorLogin" action="" method="get">
+    <h2>作者登陆</h2>
+    <p>笔名:<input type="text" name="penname"></p>
+    <p>密码:<input type="text" name="password"></p>
+    <p><input type="button" value="登陆" id="loginButton" ></p>
+</form>
+
+<div>
+    <h2>登陆信息框</h2>
+    <p id="loginCreator"></p>
+</div>
+
+<p><a href="/creator/listAllNovel" id="creatorCenterEntry">小说管理</a></p>
+
+<script>
+
+    $(function () {
+        $("#creatorCenterEntry").hide();
+
+    })
+
+    $("#loginButton").click(function () {
+        $.post("/creator/login", $("#creatorLogin").serialize(), function(data, status) {
+            if(data.status == 0) {
+                $("#loginCreator").html(data.msg);
+                $("#creatorCenterEntry").show();
+            }
+        })
+    })
+</script>
+</body>
+</html>

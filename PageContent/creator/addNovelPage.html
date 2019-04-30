@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/jquery-3.3.1.js"></script>
+	<link href="../bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../css/content.css" rel="stylesheet">
+	<script src="../js/bs-custom-file-input.min.js"></script>
+</head>
+<body class="main-back">
+
+<nav class="navbar navbar-light bg-light sticky-top md-3" > <a class="navbar-brand" href="#">HK小说网</a> </nav>
+
+<div class="mx-auto" style="width: 800px;">
+	<form action="" method="post" id="create_novel_form">
+		<p><input class="form-control" type="text" name="novel_title" placeholder="小说标题" required></p>
+		<p><textarea class="form-control" rows="10" name="brief_intro" placeholder="小说简介" required></textarea></p>
+		<img id="novelCoverImg">
+		<div class="custom-file">
+			<input type="file" class="custom-file-input" id="novelCover" onchange="showPreview(this, 'novelCoverImg')"/>
+			<label class="custom-file-label" for="novelCover">小说封面</label>
+ 		</div>
+		<p><input class="btn btn-primary" type="button" value="提交" id="create_novel_submit"></p>
+	</form>
+</div>
+
+
+
+<script>
+
+	$(document).ready(function(){
+		bsCustomFileInput.init();
+	})
+	
+	function showPreview(source, imgId) {
+		var file = source.files[0];
+		var reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onload = function(e) {
+			var pic = document.getElementById(imgId);
+			pic.src = this.result;
+		}
+	}
+</script>
+
+
+
+</body>
+</html>
