@@ -20,6 +20,6 @@ public interface ChapterRepository extends CrudRepository<Chapter, Integer> {
 
     Integer countAllByNovelId(Integer novelId);
 
-    Chapter findNovelByOrderNum(Integer orderNum);
+    Chapter findNovelByOrderNumAndNovelId(Integer orderNum, Integer novelId);
 
 }

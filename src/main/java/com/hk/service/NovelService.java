@@ -238,7 +238,7 @@ public class NovelService {
             result.setIsPreview(false);
         } else {
             result.setIsPreview(true);
-            Chapter preChap = chapterRepository.findNovelByOrderNum(chapter.getOrderNum() - 1);
+            Chapter preChap = chapterRepository.findNovelByOrderNumAndNovelId(chapter.getOrderNum() - 1, novel.getId());
             result.setPreviewId(preChap.getId());
         }
 
@@ -246,7 +246,7 @@ public class NovelService {
             result.setIsNext(false);
         } else {
             result.setIsNext(true);
-            Chapter nextChap = chapterRepository.findNovelByOrderNum(chapter.getOrderNum() + 1);
+            Chapter nextChap = chapterRepository.findNovelByOrderNumAndNovelId(chapter.getOrderNum() + 1, novel.getId());
             result.setNovelId(nextChap.getNovelId());
         }
 
