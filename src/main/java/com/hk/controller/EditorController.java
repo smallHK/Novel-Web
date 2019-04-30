@@ -65,6 +65,7 @@ public class EditorController {
     /**
      * 申请称为编辑，投简历
      */
+    @Deprecated
     @PostMapping("/postProfile")
     public ModelAndView postProfile(@RequestParam Map<String, String> params) {
         ModelAndView modelAndView = new ModelAndView();
@@ -99,11 +100,12 @@ public class EditorController {
     /**
      * 编辑登陆
      */
+    @Deprecated
     @PostMapping("/login")
     public ModelAndView loginEditor(@RequestParam Map<String, String> params, HttpSession session) {
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/editor/workSpacePage");
+        modelAndView.setViewName("redirect:/editor/workSpacePage");
 
         String editorName = params.get("editor_name");
         String password = params.get("password");
@@ -133,6 +135,7 @@ public class EditorController {
     /**
      * 修改个人信息
      */
+    @Deprecated
     @PostMapping("/updatePersonalInfo")
     public ModelAndView updatePersonalInfo(@RequestParam Map<String, String> params, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
@@ -193,7 +196,7 @@ public class EditorController {
         ModelAndView modelAndView = new ModelAndView();
         Integer editorId = (Integer) session.getAttribute("login_editor_id");
         novelService.publishNovel(novelId, editorId);
-        modelAndView.setViewName("redirect:/editor/userCenter");
+        modelAndView.setViewName("redirect:/editor/workSpacePage");
         modelAndView.addObject("resultInfo", ResultUtil.success("success!").toJSONObject());
         return modelAndView;
     }
@@ -219,7 +222,7 @@ public class EditorController {
     public ModelAndView findSpecialNovelIndex(@PathVariable Integer novelId) {
         ModelAndView modelAndView = new ModelAndView();
         NovelIndex index = novelService.findNovelIndex(novelId);
-        modelAndView.setViewName("redirect:/editor/novelIndexPage");
+        modelAndView.setViewName("/editor/novelIndexPage");
         modelAndView.addObject("indexInfo", index);
         modelAndView.addObject("resultInfo", ResultUtil.success("success!"));
         return modelAndView;
@@ -228,10 +231,10 @@ public class EditorController {
     /**
      * 查看书籍指定章节内容
      */
-    @GetMapping
+    @GetMapping("/showSpecialChapterContent/{chapterId}")
     public ModelAndView findSpecialNovelContent(@PathVariable Integer chapterId) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/editor/contentPage");
+        modelAndView.setViewName("/editor/contentPage");
         ChapterInfo chapterInfo = novelService.findNovelChapter(chapterId);
         modelAndView.addObject("chapterInfo", chapterInfo);
         modelAndView.addObject("resultInfo", ResultUtil.success("success!"));
@@ -239,13 +242,4 @@ public class EditorController {
     }
 
 
-    /**
-     * 审批章节
-     */
-    @GetMapping("/publishChapter")
-    @Transactional
-    public @ResponseBody
-    JSONObject publishChapter() {
-        return null;
-    }
 }

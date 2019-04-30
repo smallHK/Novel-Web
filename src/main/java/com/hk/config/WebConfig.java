@@ -29,7 +29,8 @@ public class WebConfig implements WebMvcConfigurer {
 
         registry.addViewController("/editor/editorCenter").setViewName("/editor/editorCenter");
         registry.addViewController("/editor/loginPage").setViewName("/editor/loginPage");
-
+        registry.addViewController("/editor/applyForPage").setViewName("/editor/applyForPage");
+        registry.addViewController("/editor/workSpacePage").setViewName("/editor/workSpacePage");
 
         registry.addViewController("/reader/readerLogin").setViewName("/reader/loginPage");
         registry.addViewController("/reader/registerPage").setViewName("/reader/registerPage");
@@ -59,8 +60,8 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/editor/**")
                 .excludePathPatterns("/editor/login")
                 .excludePathPatterns("/editor/loginPage")
-                .excludePathPatterns("/editor/register")
-                .excludePathPatterns("/editor/registerPage");
+                .excludePathPatterns("/editor/applyForPage");
+
 
         registry.addInterceptor(new ReaderPrincipalInterceptor())
                 .addPathPatterns("/reader/**")

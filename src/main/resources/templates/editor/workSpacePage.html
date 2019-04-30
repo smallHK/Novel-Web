@@ -10,7 +10,7 @@
     <link href="/css/content.css" rel="stylesheet">
 </head>
 <body class="main-back">
-<nav class="navbar navbar-light bg-dark sticky-top mb-3 px-3"><a class="navbar-brand text-primary" href="../index.html">HK小说网</a>
+<nav class="navbar navbar-light bg-dark sticky-top mb-3 px-3"><a class="navbar-brand text-primary" th:href="@{/index}" href="../index.html">HK小说网</a>
     <div class="float-right text-white"> 欢迎！<span th:text="${session.login_editor_name}">小黑王HK</span></div>
 </nav>
 <ul class="nav nav-tabs mb-5">
@@ -322,16 +322,20 @@
                 for(var i = 0; i < novelList.length; i++) {
                     if(i === 0) {
                         var tp = $("<div class=\"tab-pane fade show active\" id=\"work" + i + "\"></div>");
+                        tc.append(tp);
+
+                        var row = $("<div class=\"row mb-3\"></div>");
+                        tp.append(row);
 
                         //封装小说图片
                         var noImgC = $("<div class=\"col-4\"></div>");
                         var noImg = $("<img class=\"book-cover-wrapper\" src=\"" + "/imgs/cover/cover-sz.jpg" + "\" alt=\"..\"/>");
                         noImgC.append(noImg);
-                        tp.append(noImgC);
+                        row.append(noImgC);
 
                         //封装小说信息布局
                         var noInC = $("<div class=\"col-8\"></div>");
-                        tp.append(noInC);
+                        row.append(noInC);
 
                         //-小说标题
                         var noTitle = $("<h5></h5>");
@@ -357,22 +361,26 @@
                         var novelInd = $("<div class=\"w-100\"></div>");
                         var novelIndB = $("<a class=\"btn btn-light btn-block\"></a>");
                         novelIndB.text("小说目录");
+                        novelIndB.attr("href", "/editor/showSpecialNovelIndex/" + novelList[i].id);
                         novelInd.append(novelIndB);
                         tp.append(novelInd);
 
-                        tc.append(tp);
                     }else {
                         var tp = $("<div class=\"tab-pane fade\" id=\"work" + i + "\"></div>");
+                        tc.append(tp);
+
+                        var row = $("<div class=\"row mb-3\"></div>");
+                        tp.append(row);
 
                         //封装小说图片
                         var noImgC = $("<div class=\"col-4\"></div>");
                         var noImg = $("<img class=\"book-cover-wrapper\" src=\"" + "/imgs/cover/cover-sz.jpg" + "\" alt=\"..\"/>");
                         noImgC.append(noImg);
-                        tp.append(noImgC);
+                        row.append(noImgC);
 
                         //封装小说信息布局
                         var noInC = $("<div class=\"col-8\"></div>");
-                        tp.append(noInC);
+                        row.append(noInC);
 
                         //-小说标题
                         var noTitle = $("<h5></h5>");
@@ -398,10 +406,10 @@
                         var novelInd = $("<div class=\"w-100\"></div>");
                         var novelIndB = $("<a class=\"btn btn-light btn-block\"></a>");
                         novelIndB.text("小说目录");
+                        novelIndB.attr("href", "/editor/showSpecialNovelIndex/" + novelList[i].id);
                         novelInd.append(novelIndB);
                         tp.append(novelInd);
 
-                        tc.append(tp);
                     }
                 }
 

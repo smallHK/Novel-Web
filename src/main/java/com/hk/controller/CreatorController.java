@@ -395,6 +395,7 @@ public class CreatorController {
      * <p>
      * 小说状态为通过审核
      */
+    @Deprecated
     @GetMapping("/listAllPublishedNovel")
     public @ResponseBody
     JSONObject listAllPublishedNovel(HttpSession session) {
