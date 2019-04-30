@@ -15,4 +15,6 @@ public interface VolumeRepository extends CrudRepository<Volume, Integer> {
 
     Integer countAllByNovelId(Integer novelId);
 
+    void deleteAllByNovelId(Integer novelId);
+
 }

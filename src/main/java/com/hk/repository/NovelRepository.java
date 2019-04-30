@@ -20,4 +20,12 @@ public interface NovelRepository extends CrudRepository<Novel, Integer> {
 
     List<Novel> findAllByStatusAndAuthorId(Integer status, Integer authorId);
 
+    Integer countNovelByAuthorId(Integer authorId);
+
+    Integer countNovelByAuthorIdAndStatus(Integer authorId, Integer status);
+
+    void deleteAllById(Integer novelId);
+
+    Integer countAllByStatus(Integer status);
+
 }

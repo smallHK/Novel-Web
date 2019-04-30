@@ -1,10 +1,54 @@
 .form-signer{
-    width: 100%;
-    max-width: 330px;
-    padding: 15px;
-    margin: auto;
+	width: 100%;
+	max-width: 330px;
+	padding: 15px;
+	margin: auto;
 }
 
 .main-back{
-    background-color: #f5f5f5;
+	background-color: #f5f5f5;
 }
+
+.book-title-limit{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 15px;
+}
+
+.book-cover-img {
+
+	max-width: 168px;
+	max-height: 238px;
+}
+
+
+.book-cover-wrapper{
+	width: 168px;
+	height: 238px;
+
+}
+
+
+.c-w-80 {
+	width: 80%;
+}
+
+.c-w-60 {
+	width: 60%;
+}
+
+.c-w-90 {
+	width: 90%;
+
+}
+
+.text-align-center {
+
+	text-align: center
+}
+
+.event-width{
+	width: 370px;
+}
+

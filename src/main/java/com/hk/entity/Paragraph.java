@@ -29,4 +29,7 @@ public class Paragraph {
 
     @Column(insertable = false)
     private Integer status;
+
+    @Column(name="novel_id")
+    private Integer novelId;
 }

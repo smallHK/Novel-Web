@@ -12,7 +12,7 @@ import java.util.List;
  * <p>
  * 传到前台显示的页面数据
  * <p>
- * 图书目录
+ * 目录里的卷部分
  */
 @Getter
 @Setter

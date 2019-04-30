@@ -14,4 +14,6 @@ public interface NovelCommentRepo extends CrudRepository<NovelComment, Integer> 
     List<NovelComment> findAllByNovelId(Integer novelId);
 
     Integer countAllByNovelId(Integer novelId);
+
+    void deleteAllByNovelId(Integer novelId);
 }

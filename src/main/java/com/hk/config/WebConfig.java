@@ -1,8 +1,8 @@
 package com.hk.config;
 
-import com.hk.web.CreatorPrincipalInterceptor;
-import com.hk.web.EditorPrincipalInterceptor;
-import com.hk.web.ReaderPrincipalInterceptor;
+import com.hk.controller.interceptor.CreatorPrincipalInterceptor;
+import com.hk.controller.interceptor.EditorPrincipalInterceptor;
+import com.hk.controller.interceptor.ReaderPrincipalInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>章节编辑页面</title>
-    <script src="/js/jquery-3.3.1.js"></script>
+    <script src="../js/jquery-3.3.1.js"></script>
+	<link href="../bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css" rel="stylesheet">
 	<link href="../bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../css/content.css" rel="stylesheet">
 </head>
-<body>
-	
-<div class="container">
+<body class="main-back">
+<nav class="navbar navbar-light bg-dark sticky-top mb-3" > <a class="navbar-brand text-primary" href="../index.html">HK小说网</a> </nav>
+<div class=" c-w-60 mb-5 mx-auto">
 	<form action="/creator/addNewChapter" method="post">
 		<div class="form-group">
 			<label>章节名称</label>
@@ -16,7 +18,7 @@
 		</div>
 		<div class="form-group">
 			<label>章节正文</label>
-			<textarea rows="30" cols="100" name="chapter_content" class="form-control"></textarea>
+			<textarea rows="20" name="chapter_content" class="form-control"></textarea>
 		</div>
 		<div class="form-group">
 			<input type="submit" value="确认提交" class="btn btn-primary">

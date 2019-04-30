@@ -12,4 +12,7 @@ import java.util.List;
 public interface ParagraphRepository extends CrudRepository<Paragraph, Integer> {
 
     List<Paragraph> findAllByChapterId(Integer chapterId);
+
+    void deleteAllByNovelId(Integer novelId);
+
 }
