@@ -247,7 +247,7 @@ public class NovelService {
         } else {
             result.setIsNext(true);
             Chapter nextChap = chapterRepository.findNovelByOrderNumAndNovelId(chapter.getOrderNum() + 1, novel.getId());
-            result.setNovelId(nextChap.getNovelId());
+            result.setNextId(nextChap.getId());
         }
 
         return result;
