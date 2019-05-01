@@ -1,43 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="../bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css" rel="stylesheet">
-    <link href="../bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/content.css" rel="stylesheet">
-    <script src="../js/jquery-3.3.1.js"></script>
-    <script src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
-
+    <link th:href="@{/bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css}" href="../bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css" rel="stylesheet">
+    <link th:href="@{/bootstrap-4.3.1-dist/css/bootstrap.min.css}" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/content.css}" href="../css/content.css" rel="stylesheet">
+    <script th:src="@{/js/jquery-3.3.1.js}" src="../js/jquery-3.3.1.js"></script>
+    <script th:src="@{/bootstrap-4.3.1-dist/js/bootstrap.min.js}" src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
     <title>HK小说阅读</title>
 </head>
 <body class="main-back">
 <nav class="navbar navbar-dark bg-dark mb-3">
     <span class="navbar-brand mb-0 h1 text-light">HK小说网</span>
 
-    <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+    <form action="/visitor/searchNovel" method="post" class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search" name="keyword">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
     </form>
 </nav>
 
 
 <div class="my-4">
-    <div id="novelNav" class="carousel slide c-w-80 rounded overflow-hidden mx-auto shadow" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#novelNav" data-slide-to="0" class="active"></li>
-            <li data-target="#novelNav" data-slide-to="1"></li>
-            <li data-target="#novelNav" data-slide-to="2"></li>
-        </ol>
+    <div id="novelNav" class="carousel slide rounded overflow-hidden mx-auto shadow w-50" data-ride="carousel">
         <div class="carousel-inner">
-            <div class="carousel-item active w-100">
-                <img src="../imgs/ad/ad1.jpg" alt="">
+            <div class="carousel-item active">
+                <div class="row p-2">
+                    <div class="col-4 book-cover-wrapper text-align-center">
+                        <img class="book-cover-img rounded" src="../imgs/cover-sz.jpg" alt="">
+                    </div>
+                    <div class="col-8">
+                        <div class="p-2">
+                            <h5>时钟机关之星</h5>
+                            <hr>
+                            <p>——说来突兀，不过世界早就灭亡了。死亡后的地球，变成一切都是用齿轮与发条加以重现、再度建构的世界——“时钟机关之星”。
+
+                                见浦直人是个成绩吊车尾的高中生，某一天突然有个黑色箱子坠落在他家里，箱子里头是一具自动人偶少女。少女:“不过是一处故障，就被迫停止运转两百年，人类的智能恐怕还没超越跳蚤的水准吧——？”
+
+                                在崩毁与残存之间来回反复，被改造的世界与不变的人类，当理想与现实产生剧烈冲突之时，直人与机械少女琉紫，以及天才少女玛莉与保镖哈尔达的两场相遇推动了命运的齿轮！</p>
+                        </div>
+                        <a class="btn btn-primary">小说详情</a>
+                    </div>
+                </div>
             </div>
             <div class="carousel-item">
-                <img src="../imgs/ad/ad2.jpg" alt="" >
+                <div class="row p-2">
+                    <div class="col-4 book-cover-wrapper text-align-center">
+                        <img class="book-cover-img rounded" src="../imgs/cover-sz.jpg" alt="">
+                    </div>
+                    <div class="col-8">
+                        <div class="p-2">
+                            <h5>时钟机关之星</h5>
+                            <hr>
+                            <p>——说来突兀，不过世界早就灭亡了。死亡后的地球，变成一切都是用齿轮与发条加以重现、再度建构的世界——“时钟机关之星”。
+
+                                见浦直人是个成绩吊车尾的高中生，某一天突然有个黑色箱子坠落在他家里，箱子里头是一具自动人偶少女。少女:“不过是一处故障，就被迫停止运转两百年，人类的智能恐怕还没超越跳蚤的水准吧——？”
+
+                                在崩毁与残存之间来回反复，被改造的世界与不变的人类，当理想与现实产生剧烈冲突之时，直人与机械少女琉紫，以及天才少女玛莉与保镖哈尔达的两场相遇推动了命运的齿轮！</p>
+                        </div>
+                        <a class="btn btn-primary">小说详情</a>
+                    </div>
+                </div>
             </div>
             <div class="carousel-item">
-                <img src="../imgs/ad/ad3.jpg" alt="">
+                <div class="row p-2">
+                    <div class="col-4 book-cover-wrapper text-align-center">
+                        <img class="book-cover-img rounded" src="../imgs/cover-sz.jpg" alt="">
+                    </div>
+                    <div class="col-8">
+                        <div class="p-2">
+                            <h5>时钟机关之星</h5>
+                            <hr>
+                            <p>——说来突兀，不过世界早就灭亡了。死亡后的地球，变成一切都是用齿轮与发条加以重现、再度建构的世界——“时钟机关之星”。
+
+                                见浦直人是个成绩吊车尾的高中生，某一天突然有个黑色箱子坠落在他家里，箱子里头是一具自动人偶少女。少女:“不过是一处故障，就被迫停止运转两百年，人类的智能恐怕还没超越跳蚤的水准吧——？”
+
+                                在崩毁与残存之间来回反复，被改造的世界与不变的人类，当理想与现实产生剧烈冲突之时，直人与机械少女琉紫，以及天才少女玛莉与保镖哈尔达的两场相遇推动了命运的齿轮！</p>
+                        </div>
+                        <a class="btn btn-primary">小说详情</a>
+                    </div>
+                </div>
             </div>
         </div>
         <a class="carousel-control-prev" href="#novelNav" role="button" data-slide="prev">

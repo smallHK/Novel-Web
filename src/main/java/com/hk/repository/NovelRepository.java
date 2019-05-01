@@ -28,4 +28,9 @@ public interface NovelRepository extends CrudRepository<Novel, Integer> {
 
     Integer countAllByStatus(Integer status);
 
+    List<Novel> findAllByNovelNameAndStatus(String novelName, Integer status);
+
+
+
+
 }

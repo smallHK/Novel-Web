@@ -2,30 +2,32 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>小说详情</title>
+    <title th:text="${novelInfo.novelName}">小说详情</title>
+    <link th:href="@{/bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css}" href="../bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css" rel="stylesheet">
     <link th:href="@{/bootstrap-4.3.1-dist/css/bootstrap.min.css}" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
-    <script th:src="@{/js/jquery-3.3.1.js}"></script>
-    <link href="../css/content.css" rel="stylesheet">
+    <link th:href="@{/css/content.css}" href="../css/content.css" rel="stylesheet">
+    <script th:src="@{/js/jquery-3.3.1.js}" src="../js/jquery-3.3.1.js"></script>
+    <script th:src="@{/bootstrap-4.3.1-dist/js/bootstrap.min.js}" src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 </head>
 <body class="main-back">
 <nav class="navbar navbar-light bg-dark sticky-top mb-3" > <a class="navbar-brand text-primary" href="../index.html">HK小说网</a> </nav>
 <div class="container border-bottom p-3">
     <div class="row">
-        <div class="col-md-auto"> <img src="../imgs/sao_c.jpg" class="book-cover-img" alt="..."> </div>
+        <div class="col-md-auto"> <img th:src="@{/imgs/cover/cover2.jpg}" src="../imgs/sao_c.jpg" class="book-cover-img" alt="..."> </div>
         <div class="col">
-            <h5 class="h5" th:text="${novel.novelName}">刀剑神域</h5>
-            <p th:text="${authorName}"><span>川原砾</span></p>
-            <p th:text="${novel.briefIntro}">2022年，电子机械制造商“ARGUS”开发“NERvGear”装戴在头上的机器，能够控制人类的脑神经连接虚拟世界，于是人类终于实现了完全的虚拟实境。
+            <h5 class="h5" th:text="${novelInfo.novelName}">刀剑神域</h5>
+            <p th:text="${novelInfo.penName}"><span>川原砾</span></p>
+            <p th:text="${novelInfo.briefIntro}">2022年，电子机械制造商“ARGUS”开发“NERvGear”装戴在头上的机器，能够控制人类的脑神经连接虚拟世界，于是人类终于实现了完全的虚拟实境。
                 身为VRMMORPG（虚拟大规模线上角色扮演游戏）《刀剑神域〈SAO〉》中的其中一名玩家：桐人和其他一万个玩家才刚登入享受此游戏之时，游戏中的管理员对大家宣布了一个令人惊恐的消息──
                 那就是，现在唯一要登出此游戏的方法只有将这个游戏破关，并且在这个游戏中GAME OVER的话，也就代表了现实世界中的“死亡”。
                 桐人只能在这混乱的情况下，比其他玩家更早一步接受这个事实，投入了看不见终点的战斗之中……</p>
-            <a href="#" class="btn btn-primary">查看目录</a>
+            <a th:href="@{/visitor/novelIndex/{novelId}(novelId=${novelInfo.id})}" href="#" class="btn btn-primary">查看目录</a>
             <a href="#" class="btn btn-primary">点赞</a>
         </div>
     </div>
 </div>
 <div class="container border-bottom p-3">
-    <form th:action="@{/reader/publicNovelComment/{novelId}(novelId=${novel.id})}"  method="post">
+    <form th:action="@{/reader/publicNovelComment/{novelId}(novelId=${novelInfo.id})}"  method="post">
         <div class="form-group">
             <label>评论正文</label>
             <textarea class="form-control" rows="5"></textarea>
@@ -69,29 +71,5 @@
 
 </footer>
 
-<script>
-    $(function () {
-
-        //获取所有评论
-        $.get("/visitor/listAllNovelComment", function (data) {
-            if(data.status === 0) {
-                var ul = $("#novel_list_ul");
-                ul.empty();
-                var novelList = data.novelList;
-                for(var i = 0; i < novelList.length; i++) {
-                    var novel = novelList[i];
-                    var li = $("<li></li>");
-                    var a = $("<a></a>");
-                    a.attr("href", "/creator/applyForPublish/" + novel.id)
-                    var span = $("<span></span>").text(novel.novelName);
-                    ul.append(li.append(a.append(span)));
-                }
-            }
-        })
-
-    })
-
-
-</script>
 </body>
 </html>

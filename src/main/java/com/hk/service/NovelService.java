@@ -3,17 +3,19 @@ package com.hk.service;
 import com.hk.entity.*;
 import com.hk.po.ChapterInfo;
 import com.hk.po.NovelIndex;
+import com.hk.po.NovelInfo;
 import com.hk.po.VolumeInfo;
 import com.hk.repository.*;
 import com.hk.util.CommonUtil;
 import com.hk.util.EntityStatus;
-import com.hk.util.ResultUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.transaction.Transactional;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * 提供小说操作的业务bean
@@ -38,22 +40,28 @@ public class NovelService {
 
     private ParagraphRepository paragraphRepository;
 
+    private CreatorRepository creatorRepository;
+
     public NovelService(NovelRepository novelRepository,
                         NovelCommentRepo novelCommentRepo,
                         NovelPublishRepo novelPublishRepo,
                         VolumeRepository volumeRepository,
                         ChapterRepository chapterRepository,
-                        ParagraphRepository paragraphRepository) {
+                        ParagraphRepository paragraphRepository,
+                        CreatorRepository creatorRepository) {
         this.novelRepository = novelRepository;
         this.novelCommentRepo = novelCommentRepo;
         this.novelPublishRepo = novelPublishRepo;
         this.volumeRepository = volumeRepository;
         this.chapterRepository = chapterRepository;
         this.paragraphRepository = paragraphRepository;
+
+        this.creatorRepository = creatorRepository;
     }
 
     /**
-     * 获取指定作者的指定页数的小说
+     * 获取小说列表
+     * 条件：页、作者
      * 如果没有小说，返回空字符串
      */
     public List<Novel> findSpeicalCreatorLimitedCreatedNovelList(Integer creatorId, Integer offset, Integer length) {
@@ -70,7 +78,8 @@ public class NovelService {
     }
 
     /**
-     * 获取指定作者某发布状态的某页小说
+     * 获取小说列表
+     * 条件：页、发布状态、作者Id
      * 如果没有小说，返回空list
      */
     public List<Novel> findSpeCreatorLimSpePubStaNovelList(Integer creatorId, Integer pubStatus, Integer offset, Integer length) {
@@ -86,7 +95,8 @@ public class NovelService {
     }
 
     /**
-     * 获取指定发布状态指定页的小说列表
+     * 获取小说列表
+     * 条件：发布状态、页
      */
     public List<Novel> findLimSpePubStaNovelList(Integer pubStatus, Integer offset, Integer length) {
         List<Novel> novelList = novelRepository.findAllByStatus(pubStatus);
@@ -99,6 +109,52 @@ public class NovelService {
 
         return novelList.subList(offset, limit);
     }
+
+
+    /**
+     *
+     * 获取小说列表
+     * 条件：小说名关键字
+     * 默认条件：搜索开放小说
+     * 关键字为null时，搜索全部小说
+     * 目前只能完整匹配
+     */
+    public List<Novel> findNovelListByKeyword(String keyword) {
+
+        List<Novel> novelList;
+        if(Objects.isNull(keyword) || keyword.equals("")){
+            novelList = novelRepository.findAllByStatus(EntityStatus.NOVEL_PASSED);
+        }else {
+            novelList = novelRepository.findAllByNovelNameAndStatus(keyword, EntityStatus.NOVEL_PASSED);
+        }
+        if (Objects.isNull(novelList)) {
+            return new ArrayList<>();
+        }
+        return novelList;
+    }
+
+//    /**
+//     * 获取小说列表
+//     * 条件：发布状态、页、小说名
+//     */
+//    public List<Novel> findNovelListByPageAndPubStaAndNovTit(String novelName, Integer offset, Integer length) {
+//
+//        List<Novel> novelList;
+//        if(Objects.nonNull(novelName)) {
+//             novelList = novelRepository.findAllByStatusAndNovelName(EntityStatus.NOVEL_PASSED, novelName);
+//        }else {
+//            novelList = novelRepository.findAllByStatus(EntityStatus.NOVEL_PASSED);
+//        }
+//
+//        if (Objects.isNull(novelList) || offset > novelList.size()) {
+//            return new ArrayList<>();
+//        }
+//
+//        //从offset到limit之间的数据，不包括limit
+//        int limit = offset + length < novelList.size() ? offset + length : novelList.size();
+//
+//        return novelList.subList(offset, limit);
+//    }
 
     /**
      * 获取指定作者创作的小说数
@@ -168,6 +224,25 @@ public class NovelService {
         return novelList;
     }
 
+    /**
+     * 获取小说信息
+     */
+    public NovelInfo findNovelInfo(Integer novelId) {
+        Novel novel = novelRepository.findNovelById(novelId);
+
+        Integer authorId = novel.getAuthorId();
+        Creator creator =  creatorRepository.findById(authorId).orElseThrow();
+
+        NovelInfo novelInfo = new NovelInfo();
+        novelInfo.setAuthorId(authorId);
+        novelInfo.setBriefIntro(novel.getBriefIntro());
+        novelInfo.setPenName(creator.getPenName());
+        novelInfo.setId(novelId);
+        novelInfo.setNovelName(novel.getNovelName());
+        novelInfo.setCoverImg(novel.getCoverImg());
+
+        return novelInfo;
+    }
 
     /**
      * 返回小说的目录信息
