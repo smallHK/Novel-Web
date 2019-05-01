@@ -1,33 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="947d06e7-2ba9-4ebf-93a8-2e6066805784" name="Default Changelist" comment="完成部分功能页面布局">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/imgs/cover/cover-mz.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/imgs/cover/cover-ngnl.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/imgs/cover/cover2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/imgs/cover/sao_c.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/css/content.css" beforeDir="false" afterPath="$PROJECT_DIR$/PageContent/css/content.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/visitor/novelMainPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/PageContent/visitor/novelMainPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/visitor/searchPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/PageContent/visitor/searchPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/config/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/controller/VisitorService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/repository/NovelRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/repository/NovelRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/visitor/contentPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/visitor/contentPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/visitor/novelIndex.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/visitor/novelIndex.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/visitor/novelInfo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/visitor/novelMainPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/visitor/novelMainPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/visitor/searchPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/visitor/searchPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/config/WebConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/config/WebConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/controller/VisitorService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/repository/NovelRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/repository/NovelRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/service/NovelService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/service/NovelService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/visitor/novelInfo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/visitor/novelMainPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/visitor/novelMainPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/visitor/searchPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/visitor/searchPage.html" afterDir="false" />
-    </list>
+    <list default="true" id="947d06e7-2ba9-4ebf-93a8-2e6066805784" name="Default Changelist" comment="完成部分功能页面布局" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -41,11 +15,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/VisitorController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="380">
-              <caret line="118" column="31" lean-forward="true" selection-start-line="118" selection-start-column="31" selection-end-line="118" selection-end-column="31" />
+              <caret line="112" column="30" selection-start-line="112" selection-start-column="18" selection-end-line="112" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -53,8 +27,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/visitor/contentPage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="46" column="92" selection-start-line="46" selection-start-column="92" selection-end-line="46" selection-end-column="92" />
+            <state relative-caret-position="133">
+              <caret line="19" column="58" selection-start-line="19" selection-start-column="58" selection-end-line="19" selection-end-column="58" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/visitor/novelIndex.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="171">
+              <caret line="9" column="110" selection-start-line="9" selection-start-column="110" selection-end-line="9" selection-end-column="110" />
             </state>
           </provider>
         </entry>
@@ -147,15 +130,15 @@
         <option value="$PROJECT_DIR$/src/main/java/com/hk/repository/NovelRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/visitor/novelInfoPage.html" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/visitor/novelIndex.html" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/visitor/contentPage.html" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/VisitorController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/visitor/contentPage.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/visitor/novelIndex.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="507" />
-    <option name="y" value="21" />
+    <option name="x" value="70" />
+    <option name="y" value="32" />
     <option name="width" value="1530" />
     <option name="height" value="985" />
   </component>
@@ -287,7 +270,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556724516027" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556724522442" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="last_opened_file_path" value="D:/WorkSpace/2019/03/api_video" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
@@ -497,7 +480,7 @@
       <workItem from="1556635911557" duration="5005000" />
       <workItem from="1556640979621" duration="3289000" />
       <workItem from="1556679500413" duration="9735000" />
-      <workItem from="1556723722434" duration="667000" />
+      <workItem from="1556723722434" duration="942000" />
     </task>
     <task id="LOCAL-00001" summary="创建文字阅读模块">
       <created>1552557105457</created>
@@ -524,7 +507,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="305415000" />
+    <option name="totallyTimeSpent" value="305690000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
@@ -536,10 +519,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
+    <frame x="56" y="26" width="1224" height="788" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6734375" visible="true" weight="0.22520107" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6734375" visible="true" weight="0.28816468" />
       <window_info id="Structure" order="1" sideWeight="0.3265625" side_tool="true" weight="0.25832012" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -549,7 +531,7 @@
       <window_info id="Web" order="7" side_tool="true" weight="0.23294629" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.6898017" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.497479" visible="true" weight="0.19263457" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.497479" weight="0.20731707" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.65882355" weight="0.5680272" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -969,13 +951,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/visitor/novelIndex.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="21" selection-start-line="1" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/editor/contentPage.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -985,15 +960,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/visitor/contentPage.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="46" column="92" selection-start-line="46" selection-start-column="92" selection-end-line="46" selection-end-column="92" />
+        <state relative-caret-position="133">
+          <caret line="19" column="58" selection-start-line="19" selection-start-column="58" selection-end-line="19" selection-end-column="58" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/VisitorController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
-          <caret line="118" column="31" lean-forward="true" selection-start-line="118" selection-start-column="31" selection-end-line="118" selection-end-column="31" />
+          <caret line="112" column="30" selection-start-line="112" selection-start-column="18" selection-end-line="112" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/visitor/novelIndex.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" column="110" selection-start-line="9" selection-start-column="110" selection-end-line="9" selection-end-column="110" />
         </state>
       </provider>
     </entry>
