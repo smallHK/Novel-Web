@@ -44,6 +44,8 @@
 			作为经典，大家都会很熟悉，能引起不适的地方几乎不存在...（小声）除了乡须...
 			也就不用介绍啦_(:з」∠)_
 			也相信在这里几乎都是看过的 </p>
+		<p class="font-weight-light text-align-right">评论时间：<span>2019/03/05 32:44:33</span></p>
+
 	</div>
 	<div class="border my-2 p-2 rounded shadow-sm">
 		<p>评论人：<span>倒地不起的宇</span></p>
@@ -55,6 +57,8 @@
 			作为经典，大家都会很熟悉，能引起不适的地方几乎不存在...（小声）除了乡须...
 			也就不用介绍啦_(:з」∠)_
 			也相信在这里几乎都是看过的 </p>
+		<p class="font-weight-light text-align-right">评论时间：<span>2019/03/05 32:44:33</span></p>
+
 	</div>
 </div>
 
@@ -69,29 +73,5 @@
 
 </footer>
 
-<script>
-    $(function () {
-
-        //获取所有评论
-        $.get("/visitor/listAllNovelComment", function (data) {
-            if(data.status === 0) {
-                var ul = $("#novel_list_ul");
-                ul.empty();
-                var novelList = data.novelList;
-                for(var i = 0; i < novelList.length; i++) {
-                    var novel = novelList[i];
-                    var li = $("<li></li>");
-                    var a = $("<a></a>");
-                    a.attr("href", "/creator/applyForPublish/" + novel.id)
-                    var span = $("<span></span>").text(novel.novelName);
-                    ul.append(li.append(a.append(span)));
-                }
-            }
-        })
-
-    })
-
-
-</script>
 </body>
 </html>

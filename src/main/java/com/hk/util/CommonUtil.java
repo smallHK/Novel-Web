@@ -9,8 +9,6 @@ public class CommonUtil {
     /**
      * 清楚多余空格
      * 清楚多余空行
-     * @param origin
-     * @return
      */
     public static String textProcessing(String origin) {
         String noBlack = origin.replaceAll("\\p{Blank}{3,}", "");

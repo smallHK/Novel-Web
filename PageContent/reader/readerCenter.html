@@ -3,45 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <title>用户中心</title>
-    <script src="/js/jquery-3.3.1.js"></script>
+	<link href="../bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css" rel="stylesheet">
+    <link href="../bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../css/content.css" rel="stylesheet">
+    <script src="../js/jquery-3.3.1.js"></script>
+    <script src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 </head>
-<body>
-<p>欢迎，<span th:text="${session.reader_name}"></span>！</p>
+<body class="main-back">
+<nav class="navbar navbar-dark bg-dark mb-3">
+    <span class="navbar-brand mb-0 h1 text-light">HK小说网</span>
+	<p class="text-light mb-0">欢迎，<span th:text="${session.reader_name}">小黑王</span>！</p>
+</nav>
 
-<div>
-    <h2>查看所有小说</h2>
-    <div>
-        <ul id="novel_list_ul"></ul>
-    </div>
+<div class="row">
+	<div class="col-2">
+		<ul class="nav nav-tabs flex-column">
+			<a class="nav-link " href="#">个人信息</a>
+			<a class="nav-link active" href="#">收藏夹</a>
+			<a class="nav-link" href="#">评论管理</a>
+			<a class="nav-link" href="#">举报管理</a>
+		</ul>
+		
+	
+	</div>	
+	<div class="col-9">
+		
+		<div>
+		<div class="p-4 text-align-center">
+			<h3>评论管理</h3>
+		</div>
+		<div class="border rounded shadow-sm p-3 my-2">
+			
+
+			
+			
+			<div class="p-2">
+				<h5>虫之歌</h5>
+			</div>
+			<div class="row">
+				<div class="col-4">
+					<div class="list-group">
+						<a class="list-group-item list-group-item-action active">2019/05/01 22:22:12</a>
+						<a class="list-group-item list-group-item-action">2019/05/01 22:22:12</a>
+						<a class="list-group-item list-group-item-action">2019/05/01 22:22:12</a>
+						<a class="list-group-item list-group-item-action">2019/05/01 22:22:12</a>
+					</div>
+				</div>
+				<div class="col-8">
+					<div class="tab-content">
+						<div class="tab-pane fade show active" id="#com1">
+							<p>说起来这部作品叫异世界4重奏来着...
+op和ed出现的主要人物分别都是4个
+素晴里穿越来的有4个人
+ed中的4位少女都带有雅字
+这是否象征着某位米姓男子又将受到迫害了呢(ಡωಡ)
+							</p>
+						</div>
+						<div class="tab-pane fade" id="#com2">
+							<p>谭雅：“开局孤儿院，装备全靠舔。”
+骨王：“开局满神装，当王全靠演。”
+486：“开局塑料袋，通关全靠卖。”
+和真：“开局带女神，队友全是坑。”
+							</p>
+						</div>
+						<div class="tab-pane fade" id="#com3">
+							<p>表演列表：
+1，阿库娅献上的花鸟风月
+2，骨王表演可爱的黑山羊踢踏舞
+3，雷姆拉姆削土豆
+4，鬼畜和真偷各个女角色的胖次
+5，惠惠和艾米莉亚精神分裂
+6，486当场去世，表演重新开始
+							</p>
+						</div>
+						<div class="tab-pane fade" id="#com4">
+							<p>我只要慧慧，慧慧我老婆。慧慧赛高！！！！！！！
+发现热评都没有跟慧慧有关的，我一定要让慧慧上热评。（编辑完毕，蹲点）
+慧慧是最强的，这热评我上定了，不然我只能使出我的最强魔法，把这给炸了。
+(｀・ω・´) 
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="border rounded shadow-sm p-3 my-2">
+			<div class="p-2">
+				<h5>刀剑神域</h5>
+			</div>
+			<div class="row">
+				<div class="col-4">
+					<div class="list-group">
+						<a class="list-group-item list-group-item-action active">2019/05/01 22:22:12</a>
+						<a class="list-group-item list-group-item-action">2019/05/01 22:22:12</a>
+						<a class="list-group-item list-group-item-action">2019/05/01 22:22:12</a>
+						<a class="list-group-item list-group-item-action">2019/05/01 22:22:12</a>
+					</div>
+				</div>
+				<div class="col-8">
+					<div class="tab-content">
+						<div class="tab-pane fade show active" id="#com1">
+							<p>说起来这部作品叫异世界4重奏来着...
+op和ed出现的主要人物分别都是4个
+素晴里穿越来的有4个人
+ed中的4位少女都带有雅字
+这是否象征着某位米姓男子又将受到迫害了呢(ಡωಡ)
+							</p>
+						</div>
+						<div class="tab-pane fade" id="#com2">
+							<p>谭雅：“开局孤儿院，装备全靠舔。”
+骨王：“开局满神装，当王全靠演。”
+486：“开局塑料袋，通关全靠卖。”
+和真：“开局带女神，队友全是坑。”
+							</p>
+						</div>
+						<div class="tab-pane fade" id="#com3">
+							<p>表演列表：
+1，阿库娅献上的花鸟风月
+2，骨王表演可爱的黑山羊踢踏舞
+3，雷姆拉姆削土豆
+4，鬼畜和真偷各个女角色的胖次
+5，惠惠和艾米莉亚精神分裂
+6，486当场去世，表演重新开始
+							</p>
+						</div>
+						<div class="tab-pane fade" id="#com4">
+							<p>我只要慧慧，慧慧我老婆。慧慧赛高！！！！！！！
+发现热评都没有跟慧慧有关的，我一定要让慧慧上热评。（编辑完毕，蹲点）
+慧慧是最强的，这热评我上定了，不然我只能使出我的最强魔法，把这给炸了。
+(｀・ω・´) 
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+
+	</div>
 </div>
-
-<div>
-    <h2>查看收藏夹内所有小说</h2>
-</div>
+	
 
 
-<script>
-    $(function () {
-
-        //获取所有开放小说
-        $.get("/visitor/listAllPublishedNovel", function (data) {
-            if(data.status === 0) {
-                var ul = $("#novel_list_ul");
-                ul.empty();
-                var novelList = data.novelList;
-                for(var i = 0; i < novelList.length; i++) {
-                    var novel = novelList[i];
-                    var li = $("<li></li>");
-                    var a = $("<a></a>");
-                    a.attr("href", "/visitor/novelInfo/" + novel.id)
-                    var span = $("<span></span>").text(novel.novelName);
-                    ul.append(li.append(a.append(span)));
-                }
-            }
-        })
-
-    })
-
-</script>
 </body>
 </html>

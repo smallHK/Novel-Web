@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 /**
  * @author smallHK
@@ -35,5 +36,8 @@ public class NovelComment {
 
     @Column(insertable = false)
     private Integer status;
+
+    @Column(name = "create_time")
+    private Timestamp createTime;
 
 }

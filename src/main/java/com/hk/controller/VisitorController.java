@@ -121,30 +121,4 @@ public class VisitorController {
         return modelAndView;
     }
 
-
-
-    /**
-     * 查看所有评论
-     */
-    @GetMapping("/listAllNovelComment")
-    public @ResponseBody
-    JSONObject listAllNovelComment(Integer novelId) {
-        try {
-
-            List<NovelComment> novelCommentList = novelCommentRepo.findAllByNovelId(novelId);
-
-            JSONArray data = new JSONArray();
-            for(NovelComment novelComment: novelCommentList) {
-                JSONObject record = new JSONObject();
-            }
-
-            return ResultUtil.success("success!").toJSONObject().fluentPut("novelCommentList", novelCommentList);
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            return ResultUtil.success("failure!").toJSONObject();
-
-        }
-    }
-
 }

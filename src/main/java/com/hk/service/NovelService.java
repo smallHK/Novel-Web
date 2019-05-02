@@ -1,10 +1,7 @@
 package com.hk.service;
 
 import com.hk.entity.*;
-import com.hk.po.ChapterInfo;
-import com.hk.po.NovelIndex;
-import com.hk.po.NovelInfo;
-import com.hk.po.VolumeInfo;
+import com.hk.po.*;
 import com.hk.repository.*;
 import com.hk.util.CommonUtil;
 import com.hk.util.EntityStatus;
@@ -12,10 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.*;
 
 /**
  * 提供小说操作的业务bean
@@ -42,13 +38,16 @@ public class NovelService {
 
     private CreatorRepository creatorRepository;
 
+    private ReaderRepo readerRepo;
+
     public NovelService(NovelRepository novelRepository,
                         NovelCommentRepo novelCommentRepo,
                         NovelPublishRepo novelPublishRepo,
                         VolumeRepository volumeRepository,
                         ChapterRepository chapterRepository,
                         ParagraphRepository paragraphRepository,
-                        CreatorRepository creatorRepository) {
+                        CreatorRepository creatorRepository,
+                        ReaderRepo readerRepo) {
         this.novelRepository = novelRepository;
         this.novelCommentRepo = novelCommentRepo;
         this.novelPublishRepo = novelPublishRepo;
@@ -57,6 +56,8 @@ public class NovelService {
         this.paragraphRepository = paragraphRepository;
 
         this.creatorRepository = creatorRepository;
+
+        this.readerRepo = readerRepo;
     }
 
     /**
@@ -112,7 +113,6 @@ public class NovelService {
 
 
     /**
-     *
      * 获取小说列表
      * 条件：小说名关键字
      * 默认条件：搜索开放小说
@@ -122,9 +122,9 @@ public class NovelService {
     public List<Novel> findNovelListByKeyword(String keyword) {
 
         List<Novel> novelList;
-        if(Objects.isNull(keyword) || keyword.equals("")){
+        if (Objects.isNull(keyword) || keyword.equals("")) {
             novelList = novelRepository.findAllByStatus(EntityStatus.NOVEL_PASSED);
-        }else {
+        } else {
             novelList = novelRepository.findAllByNovelNameAndStatus(keyword, EntityStatus.NOVEL_PASSED);
         }
         if (Objects.isNull(novelList)) {
@@ -132,29 +132,6 @@ public class NovelService {
         }
         return novelList;
     }
-
-//    /**
-//     * 获取小说列表
-//     * 条件：发布状态、页、小说名
-//     */
-//    public List<Novel> findNovelListByPageAndPubStaAndNovTit(String novelName, Integer offset, Integer length) {
-//
-//        List<Novel> novelList;
-//        if(Objects.nonNull(novelName)) {
-//             novelList = novelRepository.findAllByStatusAndNovelName(EntityStatus.NOVEL_PASSED, novelName);
-//        }else {
-//            novelList = novelRepository.findAllByStatus(EntityStatus.NOVEL_PASSED);
-//        }
-//
-//        if (Objects.isNull(novelList) || offset > novelList.size()) {
-//            return new ArrayList<>();
-//        }
-//
-//        //从offset到limit之间的数据，不包括limit
-//        int limit = offset + length < novelList.size() ? offset + length : novelList.size();
-//
-//        return novelList.subList(offset, limit);
-//    }
 
     /**
      * 获取指定作者创作的小说数
@@ -211,14 +188,14 @@ public class NovelService {
         List<NovelPublish> novelPublishList = novelPublishRepo.findAllByEditorId(editorId);
 
         List<Integer> noveIdList = new ArrayList<>();
-        for(NovelPublish np: novelPublishList) {
+        for (NovelPublish np : novelPublishList) {
             noveIdList.add(np.getNovelId());
         }
 
         Iterable<Novel> novels = novelRepository.findAllById(noveIdList);
 
         List<Novel> novelList = new ArrayList<>();
-        for(Novel novel: novels) {
+        for (Novel novel : novels) {
             novelList.add(novel);
         }
         return novelList;
@@ -231,7 +208,7 @@ public class NovelService {
         Novel novel = novelRepository.findNovelById(novelId);
 
         Integer authorId = novel.getAuthorId();
-        Creator creator =  creatorRepository.findById(authorId).orElseThrow();
+        Creator creator = creatorRepository.findById(authorId).orElseThrow();
 
         NovelInfo novelInfo = new NovelInfo();
         novelInfo.setAuthorId(authorId);
@@ -309,7 +286,7 @@ public class NovelService {
 
         Integer maxOrder = chapterRepository.countAllByNovelId(novel.getId());
 
-        if(chapter.getOrderNum() <= 1) {
+        if (chapter.getOrderNum() <= 1) {
             result.setIsPreview(false);
         } else {
             result.setIsPreview(true);
@@ -317,7 +294,7 @@ public class NovelService {
             result.setPreviewId(preChap.getId());
         }
 
-        if(chapter.getOrderNum() >= maxOrder) {
+        if (chapter.getOrderNum() >= maxOrder) {
             result.setIsNext(false);
         } else {
             result.setIsNext(true);
@@ -377,6 +354,52 @@ public class NovelService {
         paragraphRepository.saveAll(paragraphList);
 
     }
+
+
+    /**
+     * 添加评论
+     */
+    public void publishNovelComment(Integer readerId, Integer novelId, String originContent) {
+
+        NovelComment novelComment = new NovelComment();
+        novelComment.setContent(originContent);
+        novelComment.setReaderId(readerId);
+        novelComment.setNovelId(novelId);
+        Integer number = novelCommentRepo.countAllByNovelId(novelId);
+        novelComment.setOrderNum(number + 1);
+        novelComment.setCreateTime(Timestamp.from(Instant.now()));
+        novelCommentRepo.save(novelComment);
+
+    }
+
+
+    /**
+     * 获取小说的评论信息列表
+     * 条件：小说id
+     */
+    public List<NovelCommentInfo> listAllNovelCommentInfo(Integer novelId) {
+
+        List<NovelComment> commentList = novelCommentRepo.findAllByNovelId(novelId);
+        List<NovelCommentInfo> infoList = new ArrayList<>();
+        for(NovelComment comment: commentList) {
+
+            NovelCommentInfo info = new NovelCommentInfo();
+            info.setId(comment.getId());
+            info.setContent(Arrays.asList(comment.getContent().split("\n")));
+            info.setOrderNum(comment.getOrderNum());
+
+            info.setCommentTime(comment.getCreateTime().toInstant());
+
+            info.setReaderId(comment.getReaderId());
+            info.setUsername(readerRepo.findById(comment.getReaderId()).orElseThrow().getUsername());
+            info.setNovelId(comment.getNovelId());
+
+            infoList.add(info);
+
+        }
+        return infoList;
+    }
+
 
     /**
      * 删除执行小说的一切相关数据
