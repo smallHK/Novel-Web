@@ -22,4 +22,6 @@ public interface ChapterRepository extends CrudRepository<Chapter, Integer> {
 
     Chapter findNovelByOrderNumAndNovelId(Integer orderNum, Integer novelId);
 
+    List<Chapter> findAllByVolumeId(Integer volumeId);
+
 }

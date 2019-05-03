@@ -26,4 +26,23 @@ public class EntityStatus {
 
 
 
+    //章节发布状态，未开放
+    public static final Integer CHAPTER_CREATED = 0;
+
+    //审核中
+    public static final Integer CHAPTER_CHECKING = 1;
+
+    //开放
+    public static final Integer CHAPTER_PASSED = 2;
+
+
+    //章节开放事件提交
+    public static final Integer CHAPTER_PUBLISH_EVENT_SUBMITTED = 0;
+
+    //章节开放事件处理
+    public static final Integer CHAPTER_PUBLISH_EVENT_PASSED = 1;
+
+
+
+
 }

@@ -35,12 +35,9 @@ import java.util.Optional;
 public class VisitorController {
 
 
-    private NovelCommentRepo novelCommentRepo;
-
     private NovelService novelService;
 
-    public VisitorController(NovelCommentRepo novelCommentRepo, NovelService novelService) {
-        this.novelCommentRepo = novelCommentRepo;
+    public VisitorController(NovelService novelService) {
         this.novelService = novelService;
     }
 

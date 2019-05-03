@@ -1,29 +1,24 @@
 package com.hk.controller;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hk.entity.Creator;
-import com.hk.entity.Editor;
 import com.hk.entity.Novel;
-import com.hk.entity.NovelPublish;
+import com.hk.entity.Volume;
 import com.hk.po.ChapterInfo;
 import com.hk.po.NovelIndex;
+import com.hk.po.VolumeInfo;
 import com.hk.repository.CreatorRepository;
-import com.hk.repository.EditorRepository;
-import com.hk.repository.NovelPublishRepo;
-import com.hk.repository.NovelRepository;
 import com.hk.service.NovelService;
 import com.hk.util.EntityStatus;
 import com.hk.util.ResultUtil;
+import com.hk.util.SessionProperty;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,30 +32,16 @@ import static com.hk.util.ResultUtil.success;
  */
 @Controller
 @RequestMapping(path = "/creator")
-@EnableTransactionManagement
 public class CreatorController {
 
     private NovelService novelService;
 
     private CreatorRepository creatorRepository;
 
-    private NovelRepository novelRepository;
-
-
-    private NovelPublishRepo novelPublishRepo;
-
-    private EditorRepository editorRepository;
 
     public CreatorController(CreatorRepository creatorRepository,
-                             NovelRepository novelRepository,
-                             NovelPublishRepo novelPublishRepo,
-                             EditorRepository editorRepository,
                              NovelService novelService) {
         this.creatorRepository = creatorRepository;
-        this.novelRepository = novelRepository;
-        this.novelPublishRepo = novelPublishRepo;
-        this.editorRepository = editorRepository;
-
         this.novelService = novelService;
     }
 
@@ -131,8 +112,8 @@ public class CreatorController {
             String password = params.get("password");
             for (Creator creator : creatorList) {
                 if (creator.getPenName().equals(penname) && creator.getPassword().equals(password)) {
-                    session.setAttribute("login_penname", penname);
-                    session.setAttribute("login_creator_id", creator.getId());
+                    session.setAttribute(SessionProperty.CREATOR_LOGIN_CREATOR_NAME, penname);
+                    session.setAttribute(SessionProperty.CREATOR_LOGIN_CREATOR_ID, creator.getId());
                     modelAndView.setViewName("redirect:/creator/novelManagePage");
                     modelAndView.addObject("resultInfo", success("读者登陆成功！"));
                     return modelAndView;
@@ -364,56 +345,58 @@ public class CreatorController {
         return modelAndView;
     }
 
+    /**
+     * 申请章节开发
+     */
+    @GetMapping("/applyForChapterPublish/{chapterId}")
+    public ModelAndView applyForChapterPublish(@PathVariable Integer chapterId, HttpSession session) {
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        Integer authorId = (Integer)session.getAttribute(SessionProperty.CREATOR_LOGIN_CREATOR_ID);
+        novelService.publishChapterPublishEvent(chapterId, authorId);
+        novelService.updateChapterPublishStatus(chapterId, EntityStatus.CHAPTER_CHECKING);
+
+        modelAndView.setViewName("redirect:/");
+        return modelAndView;
+    }
+
 
     /**
-     * 获取所有公开小说
-     * <p>
-     * 小说状态为通过审核
+     * 章节管理页面填充
      */
-    @Deprecated
-    @GetMapping("/listAllPublishedNovel")
-    public @ResponseBody
-    JSONObject listAllPublishedNovel(HttpSession session) {
+    @GetMapping("/chapterManage/{novelId}")
+    public ModelAndView chapterManagePage(@PathVariable Integer novelId) {
+        ModelAndView modelAndView = new ModelAndView();
+        NovelIndex index = novelService.findNovelIndex(novelId);
 
-        Integer creatorId = (Integer) session.getAttribute("login_creator_id");
-        try {
-            List<Novel> novelList = novelRepository.findAllByStatusAndAuthorId(EntityStatus.NOVEL_PASSED, creatorId);
-            List<Integer> novelIdList = new ArrayList<>();
-            for (Novel novel : novelList) {
-                novelIdList.add(novel.getId());
-            }
-            Iterable<NovelPublish> novelPublishList = novelPublishRepo.findAllById(novelIdList);
-            List<Integer> editorIdList = new ArrayList<>();
-            for (NovelPublish novelPublish : novelPublishList) {
-                editorIdList.add(novelPublish.getEditorId());
-            }
-            Iterable<Editor> editorIterable = editorRepository.findAllById(editorIdList);
+        modelAndView.setViewName("/creator/chapterManagePage");
 
+        modelAndView.addObject("index", index);
 
-            JSONArray info = new JSONArray();
-            for (NovelPublish novelPublish : novelPublishList) {
-                JSONObject novelAndEditor = new JSONObject();
-                for (Novel novel : novelList) {
-                    if (novel.getId().equals(novelPublish.getNovelId())) {
-                        novelAndEditor.put("novel", novel);
-                        break;
-                    }
-                }
-                for (Editor editor : editorIterable) {
-                    if (editor.getId().equals(novelPublish.getEditorId())) {
-                        novelAndEditor.put("editor", editor);
-                        break;
-                    }
-                }
-                info.add(novelAndEditor);
-            }
-            return success("success!").toJSONObject().fluentPut("info", info);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return success("failure!").toJSONObject();
-
-        }
+        return modelAndView;
     }
+
+    /**
+     * 获取指定章节的信息（ajax请求）
+     */
+    @GetMapping("/rest/chapterInfo/{chapterId}")
+    public @ResponseBody JSONObject findChapterInfoByRest(@PathVariable Integer chapterId) {
+        ChapterInfo info = novelService.findNovelChapter(chapterId);
+        return ResultUtil.success("success!").toJSONObject().fluentPut("chapterInfo", info);
+
+    }
+
+    /**
+     * 获取指定卷信息（ajax请求）
+     */
+    @GetMapping("/rest/volumeInfo/{volumeId}")
+    public @ResponseBody JSONObject findVolumeInfoByRest(@PathVariable Integer volumeId) {
+        VolumeInfo info = novelService.findVolumeInfo(volumeId);
+        return ResultUtil.success("success!").toJSONObject().fluentPut("volumeInfo", info);
+
+    }
+
 
 
 }

@@ -5,7 +5,6 @@ import com.hk.po.*;
 import com.hk.repository.*;
 import com.hk.util.CommonUtil;
 import com.hk.util.EntityStatus;
-import com.hk.util.ResultUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -19,8 +18,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
-import static com.hk.util.ResultUtil.success;
 
 /**
  * 提供小说操作的业务bean
@@ -49,6 +46,8 @@ public class NovelService {
 
     private ReaderRepo readerRepo;
 
+    private ChapterPublishEventRepo chapterPublishEventRepo;
+
     public NovelService(NovelRepository novelRepository,
                         NovelCommentRepo novelCommentRepo,
                         NovelPublishRepo novelPublishRepo,
@@ -56,17 +55,17 @@ public class NovelService {
                         ChapterRepository chapterRepository,
                         ParagraphRepository paragraphRepository,
                         CreatorRepository creatorRepository,
-                        ReaderRepo readerRepo) {
+                        ReaderRepo readerRepo,
+                        ChapterPublishEventRepo chapterPublishEventRepo) {
         this.novelRepository = novelRepository;
         this.novelCommentRepo = novelCommentRepo;
         this.novelPublishRepo = novelPublishRepo;
         this.volumeRepository = volumeRepository;
         this.chapterRepository = chapterRepository;
         this.paragraphRepository = paragraphRepository;
-
         this.creatorRepository = creatorRepository;
-
         this.readerRepo = readerRepo;
+        this.chapterPublishEventRepo = chapterPublishEventRepo;
     }
 
     /**
@@ -283,6 +282,7 @@ public class NovelService {
         result.setTitle(chapter.getTitle());
         result.setClickCount(chapter.getClickCount());
         result.setWordCount(chapter.getWordCount());
+        result.setStatus(chapter.getStatus());
 
         Novel novel = novelRepository.findNovelById(chapter.getNovelId());
         result.setNovelId(novel.getId());
@@ -450,6 +450,49 @@ public class NovelService {
         Chapter chapter = chapterRepository.findById(chapterId).orElseThrow();
         chapter.setClickCount(chapter.getClickCount() + 1);
         chapterRepository.save(chapter);
+    }
+
+
+    /**
+     * 发布章节开放请求
+     */
+    public void publishChapterPublishEvent(Integer chapterId, Integer authorId) {
+
+        Chapter chapter = chapterRepository.findById(chapterId).orElseThrow();
+
+        ChapterPublishEvent event = new ChapterPublishEvent();
+        event.setApplyTime(Timestamp.from(Instant.now()));
+        event.setAuthorId(authorId);
+        event.setChapterId(chapterId);
+
+        Integer novelId = chapter.getNovelId();
+        NovelPublish novelPublish = novelPublishRepo.findByNovelId(novelId);
+
+        event.setEditorId(novelPublish.getEditorId());
+        event.setStatus(EntityStatus.CHAPTER_PUBLISH_EVENT_SUBMITTED);
+        chapterPublishEventRepo.save(event);
+
+    }
+
+    /**
+     * 修改章节的发布状态
+     */
+    public void updateChapterPublishStatus(Integer chapterId, Integer status) {
+        Chapter chapter = chapterRepository.findById(chapterId).orElseThrow();
+        chapter.setStatus(status);
+        chapterRepository.save(chapter);
+    }
+
+    public VolumeInfo findVolumeInfo(Integer volumeId) {
+        List<Chapter> chapterList = chapterRepository.findAllByVolumeId(volumeId);
+        Volume volume = volumeRepository.findById(volumeId).orElseThrow();
+        VolumeInfo volumeInfo = new VolumeInfo();
+        volumeInfo.setChapterList(chapterList);
+        volumeInfo.setVolumeId(volumeId);
+        volumeInfo.setVolumeTitle(volume.getVolumeTitle());
+        volumeInfo.setOrderNum(volume.getOrderNum());
+        volumeInfo.setStatus(volume.getStatus());
+        return volumeInfo;
     }
 
 

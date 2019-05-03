@@ -42,6 +42,9 @@ public class ChapterInfo {
     //卷名
     private String volumeTitle;
 
+    //发布状态
+    private Integer status;
+
 
     //下一章跨章翻阅
     //是否存在下一章

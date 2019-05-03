@@ -24,6 +24,8 @@ public class VolumeInfo {
 
     private Integer orderNum;
 
+    private Integer status;
+
     private List<Chapter> chapterList;
 
 }
