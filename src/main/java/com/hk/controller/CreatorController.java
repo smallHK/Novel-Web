@@ -2,15 +2,18 @@ package com.hk.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.hk.entity.*;
+import com.hk.entity.Creator;
+import com.hk.entity.Editor;
+import com.hk.entity.Novel;
+import com.hk.entity.NovelPublish;
 import com.hk.po.ChapterInfo;
 import com.hk.po.NovelIndex;
-import com.hk.repository.*;
+import com.hk.repository.CreatorRepository;
+import com.hk.repository.EditorRepository;
+import com.hk.repository.NovelPublishRepo;
+import com.hk.repository.NovelRepository;
 import com.hk.service.NovelService;
-import com.hk.util.CommonUtil;
-import com.hk.po.VolumeInfo;
 import com.hk.util.EntityStatus;
-import com.hk.util.EntityUtil;
 import com.hk.util.ResultUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -20,9 +23,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import static com.hk.util.ResultUtil.success;
 
@@ -43,27 +46,18 @@ public class CreatorController {
 
     private NovelRepository novelRepository;
 
-    private VolumeRepository volumeRepository;
-
-    private ChapterRepository chapterRepository;
-
-    private ParagraphRepository paragraphRepository;
 
     private NovelPublishRepo novelPublishRepo;
 
     private EditorRepository editorRepository;
 
-    public CreatorController(CreatorRepository creatorRepository, NovelRepository novelRepository,
-                             VolumeRepository volumeRepository, ChapterRepository chapterRepository,
-                             ParagraphRepository paragraphRepository,
+    public CreatorController(CreatorRepository creatorRepository,
+                             NovelRepository novelRepository,
                              NovelPublishRepo novelPublishRepo,
                              EditorRepository editorRepository,
                              NovelService novelService) {
         this.creatorRepository = creatorRepository;
         this.novelRepository = novelRepository;
-        this.volumeRepository = volumeRepository;
-        this.chapterRepository = chapterRepository;
-        this.paragraphRepository = paragraphRepository;
         this.novelPublishRepo = novelPublishRepo;
         this.editorRepository = editorRepository;
 

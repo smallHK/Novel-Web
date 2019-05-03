@@ -442,6 +442,16 @@ public class NovelService {
         return infoList;
     }
 
+    /**
+     * 添加指定章节点击数
+     * 增加1的点击量
+     */
+    public void addClickNum(Integer chapterId) {
+        Chapter chapter = chapterRepository.findById(chapterId).orElseThrow();
+        chapter.setClickCount(chapter.getClickCount() + 1);
+        chapterRepository.save(chapter);
+    }
+
 
     /**
      * 删除执行小说的一切相关数据

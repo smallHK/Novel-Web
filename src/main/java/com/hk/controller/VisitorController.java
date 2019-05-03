@@ -113,12 +113,15 @@ public class VisitorController {
 
     /**
      * 装填章节
+     *
+     * 会增加点击量
      */
     @GetMapping("/novelChapter/{chapterId}")
     public ModelAndView specialChapterPage(@PathVariable Integer chapterId) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/visitor/contentPage");
         ChapterInfo chapterInfo = novelService.findNovelChapter(chapterId);
+        novelService.addClickNum(chapterId);
         modelAndView.addObject("chapterInfo", chapterInfo);
         modelAndView.addObject("resultInfo", ResultUtil.success("success!"));
 
