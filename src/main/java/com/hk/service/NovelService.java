@@ -5,16 +5,22 @@ import com.hk.po.*;
 import com.hk.repository.*;
 import com.hk.util.CommonUtil;
 import com.hk.util.EntityStatus;
+import com.hk.util.ResultUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+
+import static com.hk.util.ResultUtil.success;
 
 /**
  * 提供小说操作的业务bean
@@ -308,6 +314,37 @@ public class NovelService {
         return result;
 
     }
+
+    /**
+     * 添加新小说
+     */
+    public void addNewNovel(Integer creatorId, String novelName, String briefIntro, String coverFileName, byte[] coverData) {
+
+        try {
+            Path parent = Path.of("D:\\CurriculumDesign\\Novel-Web\\src\\main\\resources\\static\\data\\novelCover\\cover", creatorId.toString());
+            Files.createDirectories(parent);
+            Path target = Path.of(parent.toString(), coverFileName);
+
+            if (!Files.exists(target)) {
+                Files.createFile(target);
+                Files.write(target, coverData);
+            }
+            Novel novel = new Novel();
+            novel.setAuthorId(creatorId);
+            novel.setBriefIntro(briefIntro);
+            novel.setNovelName(novelName);
+            novel.setCreateTime(Timestamp.from(Instant.now()));
+            novel.setUpdateTime(Timestamp.from(Instant.now()));
+            novel.setCompleteStatus(EntityStatus.NOVEL_UNCOMPLETED);
+            novel.setCoverImg("/data/novelCover/cover/" + creatorId + "/" + coverFileName);
+            novel.setStatus(0);
+            novelRepository.save(novel);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     /**
      * 添加新卷

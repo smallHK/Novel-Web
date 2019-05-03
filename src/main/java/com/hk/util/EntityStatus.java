@@ -20,4 +20,10 @@ public class EntityStatus {
     //小说开放状态
     public static final Integer NOVEL_PASSED = 2;
 
+
+    //小说连载中状态
+    public static final Integer NOVEL_UNCOMPLETED = 0;
+
+
+
 }

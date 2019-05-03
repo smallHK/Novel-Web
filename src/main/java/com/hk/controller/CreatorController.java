@@ -166,10 +166,7 @@ public class CreatorController {
     public ModelAndView createNovel(@RequestParam Map<String, String> params, @RequestParam Map<String, MultipartFile> fileData, HttpSession session) {
 
         ModelAndView modelAndView = new ModelAndView();
-
         try {
-
-
             Integer creator_id = (Integer) session.getAttribute("login_creator_id");
             String novelName = params.get("novel_title");
             String briefIntro = params.get("brief_intro");
@@ -177,23 +174,7 @@ public class CreatorController {
             String coverFileName = fileData.get("coverCoverImg").getOriginalFilename();
             byte[] coverData = fileData.get("coverCoverImg").getBytes();
 
-            Path parent = Path.of("D:\\CurriculumDesign\\Novel-Web\\src\\main\\resources\\static\\data\\novelCover\\cover", creator_id.toString());
-            Files.createDirectories(parent);
-            Path target = Path.of(parent.toString(), coverFileName);
-
-            if (!Files.exists(target)) {
-                Files.createFile(target);
-                Files.write(target, coverData);
-            }
-
-            Novel novel = new Novel();
-            novel.setAuthorId(creator_id);
-            novel.setBriefIntro(briefIntro);
-            novel.setNovelName(novelName);
-            novel.setCoverImg("/data/novelCover/cover/" + creator_id + "/" + coverFileName);
-            novel.setStatus(0);
-
-            novelRepository.save(novel);
+            novelService.addNewNovel(creator_id, novelName, briefIntro, coverFileName, coverData);
             modelAndView.addObject("resultInfo", success("添加成功！"));
             modelAndView.setViewName("redirect:/creator/novelManagePage");
             return modelAndView;

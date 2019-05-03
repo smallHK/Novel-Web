@@ -24,13 +24,37 @@
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="新卷卷名" name="volume-name" required>				
 					</div>
-					<input class="btn btn-primary" type="submit" value="确认" >
+					<input class="btn btn-primary" type="submit" value="确认" required >
 				</form>
 			</div>
 		</div>
 	</div>
 </div>	
 
+<!--修改章节内容-->
+<div class="modal fade" id="updateChapter" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">修改章节内容</h5>
+			</div>
+			<div class="modal-body">
+				<form action="" method="post">
+					<div class="form-group">
+						<label>新章节名</label>
+						<input type="text" class="form-control" placeholder="新章节名称" name="chapter-name" required>			
+					</div>
+					<div class="form-group">
+						<label>新章节内容</label>
+						<textarea class="form-control" placeholder="新章节内容" name="chapter-content" required></textarea>		
+					</div>
+					<input class="btn btn-primary" type="submit" value="确认" >
+				</form>
+			</div>
+		</div>
+	</div>
+</div>	
+	
 <div class="c-w-80 mx-auto border shadow-lg p-3 rounded mb-5">
 	<div class="border-bottom p-5">
 		<h3 class="h3 text-align-center">虫之歌</h3>
@@ -40,7 +64,7 @@
 			<h5> 第零卷 </h5>
 		</div>
 		<div class="row my-3"> 
-			<div class="col-3 my-2"><a class="btn btn-light btn-block" href="#" title="">0.00 诗歌 The firs</a> </div>
+			<div class="col-3 my-2"><a class="btn btn-light btn-block" href="#" title="" onClick="updateChapter(1);">0.00 诗歌 The firs</a> </div>
 			<div class="col-3 my-2"><a class="btn btn-light btn-block" href="#" title="">1.00 诗歌 Part.1</a> </div>
 			<div class="col-3 my-2"><a class="btn btn-light btn-block" href="#" title="">2.00 The others</a> </div>
 			<div class="col-3 my-2"><a class="btn btn-light btn-block" href="#" title="">3.00 The others</a> </div>
@@ -54,6 +78,10 @@
 			<div><button class="btn btn-light btn-block" data-toggle="modal" data-target="#addNewVolume">+添加新卷</button> </div>
 	</div>
 </div>	
-	
+<script>
+	function updateChapter(chapterId) {
+		$("#updateChapter").modal('toggle')
+	}
+</script>
 </body>
 </html>

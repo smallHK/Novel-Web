@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 /**
  * smallHK
@@ -36,4 +37,12 @@ public class Novel {
     @Column(insertable = false)
     private Integer status;
 
+    @Column(name = "create_time")
+    private Timestamp createTime;
+
+    @Column(name = "update_time")
+    private Timestamp updateTime;
+
+    @Column(name = "complete_status")
+    private Integer completeStatus;
 }
