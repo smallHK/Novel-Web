@@ -11,6 +11,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -388,7 +391,9 @@ public class NovelService {
             info.setContent(Arrays.asList(comment.getContent().split("\n")));
             info.setOrderNum(comment.getOrderNum());
 
-            info.setCommentTime(comment.getCreateTime().toInstant());
+            Instant commentTime = comment.getCreateTime().toInstant();
+            info.setCommentTime(commentTime);
+            info.setCommentTimeStr(LocalDateTime.ofInstant(commentTime, ZoneOffset.ofHours(8)).format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
 
             info.setReaderId(comment.getReaderId());
             info.setUsername(readerRepo.findById(comment.getReaderId()).orElseThrow().getUsername());

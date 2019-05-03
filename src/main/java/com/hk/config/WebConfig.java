@@ -32,7 +32,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addViewController("/editor/applyForPage").setViewName("/editor/applyForPage");
         registry.addViewController("/editor/workSpacePage").setViewName("/editor/workSpacePage");
 
-        registry.addViewController("/reader/readerLogin").setViewName("/reader/loginPage");
+        registry.addViewController("/reader/loginPage").setViewName("/reader/loginPage");
         registry.addViewController("/reader/registerPage").setViewName("/reader/registerPage");
 
     }

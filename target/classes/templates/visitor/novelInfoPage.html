@@ -27,29 +27,22 @@
     </div>
 </div>
 <div class="container border-bottom p-3">
-    <form th:action="@{/reader/publicNovelComment/{novelId}(novelId=${novelInfo.id})}"  method="post">
+    <form th:action="@{/reader/publicNovelComment}"  method="post">
+        <input type="hidden" th:value="${novelInfo.id}" name="novelId">
         <div class="form-group">
             <label>评论正文</label>
-            <textarea class="form-control" rows="5"></textarea>
+            <textarea class="form-control" rows="5" name="content"></textarea>
         </div>
         <input type="submit" class="btn btn-primary" value="发表评论">
     </form>
 </div>
 <div class="w-75 mx-auto my-3">
-    <div class="border my-2 p-2 rounded shadow-sm">
-        <p>评论人：<span>倒地不起的宇</span></p>
-        <p>作为游戏类轻小说，《刀剑神域》已经是可以称为鼻祖了。尤其是丰富的人物构造，巧妙的剧情设计，无时无刻象征着作为最出色游戏类轻小说之一的地位。
-            即使是现在来说，当初创建这本书的时间已经很久了，但《刀剑》依然与时俱进，洋溢着不同的激情魅力。
-            《刀剑神域》涵盖了很多种游戏形式—咱是这么认为的，不仅有会“死亡”的生存游戏，开放式RPG，还有枪类激战，而后的可以理解是“穿越”到游戏世界里的AW篇……似乎一直不会让人感觉到《刀剑》老了，让人产生《刀剑》很年轻的错觉。
-            作为该系列的粉丝，突然看到在SF又上架的时候，咱的心情是非常激动的，以至于大半夜留下个书评。
-            重要的是—刀剑塑造的人物，各色鲜明，不像国内普遍的网文，人物也都不会为映衬主角而十分低能....（小声bb）虽然主角桐姥爷还是帅炸众人...
-            作为经典，大家都会很熟悉，能引起不适的地方几乎不存在...（小声）除了乡须...
-            也就不用介绍啦_(:з」∠)_
-            也相信在这里几乎都是看过的 </p>
+    <div th:if="${#lists.isEmpty(commentInfoList)}" class="border my-2 p-2 rounded shadow-sm">
+        <h5 class="text-align-center">暂无评论</h5>
     </div>
-    <div class="border my-2 p-2 rounded shadow-sm">
-        <p>评论人：<span>倒地不起的宇</span></p>
-        <p>作为游戏类轻小说，《刀剑神域》已经是可以称为鼻祖了。尤其是丰富的人物构造，巧妙的剧情设计，无时无刻象征着作为最出色游戏类轻小说之一的地位。
+    <div th:each="commentInfo:${commentInfoList}" class="border my-2 p-2 rounded shadow-sm">
+        <p>评论人：<span th:text="${commentInfo.username}">倒地不起的宇</span></p>
+        <p th:each="unit: ${commentInfo.content}" th:text="${unit}">作为游戏类轻小说，《刀剑神域》已经是可以称为鼻祖了。尤其是丰富的人物构造，巧妙的剧情设计，无时无刻象征着作为最出色游戏类轻小说之一的地位。
             即使是现在来说，当初创建这本书的时间已经很久了，但《刀剑》依然与时俱进，洋溢着不同的激情魅力。
             《刀剑神域》涵盖了很多种游戏形式—咱是这么认为的，不仅有会“死亡”的生存游戏，开放式RPG，还有枪类激战，而后的可以理解是“穿越”到游戏世界里的AW篇……似乎一直不会让人感觉到《刀剑》老了，让人产生《刀剑》很年轻的错觉。
             作为该系列的粉丝，突然看到在SF又上架的时候，咱的心情是非常激动的，以至于大半夜留下个书评。
@@ -57,19 +50,10 @@
             作为经典，大家都会很熟悉，能引起不适的地方几乎不存在...（小声）除了乡须...
             也就不用介绍啦_(:з」∠)_
             也相信在这里几乎都是看过的 </p>
+        <p class="font-weight-light text-align-right">评论时间：<span th:text="${commentInfo.commentTimeStr}">2019/03/05 32:44:33</span></p>
+
     </div>
 </div>
-
-<footer class="h-10 border-top md-5 bg-dark">
-    <div class="w-75 mx-auto">
-        <p>HK</p>
-        <div>
-            <a href="#">关于HK</a>
-            <a href="#">联系方式</a>
-        </div>
-    </div>
-
-</footer>
 
 </body>
 </html>

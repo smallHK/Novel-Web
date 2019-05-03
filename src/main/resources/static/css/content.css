@@ -26,6 +26,7 @@
 .book-cover-wrapper{
 	width: 168px;
 	height: 238px;
+	overflow: hidden;
 
 }
 
@@ -42,10 +43,21 @@
 	width: 90%;
 
 }
+.c-w-40 {
+	width: 40%;
+}
+
+.c-h-30 {
+	height: 30%;
+}
 
 .text-align-center {
 
-	text-align: center
+	text-align: center;
+}
+
+.text-align-right {
+	text-align: right;
 }
 
 .event-width{

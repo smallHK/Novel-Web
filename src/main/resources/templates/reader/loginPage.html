@@ -11,7 +11,9 @@
 </head>
 <body class="main-back">
 
-<div class="text-center">
+<nav class="navbar navbar-light bg-dark sticky-top mb-3" > <a class="navbar-brand text-primary" href="../index.html">HK小说网</a> </nav>
+
+<div class="text-center c-w-40 p-3 shadow  mx-auto rounded my-auto">
     <form class="form-signer" action="/reader/login" method="post">
         <h1 class="h3 mb-3 font-weight-normal">读者登陆</h1>
         <div class="form-group">
@@ -20,15 +22,14 @@
         </div>
         <div class="form-group">
             <label for="signInPassword" class="sr-only">密码</label>
-            <input id="signInPassword" type="text" name="password" class="form-control" placeholder="密码" required>
+            <input id="signInPassword" type="password" name="password" class="form-control" placeholder="密码" required>
         </div>
         <div class="form-group">
-            <input type="button" value="登陆" id="loginButton" class="btn btn-primary btn-block" >
+            <input type="submit" value="登陆" id="loginButton" class="btn btn-primary btn-block" >
         </div>
         <a href="/reader/registerPage">没有帐户？</a>
     </form>
 </div>
-
 
 </body>
 </html>

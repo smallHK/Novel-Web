@@ -22,7 +22,7 @@ public class ReaderPrincipalInterceptor implements HandlerInterceptor {
         if (Objects.nonNull(editorName)) {
             return true;
         } else {
-            response.sendRedirect("/reader/readerLogin");
+            response.sendRedirect("/reader/loginPage");
             return false;
         }
     }

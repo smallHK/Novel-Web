@@ -7,6 +7,7 @@ import com.hk.repository.ReaderRepo;
 import com.hk.service.NovelService;
 import com.hk.util.ResultUtil;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -101,12 +102,12 @@ public class ReaderController {
     /**
      * 发表小说评论
      */
-    @PostMapping("/publicNovelComment/{novelId}")
+    @PostMapping("/publicNovelComment")
     public ModelAndView publishNovelComment(@RequestParam Map<String, String> params, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
         Integer readerId = (Integer) session.getAttribute("reader_id");
-        Integer novelId = Integer.valueOf(params.get("novelId"));
         String content = params.get("content");
+        Integer novelId = Integer.valueOf(params.get("novelId"));
         novelService.publishNovelComment(readerId, novelId, content);
         modelAndView.setViewName("redirect:/visitor/novelInfo/" + novelId);
         modelAndView.addObject("resultInfo", ResultUtil.success("评论成功！").toJSONObject());

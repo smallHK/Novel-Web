@@ -6,6 +6,7 @@ import com.hk.entity.Creator;
 import com.hk.entity.Novel;
 import com.hk.entity.NovelComment;
 import com.hk.po.ChapterInfo;
+import com.hk.po.NovelCommentInfo;
 import com.hk.po.NovelIndex;
 import com.hk.po.NovelInfo;
 import com.hk.repository.CreatorRepository;
@@ -87,8 +88,11 @@ public class VisitorController {
     public ModelAndView findNovelInfoPage(@PathVariable Integer novelId) {
         ModelAndView modelAndView = new ModelAndView();
         NovelInfo novelInfo = novelService.findNovelInfo(novelId);
+        List<NovelCommentInfo> infoList = novelService.listAllNovelCommentInfo(novelId);
         modelAndView.setViewName("/visitor/novelInfoPage");
+        modelAndView.addObject("commentInfoList", infoList);
         modelAndView.addObject("novelInfo", novelInfo);
+        modelAndView.addObject("resultInfo", ResultUtil.success("success!"));
         return modelAndView;
     }
 
