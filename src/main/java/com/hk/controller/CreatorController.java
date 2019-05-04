@@ -271,9 +271,9 @@ public class CreatorController {
      * 创建新卷
      **/
     @PostMapping(path = "/addNewVolume")
-    public ModelAndView createVolume(@RequestParam(value = "novel_id") Integer novelId, @RequestParam(value = "volume_title") String volumeTitle) {
+    public ModelAndView createVolume(@RequestParam(name = "novel-id") Integer novelId, @RequestParam(name = "volume-name") String volumeTitle) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/creator/novelIndexManage/" + novelId);
+        modelAndView.setViewName("redirect:/creator/chapterManage/" + novelId);
         novelService.addNewVolume(novelId, volumeTitle);
         return modelAndView;
     }
@@ -296,7 +296,7 @@ public class CreatorController {
         //文本处理
         novelService.addNewChapter(novelId, volumeId, chapterTitle, originChapterContent);
 
-        modelAndView.setViewName("redirect:/creator/novelIndexManage/" + novelId);
+        modelAndView.setViewName("redirect:/creator/chapterManage/" + novelId);
         modelAndView.addObject("resultInfo", ResultUtil.success("创建成功！"));
 
         return modelAndView;
@@ -322,7 +322,7 @@ public class CreatorController {
     @GetMapping(path = "/findChapterContent/{chapterId}")
     public ModelAndView findChapterContent(@PathVariable Integer chapterId) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/creator/Content");
+        modelAndView.setViewName("/creator/contentPage");
 
         ChapterInfo chapterInfo = novelService.findNovelChapter(chapterId);
         modelAndView.addObject("chapterInfo", chapterInfo);
@@ -397,6 +397,15 @@ public class CreatorController {
 
     }
 
+    /**
+     * 获取制定小说目录信息（ajax请求）
+     */
+    @GetMapping("/rest/novelIndex/{novelId}")
+    public @ResponseBody JSONObject findNovelIndexByRest(@PathVariable Integer novelId) {
+        NovelIndex index = novelService.findNovelIndex(novelId);
+        return ResultUtil.success("success!").toJSONObject().fluentPut("novelIndex", index);
+
+    }
 
 
 }

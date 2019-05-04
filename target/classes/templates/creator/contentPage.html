@@ -1,0 +1,55 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title th:text="${chapterInfo.title}">NovelPage</title>
+	<link th:href="@{/bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css}" rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css">
+	<link th:href="@{/bootstrap-4.3.1-dist/css/bootstrap.min.css}" rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+	<script th:src="@{/bootstrap-4.3.1-dist/js/bootstrap.min.js}" src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+	<link th:href="@{/css/content.css}" rel="stylesheet" href="../css/content.css">
+</head>
+
+<body class="main-back">
+	
+<nav class="navbar navbar-light bg-dark sticky-top mb-3" > 
+	<a class="navbar-brand text-primary" th:href="@{/creator/novelManagePage}" href="../index.html">HK小说网</a>
+</nav>
+
+<nav class="c-w-80 mx-auto" aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a th:href="@{/creator/chapterManage/{novelId}(novelId=${chapterInfo.novelId})}" href="#" th:text="${chapterInfo.novelTitle}">虫之歌</a></li>
+		<li class="breadcrumb-item active" th:text="${chapterInfo.volumeTitle}">第零卷</li>
+	</ol>
+</nav>
+
+<div class="c-w-80 mx-auto border rounded shadow p-3 mb-5">
+	<div class="border-bottom mb-2 p-2">
+		<h3 class="h3" th:text="${chapterInfo.title}">1.00 诗歌 Part.1</h3>
+		<div class="">
+			<span class="font-weight-light">更新时间：2019/2/26 16:34:22</span>
+			<span class="font-weight-light">字数：<span th:text="${chapterInfo.wordCount}">12234</span></span>
+		</div>
+	</div>
+	<div class="p-3">
+		<p th:each="para:${chapterInfo.paragraphList}" th:text="${para.content}">缓缓舞下的六角晶花，包裹着独自站在茫茫雪原中的诗歌。视野所及的，只是不断飘落的雪，把天地都迷茫了的皑皑的雪。</p>
+
+	</div>
+
+	<!--<div class="border-top pt-3 mt-3 my-4">-->
+		<!--<div class="row w-50 mx-auto">-->
+			<!--<div class="col-4 px-3 text-align-center">-->
+				<!--<a class="btn btn-primary" th:if="${chapterInfo.isPreview}" th:href="@{/visitor/novelChapter/{chapterId}(chapterId=${chapterInfo.previewId})}"  href="#">上一章</a>-->
+			<!--</div>-->
+			<!--<div class="col-4 px-3 text-align-center">-->
+				<!--<a class="btn btn-primary" th:href="@{/visitor/novelIndex/{novelId}(novelId=${chapterInfo.novelId})}" href="#">小说目录</a>-->
+			<!--</div>-->
+			<!--<div class="col-4 px-3 text-align-center">-->
+				<!--<a class="btn btn-primary" th:if="${chapterInfo.isNext}" th:href="@{/visitor/novelChapter/{chapterId}(chapterId=${chapterInfo.nextId})}" href="#">下一章</a>-->
+
+			<!--</div>-->
+		<!--</div>-->
+	<!--</div>-->
+</div>
+
+</body>
+</html>

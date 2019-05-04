@@ -492,6 +492,7 @@ public class NovelService {
         volumeInfo.setVolumeTitle(volume.getVolumeTitle());
         volumeInfo.setOrderNum(volume.getOrderNum());
         volumeInfo.setStatus(volume.getStatus());
+        volumeInfo.setNovelId(volume.getNovelId());
         return volumeInfo;
     }
 

@@ -2,20 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="947d06e7-2ba9-4ebf-93a8-2e6066805784" name="Default Changelist" comment="完成部分功能页面布局">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hk/entity/VolumePublishEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hk/repository/VolumePublishEventRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/creator/contentPage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/creator/chapterManagePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/PageContent/creator/chapterManagePage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/creator/novelIndexManagePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/PageContent/creator/novelIndexManagePage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/controller/CreatorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/controller/CreatorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/controller/VisitorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/controller/VisitorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/po/ChapterInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/po/ChapterInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/po/VolumeInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/po/VolumeInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/repository/ChapterRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/repository/ChapterRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/repository/NovelPublishRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/repository/NovelPublishRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/util/EntityStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/util/EntityStatus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/creator/chapterManagePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/creator/chapterManagePage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/creator/novelManagePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/creator/novelManagePage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/controller/CreatorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/controller/CreatorController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/controller/VisitorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/controller/VisitorController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/po/ChapterInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/po/ChapterInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/po/VolumeInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/po/VolumeInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/repository/ChapterRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/repository/ChapterRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/repository/NovelPublishRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/repository/NovelPublishRepo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/service/NovelService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/service/NovelService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/util/EntityStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/util/EntityStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/creator/chapterManagePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/creator/chapterManagePage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/creator/novelManagePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/creator/novelManagePage.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -30,67 +33,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/creator/chapterManagePage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="142" column="7" lean-forward="true" selection-start-line="142" selection-start-column="7" selection-end-line="142" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/entity/VolumePublishEvent.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="33" column="30" selection-start-line="33" selection-start-column="30" selection-end-line="33" selection-end-column="30" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/repository/VolumePublishEventRepo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="9" column="90" selection-start-line="9" selection-start-column="90" selection-end-line="9" selection-end-column="90" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/po/VolumeInfo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/creator/novelManagePage.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3458">
-              <caret line="182" column="31" selection-start-line="182" selection-start-column="31" selection-end-line="182" selection-end-column="31" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="4826">
+              <caret line="254" column="30" lean-forward="true" selection-start-line="254" selection-start-column="30" selection-end-line="254" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -98,8 +45,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/CreatorController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="396" lean-forward="true" selection-start-line="396" selection-end-line="396" />
+            <state relative-caret-position="102">
+              <caret line="384" selection-start-line="384" selection-end-line="384" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -108,10 +55,46 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/po/NovelIndex.java">
+        <entry file="jar://D:/Programs/Java/jdk-11.0.1/lib/src.zip!/java.base/java/lang/reflect/Method.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="21" column="43" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="43" />
+            <state relative-caret-position="89">
+              <caret line="565" selection-start-line="565" selection-end-line="565" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.1.6.RELEASE/spring-web-5.1.6.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="71">
+              <caret line="58" selection-start-line="58" selection-end-line="58" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.1.6.RELEASE/spring-webmvc-5.1.6.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/ServletInvocableHandlerMethod.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="89">
+              <caret line="49" selection-start-line="49" selection-end-line="49" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.1.6.RELEASE/spring-webmvc-5.1.6.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="71">
+              <caret line="487" selection-start-line="487" selection-end-line="487" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.1.6.RELEASE/spring-webmvc-5.1.6.RELEASE.jar!/org/springframework/web/servlet/mvc/method/AbstractHandlerMethodAdapter.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="89">
+              <caret line="39" selection-start-line="39" selection-end-line="39" />
             </state>
           </provider>
         </entry>
@@ -119,8 +102,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="493" column="47" selection-start-line="493" selection-start-column="47" selection-end-line="493" selection-end-column="47" />
+            <state relative-caret-position="138">
+              <caret line="301" column="62" lean-forward="true" selection-start-line="301" selection-start-column="62" selection-end-line="301" selection-end-column="62" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -131,20 +114,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/repository/ChapterRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="24" column="54" selection-start-line="24" selection-start-column="54" selection-end-line="24" selection-end-column="54" />
+            <state relative-caret-position="338">
+              <caret line="22" column="12" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/po/ChapterInfo.java">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/5.1.6.RELEASE/spring-aop-5.1.6.RELEASE.jar!/org/springframework/aop/framework/CglibAopProxy.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="30" column="41" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="41" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="89">
+              <caret line="503" selection-start-line="503" selection-end-line="503" />
             </state>
           </provider>
         </entry>
@@ -189,7 +169,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/web/CreatorService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/MailConfiguration.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/config/MailConfiguration.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/admin/adminCenter.html" />
@@ -225,7 +204,6 @@
         <option value="$PROJECT_DIR$/src/main/resources/templates/reader/readerCenter.html" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/creator/novelIndexManagePage.html" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/entity/Novel.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/creator/novelManagePage.html" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/VisitorController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/entity/ChapterPublishEvent.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/repository/ChapterPublishEventRepo.java" />
@@ -234,20 +212,22 @@
         <option value="$PROJECT_DIR$/src/main/java/com/hk/util/SessionProperty.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/po/ChapterInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/repository/ChapterRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/CreatorController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/po/VolumeInfo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/creator/chapterManagePage.html" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/entity/VolumePublishEvent.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/repository/VolumePublishEventRepo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hk/po/VolumeInfo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/creator/novelManagePage.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/creator/contentPage.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/CreatorController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/creator/chapterManagePage.html" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="51" />
-    <option name="y" value="133" />
-    <option name="width" value="1683" />
-    <option name="height" value="919" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="67" />
+    <option name="y" value="28" />
+    <option name="width" value="1684" />
+    <option name="height" value="920" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -255,7 +235,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -368,10 +347,20 @@
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="NovelWeb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Novel-Web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="creator" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -394,19 +383,19 @@
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\CurriculumDesign\Novel-Web\src\main\resources\static\imgs\cover" />
-      <recent name="D:\CurriculumDesign\Novel-Web\src\main\resources\templates\editor" />
-      <recent name="D:\CurriculumDesign\Novel-Web\src\main\resources\static\css" />
-      <recent name="D:\CurriculumDesign\Novel-Web\src\main\resources\templates\admin" />
-      <recent name="D:\CurriculumDesign\Novel-Web\src\main\resources\templates\creator" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\CurriculumDesign\Novel-Web\src\main\resources\static\imgs\cover" />
       <recent name="D:\CurriculumDesign\Novel-Web\src\main\resources\static\data\novelCover" />
       <recent name="D:\CurriculumDesign\Novel-Web\src\main\resources\static\imgs\visitor" />
       <recent name="D:\CurriculumDesign\Novel-Web\src\main\resources\static" />
       <recent name="D:\CurriculumDesign\Novel-Web\src\main\webapp" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\CurriculumDesign\Novel-Web\src\main\resources\templates\creator" />
+      <recent name="D:\CurriculumDesign\Novel-Web\src\main\resources\static\imgs\cover" />
+      <recent name="D:\CurriculumDesign\Novel-Web\src\main\resources\templates\editor" />
+      <recent name="D:\CurriculumDesign\Novel-Web\src\main\resources\static\css" />
+      <recent name="D:\CurriculumDesign\Novel-Web\src\main\resources\templates\admin" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -596,6 +585,7 @@
       <workItem from="1556723722434" duration="942000" />
       <workItem from="1556789337165" duration="5715000" />
       <workItem from="1556845465661" duration="20916000" />
+      <workItem from="1556975567054" duration="7052000" />
     </task>
     <task id="LOCAL-00001" summary="创建文字阅读模块">
       <created>1552557105457</created>
@@ -622,7 +612,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="332321000" />
+    <option name="totallyTimeSpent" value="339373000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
@@ -634,9 +624,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="41" y="107" width="1346" height="735" extended-state="0" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6734375" visible="true" weight="0.314441" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6734375" visible="true" weight="0.27546915" />
       <window_info id="Structure" order="1" sideWeight="0.3265625" side_tool="true" weight="0.25832012" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -646,8 +636,8 @@
       <window_info id="Web" order="7" side_tool="true" weight="0.23294629" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.6898017" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49689442" weight="0.1840796" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.65882355" weight="0.16164818" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49689442" weight="0.20113315" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.65882355" weight="0.50993377" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.24362606" />
@@ -731,86 +721,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-commons/2.1.6.RELEASE/spring-data-commons-2.1.6.RELEASE-sources.jar!/org/springframework/data/repository/CrudRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="25" column="7" lean-forward="true" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/repository/NovelRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="30" column="34" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/2.1.4.RELEASE/spring-boot-autoconfigure-2.1.4.RELEASE.jar!/org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="254" column="44" selection-start-line="254" selection-start-column="44" selection-end-line="254" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/2.1.4.RELEASE/spring-boot-autoconfigure-2.1.4.RELEASE-sources.jar!/org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="501" column="44" selection-start-line="501" selection-start-column="44" selection-end-line="501" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/visitor/searchPage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="703">
-          <caret line="37" column="15" selection-start-line="37" selection-start-column="15" selection-end-line="37" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2128">
-          <caret line="112" column="86" selection-start-line="112" selection-start-column="86" selection-end-line="112" selection-end-column="86" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/visitor/novelMainPage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" selection-start-line="5" selection-end-line="9" selection-end-column="125" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/po/NovelInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="394">
-          <caret line="28" column="26" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/editor/contentPage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="17" selection-start-line="17" selection-end-line="52" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/visitor/novelIndex.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="19" column="62" selection-start-line="19" selection-start-column="62" selection-end-line="19" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/entity/NovelComment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="22" column="21" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/visitor/contentPage.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="297">
@@ -944,13 +854,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/entity/Chapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/repository/NovelPublishRepo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
@@ -978,12 +881,6 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/creator/registerPage.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/creator/addNovelPage.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/creator/addNewChapterPage.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/creator/loginPage.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1001,106 +898,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/creator/novelIndexManagePage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="22" column="51" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/po/ChapterInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="30" column="41" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/repository/ChapterRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="24" column="54" selection-start-line="24" selection-start-column="54" selection-end-line="24" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/CreatorController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="396" lean-forward="true" selection-start-line="396" selection-end-line="396" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/creator/novelManagePage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3458">
-          <caret line="182" column="31" selection-start-line="182" selection-start-column="31" selection-end-line="182" selection-end-column="31" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/entity/Volume.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="276">
           <caret line="25" column="30" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="493" column="47" selection-start-line="493" selection-start-column="47" selection-end-line="493" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/po/NovelIndex.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="21" column="43" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/po/VolumeInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/creator/chapterManagePage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="142" column="7" lean-forward="true" selection-start-line="142" selection-start-column="7" selection-end-line="142" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/entity/VolumePublishEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="33" column="30" selection-start-line="33" selection-start-column="30" selection-end-line="33" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1111,6 +912,199 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/entity/VolumePublishEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="33" column="30" selection-start-line="33" selection-start-column="30" selection-end-line="33" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/po/NovelIndex.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="21" column="21" lean-forward="true" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/po/VolumeInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/entity/Chapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="21" column="24" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/entity/Paragraph.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="113">
+          <caret line="21" column="26" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/creator/novelIndexManagePage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-437">
+          <caret line="22" column="51" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/po/ChapterInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="17" column="27" lean-forward="true" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/visitor/novelIndex.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="24" column="10" lean-forward="true" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/creator/addNovelPage.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/creator/addNewChapterPage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" column="33" lean-forward="true" selection-start-line="13" selection-start-column="33" selection-end-line="13" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/creator/novelManagePage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="74" column="66" selection-start-line="74" selection-start-column="53" selection-end-line="74" selection-end-column="66" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="e#4820#7149#0" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="e#7257#9475#0" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="e#9584#11692#0" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="122">
+          <caret line="21" column="45" lean-forward="true" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/creator/contentPage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="44" column="25" lean-forward="true" selection-start-line="44" selection-start-column="25" selection-end-line="44" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.1.6.RELEASE/spring-core-5.1.6.RELEASE.jar!/org/springframework/cglib/proxy/MethodProxy.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="102" selection-start-line="102" selection-end-line="102" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/5.1.6.RELEASE/spring-aop-5.1.6.RELEASE.jar!/org/springframework/aop/framework/CglibAopProxy.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="503" selection-start-line="503" selection-end-line="503" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/CreatorController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="384" selection-start-line="384" selection-end-line="384" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/Programs/Java/jdk-11.0.1/lib/src.zip!/java.base/java/lang/reflect/Method.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="565" selection-start-line="565" selection-end-line="565" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.1.6.RELEASE/spring-web-5.1.6.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="71">
+          <caret line="58" selection-start-line="58" selection-end-line="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.1.6.RELEASE/spring-webmvc-5.1.6.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/ServletInvocableHandlerMethod.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.1.6.RELEASE/spring-webmvc-5.1.6.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="71">
+          <caret line="487" selection-start-line="487" selection-end-line="487" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.1.6.RELEASE/spring-webmvc-5.1.6.RELEASE.jar!/org/springframework/web/servlet/mvc/method/AbstractHandlerMethodAdapter.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="301" column="62" lean-forward="true" selection-start-line="301" selection-start-column="62" selection-end-line="301" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/repository/ChapterRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="22" column="12" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/creator/chapterManagePage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4826">
+          <caret line="254" column="30" lean-forward="true" selection-start-line="254" selection-start-column="30" selection-end-line="254" selection-end-column="30" />
         </state>
       </provider>
     </entry>

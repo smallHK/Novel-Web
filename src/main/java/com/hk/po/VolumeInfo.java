@@ -28,4 +28,6 @@ public class VolumeInfo {
 
     private List<Chapter> chapterList;
 
+    private Integer novelId;
+
 }

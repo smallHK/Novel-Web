@@ -23,7 +23,7 @@
 			<div class="modal-body">
 				<form action="/creator/addNewVolume" method="post">
 					<div class="form-group">
-						<input type="hidden" name="novel_id" th:value="${index.novelId}">
+						<input type="hidden" name="novel-id" th:value="${index.novelId}">
 						<input type="text" class="form-control" placeholder="新卷卷名" name="volume-name" required>
 					</div>
 					<input class="btn btn-primary" type="submit" value="确认">
@@ -45,7 +45,7 @@
 					<a th:each="volume, iterStat:${index.volumeInfoList}"
 					   th:class="${iterStat.first}? 'list-group-item active list-group-item-action': 'list-group-item list-group-item-action'"
 					   class="list-group-item active list-group-item-action"
-					   th:onclick="'switchVolumu(' + ${volume.volumeId}' + );'"
+					   th:onclick="'switchVolume(' + ${volume.volumeId} + ');'"
 					   data-toggle="list" th:text="${volume.volumeTitle}">
 						第一卷 Enemy of Mankind 上
 					</a>
@@ -64,20 +64,22 @@
 			</div>
 			<div class="modal-body">
 				<p>卷状态：<span>未开放</span></p>
-				<a class="btn btn-primary" type="submit">申请开放</a>
+				<a class="btn btn-primary">申请开放</a>
 			</div>
 		</div>
 	</div>
 </div>
+
+
 <div class="c-w-80 mx-auto border shadow-lg p-3 rounded mb-5">
 	<div class="border-bottom p-5">
-		<h3 class="h3 text-align-center">东京侵域：Closed Eden</h3>
+		<h3 id="novelTitle" class="h3 text-align-center" th:attr="data-novel-id=${index.novelId}" th:text="${index.novelName}" >东京侵域：Closed Eden</h3>
 	</div>
-	<div class="container my-5">
+	<div id="volume-view" class="container my-5">
 		<div>
 			<div class="row">
 				<div class="col">
-					<h5>第一卷 Enemy of Mankind 上</h5>
+					<h5 id="volume-title">第一卷 Enemy of Mankind 上</h5>
 				</div>
 				<div class="col">
 					<a class="btn btn-light float-right" data-toggle="modal" data-target="#viewVolumeInfo">卷信息</a>
@@ -99,7 +101,7 @@
 				<div class="my-2"><a class="btn btn-light btn-block" href="addNewChapterPage.html" title="">+添加章节</a> </div>
 			</div>
 
-			<div class="col-8 border rounded p-3">
+			<div class="col-8 border rounded p-3" id="chapter-content">
 					<div id="chapterInfo">
 						<p>状态：<span>未开放</span> <a class="btn btn-light float-right">申请开放</a></p>
 						<p>字数：<span>6834</span></p>
@@ -129,14 +131,40 @@
 <script>
 	$(document).ready(function () {
 
+	    var novelId = $("#novelTitle").data("novel-id");
+        $.get("/creator/rest/novelIndex/" + novelId, function(data){
+            if(data.status === 0) {
+                var volumeInfoList = data.novelIndex.volumeInfoList;
+                if(volumeInfoList.length === 0) $("#volume-view").empty();
+                else {
+                    switchVolume(volumeInfoList[0].volumeId);
+                }
+
+            }
+        });
 	});
 
 
 	//切换卷
-	function switchVolumu(volumeId) {
+	function switchVolume(volumeId) {
 
-		updateViewVolumeInfo(volumeId);
+        //更新卷信息modal
+        updateViewVolumeInfo(volumeId);
+
+        //更新卷章节目录
 		updateVolumeIndex(volumeId);
+
+		//更新章信息为第一章
+        $.get("/creator/rest/volumeInfo/" + volumeId, function(data){
+            if(data.status === 0) {
+                var chapterList = data.volumeInfo.chapterList;
+                if(chapterList.length === 0) $("#chapter-content").empty();
+                else {
+                    updateSpecialChapterInfo(chapterList[0].id);
+                }
+
+            }
+        });
 
 	}
 
@@ -148,15 +176,20 @@
 			if(data.status === 0) {
 				var target = $("#volumeIndex");
 				target.empty();
-				for(chapter in data.volumeInfo.chapterList) {
+				var chapterList = data.volumeInfo.chapterList;
+				for(var i = 0;  i< chapterList.length; i++) {
 					var div = $("<div class=\"my-1\"><a class=\"btn btn-light btn-block\"></a></div>");
-					div.find("a").text();
-					div.find("a").attr("href", "");
+					div.find("a").text(chapterList[i].title);
+					div.find("a").attr("onclick", "updateSpecialChapterInfo(" + chapterList[i].id + ");");
 					target.append(div);
 				}
 
 				var adddiv = $("<div class=\"my-2\"><a class=\"btn btn-light btn-block\">+添加章节</a></div>");
-				adddiv.find("a").attr("href", "");
+				adddiv.find("a").attr("href", "/creator/enterAddChapterPage/" + data.volumeInfo.novelId + "/" + data.volumeInfo.volumeId);
+				target.append(adddiv);
+
+				//更换卷标题
+                $("#volume-title").text(data.volumeInfo.volumeTitle)
 
 			}
 		});
@@ -179,7 +212,7 @@
 				{
 					case 0:
 						vmb.find('span').text("未开放");
-						vmb.find('a').attr("href", "");
+						vmb.find('a').attr("href", ""); //卷开放
 						break;
 					case 1:
 						vmb.find('span').text("审核中");
@@ -198,7 +231,7 @@
 	/**
 	 * 切换章节的信息页内容
 	 */
-	function gainSpecialChapterInfo(chapterId) {
+	function updateSpecialChapterInfo(chapterId) {
 		$.get("/creator/rest/chapterInfo/" + chapterId, function (data) {
 
 			if(data.status === 0) {
@@ -210,7 +243,7 @@
 				{
 					case 0:
 						sp.children(':first').text("未开放");
-						sp.children(':eq(1)').attr("href", "");
+						sp.children(':eq(1)').attr("onclick", ""); //章节开放，开放之前，需要判断是否已经
 						break;
 					case 1:
 						sp.children('first').text("审核中");
@@ -233,7 +266,7 @@
 				var i= 0;
 				for(; i < limit; i++) {
 					var p = $("<p></p>");
-					p.text(chapterInfo.paragraphList[i]);
+					p.text(chapterInfo.paragraphList[i].content);
 					brcv.append(p);
 				}
 				var ps = $("<p></p>");
@@ -242,12 +275,20 @@
 
 
 				$("#chapterBtn > a:first").attr("href", "");
-				$("#chapterBtn > a:eq(1)").attr("href", "");
+				$("#chapterBtn > a:eq(1)").attr("href", "/creator/findChapterContent/" + chapterInfo.id);
 			}
 		});
 	}
 
 
+	/**
+	 * 章节开放
+	 *
+	 * 先判断卷是否开放
+	 */
+	function publishChapter(volumeId, chapterId) {
+		
+	}
 	
 </script>
 </body>
