@@ -5,6 +5,7 @@ import com.hk.po.*;
 import com.hk.repository.*;
 import com.hk.util.CommonUtil;
 import com.hk.util.EntityStatus;
+import com.hk.util.EventType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -48,6 +49,8 @@ public class NovelService {
 
     private ChapterPublishEventRepo chapterPublishEventRepo;
 
+    private VolumePublishEventRepo volumePublishEventRepo;
+
     public NovelService(NovelRepository novelRepository,
                         NovelCommentRepo novelCommentRepo,
                         NovelPublishRepo novelPublishRepo,
@@ -56,7 +59,8 @@ public class NovelService {
                         ParagraphRepository paragraphRepository,
                         CreatorRepository creatorRepository,
                         ReaderRepo readerRepo,
-                        ChapterPublishEventRepo chapterPublishEventRepo) {
+                        ChapterPublishEventRepo chapterPublishEventRepo,
+                        VolumePublishEventRepo volumePublishEventRepo) {
         this.novelRepository = novelRepository;
         this.novelCommentRepo = novelCommentRepo;
         this.novelPublishRepo = novelPublishRepo;
@@ -66,6 +70,7 @@ public class NovelService {
         this.creatorRepository = creatorRepository;
         this.readerRepo = readerRepo;
         this.chapterPublishEventRepo = chapterPublishEventRepo;
+        this.volumePublishEventRepo = volumePublishEventRepo;
     }
 
     /**
@@ -133,7 +138,8 @@ public class NovelService {
         if (Objects.isNull(keyword) || keyword.equals("")) {
             novelList = novelRepository.findAllByStatus(EntityStatus.NOVEL_PASSED);
         } else {
-            novelList = novelRepository.findAllByNovelNameAndStatus(keyword, EntityStatus.NOVEL_PASSED);
+            //novelList = novelRepository.findAllByNovelNameAndStatus(keyword, EntityStatus.NOVEL_PASSED);
+            novelList = novelRepository.findAllByNovelNameContainingAndStatus(keyword, EntityStatus.NOVEL_PASSED);
         }
         if (Objects.isNull(novelList)) {
             return new ArrayList<>();
@@ -293,23 +299,79 @@ public class NovelService {
         result.setVolumeTitle(volume.getVolumeTitle());
 
 
-        Integer maxOrder = chapterRepository.countAllByNovelId(novel.getId());
+        //错误代码
+        //下一章的预测不是通过order与novel
+        //获取最大卷
+        Integer maxVolumeOrder = volumeRepository.countAllByNovelId(novel.getId());
+        //获取当前卷最大章数
+        Integer maxChapterOrder = chapterRepository.countAllByNovelIdAndVolumeId(novel.getId(), chapter.getVolumeId());
 
-        if (chapter.getOrderNum() <= 1) {
-            result.setIsPreview(false);
-        } else {
+        //当前章为本卷第一章
+        //当前卷为本小说第一卷
+        //不设置上一章
+        Optional.of(new Object()).filter(e->chapter.getOrderNum() == 1).filter(e->volume.getOrderNum() == 1).ifPresent(e->result.setIsPreview(false));
+
+        //当前小说为本卷第一章
+        //当前卷并不是本小说第一卷
+        //将上一卷最后一章设为最终章
+        Optional.of(new Object()).filter(e->chapter.getOrderNum() == 1).filter(e->volume.getOrderNum() > 1).ifPresent(e->{
+
+            //获取上一卷
+            Volume preVolume = volumeRepository.findAllByNovelIdAndOrderNum(novel.getId(), volume.getOrderNum() - 1);
+            //如果上一卷为空
+            Integer preVolChaNum = chapterRepository.countAllByNovelIdAndVolumeId(novel.getId(), preVolume.getId());
+
+            if(preVolChaNum > 0) {
+                //获取上一卷最后一章
+                Chapter preChaper = chapterRepository.findAllByVolumeIdAndNovelIdAndOrderNum(preVolume.getId(), novel.getId(), preVolChaNum);
+                result.setIsPreview(true);
+                result.setPreviewId(preChaper.getId());
+            }else {
+                result.setIsPreview(false);
+            }
+
+        });
+
+        //当前小说不是本卷第一章
+        Optional.of(new Object()).filter(e->chapter.getOrderNum() > 1).ifPresent(e->{
             result.setIsPreview(true);
-            Chapter preChap = chapterRepository.findNovelByOrderNumAndNovelId(chapter.getOrderNum() - 1, novel.getId());
+            Chapter preChap = chapterRepository.findAllByVolumeIdAndNovelIdAndOrderNum(chapter.getVolumeId(), novel.getId(), chapter.getOrderNum() - 1);
             result.setPreviewId(preChap.getId());
-        }
+        });
 
-        if (chapter.getOrderNum() >= maxOrder) {
-            result.setIsNext(false);
-        } else {
+        //当前章为本卷最后一章
+        //当前卷为本小说最后一卷
+        //不设置下一章
+        Optional.of(new Object()).filter(e->chapter.getOrderNum().equals(maxChapterOrder)).filter(e->volume.getOrderNum().equals(maxVolumeOrder)).ifPresent(e->result.setIsNext(false));
+
+        //当前小说为本卷最后一章
+        //当前卷并不是本小说最后一卷
+        //将下一卷第一章设置为下一章
+        Optional.of(new Object()).filter(e->chapter.getOrderNum().equals(maxChapterOrder)).filter(e->volume.getOrderNum() < maxVolumeOrder).ifPresent(e->{
+
+            //获取下一卷第一章
+            Volume nextVolume = volumeRepository.findAllByNovelIdAndOrderNum(novel.getId(), volume.getOrderNum() + 1);
+
+            //如果下一卷为空
+            Integer nextVolChaNum = chapterRepository.countAllByNovelIdAndVolumeId(novel.getId(), nextVolume.getId());
+
+            if(nextVolChaNum > 0) {
+                //获取下一卷第一章
+                Chapter nextChaper = chapterRepository.findAllByVolumeIdAndNovelIdAndOrderNum(nextVolume.getId(), novel.getId(), 1);
+                result.setIsNext(true);
+                result.setNextId(nextChaper.getId());
+            }else {
+                result.setIsNext(false);
+            }
+        });
+
+        //当前小说不是本卷最后一章
+        Optional.of(new Object()).filter(e->chapter.getOrderNum() < maxChapterOrder).ifPresent(e->{
             result.setIsNext(true);
-            Chapter nextChap = chapterRepository.findNovelByOrderNumAndNovelId(chapter.getOrderNum() + 1, novel.getId());
-            result.setNextId(nextChap.getId());
-        }
+            Chapter preChap = chapterRepository.findAllByVolumeIdAndNovelIdAndOrderNum(chapter.getVolumeId(), novel.getId(), chapter.getOrderNum() + 1);
+            result.setNextId(preChap.getId());
+        });
+
 
         return result;
 
@@ -412,6 +474,23 @@ public class NovelService {
 
     }
 
+    /**
+     * 更新章节
+     */
+    public void updateChapter(Integer novelId, Integer volumeId, Integer chapterId,  String chapterTitle, String originText) {
+
+        Chapter chapter = chapterRepository.findById(chapterId).orElseThrow();
+        String chapterContent = CommonUtil.textProcessing(originText);
+
+        //清楚所有段落
+
+        //更新章节信息
+
+        //发布章节更新事件
+
+
+
+    }
 
     /**
      * 获取小说的评论信息列表
@@ -483,6 +562,67 @@ public class NovelService {
         chapterRepository.save(chapter);
     }
 
+    /**
+     * 发布卷开放请求
+     */
+    public void publishVolumePublishEvent(Integer volumeId, Integer authorId) {
+        Volume volume = volumeRepository.findById(volumeId).orElseThrow();
+
+        VolumePublishEvent event = new VolumePublishEvent();
+        event.setApplyTime(Timestamp.from(Instant.now()));
+        event.setAuthorId(authorId);
+        event.setVolumeId(volumeId);
+
+        Integer novelId = volume.getNovelId();
+        NovelPublish novelPublish = novelPublishRepo.findByNovelId(novelId);
+
+        event.setEditorId(novelPublish.getEditorId());
+        event.setStatus(EntityStatus.VOLUME_PUBLISH_EVENT_SUBMITTED);
+        volumePublishEventRepo.save(event);
+
+    }
+
+    /**
+     * 修改卷的发布状态
+     */
+    public void updateVolumePublishStatus(Integer volumeId, Integer status) {
+        Volume volume = volumeRepository.findById(volumeId).orElseThrow();
+        volume.setStatus(status);
+        volumeRepository.save(volume);
+    }
+
+
+    /**
+     * 获取卷发布事件
+     * 条件：编辑id、指定状态的事件
+     */
+    public List<EditorWorkEvent> findAllVolumePublishEvent(Integer editorId, Integer status) {
+        List<EditorWorkEvent> eventList = new ArrayList<>();
+
+        List<VolumePublishEvent> publishEventList = volumePublishEventRepo.findAllByEditorIdAndStatus(editorId, status);
+        for(VolumePublishEvent publishEvent: publishEventList) {
+            EditorWorkEvent event = new EditorWorkEvent();
+            event.setId(publishEvent.getId());
+            event.setAppearTime(publishEvent.getApplyTime().toInstant());
+            event.setType(EventType.VOLUME_PUBLISH_EVENT);
+            event.setVolumeId(publishEvent.getVolumeId());
+            event.setAuthorId(publishEvent.getAuthorId());
+            event.setAppearTimeStr(LocalDateTime.ofInstant(publishEvent.getApplyTime().toInstant(), ZoneOffset.ofHours(8))
+                    .format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
+
+            Volume volume = volumeRepository.findById(publishEvent.getVolumeId()).orElseThrow();
+            event.setVolumeTitle(volume.getVolumeTitle());
+            Novel novel = novelRepository.findById(volume.getNovelId()).orElseThrow();
+            event.setNovelTitle(novel.getNovelName());
+            eventList.add(event);
+        }
+        return eventList;
+    }
+
+
+    /**
+     * 获取卷信息
+     */
     public VolumeInfo findVolumeInfo(Integer volumeId) {
         List<Chapter> chapterList = chapterRepository.findAllByVolumeId(volumeId);
         Volume volume = volumeRepository.findById(volumeId).orElseThrow();

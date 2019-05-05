@@ -18,8 +18,30 @@
     <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#novel-data">小说数据页</a></li>
     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#selectspace">选择区域</a></li>
 </ul>
-<!--章节开放-->
+<!--卷开放-->
 <div class="modal fade" id="viewVolumeInfo" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">第一卷 Enemy of Mankind 上</h5>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <li class="list-group-item">序章 来袭</li>
+                    <li class="list-group-item">第一章 名为弓家叶方的搭档</li>
+                    <li class="list-group-item">第二章 名为大乡梦衣的心上人</li>
+                    <li class="list-group-item">第三章 名为HIMAWARI的飞行物</li>
+                    <li class="list-group-item">第四章 决战前</li>
+                    <li class="list-group-item">间章 两个世界</li>
+                    <li class="list-group-item">后记</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--章节开放-->
+<div class="modal fade" id="viewChapterInfo" tabindex="-1">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -37,6 +59,7 @@
         </div>
     </div>
 </div>
+
 <div class="tab-content mb-5">
     <!--工作区域-->
     <div class="tab-pane fade show active" id="workspace">
@@ -44,18 +67,22 @@
             <h3>事件处理</h3>
         </div>
         <div class="mb-5 c-w-80 mx-auto">
-            <div class="row p-3">
+            <div class="row p-3" id="eventListWrapper">
                 <div class="event-width p-2 shadow-sm mx-1 rounded my-2">
                     <h5>章节开放申请</h5>
                     <p>小说名:<span>虫之歌</span></p>
                     <p>章节名：<span>终曲 MARRY CHRISMAS</span></p>
-                    <button class="btn btn-light mx-1" data-toggle="modal" data-target="#viewVolumeInfo">查看章节内容</button>
+                    <p>提交时间：<span>2019/5/5 20:23:23</span></p>
+                    <button class="btn btn-light mx-1" data-toggle="modal" data-target="#viewChapterInfo">查看章节内容</button>
                     <button class="btn btn-light mx-1">同意开放</button>
                 </div>
                 <div class="event-width p-2 shadow-sm  mx-1 rounded my-2">
-                    <h5>章节开放申请</h5>
+                    <h5>卷开放申请</h5>
                     <p>小说名:<span>虫之歌</span></p>
-                    <p>章节名：<span>终曲 MARRY CHRISMAS</span></p>
+                    <p>卷名：<span>第一卷 Enemy of Mankind 上</span></p>
+                    <p>提交时间：<span>2019/5/5 20:23:23</span></p>
+                    <button class="btn btn-light mx-1" data-toggle="modal" data-target="#viewVolumeInfo">查看卷目录</button>
+                    <button class="btn btn-light mx-1">同意开放</button>
                 </div>
                 <div class="event-width p-2 shadow-sm  mx-1 rounded my-2">
                     <h5>章节开放申请</h5>
@@ -81,17 +108,17 @@
                     <p>章节名：<span>终曲 MARRY CHRISMAS</span></p>
                 </div>
             </div>
-            <ul class="pagination justify-content-end">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            </ul>
+            <!--<ul class="pagination justify-content-end">-->
+                <!--<li class="page-item disabled">-->
+                    <!--<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>-->
+                <!--</li>-->
+                <!--<li class="page-item"><a class="page-link" href="#">1</a></li>-->
+                <!--<li class="page-item"><a class="page-link" href="#">2</a></li>-->
+                <!--<li class="page-item"><a class="page-link" href="#">3</a></li>-->
+                <!--<li class="page-item">-->
+                    <!--<a class="page-link" href="#">Next</a>-->
+                <!--</li>-->
+            <!--</ul>-->
         </div>
 
     </div>
@@ -223,6 +250,26 @@
 
     $(document).ready(function () {
 
+        //填充工作区域
+        $.get("/editor/findAllWorkEvent", function (data) {
+           var eventListWrapper = $("#eventListWrapper");
+           eventListWrapper.empty();
+           if(data.status === 0) {
+
+               var list = data.eventList;
+               for(var i = 0; i < list.length; i++) {
+                   switch (list[i].type) {
+                       case 0:
+                           eventListWrapper.append(volumePublishEventCom(list[i]));
+                           break;
+
+                   }
+               }
+
+           }
+
+        });
+
         //填充审核中小说
         $.get("/editor/checkingNovelList/1/6", function (data) {
             var container = $("#checking-novel-list");
@@ -283,7 +330,7 @@
 
             }
 
-        })
+        });
 
 
         //填充编辑审核的代码
@@ -419,8 +466,46 @@
             }
 
         })
-    })
+    });
 
+    //创建卷发布事件
+    function volumePublishEventCom(event) {
+        var eventWrapper = $("<div class=\"event-width p-2 shadow-sm  mx-1 rounded my-2\"></div>");
+        eventWrapper.append($("<h5>卷开放申请</h5>"));
+
+        var novelTitle = $("<p>小说名:<span>虫之歌</span></p>");
+        novelTitle.find("span").text(event.novelTitle);
+        eventWrapper.append(novelTitle);
+
+        var volumeTitle = $("<p>卷名：<span>第一卷 Enemy of Mankind 上</span></p>");
+        volumeTitle.find("span").text(event.volumeTitle);
+        eventWrapper.append(volumeTitle);
+
+        var applyTime = $("<p>提交时间：<span>2019/5/5 20:23:23</span></p>");
+        applyTime.find("span").text(event.appearTimeStr);
+        eventWrapper.append(applyTime);
+
+        var indexBtn = $("<button class=\"btn btn-light mx-1\" data-toggle=\"modal\" data-target=\"#viewVolumeInfo\">查看卷目录</button>");
+        indexBtn.attr("onclick", "showVolumeIndexModal(" + event.volumeId + ")");
+        eventWrapper.append(indexBtn);
+
+        var publishBtn = $("<button class=\"btn btn-light mx-1\">同意开放</button>");
+        publishBtn.attr("onclick", "agreePublishVolume(" + event.volumeId + ")");
+        eventWrapper.append(publishBtn);
+
+        return eventWrapper;
+
+    }
+
+    //查看卷目录modal
+    function showVolumeIndexModal(volumeId) {
+
+    }
+
+    //同意开放卷
+    function agreePublishVolume(volumeId) {
+
+    }
 
 </script>
 </body>

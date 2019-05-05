@@ -30,6 +30,8 @@ public interface NovelRepository extends CrudRepository<Novel, Integer> {
 
     List<Novel> findAllByNovelNameAndStatus(String novelName, Integer status);
 
+    List<Novel> findAllByNovelNameContainingAndStatus(String novelName, Integer status);
+
 
 
 

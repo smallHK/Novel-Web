@@ -346,7 +346,7 @@ public class CreatorController {
     }
 
     /**
-     * 申请章节开发
+     * 申请章节开放
      */
     @GetMapping("/applyForChapterPublish/{chapterId}")
     public ModelAndView applyForChapterPublish(@PathVariable Integer chapterId, HttpSession session) {
@@ -357,7 +357,22 @@ public class CreatorController {
         novelService.publishChapterPublishEvent(chapterId, authorId);
         novelService.updateChapterPublishStatus(chapterId, EntityStatus.CHAPTER_CHECKING);
 
-        modelAndView.setViewName("redirect:/");
+        modelAndView.setViewName("redirect:/creator/novelManagePage");
+        return modelAndView;
+    }
+
+    /**
+     * 申请卷开放
+     */
+    @GetMapping("/applyForVolumePublish/{volumeId}")
+    public ModelAndView applyForVolumePublish(@PathVariable Integer volumeId, HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView();
+        Integer authorId = (Integer)session.getAttribute(SessionProperty.CREATOR_LOGIN_CREATOR_ID);
+        novelService.publishVolumePublishEvent(volumeId, authorId);
+        novelService.updateVolumePublishStatus(volumeId, EntityStatus.VOLUME_CHECKING);
+        VolumeInfo info = novelService.findVolumeInfo(volumeId);
+
+        modelAndView.setViewName("redirect:/creator/chapterManage/" + info.getNovelId());
         return modelAndView;
     }
 

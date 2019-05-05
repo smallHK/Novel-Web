@@ -7,7 +7,9 @@ import com.hk.entity.Novel;
 import com.hk.entity.NovelPublish;
 import com.hk.entity.Profile;
 import com.hk.po.ChapterInfo;
+import com.hk.po.EditorWorkEvent;
 import com.hk.po.NovelIndex;
+import com.hk.po.VolumeInfo;
 import com.hk.repository.EditorRepository;
 import com.hk.repository.NovelPublishRepo;
 import com.hk.repository.NovelRepository;
@@ -16,6 +18,8 @@ import com.hk.service.NovelService;
 import com.hk.util.EntityStatus;
 import com.hk.util.EntityUtil;
 import com.hk.util.ResultUtil;
+import com.hk.util.SessionProperty;
+import lombok.Getter;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.*;
@@ -46,16 +50,13 @@ public class EditorController {
 
     private EditorRepository editorRepository;
 
-    private NovelRepository novelRepository;
 
-    private NovelPublishRepo novelPublishRepo;
-
-    public EditorController(NovelService novelService, ProfileRepository profileRepository,
-                            EditorRepository editorRepository, NovelRepository novelRepository, NovelPublishRepo novelPublishRepo) {
+    public EditorController(NovelService novelService,
+                            ProfileRepository profileRepository,
+                            EditorRepository editorRepository) {
         this.profileRepository = profileRepository;
         this.editorRepository = editorRepository;
-        this.novelRepository = novelRepository;
-        this.novelPublishRepo = novelPublishRepo;
+
 
         this.novelService = novelService;
 
@@ -115,8 +116,8 @@ public class EditorController {
 
             for (Editor editor : editorIterable) {
                 if (editor.getEditorName().equals(editorName) && editor.getPassword().equals(password)) {
-                    session.setAttribute("login_editor_name", editorName);
-                    session.setAttribute("login_editor_id", editor.getId());
+                    session.setAttribute(SessionProperty.EDITOR_LOGIN_EDITOR_NAME, editorName);
+                    session.setAttribute(SessionProperty.EDITOR_LOGIN_EDITOR_ID, editor.getId());
                     modelAndView.addObject("resultInfo", ResultUtil.success("success!").toJSONObject());
                     return modelAndView;
                 }
@@ -242,4 +243,28 @@ public class EditorController {
     }
 
 
+    /**
+     * 获取编辑者所有的工作事件
+     * 按照时间排序（未完成）
+     */
+    @Deprecated
+    @GetMapping("/findAllWorkEvent")
+    public @ResponseBody JSONObject findAllEventByRest(HttpSession session) {
+
+        Integer editorId = (Integer) session.getAttribute(SessionProperty.EDITOR_LOGIN_EDITOR_ID);
+        //获取所有卷开放事件
+        List<EditorWorkEvent> volPubEventList = novelService.findAllVolumePublishEvent(editorId, EntityStatus.VOLUME_PUBLISH_EVENT_SUBMITTED);
+        //获取所有章开放事件
+
+        return ResultUtil.success("success!").toJSONObject().fluentPut("eventList", volPubEventList);
+    }
+
+    /**
+     * 获取卷信息
+     */
+    @GetMapping("/findVolumeInfo/{volumeId}")
+    public @ResponseBody JSONObject findVolumeInfoByRest(@PathVariable  Integer volumeId) {
+        VolumeInfo volumeInfo = novelService.findVolumeInfo(volumeId);
+        return ResultUtil.success("success!").toJSONObject().fluentPut("volumeInfo", volumeInfo);
+    }
 }

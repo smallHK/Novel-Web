@@ -17,4 +17,6 @@ public interface VolumeRepository extends CrudRepository<Volume, Integer> {
 
     void deleteAllByNovelId(Integer novelId);
 
+    Volume findAllByNovelIdAndOrderNum(Integer novelId, Integer orderNum);
+
 }

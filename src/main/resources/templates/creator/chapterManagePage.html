@@ -135,7 +135,7 @@
         $.get("/creator/rest/novelIndex/" + novelId, function(data){
             if(data.status === 0) {
                 var volumeInfoList = data.novelIndex.volumeInfoList;
-                if(volumeInfoList.length === 0) $("#volume-view").empty();
+                if(volumeInfoList.length === 0) $("#volume-view").hide();
                 else {
                     switchVolume(volumeInfoList[0].volumeId);
                 }
@@ -158,7 +158,7 @@
         $.get("/creator/rest/volumeInfo/" + volumeId, function(data){
             if(data.status === 0) {
                 var chapterList = data.volumeInfo.chapterList;
-                if(chapterList.length === 0) $("#chapter-content").empty();
+                if(chapterList.length === 0) $("#chapter-content").find("div").hide();
                 else {
                     updateSpecialChapterInfo(chapterList[0].id);
                 }
@@ -212,7 +212,8 @@
 				{
 					case 0:
 						vmb.find('span').text("未开放");
-						vmb.find('a').attr("href", ""); //卷开放
+						vmb.find('a').attr("href", "/creator/applyForVolumePublish/" + volume.volumeId); //卷开放
+						vmb.find('a').show(); //卷开放
 						break;
 					case 1:
 						vmb.find('span').text("审核中");
@@ -235,6 +236,9 @@
 		$.get("/creator/rest/chapterInfo/" + chapterId, function (data) {
 
 			if(data.status === 0) {
+
+				$("#chapter-content").find("div").show();
+
 				var chapterInfo = data.chapterInfo;
 
 				var sp = $("#chapterInfo > p:first");
@@ -244,6 +248,7 @@
 					case 0:
 						sp.children(':first').text("未开放");
 						sp.children(':eq(1)').attr("onclick", ""); //章节开放，开放之前，需要判断是否已经
+						sp.children(':eq(1)').show(); //章节开放，开放之前，需要判断是否已经
 						break;
 					case 1:
 						sp.children('first').text("审核中");
