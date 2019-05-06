@@ -1,22 +1,23 @@
 package com.hk.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.hk.entity.Favorite;
 import com.hk.entity.NovelComment;
 import com.hk.entity.Reader;
 import com.hk.repository.NovelCommentRepo;
 import com.hk.repository.ReaderRepo;
 import com.hk.service.NovelService;
 import com.hk.util.ResultUtil;
+import com.hk.util.SessionProperty;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 读者服务控制器
@@ -81,8 +82,8 @@ public class ReaderController {
             Iterable<Reader> readers = readerRepo.findAll();
             for (Reader reader : readers) {
                 if (reader.getUsername().equals(username) && reader.getPassword().equals(password)) {
-                    session.setAttribute("reader_name", username);
-                    session.setAttribute("reader_id", reader.getId());
+                    session.setAttribute(SessionProperty.READER_LOGIN_READER_NAME, username);
+                    session.setAttribute(SessionProperty.READER_LOGIN_READER_ID, reader.getId());
                     modelAndView.setViewName("/reader/readerCenter");
                     modelAndView.addObject("resultInfo", ResultUtil.success("用户成功登陆！").toJSONObject());
                     return modelAndView;
@@ -105,7 +106,7 @@ public class ReaderController {
     @PostMapping("/publicNovelComment")
     public ModelAndView publishNovelComment(@RequestParam Map<String, String> params, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
-        Integer readerId = (Integer) session.getAttribute("reader_id");
+        Integer readerId = (Integer) session.getAttribute(SessionProperty.READER_LOGIN_READER_ID);
         String content = params.get("content");
         Integer novelId = Integer.valueOf(params.get("novelId"));
         novelService.publishNovelComment(readerId, novelId, content);
@@ -115,4 +116,66 @@ public class ReaderController {
     }
 
 
+    /**
+     * 加入收藏夹
+     */
+    @GetMapping("/addFavorite/{novelId}")
+    public @ResponseBody
+    JSONObject addFavoriteByRest(@PathVariable Integer novelId, HttpSession session) {
+        Integer readerId = (Integer) session.getAttribute(SessionProperty.READER_LOGIN_READER_ID);
+        novelService.addFavoriteRela(novelId, readerId);
+        return ResultUtil.success("success!").toJSONObject();
+    }
+
+    /**
+     * 移除收藏夹
+     */
+    @GetMapping("/removeFavorite/{novelId}")
+    public @ResponseBody
+    JSONObject removeFavoriteByRest(@PathVariable Integer novelId, HttpSession session) {
+        Integer readerId = (Integer)session.getAttribute(SessionProperty.READER_LOGIN_READER_ID);
+        novelService.removeFavoriteRela(novelId, readerId);
+        return ResultUtil.success("success!").toJSONObject();
+    }
+
+    /**
+     * 获取收藏夹
+     */
+    @GetMapping("/listFavorite/{pageNum}/{pageSize}")
+    public @ResponseBody
+    JSONObject listFavoriteByRest(@PathVariable Integer pageNum, @PathVariable Integer pageSize) {
+        return null;
+    }
+
+    /**
+     * 判断是否已经登陆
+     * 未登录返回false
+     * 登陆返回true
+     */
+    @GetMapping("/judgementLoginStatus")
+    public @ResponseBody
+    JSONObject judgeLoginStatus(HttpSession session) {
+        if(Objects.isNull(session.getAttribute(SessionProperty.READER_LOGIN_READER_NAME))){
+            return ResultUtil.success("success!").toJSONObject().fluentPut("flag", false);
+        }else {
+            return ResultUtil.success("success!").toJSONObject().fluentPut("flag", true);
+        }
+
+    }
+
+    /**
+     * 判断是否已经被收藏
+     * 已被收藏，flag返回true
+     */
+    @GetMapping("/judgeFavoriteStatus/{novelId}")
+    public @ResponseBody
+    JSONObject judgeFavoriteStatus(@PathVariable Integer novelId, HttpSession session) {
+        Integer readerId = (Integer) session.getAttribute(SessionProperty.READER_LOGIN_READER_ID);
+        boolean flag = novelService.judgeFavoriteStatus(novelId, readerId);
+        if(flag) {
+            return ResultUtil.success("success!").toJSONObject().fluentPut("flag", true);
+        }else {
+            return  ResultUtil.success("success!").toJSONObject().fluentPut("flag", false);
+        }
+    }
 }

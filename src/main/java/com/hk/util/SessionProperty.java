@@ -15,4 +15,8 @@ public class SessionProperty {
     public static final String EDITOR_LOGIN_EDITOR_NAME = "login_editor_name";
 
     public static final String EDITOR_LOGIN_EDITOR_ID = "login_editor_id";
+
+    public static final String READER_LOGIN_READER_NAME = "login_reader_name";
+
+    public static final String READER_LOGIN_READER_ID = "login_reader_id";
 }

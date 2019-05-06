@@ -51,6 +51,8 @@ public class NovelService {
 
     private VolumePublishEventRepo volumePublishEventRepo;
 
+    private FavoriteRepo favoriteRepo;
+
     public NovelService(NovelRepository novelRepository,
                         NovelCommentRepo novelCommentRepo,
                         NovelPublishRepo novelPublishRepo,
@@ -60,7 +62,8 @@ public class NovelService {
                         CreatorRepository creatorRepository,
                         ReaderRepo readerRepo,
                         ChapterPublishEventRepo chapterPublishEventRepo,
-                        VolumePublishEventRepo volumePublishEventRepo) {
+                        VolumePublishEventRepo volumePublishEventRepo,
+                        FavoriteRepo favoriteRepo) {
         this.novelRepository = novelRepository;
         this.novelCommentRepo = novelCommentRepo;
         this.novelPublishRepo = novelPublishRepo;
@@ -71,6 +74,7 @@ public class NovelService {
         this.readerRepo = readerRepo;
         this.chapterPublishEventRepo = chapterPublishEventRepo;
         this.volumePublishEventRepo = volumePublishEventRepo;
+        this.favoriteRepo = favoriteRepo;
     }
 
     /**
@@ -644,6 +648,41 @@ public class NovelService {
         chapterRepository.save(chapter);
     }
 
+    /**
+     * 添加收藏
+     */
+    public void addFavoriteRela(Integer novelId, Integer readerId) {
+        Favorite favorite = new Favorite();
+        favorite.setNovelId(novelId);
+        favorite.setReaderId(readerId);
+        favoriteRepo.save(favorite);
+    }
+
+    /**
+     * 移除收藏
+     */
+    public void removeFavoriteRela(Integer novelId, Integer readerId) {
+        Favorite favorite = favoriteRepo.findByNovelIdAndReaderId(novelId, readerId).orElseThrow();
+        favoriteRepo.deleteById(favorite.getId());
+    }
+
+    /**
+     * 判断收藏是否存在
+     * 存在返回true
+     * 不存在返回false
+     */
+    public boolean judgeFavoriteStatus(Integer novelId, Integer readerId) {
+        Optional<Favorite> result = favoriteRepo.findByNovelIdAndReaderId(novelId, readerId);
+        return result.isPresent();
+    }
+
+    /**
+     * 获取收藏
+     * 条件：读者id、分页
+     */
+    public List<Favorite> listFavorite(Integer readerId, Integer offset, Integer length) {
+        return null;
+    }
 
     /**
      * 获取卷信息
