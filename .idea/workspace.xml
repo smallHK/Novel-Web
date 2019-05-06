@@ -3,9 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="947d06e7-2ba9-4ebf-93a8-2e6066805784" name="Default Changelist" comment="完成部分功能页面布局">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PageContent/reader/readerCenter.html" beforeDir="false" afterPath="$PROJECT_DIR$/PageContent/reader/readerCenter.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/controller/EditorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/controller/EditorController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/editor/workSpacePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/editor/workSpacePage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/controller/EditorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/controller/EditorController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/service/NovelService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/service/NovelService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/editor/workSpacePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/editor/workSpacePage.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -20,11 +23,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="627" column="19" lean-forward="true" selection-start-line="627" selection-start-column="19" selection-end-line="627" selection-end-column="19" />
+            <state relative-caret-position="3177">
+              <caret line="645" lean-forward="true" selection-start-line="645" selection-end-line="645" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/repository/ChapterPublishEventRepo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="152">
+              <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -44,7 +59,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/repository/VolumePublishEventRepo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
+            <state relative-caret-position="76">
               <caret line="7" column="3" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -53,11 +68,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/EditorController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="267" column="20" selection-start-line="267" selection-start-column="20" selection-end-line="267" selection-end-column="20" />
+            <state relative-caret-position="4446">
+              <caret line="267" column="29" selection-start-line="267" selection-start-column="29" selection-end-line="267" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -65,8 +80,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/editor/workSpacePage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="457">
-              <caret line="506" lean-forward="true" selection-start-line="506" selection-end-line="506" />
+            <state relative-caret-position="9614">
+              <caret line="506" selection-start-line="506" selection-end-line="506" />
             </state>
           </provider>
         </entry>
@@ -83,7 +98,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/po/EditorWorkEvent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
+            <state relative-caret-position="304">
               <caret line="19" column="24" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -183,104 +198,22 @@
         <option value="$PROJECT_DIR$/src/main/java/com/hk/util/EntityStatus.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/po/EditorWorkEvent.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/editor/workSpacePage.html" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/EditorController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="102" />
-    <option name="y" value="47" />
-    <option name="width" value="1620" />
-    <option name="height" value="868" />
+    <option name="x" value="155" />
+    <option name="y" value="72" />
+    <option name="width" value="1554" />
+    <option name="height" value="914" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="NovelWeb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Novel-Web" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NovelWeb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Novel-Web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NovelWeb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Novel-Web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NovelWeb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Novel-Web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NovelWeb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Novel-Web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="hk" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NovelWeb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Novel-Web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="hk" type="462c0819:PsiDirectoryNode" />
-              <item name="po" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NovelWeb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Novel-Web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="hk" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NovelWeb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Novel-Web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NovelWeb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Novel-Web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NovelWeb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Novel-Web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="editor" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
@@ -510,7 +443,9 @@
       <workItem from="1557040448457" duration="931000" />
       <workItem from="1557044276491" duration="3024000" />
       <workItem from="1557055949954" duration="7286000" />
-      <workItem from="1557103319251" duration="828000" />
+      <workItem from="1557103319251" duration="2224000" />
+      <workItem from="1557114432399" duration="672000" />
+      <workItem from="1557136448737" duration="696000" />
     </task>
     <task id="LOCAL-00001" summary="创建文字阅读模块">
       <created>1552557105457</created>
@@ -537,7 +472,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="353049000" />
+    <option name="totallyTimeSpent" value="355813000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
@@ -549,8 +484,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="82" y="38" width="1296" height="694" extended-state="0" />
-    <editor active="true" />
+    <frame x="124" y="58" width="1243" height="731" extended-state="0" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6734375" weight="0.22319035" />
       <window_info id="Structure" order="1" sideWeight="0.3265625" side_tool="true" weight="0.25832012" />
@@ -562,7 +496,7 @@
       <window_info id="Web" order="7" side_tool="true" weight="0.23294629" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.6888489" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49689442" weight="0.4631728" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49689442" weight="0.46263346" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.65882355" weight="0.50993377" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -686,16 +620,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="351">
           <caret line="28" column="29" lean-forward="true" selection-start-line="28" selection-start-column="29" selection-end-line="28" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/repository/ChapterPublishEventRepo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -977,6 +901,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3177">
+          <caret line="645" lean-forward="true" selection-start-line="645" selection-end-line="645" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/repository/ChapterPublishEventRepo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/util/EventType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
@@ -984,20 +928,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/po/EditorWorkEvent.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/repository/VolumePublishEventRepo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="19" column="24" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="24" />
+        <state relative-caret-position="76">
+          <caret line="7" column="3" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/EditorController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4446">
+          <caret line="267" column="29" selection-start-line="267" selection-start-column="29" selection-end-line="267" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/editor/workSpacePage.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="506" lean-forward="true" selection-start-line="506" selection-end-line="506" />
+        <state relative-caret-position="9614">
+          <caret line="506" selection-start-line="506" selection-end-line="506" />
         </state>
       </provider>
     </entry>
@@ -1008,30 +959,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/repository/VolumePublishEventRepo.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/po/EditorWorkEvent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="3" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
+        <state relative-caret-position="304">
+          <caret line="19" column="24" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="627" column="19" lean-forward="true" selection-start-line="627" selection-start-column="19" selection-end-line="627" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/EditorController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="267" column="20" selection-start-line="267" selection-start-column="20" selection-end-line="267" selection-end-column="20" />
         </state>
       </provider>
     </entry>

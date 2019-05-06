@@ -622,7 +622,7 @@ public class NovelService {
     /**
      * 同意卷发布
      */
-    public void agreeVolumePublish(Integer eventId, Integer status) {
+    public void agreeVolumePublish(Integer eventId) {
         VolumePublishEvent event = volumePublishEventRepo.findById(eventId).orElseThrow();
         event.setStatus(EntityStatus.VOLUME_PUBLISH_EVENT_PASSED);
         volumePublishEventRepo.save(event);
@@ -632,6 +632,17 @@ public class NovelService {
     }
 
 
+    /**
+     * 同意章节发布
+     */
+    public void agreeChapterPublish(Integer eventId) {
+        ChapterPublishEvent event = chapterPublishEventRepo.findById(eventId).orElseThrow();
+        event.setStatus(EntityStatus.CHAPTER_PUBLISH_EVENT_PASSED);
+        chapterPublishEventRepo.save(event);
+        Chapter chapter = chapterRepository.findById(event.getChapterId()).orElseThrow();
+        chapter.setStatus(EntityStatus.CHAPTER_PASSED);
+        chapterRepository.save(chapter);
+    }
 
 
     /**

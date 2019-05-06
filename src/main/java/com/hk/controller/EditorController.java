@@ -264,8 +264,23 @@ public class EditorController {
      */
     @GetMapping("/passVolumePublishEvent/{eventId}")
     public ModelAndView agreeVolumePublish(Integer eventId) {
+        ModelAndView modelAndView = new ModelAndView();
+        novelService.agreeVolumePublish(eventId);
+        modelAndView.addObject("resultInfo", ResultUtil.success("success!"));
+        modelAndView.setViewName("redirect:/editor/workSpacePage");
+        return modelAndView;
+    }
 
-        return null;
+    /**
+     * 同意小说发布
+     */
+    @GetMapping("/passChapterPublishEvent/{eventId}")
+    public ModelAndView agreeChapterPublish(Integer eventId) {
+        ModelAndView modelAndView = new ModelAndView();
+        novelService.agreeChapterPublish(eventId);
+        modelAndView.addObject("resultInfo", ResultUtil.success("success!"));
+        modelAndView.setViewName("redirect:/editor/workSpacePage");
+        return modelAndView;
     }
 
     /**
