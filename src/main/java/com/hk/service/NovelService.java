@@ -619,6 +619,20 @@ public class NovelService {
         return eventList;
     }
 
+    /**
+     * 同意卷发布
+     */
+    public void agreeVolumePublish(Integer eventId, Integer status) {
+        VolumePublishEvent event = volumePublishEventRepo.findById(eventId).orElseThrow();
+        event.setStatus(EntityStatus.VOLUME_PUBLISH_EVENT_PASSED);
+        volumePublishEventRepo.save(event);
+        Volume volume = volumeRepository.findById(event.getVolumeId()).orElseThrow();
+        volume.setStatus(EntityStatus.VOLUME_PASSED);
+        volumeRepository.save(volume);
+    }
+
+
+
 
     /**
      * 获取卷信息

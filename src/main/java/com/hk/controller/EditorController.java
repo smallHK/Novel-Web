@@ -260,6 +260,15 @@ public class EditorController {
     }
 
     /**
+     * 同意卷发布
+     */
+    @GetMapping("/passVolumePublishEvent/{eventId}")
+    public ModelAndView agreeVolumePublish(Integer eventId) {
+
+        return null;
+    }
+
+    /**
      * 获取卷信息
      */
     @GetMapping("/findVolumeInfo/{volumeId}")

@@ -2,30 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="947d06e7-2ba9-4ebf-93a8-2e6066805784" name="Default Changelist" comment="完成部分功能页面布局">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hk/entity/Favorite.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hk/po/EditorWorkEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hk/repository/FavoriteRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hk/util/EventType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/editor/workSpacePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/PageContent/editor/workSpacePage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/controller/CreatorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/controller/CreatorController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/controller/EditorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/controller/EditorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/repository/ChapterRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/repository/ChapterRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/repository/NovelRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/repository/NovelRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/repository/VolumePublishEventRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/repository/VolumePublishEventRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/repository/VolumeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/repository/VolumeRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/util/EntityStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/util/EntityStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/util/SessionProperty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/util/SessionProperty.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/creator/chapterManagePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/creator/chapterManagePage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/editor/workSpacePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/editor/workSpacePage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/controller/CreatorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/controller/CreatorController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/repository/ChapterRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/repository/ChapterRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/repository/NovelRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/repository/NovelRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/repository/VolumeRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/repository/VolumeRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/service/NovelService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/service/NovelService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/util/EntityStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/util/EntityStatus.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/creator/chapterManagePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/creator/chapterManagePage.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -40,11 +20,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="615" column="52" selection-start-line="615" selection-start-column="52" selection-end-line="615" selection-end-column="52" />
+            <state relative-caret-position="281">
+              <caret line="627" column="19" lean-forward="true" selection-start-line="627" selection-start-column="19" selection-end-line="627" selection-end-column="19" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -65,7 +45,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/repository/VolumePublishEventRepo.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="133">
-              <caret line="7" column="3" lean-forward="true" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
+              <caret line="7" column="3" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -73,11 +53,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/EditorController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="67">
-              <caret line="255" column="75" selection-start-line="255" selection-start-column="75" selection-end-line="255" selection-end-column="75" />
+            <state relative-caret-position="338">
+              <caret line="267" column="20" selection-start-line="267" selection-start-column="20" selection-end-line="267" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -85,14 +65,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/editor/workSpacePage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="151">
-              <caret line="253" column="39" selection-start-line="253" selection-start-column="23" selection-end-line="253" selection-end-column="39" />
-              <folding>
-                <element signature="n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="e#10551#12744#0" />
-                <element signature="e#12830#18238#0" />
-              </folding>
+            <state relative-caret-position="457">
+              <caret line="506" lean-forward="true" selection-start-line="506" selection-end-line="506" />
             </state>
           </provider>
         </entry>
@@ -207,18 +181,18 @@
         <option value="$PROJECT_DIR$/src/main/java/com/hk/util/EventType.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/util/SessionProperty.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/util/EntityStatus.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/EditorController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/po/EditorWorkEvent.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/editor/workSpacePage.html" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/EditorController.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="57" />
-    <option name="y" value="73" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="102" />
+    <option name="y" value="47" />
     <option name="width" value="1620" />
-    <option name="height" value="867" />
+    <option name="height" value="868" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -317,7 +291,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557068765786" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557068819398" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="last_opened_file_path" value="D:/WorkSpace/2019/03/api_video" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
@@ -535,7 +509,8 @@
       <workItem from="1557028719054" duration="1505000" />
       <workItem from="1557040448457" duration="931000" />
       <workItem from="1557044276491" duration="3024000" />
-      <workItem from="1557055949954" duration="7169000" />
+      <workItem from="1557055949954" duration="7286000" />
+      <workItem from="1557103319251" duration="828000" />
     </task>
     <task id="LOCAL-00001" summary="创建文字阅读模块">
       <created>1552557105457</created>
@@ -562,7 +537,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="352104000" />
+    <option name="totallyTimeSpent" value="353049000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
@@ -574,7 +549,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="82" y="38" width="1296" height="694" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6734375" weight="0.22319035" />
@@ -587,7 +562,7 @@
       <window_info id="Web" order="7" side_tool="true" weight="0.23294629" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.6888489" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49689442" visible="true" weight="0.4631728" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49689442" weight="0.4631728" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.65882355" weight="0.50993377" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1002,10 +977,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/po/VolumeInfo.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/util/EventType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+        <state relative-caret-position="228">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
         </state>
       </provider>
     </entry>
@@ -1021,28 +996,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/editor/workSpacePage.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="253" column="39" selection-start-line="253" selection-start-column="23" selection-end-line="253" selection-end-column="39" />
-          <folding>
-            <element signature="n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="e#10551#12744#0" />
-            <element signature="e#12830#18238#0" />
-          </folding>
+        <state relative-caret-position="457">
+          <caret line="506" lean-forward="true" selection-start-line="506" selection-end-line="506" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/util/EventType.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/po/VolumeInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        <state relative-caret-position="266">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/repository/VolumePublishEventRepo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
-          <caret line="7" column="3" lean-forward="true" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
+          <caret line="7" column="3" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="627" column="19" lean-forward="true" selection-start-line="627" selection-start-column="19" selection-end-line="627" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1051,18 +1030,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/EditorController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="67">
-          <caret line="255" column="75" selection-start-line="255" selection-start-column="75" selection-end-line="255" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="615" column="52" selection-start-line="615" selection-start-column="52" selection-end-line="615" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="338">
+          <caret line="267" column="20" selection-start-line="267" selection-start-column="20" selection-end-line="267" selection-end-column="20" />
         </state>
       </provider>
     </entry>

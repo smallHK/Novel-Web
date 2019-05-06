@@ -490,7 +490,7 @@
         eventWrapper.append(indexBtn);
 
         var publishBtn = $("<button class=\"btn btn-light mx-1\">同意开放</button>");
-        publishBtn.attr("onclick", "agreePublishVolume(" + event.volumeId + ")");
+        publishBtn.attr("onclick", "agreePublishVolume(" + event.id + ")");
         eventWrapper.append(publishBtn);
 
         return eventWrapper;
@@ -503,7 +503,7 @@
     }
 
     //同意开放卷
-    function agreePublishVolume(volumeId) {
+    function agreePublishVolume(eventId) {
 
     }
 
