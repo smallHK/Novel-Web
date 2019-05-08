@@ -7,6 +7,7 @@ import com.hk.entity.Reader;
 import com.hk.repository.NovelCommentRepo;
 import com.hk.repository.ReaderRepo;
 import com.hk.service.NovelService;
+import com.hk.service.ReaderService;
 import com.hk.util.ResultUtil;
 import com.hk.util.SessionProperty;
 import org.springframework.stereotype.Controller;
@@ -31,13 +32,13 @@ public class ReaderController {
 
     private ReaderRepo readerRepo;
 
-    private NovelCommentRepo novelCommentRepo;
-
     private NovelService novelService;
 
-    public ReaderController(ReaderRepo readerRepo, NovelCommentRepo novelCommentRepo, NovelService novelService) {
+    private ReaderService readerService;
+
+    public ReaderController(ReaderRepo readerRepo, ReaderService readerService, NovelService novelService) {
         this.readerRepo = readerRepo;
-        this.novelCommentRepo = novelCommentRepo;
+        this.readerService = readerService;
         this.novelService = novelService;
     }
 
@@ -48,23 +49,11 @@ public class ReaderController {
     @PostMapping("/register")
     public ModelAndView registerNewReader(@RequestParam Map<String, String> params) {
         ModelAndView modelAndView = new ModelAndView();
-        String username = params.get("username");
-        String password = params.get("password");
-        Reader reader = new Reader();
-        reader.setUsername(username);
-        reader.setPassword(password);
-
-        try {
-            readerRepo.save(reader);
-            modelAndView.setViewName("/result");
+        readerService.register(params.get("username"), params.get("password"));
+            modelAndView.setViewName("/reader/loginPage");
             modelAndView.addObject("resultInfo", ResultUtil.success("用户注册成功！").toJSONObject());
             return modelAndView;
-        } catch (Exception e) {
-            e.printStackTrace();
-            modelAndView.setViewName("/result");
-            modelAndView.addObject("resultInfo", ResultUtil.failure("用户注册失败！").toJSONObject());
-            return modelAndView;
-        }
+
     }
 
     /**
@@ -78,26 +67,45 @@ public class ReaderController {
         String username = params.get("username");
         String password = params.get("password");
 
-        try {
-            Iterable<Reader> readers = readerRepo.findAll();
-            for (Reader reader : readers) {
-                if (reader.getUsername().equals(username) && reader.getPassword().equals(password)) {
-                    session.setAttribute(SessionProperty.READER_LOGIN_READER_NAME, username);
-                    session.setAttribute(SessionProperty.READER_LOGIN_READER_ID, reader.getId());
-                    modelAndView.setViewName("/reader/readerCenter");
-                    modelAndView.addObject("resultInfo", ResultUtil.success("用户成功登陆！").toJSONObject());
-                    return modelAndView;
-                }
-            }
-            modelAndView.setViewName("/result");
-            modelAndView.addObject("resultInfo", ResultUtil.failure("没有此用户！").toJSONObject());
-            return modelAndView;
-        } catch (Exception e) {
-            e.printStackTrace();
-            modelAndView.setViewName("/result");
-            modelAndView.addObject("resultInfo", ResultUtil.failure("用户登陆失败！").toJSONObject());
+        if(Objects.nonNull(session.getAttribute(SessionProperty.READER_LOGIN_READER_NAME))) {
+            modelAndView.setViewName("/reader/readerCenter");
+            modelAndView.addObject("resultInfo", ResultUtil.success("用户已经登陆！").toJSONObject());
             return modelAndView;
         }
+
+        Reader reader = readerService.readerLogin(username, password);
+        if(Objects.nonNull(reader)) {
+            session.setAttribute(SessionProperty.READER_LOGIN_READER_NAME, username);
+            session.setAttribute(SessionProperty.READER_LOGIN_READER_ID, reader.getId());
+            modelAndView.setViewName("/reader/readerCenter");
+            modelAndView.addObject("resultInfo", ResultUtil.success("用户成功登陆！").toJSONObject());
+            return modelAndView;
+
+        }
+
+        modelAndView.setViewName("redirect:/reader/loginPage");
+        modelAndView.addObject("resultInfo", ResultUtil.failure("密码错误！").toJSONObject());
+        return modelAndView;
+
+    }
+
+
+    /**
+     * 用户登陆
+     */
+    @PostMapping("/loginByRest")
+    public @ResponseBody  JSONObject loginByRest(@RequestParam Map<String, String> params, HttpSession session) {
+        String username = params.get("username");
+        String password = params.get("password");
+        Reader reader = readerService.readerLogin(username, password);
+
+        if(Objects.nonNull(reader)) {
+            session.setAttribute(SessionProperty.READER_LOGIN_READER_NAME, username);
+            session.setAttribute(SessionProperty.READER_LOGIN_READER_ID, reader.getId());
+            return ResultUtil.success("登陆成功！").toJSONObject().fluentPut("flag", 0);
+        }
+
+        return ResultUtil.success("密码错误！").toJSONObject().fluentPut("flag", 1);
     }
 
     /**

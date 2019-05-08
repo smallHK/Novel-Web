@@ -9,7 +9,7 @@ import javax.persistence.*;
  * @author smallHK
  * 2019/5/5 22:05
  */
-@Table(name = "Favorite")
+@Table(name = "t_favorite")
 @Setter
 @Getter
 @Entity

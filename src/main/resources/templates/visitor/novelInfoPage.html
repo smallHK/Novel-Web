@@ -10,24 +10,56 @@
     <script th:src="@{/bootstrap-4.3.1-dist/js/bootstrap.min.js}" src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 </head>
 <body class="main-back">
-<nav class="navbar navbar-light bg-dark sticky-top mb-3" > <a class="navbar-brand text-primary" href="../index.html">HK小说网</a> </nav>
+
+<!--读者登陆弹窗-->
+<div id="readerModal" class="modal fade" tabinder="-1" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">读者登录</h5>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form id="loginForm" action="/creator/login" method="post">
+                        <div class="form-group">
+                            <label>用户名</label>
+                            <input type="text" name="username" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>密码</label>
+                            <input type="password" name="password" class="form-control">
+                        </div>
+                    </form>
+                    <button onclick="readerLogin();" class="btn btn-primary" >登陆</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<nav class="navbar navbar-light bg-dark sticky-top mb-3"><a class="navbar-brand text-light" th:href="@{/index}" href="../index.html">HK小说网</a></nav>
 <div class="container border-bottom p-3">
     <div class="row">
-        <div class="col-md-auto"> <img th:src="@{/imgs/cover/cover2.jpg}" src="../imgs/sao_c.jpg" class="book-cover-img" alt="..."> </div>
+        <div class="col-md-auto"><img th:src="@{/imgs/cover/cover2.jpg}" src="../imgs/sao_c.jpg" class="book-cover-img"
+                                      alt="..."></div>
         <div class="col">
             <h5 class="h5" th:text="${novelInfo.novelName}">刀剑神域</h5>
             <p th:text="${novelInfo.penName}"><span>川原砾</span></p>
-            <p th:text="${novelInfo.briefIntro}">2022年，电子机械制造商“ARGUS”开发“NERvGear”装戴在头上的机器，能够控制人类的脑神经连接虚拟世界，于是人类终于实现了完全的虚拟实境。
+            <p th:text="${novelInfo.briefIntro}">
+                2022年，电子机械制造商“ARGUS”开发“NERvGear”装戴在头上的机器，能够控制人类的脑神经连接虚拟世界，于是人类终于实现了完全的虚拟实境。
                 身为VRMMORPG（虚拟大规模线上角色扮演游戏）《刀剑神域〈SAO〉》中的其中一名玩家：桐人和其他一万个玩家才刚登入享受此游戏之时，游戏中的管理员对大家宣布了一个令人惊恐的消息──
                 那就是，现在唯一要登出此游戏的方法只有将这个游戏破关，并且在这个游戏中GAME OVER的话，也就代表了现实世界中的“死亡”。
                 桐人只能在这混乱的情况下，比其他玩家更早一步接受这个事实，投入了看不见终点的战斗之中……</p>
-            <a th:href="@{/visitor/novelIndex/{novelId}(novelId=${novelInfo.id})}" href="#" class="btn btn-primary">查看目录</a>
-            <a href="#" class="btn btn-primary">点赞</a>
+            <a th:href="@{/visitor/novelIndex/{novelId}(novelId=${novelInfo.id})}" href="#"
+               class="btn btn-primary">查看目录</a>
+            <button id="favorite-btn" th:attr="data-novel-id=${novelInfo.id}" class="btn btn-primary" onclick="favoriteBtnSetting();">收藏</button>
         </div>
     </div>
 </div>
 <div class="container border-bottom p-3">
-    <form th:action="@{/reader/publicNovelComment}"  method="post">
+    <form th:action="@{/reader/publicNovelComment}" method="post">
         <input type="hidden" th:value="${novelInfo.id}" name="novelId">
         <div class="form-group">
             <label>评论正文</label>
@@ -42,7 +74,8 @@
     </div>
     <div th:each="commentInfo:${commentInfoList}" class="border my-2 p-2 rounded shadow-sm">
         <p>评论人：<span th:text="${commentInfo.username}">倒地不起的宇</span></p>
-        <p th:each="unit: ${commentInfo.content}" th:text="${unit}">作为游戏类轻小说，《刀剑神域》已经是可以称为鼻祖了。尤其是丰富的人物构造，巧妙的剧情设计，无时无刻象征着作为最出色游戏类轻小说之一的地位。
+        <p th:each="unit: ${commentInfo.content}" th:text="${unit}">
+            作为游戏类轻小说，《刀剑神域》已经是可以称为鼻祖了。尤其是丰富的人物构造，巧妙的剧情设计，无时无刻象征着作为最出色游戏类轻小说之一的地位。
             即使是现在来说，当初创建这本书的时间已经很久了，但《刀剑》依然与时俱进，洋溢着不同的激情魅力。
             《刀剑神域》涵盖了很多种游戏形式—咱是这么认为的，不仅有会“死亡”的生存游戏，开放式RPG，还有枪类激战，而后的可以理解是“穿越”到游戏世界里的AW篇……似乎一直不会让人感觉到《刀剑》老了，让人产生《刀剑》很年轻的错觉。
             作为该系列的粉丝，突然看到在SF又上架的时候，咱的心情是非常激动的，以至于大半夜留下个书评。
@@ -50,10 +83,89 @@
             作为经典，大家都会很熟悉，能引起不适的地方几乎不存在...（小声）除了乡须...
             也就不用介绍啦_(:з」∠)_
             也相信在这里几乎都是看过的 </p>
-        <p class="font-weight-light text-align-right">评论时间：<span th:text="${commentInfo.commentTimeStr}">2019/03/05 32:44:33</span></p>
+        <p class="font-weight-light text-align-right">评论时间：<span th:text="${commentInfo.commentTimeStr}">2019/03/05 32:44:33</span>
+        </p>
 
     </div>
 </div>
 
+<script>
+
+    $(document).ready(function () {
+
+        $.get("/reader/judgementLoginStatus", function (data) {
+            if (data.status === 0) {
+                if (data.flag === true) {//已登录
+
+                    favoriteBtnSettingByLogin(); //设置收藏按钮
+                }
+            }
+        });
+
+    });
+
+    function favoriteBtnSetting() {
+        //设置搜藏按钮
+        var favorite_btn = $("#favorite-btn");
+        $.get("/reader/judgementLoginStatus", function (data) {
+            var novelId = favorite_btn.data("novel-id");
+            if (data.status === 0) {
+                if (data.flag === true) {//已登录
+                    favoriteBtnSettingByLogin();
+                    $.get("/reader/judgeFavoriteStatus/" + novelId, function (favRe) { //已登录
+                        if (favRe.status === 0) {
+                            if (favRe.flag === true) {//已被收藏
+                                $.get("/reader/removeFavorite/" + novelId, function (data) {
+                                    if(data.status === 0) {
+                                        favorite_btn.text("收藏");
+                                    }
+                                });
+                            } else { //未被收藏
+                                $.get("/reader/addFavorite/" + novelId, function (data) {
+                                    if(data.status === 0) {
+                                        favorite_btn.text("取消收藏");
+                                    }
+                                });
+                            }
+                        }
+                    })
+                } else { //未登录
+                    $("#readerModal").modal('toggle');
+                    return false;
+                }
+            }
+        });
+
+    }
+
+    //登录状态下收藏按钮设置
+    function favoriteBtnSettingByLogin() {
+        var favorite_btn = $("#favorite-btn");
+        var novelId = favorite_btn.data("novel-id");
+        $.get("/reader/judgeFavoriteStatus/" + novelId, function (favRe) {
+            if (favRe.status === 0) {
+                if (favRe.flag === true) { //已被收藏
+                    favorite_btn.text("取消收藏");
+                } else { //未被收藏
+                    favorite_btn.text("收藏");
+                }
+            }
+        })
+    }
+
+
+
+    function readerLogin() {
+        $.post("/reader/loginByRest", $("#loginForm").serialize(), function (data) {
+            if(data.status === 0) {
+               if(data.flag === 0) {
+                   $("#readerModal").modal('hide');
+                   favoriteBtnSettingByLogin();
+               }
+            }
+        });
+    }
+
+</script>
 </body>
 </html>

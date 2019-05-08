@@ -1,5 +1,6 @@
 package com.hk.controller.interceptor;
 
+import com.hk.util.SessionProperty;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,7 @@ public class ReaderPrincipalInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
         //处理创作者
-        String editorName = (String) session.getAttribute("reader_name");
+        String editorName = (String) session.getAttribute(SessionProperty.READER_LOGIN_READER_NAME);
         if (Objects.nonNull(editorName)) {
             return true;
         } else {

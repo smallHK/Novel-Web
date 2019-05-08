@@ -1,5 +1,6 @@
 package com.hk.controller.interceptor;
 
+import com.hk.util.SessionProperty;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +22,7 @@ public class CreatorPrincipalInterceptor implements HandlerInterceptor {
 
         HttpSession session = request.getSession();
         //处理创作者
-        String penname = (String) session.getAttribute("login_penname");
+        String penname = (String) session.getAttribute(SessionProperty.CREATOR_LOGIN_CREATOR_NAME);
         if (Objects.nonNull(penname)) {
             return true;
         } else {

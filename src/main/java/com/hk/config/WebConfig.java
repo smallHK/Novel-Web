@@ -68,7 +68,8 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/reader/loginPage")
                 .excludePathPatterns("/reader/register")
                 .excludePathPatterns("/reader/registerPage")
-                .excludePathPatterns("/reader/judgementLoginStatus");
+                .excludePathPatterns("/reader/judgementLoginStatus")
+                .excludePathPatterns("/reader/loginByRest");
 
     }
 }

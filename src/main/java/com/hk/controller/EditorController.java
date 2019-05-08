@@ -1,39 +1,28 @@
 package com.hk.controller;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hk.entity.Editor;
 import com.hk.entity.Novel;
-import com.hk.entity.NovelPublish;
 import com.hk.entity.Profile;
 import com.hk.po.ChapterInfo;
 import com.hk.po.EditorWorkEvent;
 import com.hk.po.NovelIndex;
 import com.hk.po.VolumeInfo;
 import com.hk.repository.EditorRepository;
-import com.hk.repository.NovelPublishRepo;
-import com.hk.repository.NovelRepository;
 import com.hk.repository.ProfileRepository;
 import com.hk.service.NovelService;
 import com.hk.util.EntityStatus;
-import com.hk.util.EntityUtil;
 import com.hk.util.ResultUtil;
 import com.hk.util.SessionProperty;
-import lombok.Getter;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Stream;
-
-import static com.hk.util.ResultUtil.success;
 
 /**
  * smallHK
@@ -148,7 +137,7 @@ public class EditorController {
 
         try {
             Optional<Editor> editorWrapper = editorRepository.findById(loginId);
-            if (!editorWrapper.isPresent()) {
+            if (editorWrapper.isEmpty()) {
                 throw new RuntimeException("用户不存在！");
             }
             Editor editor = editorWrapper.get();
