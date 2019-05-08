@@ -9,7 +9,7 @@ import java.util.List;
  * smallHK
  * 2019/3/27 20:54
  */
-public interface ParagraphRepository extends CrudRepository<Paragraph, Integer> {
+public interface ParagraphRepository extends CrudRepository<Paragraph, Long> {
 
     List<Paragraph> findAllByChapterId(Integer chapterId);
 
