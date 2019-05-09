@@ -1,5 +1,6 @@
 package com.hk.config;
 
+import com.hk.controller.interceptor.AdminPrincipalInterceptor;
 import com.hk.controller.interceptor.CreatorPrincipalInterceptor;
 import com.hk.controller.interceptor.EditorPrincipalInterceptor;
 import com.hk.controller.interceptor.ReaderPrincipalInterceptor;
@@ -34,6 +35,8 @@ public class WebConfig implements WebMvcConfigurer {
 
         registry.addViewController("/reader/loginPage").setViewName("/reader/loginPage");
         registry.addViewController("/reader/registerPage").setViewName("/reader/registerPage");
+
+        registry.addViewController("/adminLogin").setViewName("/adminLoginPage");
 
     }
 
@@ -70,6 +73,10 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/reader/registerPage")
                 .excludePathPatterns("/reader/judgementLoginStatus")
                 .excludePathPatterns("/reader/loginByRest");
+
+        registry.addInterceptor(new AdminPrincipalInterceptor())
+                .addPathPatterns("/admin/**")
+                .excludePathPatterns("/admin/login");
 
     }
 }

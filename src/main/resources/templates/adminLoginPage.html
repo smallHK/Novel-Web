@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css}" href="../bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css" rel="stylesheet">
+    <link th:href="@{/bootstrap-4.3.1-dist/css/bootstrap.min.css}" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/content.css}" href="../css/content.css" rel="stylesheet">
+    <script th:src="@{/js/jquery-3.3.1.js}" src="../js/jquery-3.3.1.js"></script>
+    <script th:src="@{/bootstrap-4.3.1-dist/js/bootstrap.min.js}" src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+<hr>
+<nav class="navbar navbar-light bg-dark sticky-top mb-3" > <span class="navbar-brand text-light">HK小说网</span> </nav>
+<div class="text-center c-w-40 p-3 shadow  mx-auto rounded my-auto">
+
+    <form class="form-signer" action="/admin/login" method="post">
+        <h1 class="h3 mb-3 font-weight-normal">Hello Administrator!</h1>
+        <div class="form-group">
+            <label class="sr-only">用户名</label>
+            <input type="text" name="username" class="form-control" placeholder="用户名" required>
+        </div>
+        <div class="form-group">
+            <label class="sr-only">密码</label>
+            <input type="password" name="password" class="form-control" placeholder="密码" required>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="登陆"  class="btn btn-primary btn-block" >
+        </div>
+    </form>
+</div>
+</body>
+</html>
