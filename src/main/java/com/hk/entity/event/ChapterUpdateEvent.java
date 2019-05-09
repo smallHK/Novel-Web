@@ -1,4 +1,4 @@
-package com.hk.entity;
+package com.hk.entity.event;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,13 +8,13 @@ import java.sql.Timestamp;
 
 /**
  * @author smallHK
- * 2019/5/3 16:19
+ * 2019/5/9 10:39
  */
 @Entity
-@Getter
 @Setter
-@Table(name = "t_chapter_publish_event")
-public class ChapterPublishEvent {
+@Getter
+@Table(name = "t_chapter_update_event")
+public class ChapterUpdateEvent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,14 +23,11 @@ public class ChapterPublishEvent {
     @Column(name = "chapter_id")
     private Integer chapterId;
 
-    private Integer status;
-
-    @Column(name = "apply_time")
-    private Timestamp applyTime;
+    @Column(name = "update_time")
+    private Timestamp updateTime;
 
     @Column(name = "editor_id")
     private Integer editorId;
 
-    @Column(name = "author_id")
-    private Integer authorId;
+    private Integer status;
 }

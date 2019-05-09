@@ -1,6 +1,6 @@
-package com.hk.repository;
+package com.hk.repository.event;
 
-import com.hk.entity.ChapterPublishEvent;
+import com.hk.entity.event.ChapterPublishEvent;
 import org.springframework.data.repository.CrudRepository;
 
 /**

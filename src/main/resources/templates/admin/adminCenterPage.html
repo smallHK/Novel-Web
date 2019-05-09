@@ -89,86 +89,93 @@
 
 			</div>
 
-			<div class="tab-pane fade border back-color-white" id="profile-manage">
+			<div class="tab-pane fade" id="profile-manage">
 
-				<div class="p-2">
+				<div class="p-3 back-color-white my-2 border">
 					<div class="text-align-center">
-						<h5>简历管理</h5>
+						<h5>待审核</h5>
 					</div>
-					<div class="my-3 py-3 px-2 border">
+					<div th:each="profile:${unreadProfiles}" class="my-3 py-3 px-3 border">
 						<form>
 							<div class="form-group row">
 								<label class="col-2 col-form-label">姓名</label>
 								<div class="col-10">
-									<input type="text" readonly class="form-control" value="aaa">
+									<input type="text" readonly class="form-control" th:value="${profile.realName}" value="aaa">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-2 col-form-label">电话</label>
 								<div class="col-10">
-									<input type="text" readonly class="form-control" value="16866785567">
+									<input type="text" readonly class="form-control" th:value="${profile.phoneNumber}" value="16866785567">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-2 col-form-label">身份证号</label>
 								<div class="col-10">
-									<input type="text" readonly class="form-control" value="110101201904044312">
+									<input type="text" readonly class="form-control" th:value="${profile.idNumber}" value="110101201904044312">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-2 col-form-label">邮箱</label>
 								<div class="col-10">
-									<input type="text" readonly class="form-control" value="xiaoheiwanghk@qq.com">
+									<input type="text" readonly class="form-control" th:value="${profile.eMail}" value="xiaoheiwanghk@qq.com">
 								</div>
 							</div>
 							<div class="form-group">
 								<label>简介</label>
-								<textarea class="form-control" readonly rows="4">深度互联网从业人员，对互联网保持高度的敏感性和关注度，熟悉产品开发流程，有很强的产品规划、需求分析、交互设计能力，能独立承担APP和WEB项目的管控工作，善于沟通，贴近用户。</textarea>
+								<textarea class="form-control" readonly rows="4" th:text="${profile.briefIntro}">深度互联网从业人员，对互联网保持高度的敏感性和关注度，熟悉产品开发流程，有很强的产品规划、需求分析、交互设计能力，能独立承担APP和WEB项目的管控工作，善于沟通，贴近用户。</textarea>
 							</div>
 						</form>
 
 						<button class="btn btn-primary rounded-0">简历通过</button>
 					</div>
 
-
-					<div class="my-3 py-3 px-2 border">
-						<form>
-							<div class="form-group row">
-								<label class="col-2 col-form-label">姓名</label>
-								<div class="col-10">
-									<input type="text" readonly class="form-control" value="aaa">
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-2 col-form-label">电话</label>
-								<div class="col-10">
-									<input type="text" readonly class="form-control" value="16866785567">
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-2 col-form-label">身份证号</label>
-								<div class="col-10">
-									<input type="text" readonly class="form-control" value="110101201904044312">
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-2 col-form-label">邮箱</label>
-								<div class="col-10">
-									<input type="text" readonly class="form-control" value="xiaoheiwanghk@qq.com">
-								</div>
-							</div>
-							<div class="form-group">
-								<label>简介</label>
-								<textarea class="form-control" readonly rows="4">深度互联网从业人员，对互联网保持高度的敏感性和关注度，熟悉产品开发流程，有很强的产品规划、需求分析、交互设计能力，能独立承担APP和WEB项目的管控工作，善于沟通，贴近用户。</textarea>
-							</div>
-						</form>
-
-						<button class="btn btn-primary rounded-0">简历通过</button>
-					</div>
 				</div>
 
+				<div class="p-3 back-color-white my-2 border">
+					<div class="text-align-center">
+						<h5>以通过审核</h5>
+					</div>
+					<div class="my-3 py-3 px-3 border" th:each="profile: ${passedProfiles}">
+						<form>
+							<div class="form-group row">
+								<label class="col-2 col-form-label">姓名</label>
+								<div class="col-10">
+									<input type="text" readonly class="form-control" th:value="${profile.realName}" value="aaa">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-2 col-form-label">电话</label>
+								<div class="col-10">
+									<input type="text" readonly class="form-control" th:value="${profile.phoneNumber}" value="16866785567">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-2 col-form-label">身份证号</label>
+								<div class="col-10">
+									<input type="text" readonly class="form-control" th:value="${profile.idNumber}" value="110101201904044312">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-2 col-form-label">邮箱</label>
+								<div class="col-10">
+									<input type="text" readonly class="form-control" th:value="${profile.eMail}" value="xiaoheiwanghk@qq.com">
+								</div>
+							</div>
+							<div class="form-group">
+								<label>简介</label>
+								<textarea class="form-control" th:text="${profile.briefIntro}" readonly rows="4">深度互联网从业人员，对互联网保持高度的敏感性和关注度，熟悉产品开发流程，有很强的产品规划、需求分析、交互设计能力，能独立承担APP和WEB项目的管控工作，善于沟通，贴近用户。</textarea>
+							</div>
+						</form>
+
+						<button class="btn btn-primary rounded-0">简历通过</button>
+					</div>
+
+				</div>
 
 			</div>
+
+
 			<div class="tab-pane fade border back-color-white" id="novel-manage">
 				<div class="row mb-3 mx-auto" >
 					<div class="col-4 my-2">

@@ -1,14 +1,18 @@
 package com.hk.service;
 
 import com.hk.entity.*;
+import com.hk.entity.event.ChapterPublishEvent;
+import com.hk.entity.event.ChapterUpdateEvent;
+import com.hk.entity.event.VolumePublishEvent;
 import com.hk.po.*;
 import com.hk.repository.*;
-import com.hk.util.CommonUtil;
-import com.hk.util.EntityStatus;
-import com.hk.util.EventType;
+import com.hk.repository.event.ChapterPublishEventRepo;
+import com.hk.repository.event.VolumePublishEventRepo;
+import com.hk.util.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.swing.text.html.parser.Entity;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -481,18 +485,41 @@ public class NovelService {
     /**
      * 更新章节
      */
-    public void updateChapter(Integer novelId, Integer volumeId, Integer chapterId,  String chapterTitle, String originText) {
+    @Transactional
+    public void updateChapter(Integer chapterId,  String chapterTitle, String originText) {
 
         Chapter chapter = chapterRepository.findById(chapterId).orElseThrow();
         String chapterContent = CommonUtil.textProcessing(originText);
 
+        Instant now = Instant.now();
+
         //清楚所有段落
+        paragraphRepository.deleteAllByChapterId(chapterId);
 
         //更新章节信息
+        chapter.setClickCount(0);
+        chapter.setTitle(chapterTitle);
+        chapter.setWordCount(chapterContent.length());
 
-        //发布章节更新事件
+        //添加新的段落
+        addParagraphList(chapterContent, chapterId, chapter.getNovelId());
 
+        //更新小说更新时间
+        Novel novel = novelRepository.findById(chapter.getNovelId()).orElseThrow();
+        novel.setUpdateTime(Timestamp.from(now));
 
+        //如果小说已经被开放，而且章节也已经被开放，发布事件
+//        if(novel.getStatus().equals(EntityStatus.NOVEL_PASSED)) {//如果小说已经被开放，发布更新时间给管理的编辑
+//            NovelPublish novelPublish = novelPublishRepo.findByNovelId(novel.getId());
+//
+//            //发布章节更新事件
+//            ChapterUpdateEvent event = new ChapterUpdateEvent();
+//            event.setChapterId(chapterId);
+//            event.setEditorId(novelPublish.getEditorId());
+//            event.setUpdateTime(Timestamp.from(now));
+//            event.setStatus(EventStatus.CHAPTER_UPDATE_SUBMITTED);
+//
+//        }
 
     }
 
@@ -680,8 +707,29 @@ public class NovelService {
      * 获取收藏
      * 条件：读者id、分页
      */
-    public List<Favorite> listFavorite(Integer readerId, Integer offset, Integer length) {
-        return null;
+    public List<NovelInfo> listFavorite(Integer readerId, Integer offset, Integer length) {
+        List<Favorite> favoriteList = favoriteRepo.findAllByReaderId(readerId);
+        List<Integer> novelIds = new ArrayList<>();
+        for(Favorite favorite: favoriteList) {
+            novelIds.add(favorite.getNovelId());
+        }
+        List<Novel> novels = CollectionUtil.iterableToList(novelRepository.findAllById(novelIds));
+
+        List<NovelInfo> novelInfos = new ArrayList<>();
+        for(Novel novel: novels) {
+            NovelInfo info = new NovelInfo();
+            info.setId(novel.getId());
+            info.setCoverImg(novel.getCoverImg());
+            info.setNovelName(novel.getNovelName());
+            info.setBriefIntro(novel.getBriefIntro());
+            info.setAuthorId(novel.getAuthorId());
+            novelInfos.add(info);
+        }
+
+        //从offset到limit之间的数据，不包括limit
+        int limit = offset + length < novelInfos.size() ? offset + length : novelInfos.size();
+
+        return novelInfos.subList(offset, limit);
     }
 
     /**
@@ -727,7 +775,35 @@ public class NovelService {
         //删除小说段落
         paragraphRepository.deleteAllByNovelId(novelId);
 
+        //删除对小说的收藏
+
+        //删除对小说的标签
+
     }
+
+
+    /**
+     * 通过chapterId获取novelId
+     */
+    public Integer findNovelIdByChapterId(Integer chapterId) {
+        return chapterRepository.findById(chapterId).orElseThrow().getNovelId();
+    }
+
+    private void addParagraphList(String chapterContent, Integer chapterId, Integer novelId) {
+        List<Paragraph> paragraphList = new ArrayList<>();
+        String[] contents = chapterContent.split("\n");
+        for (int i = 0; i < contents.length; i++) {
+            String line = contents[i];
+            Paragraph paragraph = new Paragraph();
+            paragraph.setChapterId(chapterId);
+            paragraph.setContent(line);
+            paragraph.setOrderNum(i + 1);
+            paragraph.setNovelId(novelId);
+            paragraphList.add(paragraph);
+        }
+        paragraphRepository.saveAll(paragraphList);
+    }
+
 
 }
 

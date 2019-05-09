@@ -15,4 +15,6 @@ public interface ParagraphRepository extends CrudRepository<Paragraph, Long> {
 
     void deleteAllByNovelId(Integer novelId);
 
+    void deleteAllByChapterId(Integer chapterId);
+
 }

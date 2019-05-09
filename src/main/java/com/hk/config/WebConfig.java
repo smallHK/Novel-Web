@@ -62,7 +62,8 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/editor/**")
                 .excludePathPatterns("/editor/login")
                 .excludePathPatterns("/editor/loginPage")
-                .excludePathPatterns("/editor/applyForPage");
+                .excludePathPatterns("/editor/applyForPage")
+                .excludePathPatterns("/editor/postProfile");
 
 
         registry.addInterceptor(new ReaderPrincipalInterceptor())

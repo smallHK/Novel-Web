@@ -30,14 +30,12 @@ import java.util.Objects;
 @RequestMapping("/reader")
 public class ReaderController {
 
-    private ReaderRepo readerRepo;
 
     private NovelService novelService;
 
     private ReaderService readerService;
 
-    public ReaderController(ReaderRepo readerRepo, ReaderService readerService, NovelService novelService) {
-        this.readerRepo = readerRepo;
+    public ReaderController(ReaderService readerService, NovelService novelService) {
         this.readerService = readerService;
         this.novelService = novelService;
     }
@@ -124,66 +122,4 @@ public class ReaderController {
     }
 
 
-    /**
-     * 加入收藏夹
-     */
-    @GetMapping("/addFavorite/{novelId}")
-    public @ResponseBody
-    JSONObject addFavoriteByRest(@PathVariable Integer novelId, HttpSession session) {
-        Integer readerId = (Integer) session.getAttribute(SessionProperty.READER_LOGIN_READER_ID);
-        novelService.addFavoriteRela(novelId, readerId);
-        return ResultUtil.success("success!").toJSONObject();
-    }
-
-    /**
-     * 移除收藏夹
-     */
-    @GetMapping("/removeFavorite/{novelId}")
-    public @ResponseBody
-    JSONObject removeFavoriteByRest(@PathVariable Integer novelId, HttpSession session) {
-        Integer readerId = (Integer)session.getAttribute(SessionProperty.READER_LOGIN_READER_ID);
-        novelService.removeFavoriteRela(novelId, readerId);
-        return ResultUtil.success("success!").toJSONObject();
-    }
-
-    /**
-     * 获取收藏夹
-     */
-    @GetMapping("/listFavorite/{pageNum}/{pageSize}")
-    public @ResponseBody
-    JSONObject listFavoriteByRest(@PathVariable Integer pageNum, @PathVariable Integer pageSize) {
-        return null;
-    }
-
-    /**
-     * 判断是否已经登陆
-     * 未登录返回false
-     * 登陆返回true
-     */
-    @GetMapping("/judgementLoginStatus")
-    public @ResponseBody
-    JSONObject judgeLoginStatus(HttpSession session) {
-        if(Objects.isNull(session.getAttribute(SessionProperty.READER_LOGIN_READER_NAME))){
-            return ResultUtil.success("success!").toJSONObject().fluentPut("flag", false);
-        }else {
-            return ResultUtil.success("success!").toJSONObject().fluentPut("flag", true);
-        }
-
-    }
-
-    /**
-     * 判断是否已经被收藏
-     * 已被收藏，flag返回true
-     */
-    @GetMapping("/judgeFavoriteStatus/{novelId}")
-    public @ResponseBody
-    JSONObject judgeFavoriteStatus(@PathVariable Integer novelId, HttpSession session) {
-        Integer readerId = (Integer) session.getAttribute(SessionProperty.READER_LOGIN_READER_ID);
-        boolean flag = novelService.judgeFavoriteStatus(novelId, readerId);
-        if(flag) {
-            return ResultUtil.success("success!").toJSONObject().fluentPut("flag", true);
-        }else {
-            return  ResultUtil.success("success!").toJSONObject().fluentPut("flag", false);
-        }
-    }
 }

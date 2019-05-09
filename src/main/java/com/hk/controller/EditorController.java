@@ -55,11 +55,10 @@ public class EditorController {
     /**
      * 申请称为编辑，投简历
      */
-    @Deprecated
     @PostMapping("/postProfile")
     public ModelAndView postProfile(@RequestParam Map<String, String> params) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/result");
+        modelAndView.setViewName("/index");
         String realName = params.get("real_name");
         String phoneNum = params.get("phone_number");
         String idNumber = params.get("id_number");

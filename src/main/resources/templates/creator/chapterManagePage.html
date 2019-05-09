@@ -33,6 +33,33 @@
 	</div>
 </div>
 
+<!--更新章节modal-->
+<div class="modal fade" id="updateChapter" tabindex="-1">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">更新章节</h5>
+			</div>
+			<div class="modal-body">
+				<form action="/creator/updateChapter" method="post">
+					<input type="hidden" name="chapter_id">
+					<div class="form-group">
+						<label>章节名称</label>
+						<input type="text" name="chapter_title" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>章节正文</label>
+						<textarea rows="20" name="chapter_content" class="form-control"></textarea>
+					</div>
+					<div class="form-group">
+						<input type="submit" value="确认提交" class="btn btn-primary">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
 <!--切换卷-->
 <div class="modal fade" id="switchVolume" tabindex="-1">
 	<div class="modal-dialog">
@@ -115,7 +142,7 @@
 						<p>……</p>
 					</div>
 					<div id="chapterBtn">
-						<a class="btn btn-light btn-block">内容修改</a>
+						<button class="btn btn-light btn-block">内容修改</button>
 						<a class="btn btn-light btn-block">查看章节</a>
 					</div>
 			</div>
@@ -279,12 +306,37 @@
 				brcv.append(ps);
 
 
-				$("#chapterBtn > a:first").attr("href", "");
-				$("#chapterBtn > a:eq(1)").attr("href", "/creator/findChapterContent/" + chapterInfo.id);
+				$("#chapterBtn > button").attr("onclick", "updateChapterContent(" + chapterInfo.id + ");");
+				$("#chapterBtn > a").attr("href", "/creator/findChapterContent/" + chapterInfo.id);
 			}
 		});
 	}
 
+	/**
+	 *	更新章节内容
+	 *	修改modal内容
+	 */
+	function updateChapterContent(chapterId) {
+		$.get("/creator/rest/chapterInfo/" + chapterId, function (data) {
+			if(data.status === 0) {
+				var info = data.chapterInfo;
+				var paraList = info.paragraphList;
+				var content = "";
+				for(var i  = 0; i< paraList.length; i++) {
+					if(i !== 0) content += "\n" + paraList[i].content;
+					else content += paraList[i].content;
+				}
+
+				var modal = $("#updateChapter");
+				modal.find("form").find("input:eq(0)").val(info.id);
+				modal.find("form").find("input:eq(1)").val(info.title);
+				modal.find("form").find("textarea").text(content);
+				modal.modal('toggle');
+
+
+			}
+		});
+	}
 
 	/**
 	 * 章节开放

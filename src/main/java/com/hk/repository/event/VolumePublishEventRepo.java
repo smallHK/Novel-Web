@@ -1,6 +1,6 @@
-package com.hk.repository;
+package com.hk.repository.event;
 
-import com.hk.entity.VolumePublishEvent;
+import com.hk.entity.event.VolumePublishEvent;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

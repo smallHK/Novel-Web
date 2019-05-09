@@ -6,8 +6,11 @@ import com.hk.entity.Profile;
 import com.hk.repository.AdminRepository;
 import com.hk.repository.EditorRepository;
 import com.hk.repository.ProfileRepository;
+import com.hk.service.NovelService;
 import com.hk.util.EntityStatus;
 import com.hk.util.ResultUtil;
+import com.hk.util.SessionProperty;
+import lombok.Getter;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
@@ -15,6 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +34,7 @@ import java.util.UUID;
 @Controller
 @EnableTransactionManagement
 @RequestMapping(path = "/admin")
-public class AdminService {
+public class AdminController {
 
 
     private AdminRepository adminRepository;
@@ -39,12 +43,15 @@ public class AdminService {
 
     private EditorRepository editorRepository;
 
+    private NovelService novelService;
+
     private JavaMailSender mailSender;
 
-    public AdminService(AdminRepository adminRepository,
-                        ProfileRepository profileRepository,
-                        EditorRepository editorRepository,
-                        JavaMailSender mailSender
+    public AdminController(AdminRepository adminRepository,
+                           ProfileRepository profileRepository,
+                           EditorRepository editorRepository,
+                           JavaMailSender mailSender,
+                           NovelService novelService
                         ) {
         this.adminRepository = adminRepository;
         this.profileRepository = profileRepository;
@@ -61,7 +68,7 @@ public class AdminService {
      * @return status=0登陆成功，status=1登陆失败
      */
     @PostMapping(path="/login")
-    public ModelAndView login(@RequestParam("username") String username, @RequestParam("password") String pwd) {
+    public ModelAndView login(@RequestParam("username") String username, @RequestParam("password") String pwd, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
 
         try {
@@ -70,8 +77,10 @@ public class AdminService {
             for (Admin admin :adminList) {
                 if(admin.getUsername().equals(username) && admin.getPassword().equals(pwd)){
                     modelAndView.addObject("loginName", username);
+                    session.setAttribute(SessionProperty.ROOT_LOGIN_NAME, username);
+                    session.setAttribute(SessionProperty.ROOT_LOGIN_ID, admin.getId());
                     modelAndView.addObject("resultInfo", ResultUtil.success("Success!").toJSONObject());
-                    modelAndView.setViewName("/admin/adminCenter");
+                    modelAndView.setViewName("redirect:/admin/enterAdminCenter");
                     return modelAndView;
                 }
             }
@@ -84,44 +93,57 @@ public class AdminService {
         return modelAndView;
     }
 
-
-    /**
-     * 查看所有简历
-     * 包括，已审核、未审核
-     *
-     */
-    @GetMapping("/findAllProfile")
-    public ModelAndView findAllUnreadProfile() {
+    @GetMapping("/enterAdminCenter")
+    public ModelAndView enterAdminCenter() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/admin/ProfileManage");
+        modelAndView.setViewName("/admin/adminCenterPage");
 
-        try {
-            Iterable<Profile> profileList = profileRepository.findAll();
-            List<Profile> unreadProfileList = new ArrayList<>();
-            List<Profile> passedProfileList = new ArrayList<>();
-
-            for(Profile profile: profileList) {
-                if(profile.getStatus().equals(EntityStatus.PROFILE_UNREAD)) {
-                    unreadProfileList.add(profile);
-                }else if(profile.getStatus().equals(EntityStatus.PROFILE_PASSED)) {
-                    passedProfileList.add(profile);
-                }
-
-            }
-
-            modelAndView.addObject("unreadProfileList", unreadProfileList);
-            modelAndView.addObject("passedProfileList", passedProfileList);
-            modelAndView.addObject("resultInfo", ResultUtil.success("Success!").toJSONObject());
-        } catch (Exception e) {
-            e.printStackTrace();
-            modelAndView.addObject("resultInfo", ResultUtil.failure("fail!").toJSONObject());
-            modelAndView.setViewName("/result");
-
-        }
-
+        List<Profile> unreadProfiles = profileRepository.findAllByStatus(EntityStatus.PROFILE_UNREAD);
+        List<Profile> passedProfiles = profileRepository.findAllByStatus(EntityStatus.PROFILE_PASSED);
+        modelAndView.addObject("resultInfo", ResultUtil.success("success").toJSONObject());
+        modelAndView.addObject("unreadProfiles", unreadProfiles);
+        modelAndView.addObject("passedProfiles", passedProfiles);
         return modelAndView;
     }
 
+//    /**
+//     * 查看所有简历
+//     * 包括，已审核、未审核
+//     *
+//     */
+//    @Deprecated
+//    @GetMapping("/findAllProfile")
+//    public ModelAndView findAllUnreadProfile() {
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName("/admin/ProfileManage");
+//
+//        try {
+//            Iterable<Profile> profileList = profileRepository.findAll();
+//            List<Profile> unreadProfileList = new ArrayList<>();
+//            List<Profile> passedProfileList = new ArrayList<>();
+//
+//            for(Profile profile: profileList) {
+//                if(profile.getStatus().equals(EntityStatus.PROFILE_UNREAD)) {
+//                    unreadProfileList.add(profile);
+//                }else if(profile.getStatus().equals(EntityStatus.PROFILE_PASSED)) {
+//                    passedProfileList.add(profile);
+//                }
+//
+//            }
+//
+//            modelAndView.addObject("unreadProfileList", unreadProfileList);
+//            modelAndView.addObject("passedProfileList", passedProfileList);
+//            modelAndView.addObject("resultInfo", ResultUtil.success("Success!").toJSONObject());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            modelAndView.addObject("resultInfo", ResultUtil.failure("fail!").toJSONObject());
+//            modelAndView.setViewName("/result");
+//
+//        }
+//
+//        return modelAndView;
+//    }
+//
 
 
 
@@ -140,7 +162,7 @@ public class AdminService {
         try {
             //设置简历状态
             Optional<Profile> profileWrapper = profileRepository.findById(profileId);
-            if(!profileWrapper.isPresent()) {
+            if(profileWrapper.isEmpty()) {
                 throw new RuntimeException("找不到简历!");
             }
             Profile profile = profileWrapper.get();
