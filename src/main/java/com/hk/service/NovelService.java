@@ -205,6 +205,7 @@ public class NovelService {
         NovelPublish novelPublish = new NovelPublish();
         novelPublish.setEditorId(editorId);
         novelPublish.setNovelId(novelId);
+        novelPublish.setApplyTime(Timestamp.from(Instant.now()));
         novelPublishRepo.save(novelPublish);
         Novel novel = novelRepository.findNovelById(novelId);
         novel.setStatus(EntityStatus.NOVEL_PASSED);
@@ -541,32 +542,70 @@ public class NovelService {
 
     /**
      * 获取小说的评论信息列表
-     * 条件：小说id
+     * 条件：novel_id
+     *  页面：小说信息页
      */
     public List<NovelCommentInfo> listAllNovelCommentInfo(Integer novelId) {
 
         List<NovelComment> commentList = novelCommentRepo.findAllByNovelId(novelId);
         List<NovelCommentInfo> infoList = new ArrayList<>();
         for(NovelComment comment: commentList) {
-
-            NovelCommentInfo info = new NovelCommentInfo();
-            info.setId(comment.getId());
-            info.setContent(Arrays.asList(comment.getContent().split("\n")));
-            info.setOrderNum(comment.getOrderNum());
-
-            Instant commentTime = comment.getCreateTime().toInstant();
-            info.setCommentTime(commentTime);
-            info.setCommentTimeStr(LocalDateTime.ofInstant(commentTime, ZoneOffset.ofHours(8)).format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
-
-            info.setReaderId(comment.getReaderId());
-            info.setUsername(readerRepo.findById(comment.getReaderId()).orElseThrow().getUsername());
-            info.setNovelId(comment.getNovelId());
-
+            NovelCommentInfo info = novelCommentToNovelCommentInfo(comment);
             infoList.add(info);
 
         }
         return infoList;
     }
+
+    /**
+     * 获取小说的评论信息列表
+     * 条件：reader_id
+     * 页面：用户中心
+     */
+    public List<NovelCommentList> findAllNovelCommentList(Integer readerId) {
+        List<NovelComment> commentList = novelCommentRepo.findAllByReaderId(readerId);
+        Set<Integer> novelIds = new HashSet<>();
+        for(NovelComment comment: commentList) {
+            novelIds.add(comment.getNovelId());
+        }
+        List<Novel> novels = CollectionUtil.iterableToList(novelRepository.findAllById(novelIds));
+        List<NovelCommentList> result = new ArrayList<>();
+        for(Novel novel: novels) {
+            NovelCommentList each = new NovelCommentList();
+            each.setNovelId(novel.getId());
+            each.setNovelName(novel.getNovelName());
+            List<NovelCommentInfo> infoList = new ArrayList<>();
+            each.setCommentInfoList(infoList);
+            for(NovelComment comment: commentList) {
+                if(!comment.getNovelId().equals(novel.getId())) continue;
+                NovelCommentInfo info = novelCommentToNovelCommentInfo(comment);
+                infoList.add(info);
+            }
+            infoList.sort((e1, e2)-> (int)e2.getCommentTime().getEpochSecond() - (int)e1.getCommentTime().getEpochSecond());
+            result.add(each);
+        }
+        return result;
+    }
+
+    /**
+     * 将comment转为commentInfo
+     */
+    private NovelCommentInfo novelCommentToNovelCommentInfo(NovelComment comment) {
+        NovelCommentInfo info = new NovelCommentInfo();
+        info.setId(comment.getId());
+        info.setContent(Arrays.asList(comment.getContent().split("\n")));
+        info.setOrderNum(comment.getOrderNum());
+
+        Instant commentTime = comment.getCreateTime().toInstant();
+        info.setCommentTime(commentTime);
+        info.setCommentTimeStr(LocalDateTime.ofInstant(commentTime, ZoneOffset.ofHours(8)).format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
+
+        info.setReaderId(comment.getReaderId());
+        info.setUsername(readerRepo.findById(comment.getReaderId()).orElseThrow().getUsername());
+        info.setNovelId(comment.getNovelId());
+        return info;
+    }
+
 
     /**
      * 添加指定章节点击数
@@ -764,38 +803,6 @@ public class NovelService {
         return volumeInfo;
     }
 
-
-    /**
-     * 删除执行小说的一切相关数据
-     *
-     * @param novelId 制定小说id
-     */
-    @Transactional
-    public void deleteNovel(Integer novelId) {
-
-        //删除小说
-        novelRepository.deleteAllById(novelId);
-
-        //删除小说评论
-        novelCommentRepo.deleteAllByNovelId(novelId);
-
-        //删除小说发布映射
-        novelPublishRepo.deleteAllByNovelId(novelId);
-
-        //删除小说卷
-        volumeRepository.deleteAllByNovelId(novelId);
-
-        //删除小说章节
-        chapterRepository.deleteAllByNovelId(novelId);
-
-        //删除小说段落
-        paragraphRepository.deleteAllByNovelId(novelId);
-
-        //删除对小说的收藏
-
-        //删除对小说的标签
-
-    }
 
 
     /**

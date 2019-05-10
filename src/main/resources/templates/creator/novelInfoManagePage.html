@@ -32,7 +32,7 @@
 	</div>
 </div>
 <body class="main-back">
-<nav class="navbar navbar-light bg-dark sticky-top mb-3" > <a class="navbar-brand text-light" href="../index.html">HK小说网</a> </nav>
+<nav class="navbar navbar-light bg-dark sticky-top mb-3" > <a class="navbar-brand text-light" th:href="@{/creator/novelManagePage}" href="../index.html">HK小说网</a> </nav>
 <ul class="nav nav-tabs">
 	<li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#info-page">信息页</a> </li>
 	<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#edit-page">编辑页</a> </li>
@@ -89,7 +89,7 @@
 					<div class="form-group">
 						<label>标签</label>
 						<div class="row p-2">
-							<div class="col-2 text-truncate text-align-center mx-1 bg-primary text-light rounded my-1" th:each="tag: ${info.tagList}"> <span th:text="${tag.content}">致郁</span> </div>
+							<div class="col-2 text-truncate text-align-center mx-1 bg-primary text-light rounded my-1" th:each="tag: ${info.tagList}"> <a class="text-light" th:text="${tag.content}" th:href="@{/creator/removeTag/{novelId}/{tagId}(novelId=${info.id},tagId=${tag.id})}">致郁</a> </div>
 							<div class="col-2 text-truncate text-align-center mx-1 bg-primary text-light rounded my-1"><a class="text-light"  data-toggle="modal" data-target="#addNewTag">+</a></div>
 						</div>
 					</div>

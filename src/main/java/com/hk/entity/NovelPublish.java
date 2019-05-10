@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 /**
  * @author smallHK
@@ -26,5 +27,11 @@ public class NovelPublish {
 
     @Column(name = "novel_id")
     private Integer novelId;
+
+    @Column(name = "apply_time")
+    private Timestamp applyTime;
+
+    @Column(name = "publish_time")
+    private Timestamp publishTime;
 
 }
