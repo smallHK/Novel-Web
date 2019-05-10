@@ -706,6 +706,34 @@ public class NovelService {
     }
 
     /**
+     * 获取章节发布事件
+     * 条件：编辑id、指定状态的事件
+     */
+    public List<EditorWorkEvent> findAllChapterPublishEvent(Integer editorId, Integer status) {
+        List<EditorWorkEvent> eventList = new ArrayList<>();
+
+        List<ChapterPublishEvent> publishEventList = chapterPublishEventRepo.findAllByEditorIdAndStatus(editorId, status);
+
+        for(ChapterPublishEvent publishEvent: publishEventList) {
+            EditorWorkEvent event = new EditorWorkEvent();
+            event.setId(publishEvent.getId());
+            event.setAppearTime(publishEvent.getApplyTime().toInstant());
+            event.setType(EventType.CHAPTER_PUBLISH_EVENT);
+            event.setChapterId(publishEvent.getChapterId());
+            event.setAuthorId(publishEvent.getAuthorId());
+            event.setAppearTimeStr(LocalDateTime.ofInstant(publishEvent.getApplyTime().toInstant(), ZoneOffset.ofHours(8))
+                    .format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
+
+            Chapter chapter = chapterRepository.findById(publishEvent.getChapterId()).orElseThrow();
+            event.setChapterTitle(chapter.getTitle());
+            Novel novel = novelRepository.findById(chapter.getNovelId()).orElseThrow();
+            event.setNovelTitle(novel.getNovelName());
+            eventList.add(event);
+        }
+        return eventList;
+    }
+
+    /**
      * 同意卷发布
      */
     public void agreeVolumePublish(Integer eventId) {

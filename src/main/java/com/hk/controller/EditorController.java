@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -183,7 +184,7 @@ public class EditorController {
     public ModelAndView publishNovel(@PathVariable Integer novelId, HttpSession session) {
 
         ModelAndView modelAndView = new ModelAndView();
-        Integer editorId = (Integer) session.getAttribute("login_editor_id");
+        Integer editorId = (Integer) session.getAttribute(SessionProperty.EDITOR_LOGIN_EDITOR_ID);
         novelService.publishNovel(novelId, editorId);
         modelAndView.setViewName("redirect:/editor/workSpacePage");
         modelAndView.addObject("resultInfo", ResultUtil.success("success!").toJSONObject());
@@ -195,9 +196,10 @@ public class EditorController {
      * 查看登陆编辑审核管理的书籍
      */
     @GetMapping("/findAllManagedNovel")
-    public @ResponseBody JSONObject
+    public @ResponseBody
+    JSONObject
     findAllPublishedNovelByEditor(HttpSession session) {
-        Integer editorId = (Integer) session.getAttribute("login_editor_id");
+        Integer editorId = (Integer) session.getAttribute(SessionProperty.EDITOR_LOGIN_EDITOR_ID);
         List<Novel> novelList = novelService.listAllNovelByEditorId(editorId);
         return ResultUtil.success("success!").toJSONObject()
                 .fluentPut("novelList", novelList);
@@ -237,45 +239,34 @@ public class EditorController {
      */
     @Deprecated
     @GetMapping("/findAllWorkEvent")
-    public @ResponseBody JSONObject findAllEventByRest(HttpSession session) {
+    public @ResponseBody
+    JSONObject findAllEventByRest(HttpSession session) {
 
         Integer editorId = (Integer) session.getAttribute(SessionProperty.EDITOR_LOGIN_EDITOR_ID);
+
         //获取所有卷开放事件
         List<EditorWorkEvent> volPubEventList = novelService.findAllVolumePublishEvent(editorId, EntityStatus.VOLUME_PUBLISH_EVENT_SUBMITTED);
+
         //获取所有章开放事件
+        List<EditorWorkEvent> chaPubEventList = novelService.findAllChapterPublishEvent(editorId, EntityStatus.CHAPTER_PUBLISH_EVENT_SUBMITTED);
 
-        return ResultUtil.success("success!").toJSONObject().fluentPut("eventList", volPubEventList);
+        //获取所有更新事件
+        4
+
+        List<EditorWorkEvent> resultList = new ArrayList<>();
+        resultList.addAll(volPubEventList);
+        resultList.addAll(chaPubEventList);
+        resultList.sort((e1, e2)->(int)e2.getAppearTime().getEpochSecond() - (int)e1.getAppearTime().getEpochSecond());
+        return ResultUtil.success("success!").toJSONObject().fluentPut("eventList", resultList);
     }
 
-    /**
-     * 同意卷发布
-     */
-    @GetMapping("/passVolumePublishEvent/{eventId}")
-    public ModelAndView agreeVolumePublish(Integer eventId) {
-        ModelAndView modelAndView = new ModelAndView();
-        novelService.agreeVolumePublish(eventId);
-        modelAndView.addObject("resultInfo", ResultUtil.success("success!"));
-        modelAndView.setViewName("redirect:/editor/workSpacePage");
-        return modelAndView;
-    }
-
-    /**
-     * 同意小说发布
-     */
-    @GetMapping("/passChapterPublishEvent/{eventId}")
-    public ModelAndView agreeChapterPublish(Integer eventId) {
-        ModelAndView modelAndView = new ModelAndView();
-        novelService.agreeChapterPublish(eventId);
-        modelAndView.addObject("resultInfo", ResultUtil.success("success!"));
-        modelAndView.setViewName("redirect:/editor/workSpacePage");
-        return modelAndView;
-    }
 
     /**
      * 获取卷信息
      */
     @GetMapping("/findVolumeInfo/{volumeId}")
-    public @ResponseBody JSONObject findVolumeInfoByRest(@PathVariable  Integer volumeId) {
+    public @ResponseBody
+    JSONObject findVolumeInfoByRest(@PathVariable Integer volumeId) {
         VolumeInfo volumeInfo = novelService.findVolumeInfo(volumeId);
         return ResultUtil.success("success!").toJSONObject().fluentPut("volumeInfo", volumeInfo);
     }
