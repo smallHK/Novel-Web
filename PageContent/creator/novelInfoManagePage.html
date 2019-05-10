@@ -11,6 +11,28 @@
 	<script src="../js/bs-custom-file-input.min.js"></script>
 </head>
 <body class="main-back">
+	
+
+<!--添加新标签modal-->
+<div class="modal fade" id="addNewTag" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">添加新标签</h5>
+			</div>
+			<div class="modal-body">
+				<form action="" method="post">
+					<input type="hidden" name="novelId">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="新标签" name="content" required>				
+					</div>
+					<input class="btn btn-primary" type="submit" value="确认">
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
 <nav class="navbar navbar-light bg-dark sticky-top mb-3" > <a class="navbar-brand text-light" href="../index.html">HK小说网</a> </nav>
 <ul class="nav nav-tabs">
 	<li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#info-page">信息页</a> </li>
@@ -26,14 +48,14 @@
 			<div class="col">
 				<form>
 					<div class="form-group row">
-						<label class="col-2 col-form-label">虫之歌</label>
+						<label class="col-2 col-form-label">小说名</label>
 						<div class="col-10">
-							<input type="text" readonly class="form-control" value="aaa">
+							<input type="text" readonly class="form-control" value="虫之歌">
 						</div>
 					</div>
 					<div class="form-group">
 						<label>标签</label>
-						<div class="row">
+						<div class="row px-3">
 							<div class="col-2 text-truncate text-align-center mx-1 bg-primary text-light rounded my-1"> <span>致郁</span> </div>
 							<div class="col-2 text-truncate text-align-center mx-1 bg-primary text-light rounded my-1">都市</div>
 							<div class="col-2 text-truncate text-align-center mx-1 bg-primary text-light rounded my-1">超能力</div>
@@ -77,7 +99,9 @@
 						<div class="row p-2">
 							<div class="col-2 text-truncate text-align-center mx-1 bg-primary text-light rounded my-1"> <span>致郁</span> </div>
 							<div class="col-2 text-truncate text-align-center mx-1 bg-primary text-light rounded my-1">都市</div>
-							<div class="col-2 text-truncate text-align-center mx-1 bg-primary text-light rounded my-1">+标签</div>
+							<div class="col-2 text-truncate text-align-center mx-1 bg-primary text-light rounded my-1">
+								<a class="text-light"  data-toggle="modal" data-target="#addNewTag">+</a>
+							</div>
 						</div>
 					</div>
 					<div class="form-group">
@@ -105,6 +129,9 @@
 			pic.src = this.result;
 		}
 	}
+	
+	
+	
 </script>
 </body>
 </html>

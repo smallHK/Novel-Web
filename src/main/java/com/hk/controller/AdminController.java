@@ -106,46 +106,6 @@ public class AdminController {
         return modelAndView;
     }
 
-//    /**
-//     * 查看所有简历
-//     * 包括，已审核、未审核
-//     *
-//     */
-//    @Deprecated
-//    @GetMapping("/findAllProfile")
-//    public ModelAndView findAllUnreadProfile() {
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.setViewName("/admin/ProfileManage");
-//
-//        try {
-//            Iterable<Profile> profileList = profileRepository.findAll();
-//            List<Profile> unreadProfileList = new ArrayList<>();
-//            List<Profile> passedProfileList = new ArrayList<>();
-//
-//            for(Profile profile: profileList) {
-//                if(profile.getStatus().equals(EntityStatus.PROFILE_UNREAD)) {
-//                    unreadProfileList.add(profile);
-//                }else if(profile.getStatus().equals(EntityStatus.PROFILE_PASSED)) {
-//                    passedProfileList.add(profile);
-//                }
-//
-//            }
-//
-//            modelAndView.addObject("unreadProfileList", unreadProfileList);
-//            modelAndView.addObject("passedProfileList", passedProfileList);
-//            modelAndView.addObject("resultInfo", ResultUtil.success("Success!").toJSONObject());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            modelAndView.addObject("resultInfo", ResultUtil.failure("fail!").toJSONObject());
-//            modelAndView.setViewName("/result");
-//
-//        }
-//
-//        return modelAndView;
-//    }
-//
-
-
 
     /**
      * 通过审核，创建编辑用户

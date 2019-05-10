@@ -6,6 +6,7 @@ import com.hk.entity.Novel;
 import com.hk.entity.Volume;
 import com.hk.po.ChapterInfo;
 import com.hk.po.NovelIndex;
+import com.hk.po.NovelInfo;
 import com.hk.po.VolumeInfo;
 import com.hk.repository.CreatorRepository;
 import com.hk.service.NovelService;
@@ -47,9 +48,6 @@ public class CreatorController {
     }
 
 
-
-
-
     /**
      * 登陆功能
      * 登陆后并不会进行页面跳转，所以返回json
@@ -89,34 +87,19 @@ public class CreatorController {
 
     }
 
+
     /**
-     * 添加图书
-     * 完成书籍添加，跳转到小说管理页面
+     * 小说信息编辑页
      */
-    @PostMapping(path = "/addNovel")
-    public ModelAndView createNovel(@RequestParam Map<String, String> params, @RequestParam Map<String, MultipartFile> fileData, HttpSession session) {
-
+    @GetMapping("/infoManage/{novelId}")
+    public ModelAndView novelInfoManage(@PathVariable Integer novelId) {
         ModelAndView modelAndView = new ModelAndView();
-        try {
-            Integer creator_id = (Integer) session.getAttribute("login_creator_id");
-            String novelName = params.get("novel_title");
-            String briefIntro = params.get("brief_intro");
-
-            String coverFileName = fileData.get("coverCoverImg").getOriginalFilename();
-            byte[] coverData = fileData.get("coverCoverImg").getBytes();
-
-            novelService.addNewNovel(creator_id, novelName, briefIntro, coverFileName, coverData);
-            modelAndView.addObject("resultInfo", success("添加成功！"));
-            modelAndView.setViewName("redirect:/creator/novelManagePage");
-            return modelAndView;
-        } catch (Exception e) {
-            e.printStackTrace();
-            modelAndView.addObject("resultInfo", ResultUtil.failure(e.getMessage()));
-            modelAndView.setViewName("/result");
-            return modelAndView;
-        }
+        modelAndView.setViewName("/creator/novelInfoManagePage");
+        NovelInfo info = novelService.findNovelInfo(novelId);
+        modelAndView.addObject("info", info);
+        modelAndView.addObject("resultInfo", ResultUtil.success("success!").toJSONObject());
+        return  modelAndView;
     }
-
 
 
     /**
@@ -154,56 +137,6 @@ public class CreatorController {
     }
 
 
-    /**
-     * 创建新卷
-     **/
-    @PostMapping(path = "/addNewVolume")
-    public ModelAndView createVolume(@RequestParam(name = "novel-id") Integer novelId, @RequestParam(name = "volume-name") String volumeTitle) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/creator/chapterManage/" + novelId);
-        novelService.addNewVolume(novelId, volumeTitle);
-        return modelAndView;
-    }
-
-
-    /**
-     * 创建新的章节
-     */
-    @PostMapping(path = "/addNewChapter")
-    public ModelAndView addNewChapter(@RequestParam Map<String, String> params) {
-
-        ModelAndView modelAndView = new ModelAndView();
-
-        Integer novelId = Integer.valueOf(params.get("novel_id"));
-        Integer volumeId = Integer.valueOf(params.get("volume_id"));
-        String chapterTitle = params.get("chapter_title");
-
-        String originChapterContent = params.get("chapter_content");
-        //文本处理
-        novelService.addNewChapter(novelId, volumeId, chapterTitle, originChapterContent);
-
-        modelAndView.setViewName("redirect:/creator/chapterManage/" + novelId);
-        modelAndView.addObject("resultInfo", ResultUtil.success("创建成功！"));
-
-        return modelAndView;
-    }
-
-    /**
-     * 更新章节
-     */
-    @PostMapping(path = "/updateChapter")
-    public ModelAndView updateChapter(@RequestParam Map<String, String> params) {
-        ModelAndView modelAndView = new ModelAndView();
-        Integer chapterId = Integer.valueOf(params.get("chapter_id"));
-        String chapterTitle = params.get("chapter_title");
-        String originChapterContent = params.get("chapter_content");
-        Integer novelId = novelService.findNovelIdByChapterId(chapterId);
-        novelService.updateChapter(chapterId, chapterTitle, originChapterContent);
-        modelAndView.setViewName("redirect:/creator/chapterManage/" + novelId);
-        modelAndView.addObject("resultInfo", ResultUtil.success("创建成功！"));
-        return modelAndView;
-    }
-
 
     /**
      * 跳转添加新章节页面
@@ -233,51 +166,6 @@ public class CreatorController {
     }
 
 
-    /**
-     * 申请小说发布
-     */
-    @GetMapping("/applyForPublish/{novelId}")
-    public ModelAndView applyForPublish(@PathVariable Integer novelId) {
-
-        ModelAndView modelAndView = new ModelAndView();
-        novelService.updateNovelPublishedStatus(novelId, EntityStatus.NOVEL_CHECKING);
-        modelAndView.setViewName("redirect:/creator/novelManagePage");
-        modelAndView.addObject("resultInfo", success("success!").toJSONObject());
-
-        return modelAndView;
-    }
-
-    /**
-     * 申请章节开放
-     */
-    @GetMapping("/applyForChapterPublish/{chapterId}")
-    public ModelAndView applyForChapterPublish(@PathVariable Integer chapterId, HttpSession session) {
-
-        ModelAndView modelAndView = new ModelAndView();
-
-        Integer authorId = (Integer)session.getAttribute(SessionProperty.CREATOR_LOGIN_CREATOR_ID);
-        novelService.publishChapterPublishEvent(chapterId, authorId);
-        novelService.updateChapterPublishStatus(chapterId, EntityStatus.CHAPTER_CHECKING);
-
-        modelAndView.setViewName("redirect:/creator/novelManagePage");
-        return modelAndView;
-    }
-
-    /**
-     * 申请卷开放
-     */
-    @GetMapping("/applyForVolumePublish/{volumeId}")
-    public ModelAndView applyForVolumePublish(@PathVariable Integer volumeId, HttpSession session) {
-        ModelAndView modelAndView = new ModelAndView();
-        Integer authorId = (Integer)session.getAttribute(SessionProperty.CREATOR_LOGIN_CREATOR_ID);
-        novelService.publishVolumePublishEvent(volumeId, authorId);
-        novelService.updateVolumePublishStatus(volumeId, EntityStatus.VOLUME_CHECKING);
-        VolumeInfo info = novelService.findVolumeInfo(volumeId);
-
-        modelAndView.setViewName("redirect:/creator/chapterManage/" + info.getNovelId());
-        return modelAndView;
-    }
-
 
     /**
      * 章节管理页面填充
@@ -293,6 +181,7 @@ public class CreatorController {
 
         return modelAndView;
     }
+
 
 
 

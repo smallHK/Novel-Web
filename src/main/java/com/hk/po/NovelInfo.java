@@ -1,7 +1,10 @@
 package com.hk.po;
 
+import com.hk.entity.Tag;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 /**
  * 前台页面需要的小说数据
@@ -27,5 +30,7 @@ public class NovelInfo {
 
     //作者笔名
     private String penName;
+
+    private List<Tag> tagList;
 
 }

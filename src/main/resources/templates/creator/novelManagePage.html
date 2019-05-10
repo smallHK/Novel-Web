@@ -3,41 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>小说管理</title>
-    <link href="/bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/content.css" rel="stylesheet">
-    <script src="/js/jquery-3.3.1.js"></script>
-    <script src="/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    <link th:href="@{/bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css}" href="../bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css" rel="stylesheet">
+    <link th:href="@{/bootstrap-4.3.1-dist/css/bootstrap.min.css}" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/content.css}" href="../css/content.css" rel="stylesheet">
+    <script th:src="@{/js/jquery-3.3.1.js}" src="../js/jquery-3.3.1.js"></script>
+    <script th:src="@{/bootstrap-4.3.1-dist/js/bootstrap.min.js}" src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 </head>
 <body class="main-back">
-<nav class="navbar navbar-light bg-dark sticky-top mb-3" > <a class="navbar-brand text-light" href="/index">HK小说网</a> </nav>
-<ul class="nav justify-content-center nav-pills nav-fill mb-3 mx-auto c-w-80" style="width: 1300px;" id="pills-tab" role="tablist">
+<nav class="navbar navbar-light bg-dark sticky-top mb-3"><a class="navbar-brand text-light" th:href="@{/index}" href="/index">HK小说网</a></nav>
+<ul class="nav justify-content-center nav-pills nav-fill mb-3 mx-auto c-w-80" id="pills-tab">
     <li class="nav-item">
-        <a class="nav-link active" id="pills-created-tab" data-toggle="pill" href="#all-created-novels" role="tab" aria-selected="true" aria-controls="all-created-novels">编辑小说</a> </li>
+        <a class="nav-link active" id="pills-created-tab" data-toggle="pill" href="#all-created-novels">编辑小说</a></li>
     <li class="nav-item">
-        <a class="nav-link" id="pills-unpublished-tab" data-toggle="pill" href="#all-unpublished-novels" role="tab" aria-selected="false" aria-controls="all-unpublished-novels">未开放小说</a> </li>
+        <a class="nav-link" id="pills-unpublished-tab" data-toggle="pill" href="#all-unpublished-novels">未开放小说</a></li>
     <li class="nav-item">
-        <a class="nav-link" data-toggle="pill" href="#all-checking-novels" role="tab" aria-selected="false" aria-controls="all-publishing-novels">正在审核小说</a> </li>
-    <li class="nav-item"> <a class="nav-link" data-toggle="pill" href="#all-published-novels" role="tab" aria-selected="false">已开放小说</a> </li>
-    <li class="nav-item"> <a class="nav-link" href="createNovelPage">新建小说</a> </li>
+        <a class="nav-link" data-toggle="pill" href="#all-checking-novels">正在审核小说</a></li>
+    <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#all-published-novels">已开放小说</a></li>
+    <li class="nav-item"><a class="nav-link" th:href="@{/creator/createNovelPage}" href="createNovelPage">新建小说</a></li>
 </ul>
-<div class="tab-content mb-5">
+<div class="tab-content mb-5 p-3 border-top">
     <!--全部小说-->
-    <div class="tab-pane show active mx-auto" id="all-created-novels" style="width: 1300px;">
+    <div class="tab-pane show active mx-auto c-w-90" id="all-created-novels">
+        <div class="row mb-3 mx-auto" style="height: 860px;">
 
+            <div class="col-sm-2 my-2">
+                <div class="card">
+                    <div class="overflow-hidden my-2">
+                        <img src="../imgs/novelCover.jpg" class="card-img-top book-cover-img" alt="..."></div>
+                    <div class="card-body">
+                        <p class="book-title-limit">Campione 弑神者！</p>
+                        <a href="#" class="btn btn-block btn-light">信息管理</a>
+                        <a href="#" class="btn btn-block btn-light">编辑内容</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!--未开放小说-->
-    <div class="tab-pane" id="all-unpublished-novels">
+    <div class="tab-pane  mx-auto c-w-90" id="all-unpublished-novels">
 
     </div>
 
     <!--正在审核小说-->
-    <div class="tab-pane" id="all-checking-novels">
+    <div class="tab-pane mx-auto c-w-90" id="all-checking-novels">
 
     </div>
 
     <!--已开放小说-->
-    <div class="tab-pane" id="all-published-novels">
+    <div class="tab-pane mx-auto c-w-90" id="all-published-novels">
 
     </div>
 </div>
@@ -45,260 +60,191 @@
 <script>
     $(document).ready(function () {
 
-        //填充已创建小说
-        //页码从第一页开始计算
-        $.get("/creator/createdNovelList/1/12", function(data) {
+        //显示已创建小说
+        showEditNovelByPage(1);
+
+        //显示未开放小说
+        showUnpublishedNovelByPage(1);
+
+        //显示审核中小说
+        showCheckingNovelByPage(1);
+
+        //显示已开放小说
+        showPublishedNovelByPage(1);
+
+
+    });
+
+    //小说编辑内容填充
+    function showEditNovelByPage(pageNum) {
+        $.get("/creator/createdNovelList/" + pageNum + "/12", function (data) {
             var container = $("#all-created-novels");
-
-            if(data.status === 0) {
-
+            if (data.status === 0) {
                 container.empty();
-
                 //填充内容
                 var novelList = data.novelList;
+                var row = $("<div class=\"row mb-3 mx-auto\" style=\"height: 860px;\"></div>");
                 //将小说数据封装成列
-                var colList = [];
-                for(var i = 0; i < novelList.length; i++) {
-
-                    var card = $("<div class=\"card\"></div>");
-
-                    var imgWrapper = $("<div class=\"overflow-hidden\"></div>");
-                    var img = $("<img src=\"/imgs/cover/cover-cb.jpg\" class=\"card-img-top book-cover-img\" alt=\"...\"></div>");
-                    imgWrapper.add(img);
-                    card.append(img);
-
-                    var cardBody = $("<div class=\"card-body\"></div>");
-                    var novelTitle = $("<p class=\"book-title-limit\"></p>");
-                    novelTitle.text(novelList[i].novelName);
-                    cardBody.append(novelTitle);
-                    var novelEidt = $("<a class=\"btn btn-primary\">编辑内容</a>");
-                    novelEidt.attr("href", "/creator/chapterManage/" + novelList[i].id);
-                    cardBody.append(novelEidt);
-                    card.append(cardBody);
-
-                    var col = $("<div class=\"col-sm-2\"></div>");
-                    col.append(card);
-
-                    colList.push(col);
+                for (var i = 0; i < novelList.length; i++) {
+                    row.append(editNovelColLay(novelList[i]));
                 }
-
-                //将列封装成行
-                if(colList.length <= 6) { //容器中放入单行
-                    var row = $("<div class=\"row mb-3 mx-auto\" style=\"width: 1300px;\">");
-                    for(var i = 0; i < colList.length; i++) {
-                        row.append(colList[i]);
-                    }
-                    container.append(row);
-                } else { //容器中放入双行
-                    var row1 = $("<div class=\"row mb-3 mx-auto\" style=\"width: 1300px;\">");
-                    for(var i = 0; i < 6; i++) {
-                        row1.append(colList[i]);
-                    }
-                    container.append(row1);
-
-                    var row2 = $("<div class=\"row mb-3 mx-auto\" style=\"width: 1300px;\">");
-                    for(var i = 6; i < colList.length; i++) {
-                        row2.append(colList[i]);
-                    }
-                    container.append(row2);
-                }
-
-                //填充页码
-                //暂时不添加页码
-                var totalNum = data.totalNum;
-                var pageWidget = $("<nav aria-label=\"Page navigation example\"></nav>");
-                var pageUl = $("<ul class=\"pagination justify-content-end\"></ul>");
-                pageWidget.append(pageUl);
+                container.append(row);
 
             }
-
         });
+    }
 
-        //填充未开放小说
-        //页码从第一页开始计算
-        $.get("/creator/unpublishedNovelList/1/12", function(data) {
+    //未开放小说填充
+    function showUnpublishedNovelByPage(pageNum) {
+        $.get("/creator/unpublishedNovelList/" + pageNum + "/12", function (data) {
             var container = $("#all-unpublished-novels");
-
-            if(data.status === 0) {
-
+            if (data.status === 0) {
                 container.empty();
-
                 //填充内容
                 var novelList = data.novelList;
+                var row = $("<div class=\"row mb-3 mx-auto\" style=\"height: 860px;\"></div>");
                 //将小说数据封装成列
-                var colList = [];
-                for(var i = 0; i < novelList.length; i++) {
-
-                    var card = $("<div class=\"card\"></div>");
-
-                    var imgWrapper = $("<div class=\"overflow-hidden\"></div>");
-                    var img = $("<img src=\"/imgs/cover/cover-cb.jpg\" class=\"card-img-top book-cover-img\" alt=\"...\"></div>");
-                    imgWrapper.add(img);
-                    card.append(img);
-
-                    var cardBody = $("<div class=\"card-body\"></div>");
-                    var novelTitle = $("<p class=\"book-title-limit\"></p>");
-                    novelTitle.text(novelList[i].novelName);
-                    cardBody.append(novelTitle);
-                    var novelEidt = $("<a class=\"btn btn-primary\">申请开放</a>");
-                    novelEidt.attr("href", "/creator/applyForPublish/" + novelList[i].id);
-                    cardBody.append(novelEidt);
-                    card.append(cardBody);
-
-                    var col = $("<div class=\"col-sm-2\"></div>");
-                    col.append(card);
-
-                    colList.push(col);
+                for (var i = 0; i < novelList.length; i++) {
+                    row.append(unpublishedNovelColLay(novelList[i]));
                 }
-
-                //将列封装成行
-                if(colList.length <= 6) { //容器中放入单行
-                    var row = $("<div class=\"row mb-3 mx-auto\" style=\"width: 1300px;\">");
-                    for(var i = 0; i < colList.length; i++) {
-                        row.append(colList[i]);
-                    }
-                    container.append(row);
-                } else { //容器中放入双行
-                    var row1 = $("<div class=\"row mb-3 mx-auto\" style=\"width: 1300px;\">");
-                    for(var i = 0; i < 6; i++) {
-                        row1.append(colList[i]);
-                    }
-                    container.append(row1);
-
-                    var row2 = $("<div class=\"row mb-3 mx-auto\" style=\"width: 1300px;\">");
-                    for(var i = 6; i < colList.length; i++) {
-                        row2.append(colList[i]);
-                    }
-                    container.append(row2);
-                }
+                container.append(row);
 
             }
-
         });
+    }
 
-
-        //填充审核中小说
-        //页码从第一页开始计算
-        $.get("/creator/checkingNovelList/1/12", function(data) {
+    //审核中小说填充
+    function showCheckingNovelByPage(pageNum) {
+        $.get("/creator/checkingNovelList/" + pageNum + "/12", function (data) {
             var container = $("#all-checking-novels");
-
-            if(data.status === 0) {
-
+            if (data.status === 0) {
                 container.empty();
-
                 //填充内容
                 var novelList = data.novelList;
+                var row = $("<div class=\"row mb-3 mx-auto\" style=\"height: 860px;\"></div>");
                 //将小说数据封装成列
-                var colList = [];
-                for(var i = 0; i < novelList.length; i++) {
-
-                    var card = $("<div class=\"card\"></div>");
-
-                    var imgWrapper = $("<div class=\"overflow-hidden\"></div>");
-                    var img = $("<img src=\"/imgs/cover/cover-cb.jpg\" class=\"card-img-top book-cover-img\" alt=\"...\"></div>");
-                    imgWrapper.add(img);
-                    card.append(img);
-
-                    var cardBody = $("<div class=\"card-body\"></div>");
-                    var novelTitle = $("<p class=\"book-title-limit\"></p>");
-                    novelTitle.text(novelList[i].novelName);
-                    cardBody.append(novelTitle);
-                    var novelLabel = $("<label>审核中</label>");
-                    cardBody.append(novelLabel);
-                    card.append(cardBody);
-
-                    var col = $("<div class=\"col-sm-2\"></div>");
-                    col.append(card);
-
-                    colList.push(col);
+                for (var i = 0; i < novelList.length; i++) {
+                    row.append(checkingNovelColLay(novelList[i]));
                 }
-
-                //将列封装成行
-                if(colList.length <= 6) { //容器中放入单行
-                    var row = $("<div class=\"row mb-3 mx-auto\" style=\"width: 1300px;\">");
-                    for(var i = 0; i < colList.length; i++) {
-                        row.append(colList[i]);
-                    }
-                    container.append(row);
-                } else { //容器中放入双行
-                    var row1 = $("<div class=\"row mb-3 mx-auto\" style=\"width: 1300px;\">");
-                    for(var i = 0; i < 6; i++) {
-                        row1.append(colList[i]);
-                    }
-                    container.append(row1);
-
-                    var row2 = $("<div class=\"row mb-3 mx-auto\" style=\"width: 1300px;\">");
-                    for(var i = 6; i < colList.length; i++) {
-                        row2.append(colList[i]);
-                    }
-                    container.append(row2);
-                }
-
+                container.append(row);
             }
-
         });
+    }
 
-
-        //填充已开放小说
-        //页码从第一页开始计算
-        $.get("/creator/publishedNovelList/1/12", function(data) {
+    //已开放小说填充
+    function showPublishedNovelByPage(pageNum) {
+        $.get("/creator/publishedNovelList/" + pageNum + "/12", function (data) {
             var container = $("#all-published-novels");
-
-            if(data.status === 0) {
-
+            if (data.status === 0) {
                 container.empty();
-
                 //填充内容
                 var novelList = data.novelList;
+                var row = $("<div class=\"row mb-3 mx-auto\" style=\"height: 860px;\"></div>");
                 //将小说数据封装成列
-                var colList = [];
-                for(var i = 0; i < novelList.length; i++) {
-
-                    var card = $("<div class=\"card\"></div>");
-
-                    var imgWrapper = $("<div class=\"overflow-hidden\"></div>");
-                    var img = $("<img src=\"/imgs/cover/cover-cb.jpg\" class=\"card-img-top book-cover-img\" alt=\"...\"></div>");
-                    imgWrapper.add(img);
-                    card.append(img);
-
-                    var cardBody = $("<div class=\"card-body\"></div>");
-                    var novelTitle = $("<p class=\"book-title-limit\"></p>");
-                    novelTitle.text(novelList[i].novelName);
-                    cardBody.append(novelTitle);
-                    card.append(cardBody);
-
-                    var col = $("<div class=\"col-sm-2\"></div>");
-                    col.append(card);
-
-                    colList.push(col);
+                for (var i = 0; i < novelList.length; i++) {
+                    row.append(publishedNovelColLay(novelList[i]));
                 }
-
-                //将列封装成行
-                if(colList.length <= 6) { //容器中放入单行
-                    var row = $("<div class=\"row mb-3 mx-auto\" style=\"width: 1300px;\">");
-                    for(var i = 0; i < colList.length; i++) {
-                        row.append(colList[i]);
-                    }
-                    container.append(row);
-                } else { //容器中放入双行
-                    var row1 = $("<div class=\"row mb-3 mx-auto\" style=\"width: 1300px;\">");
-                    for(var i = 0; i < 6; i++) {
-                        row1.append(colList[i]);
-                    }
-                    container.append(row1);
-
-                    var row2 = $("<div class=\"row mb-3 mx-auto\" style=\"width: 1300px;\">");
-                    for(var i = 6; i < colList.length; i++) {
-                        row2.append(colList[i]);
-                    }
-                    container.append(row2);
-                }
-
+                container.append(row);
             }
+        });
+    }
 
-        })
 
-    })
+    //编辑小说的列块
+    function editNovelColLay(novelInfo) {
+
+        var colLay = $("<div class=\"col-sm-2 my-2\"></div>");
+        var card = $("<div class=\"card\"></div>");
+        colLay.append(card);
+
+        var cardImgW = $("<div class=\"overflow-hidden my-2\"></div>");
+        var img = $("<img src=\"../imgs/novelCover.jpg\" class=\"card-img-top book-cover-img\" alt=\"...\">");
+        cardImgW.append(img);
+        card.append(cardImgW);
+
+        var cardBody = $("<div class=\"card-body\"></div>");
+        var title = $("<p class=\"book-title-limit\"></p>");
+        title.text(novelInfo.novelName);
+        cardBody.append(title);
+        var infoBtn = $("<a class=\"btn btn-block btn-light\">信息管理</a>");
+        infoBtn.attr("href", "/creator/infoManage/" + novelInfo.id);
+        cardBody.append(infoBtn);
+        var editBtn = $("<a class=\"btn btn-block btn-light\">编辑内容</a>");
+        editBtn.attr("href", "/creator/chapterManage/" + novelInfo.id);
+        cardBody.append(editBtn);
+        card.append(cardBody);
+
+        return colLay;
+    }
+
+
+    //未开放小说的列块
+    function unpublishedNovelColLay(novelInfo) {
+
+        var colLay = $("<div class=\"col-sm-2 my-2\"></div>");
+        var card = $("<div class=\"card\"></div>");
+        colLay.append(card);
+
+        var cardImgW = $("<div class=\"overflow-hidden my-2\"></div>");
+        var img = $("<img src=\"../imgs/novelCover.jpg\" class=\"card-img-top book-cover-img\" alt=\"...\">");
+        cardImgW.append(img);
+        card.append(cardImgW);
+
+        var cardBody = $("<div class=\"card-body\"></div>");
+        var title = $("<p class=\"book-title-limit\"></p>");
+        title.text(novelInfo.novelName);
+        cardBody.append(title);
+        var novelEidt = $("<a class=\"btn btn-primary\">申请开放</a>");
+        novelEidt.attr("href", "/creator/applyForPublish/" + novelInfo.id);
+        cardBody.append(novelEidt);
+        card.append(cardBody);
+
+        return colLay;
+    }
+
+    //审核中小说的列块
+    function checkingNovelColLay(novelInfo) {
+
+        var colLay = $("<div class=\"col-sm-2 my-2\"></div>");
+        var card = $("<div class=\"card\"></div>");
+        colLay.append(card);
+
+        var cardImgW = $("<div class=\"overflow-hidden my-2\"></div>");
+        var img = $("<img src=\"../imgs/novelCover.jpg\" class=\"card-img-top book-cover-img\" alt=\"...\">");
+        cardImgW.append(img);
+        card.append(cardImgW);
+
+        var cardBody = $("<div class=\"card-body\"></div>");
+        var title = $("<p class=\"book-title-limit\"></p>");
+        title.text(novelInfo.novelName);
+        cardBody.append(title);
+        var novelLabel = $("<label>审核中</label>");
+        cardBody.append(novelLabel);
+        card.append(cardBody);
+
+        return colLay;
+    }
+
+    //已开放小说的列块
+    function publishedNovelColLay(novelInfo) {
+
+        var colLay = $("<div class=\"col-sm-2 my-2\"></div>");
+        var card = $("<div class=\"card\"></div>");
+        colLay.append(card);
+
+        var cardImgW = $("<div class=\"overflow-hidden my-2\"></div>");
+        var img = $("<img src=\"../imgs/novelCover.jpg\" class=\"card-img-top book-cover-img\" alt=\"...\">");
+        cardImgW.append(img);
+        card.append(cardImgW);
+
+        var cardBody = $("<div class=\"card-body\"></div>");
+        var title = $("<p class=\"book-title-limit\"></p>");
+        title.text(novelInfo.novelName);
+        cardBody.append(title);
+        card.append(cardBody);
+
+        return colLay;
+    }
 
 </script>
 </body>

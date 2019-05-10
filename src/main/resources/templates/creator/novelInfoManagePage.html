@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>小说信息管理</title>
+	<link th:href="@{/bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css}" href="../bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css" rel="stylesheet">
+	<link th:href="@{/bootstrap-4.3.1-dist/css/bootstrap.min.css}" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link th:href="@{/css/content.css}" href="../css/content.css" rel="stylesheet">
+	<script th:src="@{/js/jquery-3.3.1.js}" src="../js/jquery-3.3.1.js"></script>
+	<script th:src="@{/bootstrap-4.3.1-dist/js/bootstrap.min.js}" src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+	<script th:src="@{/js/bs-custom-file-input.min.js}" src="../js/bs-custom-file-input.min.js"></script>
+</head>
+
+
+<!--添加新标签modal-->
+<div class="modal fade" id="addNewTag" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">添加新标签</h5>
+			</div>
+			<div class="modal-body">
+				<form action="/creator/addTag" method="post">
+					<input type="hidden" th:value="${info.id}" name="novelId">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="新标签" name="content" required>
+					</div>
+					<input class="btn btn-primary" type="submit" value="确认">
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<body class="main-back">
+<nav class="navbar navbar-light bg-dark sticky-top mb-3" > <a class="navbar-brand text-light" href="../index.html">HK小说网</a> </nav>
+<ul class="nav nav-tabs">
+	<li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#info-page">信息页</a> </li>
+	<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#edit-page">编辑页</a> </li>
+</ul>
+<div class="tab-content">
+	<div class="tab-pane fade active show" id="info-page">
+		<div class="row w-75 mx-auto mt-5 p-3 border back-color-white rounded shadow-sm">
+			<div class="col-4">
+				<div><img class="book-cover-img" th:src="@{/imgs/cover/cover-mz.jpg}" src="../imgs/cover-sc.jpg"></div>
+				<label>小说封面</label>
+			</div>
+			<div class="col">
+				<form>
+					<div class="form-group row">
+						<label class="col-2 col-form-label">小说名</label>
+						<div class="col-10">
+							<input type="text" readonly class="form-control" value="aaa" th:value="${info.novelName}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label>标签</label>
+						<div class="row px-3">
+							<div class="col-2 text-truncate text-align-center mx-1 bg-primary text-light rounded my-1" th:each="tag: ${info.tagList}"> <span th:text="${tag.content}">致郁</span> </div>
+						</div>
+						<div th:if="${#lists.isEmpty(info.tagList)}">
+							<a class="btn btn-light btn-block">暂无标签</a>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>小说简介</label>
+						<textarea class="form-control" readonly rows="6" th:text="${info.briefIntro}">2003年，一个名叫岩井恭平的青年，创造了一个叫做“日本”的平行世界，并在其中撒下了无数少年少女。这些少年少女们的命运，让他们相识、相爱、相恨、相战。这些“虫子”的愤怒、欢喜、绝望、毁灭，组成了一个个美妙的乐章，名为《虫之歌》...</textarea>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="tab-pane fade" id="edit-page">
+		<form enctype="multipart/form-data">
+			<div class="row w-75 mx-auto mt-5 p-3  back-color-white rounded shadow-sm">
+				<div class="col-4 border rounded mr-2">
+					<div><img class="book-cover-img" th:src="@{/imgs/cover/cover-mz.jpg}"  src="../imgs/cover-sc.jpg"></div>
+		<div class="custom-file mt-3">
+			<input type="file" class="custom-file-input" id="novelCover" onchange="showPreview(this, 'novelCoverImg')"/>
+			<label class="custom-file-label" for="novelCover">小说封面</label>
+ 		</div>
+				</div>
+				<div class="col p-2">
+					<div class="form-group row">
+						<label class="col-2 col-form-label">小说名</label>
+						<div class="col-10">
+							<input type="text" class="form-control" value="aaa" th:value="${info.novelName}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label>标签</label>
+						<div class="row p-2">
+							<div class="col-2 text-truncate text-align-center mx-1 bg-primary text-light rounded my-1" th:each="tag: ${info.tagList}"> <span th:text="${tag.content}">致郁</span> </div>
+							<div class="col-2 text-truncate text-align-center mx-1 bg-primary text-light rounded my-1"><a class="text-light"  data-toggle="modal" data-target="#addNewTag">+</a></div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>小说简介</label>
+						<textarea class="form-control" rows="6" th:text="${info.briefIntro}">2003年，一个名叫岩井恭平的青年，创造了一个叫做“日本”的平行世界，并在其中撒下了无数少年少女。这些少年少女们的命运，让他们相识、相爱、相恨、相战。这些“虫子”的愤怒、欢喜、绝望、毁灭，组成了一个个美妙的乐章，名为《虫之歌》...</textarea>
+					</div>
+					<button class="btn btn-primary">提交修改</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<script>
+
+	$(document).ready(function(){
+		bsCustomFileInput.init();
+	});
+	
+	function showPreview(source, imgId) {
+		var file = source.files[0];
+		var reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onload = function(e) {
+			var pic = document.getElementById(imgId);
+			pic.src = this.result;
+		}
+	}
+</script>
+</body>
+</html>

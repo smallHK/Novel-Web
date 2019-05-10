@@ -13,4 +13,6 @@ public interface TagNovelRelationRepo extends CrudRepository<TagNovelRelation, I
 
     List<TagNovelRelation> findAllByNovelId(Integer novelId);
 
+    TagNovelRelation findAllByNovelIdAndTagId(Integer novelId, Integer tagId);
+
 }

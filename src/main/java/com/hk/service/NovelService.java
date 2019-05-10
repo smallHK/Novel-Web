@@ -2,17 +2,18 @@ package com.hk.service;
 
 import com.hk.entity.*;
 import com.hk.entity.event.ChapterPublishEvent;
-import com.hk.entity.event.ChapterUpdateEvent;
 import com.hk.entity.event.VolumePublishEvent;
 import com.hk.po.*;
 import com.hk.repository.*;
 import com.hk.repository.event.ChapterPublishEventRepo;
 import com.hk.repository.event.VolumePublishEventRepo;
-import com.hk.util.*;
+import com.hk.util.CollectionUtil;
+import com.hk.util.CommonUtil;
+import com.hk.util.EntityStatus;
+import com.hk.util.EventType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.swing.text.html.parser.Entity;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -57,6 +58,10 @@ public class NovelService {
 
     private FavoriteRepo favoriteRepo;
 
+    private TagRepo tagRepo;
+
+    private TagNovelRelationRepo tagNovelRelationRepo;
+
     public NovelService(NovelRepository novelRepository,
                         NovelCommentRepo novelCommentRepo,
                         NovelPublishRepo novelPublishRepo,
@@ -67,7 +72,9 @@ public class NovelService {
                         ReaderRepo readerRepo,
                         ChapterPublishEventRepo chapterPublishEventRepo,
                         VolumePublishEventRepo volumePublishEventRepo,
-                        FavoriteRepo favoriteRepo) {
+                        FavoriteRepo favoriteRepo,
+                        TagRepo tagRepo,
+                        TagNovelRelationRepo tagNovelRelationRepo) {
         this.novelRepository = novelRepository;
         this.novelCommentRepo = novelCommentRepo;
         this.novelPublishRepo = novelPublishRepo;
@@ -79,6 +86,8 @@ public class NovelService {
         this.chapterPublishEventRepo = chapterPublishEventRepo;
         this.volumePublishEventRepo = volumePublishEventRepo;
         this.favoriteRepo = favoriteRepo;
+        this.tagRepo = tagRepo;
+        this.tagNovelRelationRepo = tagNovelRelationRepo;
     }
 
     /**
@@ -240,6 +249,13 @@ public class NovelService {
         novelInfo.setNovelName(novel.getNovelName());
         novelInfo.setCoverImg(novel.getCoverImg());
 
+        List<TagNovelRelation> relations = tagNovelRelationRepo.findAllByNovelId(novelId);
+        List<Integer> tagIds = new ArrayList<>();
+        for(TagNovelRelation relation: relations) {
+            tagIds.add(relation.getTagId());
+        }
+        List<Tag> tags = CollectionUtil.iterableToList(tagRepo.findAllById(tagIds));
+        novelInfo.setTagList(tags);
         return novelInfo;
     }
 
@@ -788,6 +804,8 @@ public class NovelService {
     public Integer findNovelIdByChapterId(Integer chapterId) {
         return chapterRepository.findById(chapterId).orElseThrow().getNovelId();
     }
+
+
 
     private void addParagraphList(String chapterContent, Integer chapterId, Integer novelId) {
         List<Paragraph> paragraphList = new ArrayList<>();

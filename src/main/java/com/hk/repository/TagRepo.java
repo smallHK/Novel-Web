@@ -8,4 +8,6 @@ import org.springframework.data.repository.CrudRepository;
  * 2019/5/7 16:49
  */
 public interface TagRepo extends CrudRepository<Tag, Integer> {
+
+    public Tag findAllByContent(String content);
 }
