@@ -1,9 +1,11 @@
 package com.hk.controller;
 
+import com.hk.entity.Chapter;
+import com.hk.po.ChapterInfo;
 import com.hk.po.VolumeInfo;
 import com.hk.service.NovelAlterService;
 import com.hk.service.NovelService;
-import com.hk.util.EntityStatus;
+import com.hk.constant.EntityStatus;
 import com.hk.util.ResultUtil;
 import com.hk.util.SessionProperty;
 import org.springframework.stereotype.Controller;
@@ -48,7 +50,7 @@ public class CreatorRedirectController {
 
         String originChapterContent = params.get("chapter_content");
         //文本处理
-        novelService.addNewChapter(novelId, volumeId, chapterTitle, originChapterContent);
+        novelAlterService.addNewChapter(novelId, volumeId, chapterTitle, originChapterContent);
 
         modelAndView.setViewName("redirect:/creator/chapterManage/" + novelId);
         modelAndView.addObject("resultInfo", ResultUtil.success("创建成功！"));
@@ -67,7 +69,7 @@ public class CreatorRedirectController {
         String chapterTitle = params.get("chapter_title");
         String originChapterContent = params.get("chapter_content");
         Integer novelId = novelService.findNovelIdByChapterId(chapterId);
-        novelService.updateChapter(chapterId, chapterTitle, originChapterContent);
+        novelAlterService.updateChapter(chapterId, chapterTitle, originChapterContent);
         modelAndView.setViewName("redirect:/creator/chapterManage/" + novelId);
         modelAndView.addObject("resultInfo", ResultUtil.success("创建成功！"));
         return modelAndView;
@@ -94,14 +96,12 @@ public class CreatorRedirectController {
      */
     @GetMapping("/applyForChapterPublish/{chapterId}")
     public ModelAndView applyForChapterPublish(@PathVariable Integer chapterId, HttpSession session) {
-
         ModelAndView modelAndView = new ModelAndView();
-
         Integer authorId = (Integer)session.getAttribute(SessionProperty.CREATOR_LOGIN_CREATOR_ID);
         novelService.publishChapterPublishEvent(chapterId, authorId);
         novelService.updateChapterPublishStatus(chapterId, EntityStatus.CHAPTER_CHECKING);
-
-        modelAndView.setViewName("redirect:/creator/novelManagePage");
+        ChapterInfo info = novelService.findNovelChapter(chapterId);
+        modelAndView.setViewName("redirect:/creator/chapterManage/" + info.getNovelId());
         return modelAndView;
     }
 
@@ -130,7 +130,7 @@ public class CreatorRedirectController {
     public ModelAndView createVolume(@RequestParam(name = "novel-id") Integer novelId, @RequestParam(name = "volume-name") String volumeTitle) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/creator/chapterManage/" + novelId);
-        novelService.addNewVolume(novelId, volumeTitle);
+        novelAlterService.addNewVolume(novelId, volumeTitle);
         return modelAndView;
     }
 
@@ -150,7 +150,7 @@ public class CreatorRedirectController {
             String coverFileName = fileData.get("coverCoverImg").getOriginalFilename();
             byte[] coverData = fileData.get("coverCoverImg").getBytes();
 
-            novelService.addNewNovel(creator_id, novelName, briefIntro, coverFileName, coverData);
+            novelAlterService.addNewNovel(creator_id, novelName, briefIntro, coverFileName, coverData);
             modelAndView.addObject("resultInfo", success("添加成功！"));
             modelAndView.setViewName("redirect:/creator/novelManagePage");
             return modelAndView;

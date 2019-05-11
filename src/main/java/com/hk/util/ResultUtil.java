@@ -8,9 +8,9 @@ import com.alibaba.fastjson.JSONObject;
  */
 public class ResultUtil {
 
-    public static final Integer SUCCESS_STATUS = 0;
+     private static final Integer SUCCESS_STATUS = 0;
 
-    public static final Integer FAILURE_STATUS = 1;
+     private static final Integer FAILURE_STATUS = 1;
 
     public static ResultInfo success(String msg) {
 

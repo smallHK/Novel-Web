@@ -1,28 +1,18 @@
 package com.hk.controller;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.hk.entity.Creator;
 import com.hk.entity.Novel;
-import com.hk.entity.NovelComment;
 import com.hk.po.ChapterInfo;
 import com.hk.po.NovelCommentInfo;
 import com.hk.po.NovelIndex;
 import com.hk.po.NovelInfo;
-import com.hk.repository.CreatorRepository;
-import com.hk.repository.NovelCommentRepo;
-import com.hk.repository.NovelRepository;
 import com.hk.service.NovelService;
-import com.hk.util.EntityStatus;
 import com.hk.util.ResultUtil;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * 无帐户游客调用的接口

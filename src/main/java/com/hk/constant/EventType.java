@@ -1,4 +1,4 @@
-package com.hk.util;
+package com.hk.constant;
 
 /**
  * 编辑处理事件的类型

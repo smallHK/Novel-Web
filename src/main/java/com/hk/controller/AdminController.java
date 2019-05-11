@@ -3,14 +3,16 @@ package com.hk.controller;
 import com.hk.entity.Admin;
 import com.hk.entity.Editor;
 import com.hk.entity.Profile;
+import com.hk.po.NovelInfo;
 import com.hk.repository.AdminRepository;
 import com.hk.repository.EditorRepository;
 import com.hk.repository.ProfileRepository;
+import com.hk.service.AdminService;
 import com.hk.service.NovelService;
-import com.hk.util.EntityStatus;
+import com.hk.service.RecommendService;
+import com.hk.constant.EntityStatus;
 import com.hk.util.ResultUtil;
 import com.hk.util.SessionProperty;
-import lombok.Getter;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
@@ -20,7 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -43,20 +44,25 @@ public class AdminController {
 
     private EditorRepository editorRepository;
 
-    private NovelService novelService;
+    private AdminService adminService;
 
     private JavaMailSender mailSender;
+
+    private NovelService novelService;
 
     public AdminController(AdminRepository adminRepository,
                            ProfileRepository profileRepository,
                            EditorRepository editorRepository,
                            JavaMailSender mailSender,
+                           AdminService adminService,
                            NovelService novelService
                         ) {
         this.adminRepository = adminRepository;
         this.profileRepository = profileRepository;
         this.editorRepository = editorRepository;
         this.mailSender = mailSender;
+        this.adminService = adminService;
+        this.novelService = novelService;
     }
 
     /**
@@ -98,11 +104,14 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/admin/adminCenterPage");
 
-        List<Profile> unreadProfiles = profileRepository.findAllByStatus(EntityStatus.PROFILE_UNREAD);
-        List<Profile> passedProfiles = profileRepository.findAllByStatus(EntityStatus.PROFILE_PASSED);
+        List<Profile> unreadProfiles = adminService.findAllProfileByStatus(EntityStatus.PROFILE_UNREAD);
+        List<Profile> passedProfiles = adminService.findAllProfileByStatus(EntityStatus.PROFILE_PASSED);
+        List<NovelInfo> infos = novelService.findAllNovelInfo();
+
         modelAndView.addObject("resultInfo", ResultUtil.success("success").toJSONObject());
         modelAndView.addObject("unreadProfiles", unreadProfiles);
         modelAndView.addObject("passedProfiles", passedProfiles);
+        modelAndView.addObject("allNovelInfos", infos);
         return modelAndView;
     }
 
@@ -133,7 +142,6 @@ public class AdminController {
             String editorName = UUID.randomUUID().toString().replace("-", "").toUpperCase().substring(0, 10);
             String password = "123456";
 
-
             Editor editor = new Editor();
             editor.setEditorName(editorName);
             editor.setPassword(password);
@@ -158,5 +166,15 @@ public class AdminController {
         return modelAndView;
     }
 
+    /**
+     * 计算余弦值
+     */
+    @GetMapping("/calculateCosineSim")
+    public ModelAndView recommendByCosineSim() {
+        ModelAndView modelAndView = new ModelAndView();
+        adminService.calculateCosineSim();
+        modelAndView.setViewName("redirect:/admin/enterAdminCenter");
+        return  modelAndView;
+    }
 
 }

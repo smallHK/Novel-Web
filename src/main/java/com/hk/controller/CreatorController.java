@@ -1,27 +1,18 @@
 package com.hk.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.hk.entity.Creator;
-import com.hk.entity.Novel;
-import com.hk.entity.Volume;
 import com.hk.po.ChapterInfo;
 import com.hk.po.NovelIndex;
 import com.hk.po.NovelInfo;
-import com.hk.po.VolumeInfo;
 import com.hk.repository.CreatorRepository;
 import com.hk.service.NovelService;
-import com.hk.util.EntityStatus;
 import com.hk.util.ResultUtil;
 import com.hk.util.SessionProperty;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 import java.util.Map;
 
 import static com.hk.util.ResultUtil.success;

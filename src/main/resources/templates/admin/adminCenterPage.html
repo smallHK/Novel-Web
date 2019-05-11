@@ -23,11 +23,12 @@
 	<div class="col-8">
 		<div class="tab-content">
 			<div class="tab-pane fade border back-color-white show active" id="editor-recommend-manage">
+
 				<div class="border mx-3 my-3">
 					<div class="row">
 						<div class="col-3">
 							<div class="book-cover-wrapper">
-								<img src="../imgs/cover-sc.jpg" class="card-img-top book-cover-img" alt="...">
+								<img th:src="@{/imgs/cover/cover-sc.jpg}" src="../imgs/cover-sc.jpg" class="card-img-top book-cover-img" alt="...">
 							</div>
 						</div>
 						<div class="col-8">
@@ -59,7 +60,7 @@
 					<div class="row">
 						<div class="col-3">
 							<div class="book-cover-wrapper">
-								<img src="../imgs/cover-sc.jpg" class="card-img-top book-cover-img" alt="...">
+								<img th:src="@{/imgs/cover/cover-sc.jpg}" src="../imgs/cover-sc.jpg" class="card-img-top book-cover-img" alt="...">
 							</div>
 						</div>
 						<div class="col-8">
@@ -174,43 +175,20 @@
 
 			</div>
 
-
 			<div class="tab-pane fade border back-color-white" id="novel-manage">
 				<div class="row mb-3 mx-auto" >
-					<div class="col-4 my-2">
+					<div class="col-4 my-2" th:each="info: ${allNovelInfos}">
 						<div class="shadow-sm">
-							<div class="book-cover-wrapper"> <a href="#"><img src="../imgs/cover-sc.jpg" class="card-img-top book-cover-img" alt="..."></a> </div>
+							<div class="book-cover-wrapper">
+								<a href="#"><img th:src="@{/imgs/cover/cover-sc.jpg}" src="../imgs/cover-sc.jpg" class="card-img-top book-cover-img" alt="封面"></a> </div>
 							<div class="">
-								<p class="book-title-limit">Campione 弑神者！</p>
-								<a href="#" class="btn btn-primary btn-block rounded-0">删除小说</a> </div>
-						</div>
-					</div>
-					<div class="col-4 my-2">
-						<div class="shadow-sm">
-							<div class="book-cover-wrapper"> <a href="#"><img src="../imgs/cover-sc.jpg" class="card-img-top book-cover-img" alt="..."></a> </div>
-							<div class="">
-								<p class="book-title-limit">Campione 弑神者！</p>
-								<a href="#" class="btn btn-primary btn-block rounded-0">删除小说</a> </div>
-						</div>
-					</div>
-					<div class="col-4 my-2">
-						<div class="shadow-sm">
-							<div class="book-cover-wrapper"> <a href="#"><img src="../imgs/cover-sc.jpg" class="card-img-top book-cover-img" alt="..."></a> </div>
-							<div class="">
-								<p class="book-title-limit">Campione 弑神者！</p>
-								<a href="#" class="btn btn-primary btn-block rounded-0">删除小说</a> </div>
-						</div>
-					</div>
-					<div class="col-4 my-2">
-						<div class="shadow-sm">
-							<div class="book-cover-wrapper"> <a href="#"><img src="../imgs/cover-sc.jpg" class="card-img-top book-cover-img" alt="..."></a> </div>
-							<div class="">
-								<p class="book-title-limit">Campione 弑神者！</p>
+								<p class="book-title-limit" th:text="${info.novelName}">Campione 弑神者！</p>
 								<a href="#" class="btn btn-primary btn-block rounded-0">删除小说</a> </div>
 						</div>
 					</div>
 				</div>
 			</div>
+
 			<div class="tab-pane fade border back-color-white" id="favorite-setting">
 				<div class="p-2">
 					<span>余弦值分析</span>
@@ -218,8 +196,8 @@
 				</div>
 
 				<div class="m-4 p-2 border rounded">
-					<p>上一次个性推荐分析：2019/05/08 12:45:23</p>
-					<button class="btn btn-light rounded-0">余弦值分析</button>
+					<p>上一次个性推荐分析：<span>2019/05/08 12:45:23</span></p>
+					<a th:href="@{/admin/calculateCosineSim}" class="btn btn-light rounded-0">余弦值分析</a>
 				</div>
 
 

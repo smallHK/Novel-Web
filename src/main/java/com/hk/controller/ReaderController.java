@@ -7,6 +7,7 @@ import com.hk.entity.Reader;
 import com.hk.po.NovelCommentList;
 import com.hk.repository.NovelCommentRepo;
 import com.hk.repository.ReaderRepo;
+import com.hk.service.NovelAlterService;
 import com.hk.service.NovelService;
 import com.hk.service.ReaderService;
 import com.hk.util.ResultUtil;
@@ -35,9 +36,13 @@ public class ReaderController {
 
     private NovelService novelService;
 
+    private NovelAlterService novelAlterService;
+
     private ReaderService readerService;
 
-    public ReaderController(ReaderService readerService, NovelService novelService) {
+    public ReaderController(ReaderService readerService,
+                            NovelService novelService,
+                            NovelAlterService novelAlterService) {
         this.readerService = readerService;
         this.novelService = novelService;
     }
@@ -118,7 +123,7 @@ public class ReaderController {
         Integer readerId = (Integer) session.getAttribute(SessionProperty.READER_LOGIN_READER_ID);
         String content = params.get("content");
         Integer novelId = Integer.valueOf(params.get("novelId"));
-        novelService.publishNovelComment(readerId, novelId, content);
+        novelAlterService.publishNovelComment(readerId, novelId, content);
         modelAndView.setViewName("redirect:/visitor/novelInfo/" + novelId);
         modelAndView.addObject("resultInfo", ResultUtil.success("评论成功！").toJSONObject());
         return modelAndView;

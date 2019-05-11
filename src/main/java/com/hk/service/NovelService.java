@@ -9,8 +9,8 @@ import com.hk.repository.event.ChapterPublishEventRepo;
 import com.hk.repository.event.VolumePublishEventRepo;
 import com.hk.util.CollectionUtil;
 import com.hk.util.CommonUtil;
-import com.hk.util.EntityStatus;
-import com.hk.util.EventType;
+import com.hk.constant.EntityStatus;
+import com.hk.constant.EventType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -165,6 +165,18 @@ public class NovelService {
     }
 
     /**
+     * 获取所有小说
+     */
+    public List<NovelInfo> findAllNovelInfo() {
+        List<Novel> novels = CollectionUtil.iterableToList(novelRepository.findAll());
+        List<NovelInfo> infos = new ArrayList<>();
+        for(Novel novel: novels) {
+            infos.add(novelToNovelInfo(novel));
+        }
+        return infos;
+    }
+
+    /**
      * 获取指定作者创作的小说数
      */
     public Integer countSpecialCreatorAllNovelList(Integer creatorId) {
@@ -205,7 +217,7 @@ public class NovelService {
         NovelPublish novelPublish = new NovelPublish();
         novelPublish.setEditorId(editorId);
         novelPublish.setNovelId(novelId);
-        novelPublish.setApplyTime(Timestamp.from(Instant.now()));
+        novelPublish.setPublishTime(Timestamp.from(Instant.now()));
         novelPublishRepo.save(novelPublish);
         Novel novel = novelRepository.findNovelById(novelId);
         novel.setStatus(EntityStatus.NOVEL_PASSED);
@@ -237,27 +249,7 @@ public class NovelService {
      * 获取小说信息
      */
     public NovelInfo findNovelInfo(Integer novelId) {
-        Novel novel = novelRepository.findNovelById(novelId);
-
-        Integer authorId = novel.getAuthorId();
-        Creator creator = creatorRepository.findById(authorId).orElseThrow();
-
-        NovelInfo novelInfo = new NovelInfo();
-        novelInfo.setAuthorId(authorId);
-        novelInfo.setBriefIntro(novel.getBriefIntro());
-        novelInfo.setPenName(creator.getPenName());
-        novelInfo.setId(novelId);
-        novelInfo.setNovelName(novel.getNovelName());
-        novelInfo.setCoverImg(novel.getCoverImg());
-
-        List<TagNovelRelation> relations = tagNovelRelationRepo.findAllByNovelId(novelId);
-        List<Integer> tagIds = new ArrayList<>();
-        for(TagNovelRelation relation: relations) {
-            tagIds.add(relation.getTagId());
-        }
-        List<Tag> tags = CollectionUtil.iterableToList(tagRepo.findAllById(tagIds));
-        novelInfo.setTagList(tags);
-        return novelInfo;
+        return novelToNovelInfo(novelRepository.findNovelById(novelId));
     }
 
     /**
@@ -403,141 +395,11 @@ public class NovelService {
     }
 
     /**
-     * 添加新小说
+     * 获取热门小说
+     * 点击数 + 收藏数 * 2
      */
-    public void addNewNovel(Integer creatorId, String novelName, String briefIntro, String coverFileName, byte[] coverData) {
-
-        try {
-            Path parent = Path.of("D:\\CurriculumDesign\\Novel-Web\\src\\main\\resources\\static\\data\\novelCover\\cover", creatorId.toString());
-            Files.createDirectories(parent);
-            Path target = Path.of(parent.toString(), coverFileName);
-
-            if (!Files.exists(target)) {
-                Files.createFile(target);
-                Files.write(target, coverData);
-            }
-            Novel novel = new Novel();
-            novel.setAuthorId(creatorId);
-            novel.setBriefIntro(briefIntro);
-            novel.setNovelName(novelName);
-            novel.setCreateTime(Timestamp.from(Instant.now()));
-            novel.setUpdateTime(Timestamp.from(Instant.now()));
-            novel.setCompleteStatus(EntityStatus.NOVEL_UNCOMPLETED);
-            novel.setCoverImg("/data/novelCover/cover/" + creatorId + "/" + coverFileName);
-            novel.setStatus(0);
-            novelRepository.save(novel);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
-    /**
-     * 添加新卷
-     */
-    public void addNewVolume(Integer novelId, String volumeTitle) {
-        Volume volume = new Volume();
-        volume.setNovelId(novelId);
-        volume.setVolumeTitle(volumeTitle);
-        Integer orderNum = volumeRepository.countAllByNovelId(novelId) + 1;
-        volume.setOrderNum(orderNum);
-        volumeRepository.save(volume);
-    }
-
-    /**
-     * 添加新的章节
-     */
-    @Transactional
-    public void addNewChapter(Integer novelId, Integer volumeId, String chapterTitle, String originText) {
-
-        //文本处理
-        String chapterContent = CommonUtil.textProcessing(originText);
-
-        Integer wordCount = chapterContent.length();
-
-        Chapter chapter = new Chapter();
-        chapter.setNovelId(novelId);
-        chapter.setVolumeId(volumeId);
-        chapter.setTitle(chapterTitle);
-        chapter.setWordCount(wordCount);
-
-        Integer count = chapterRepository.countAllByNovelIdAndVolumeId(novelId, volumeId);
-        chapter.setOrderNum(count + 1);
-
-        Chapter resultChapter = chapterRepository.save(chapter);
-
-        List<Paragraph> paragraphList = new ArrayList<>();
-        String[] contents = chapterContent.split("\n");
-        for (int i = 0; i < contents.length; i++) {
-            String line = contents[i];
-            Paragraph paragraph = new Paragraph();
-            paragraph.setChapterId(resultChapter.getId());
-            paragraph.setContent(line);
-            paragraph.setOrderNum(i + 1);
-            paragraph.setNovelId(novelId);
-            paragraphList.add(paragraph);
-        }
-        paragraphRepository.saveAll(paragraphList);
-
-    }
-
-
-    /**
-     * 添加评论
-     */
-    public void publishNovelComment(Integer readerId, Integer novelId, String originContent) {
-
-        NovelComment novelComment = new NovelComment();
-        novelComment.setContent(originContent);
-        novelComment.setReaderId(readerId);
-        novelComment.setNovelId(novelId);
-        Integer number = novelCommentRepo.countAllByNovelId(novelId);
-        novelComment.setOrderNum(number + 1);
-        novelComment.setCreateTime(Timestamp.from(Instant.now()));
-        novelCommentRepo.save(novelComment);
-
-    }
-
-    /**
-     * 更新章节
-     */
-    @Transactional
-    public void updateChapter(Integer chapterId,  String chapterTitle, String originText) {
-
-        Chapter chapter = chapterRepository.findById(chapterId).orElseThrow();
-        String chapterContent = CommonUtil.textProcessing(originText);
-
-        Instant now = Instant.now();
-
-        //清楚所有段落
-        paragraphRepository.deleteAllByChapterId(chapterId);
-
-        //更新章节信息
-        chapter.setClickCount(0);
-        chapter.setTitle(chapterTitle);
-        chapter.setWordCount(chapterContent.length());
-
-        //添加新的段落
-        addParagraphList(chapterContent, chapterId, chapter.getNovelId());
-
-        //更新小说更新时间
-        Novel novel = novelRepository.findById(chapter.getNovelId()).orElseThrow();
-        novel.setUpdateTime(Timestamp.from(now));
-
-        //如果小说已经被开放，而且章节也已经被开放，发布事件
-//        if(novel.getStatus().equals(EntityStatus.NOVEL_PASSED)) {//如果小说已经被开放，发布更新时间给管理的编辑
-//            NovelPublish novelPublish = novelPublishRepo.findByNovelId(novel.getId());
-//
-//            //发布章节更新事件
-//            ChapterUpdateEvent event = new ChapterUpdateEvent();
-//            event.setChapterId(chapterId);
-//            event.setEditorId(novelPublish.getEditorId());
-//            event.setUpdateTime(Timestamp.from(now));
-//            event.setStatus(EventStatus.CHAPTER_UPDATE_SUBMITTED);
-//
-//        }
-
+    public List<NovelInfo> findAllHotNovel() {
+        return null;
     }
 
     /**
@@ -606,6 +468,31 @@ public class NovelService {
         return info;
     }
 
+    /**
+     * 将novel转化为novelInfo
+     */
+    private NovelInfo novelToNovelInfo(Novel novel) {
+        Integer authorId = novel.getAuthorId();
+        Creator creator = creatorRepository.findById(authorId).orElseThrow();
+
+        NovelInfo novelInfo = new NovelInfo();
+        novelInfo.setAuthorId(authorId);
+        novelInfo.setBriefIntro(novel.getBriefIntro());
+        novelInfo.setPenName(creator.getPenName());
+        novelInfo.setId(novel.getId());
+        novelInfo.setNovelName(novel.getNovelName());
+        novelInfo.setCoverImg(novel.getCoverImg());
+
+        List<TagNovelRelation> relations = tagNovelRelationRepo.findAllByNovelId(novel.getId());
+        List<Integer> tagIds = new ArrayList<>();
+        for(TagNovelRelation relation: relations) {
+            tagIds.add(relation.getTagId());
+        }
+        List<Tag> tags = CollectionUtil.iterableToList(tagRepo.findAllById(tagIds));
+        novelInfo.setTagList(tags);
+        return novelInfo;
+    }
+
 
     /**
      * 添加指定章节点击数
@@ -615,6 +502,15 @@ public class NovelService {
         Chapter chapter = chapterRepository.findById(chapterId).orElseThrow();
         chapter.setClickCount(chapter.getClickCount() + 1);
         chapterRepository.save(chapter);
+    }
+
+
+    /**
+     * 判断卷是否开放
+     */
+    public boolean judgeVolumePublished(Integer volumeId) {
+        Volume volume = volumeRepository.findById(volumeId).orElseThrow();
+        return volume.getStatus().equals(EntityStatus.VOLUME_PASSED);
     }
 
 
@@ -842,20 +738,6 @@ public class NovelService {
 
 
 
-    private void addParagraphList(String chapterContent, Integer chapterId, Integer novelId) {
-        List<Paragraph> paragraphList = new ArrayList<>();
-        String[] contents = chapterContent.split("\n");
-        for (int i = 0; i < contents.length; i++) {
-            String line = contents[i];
-            Paragraph paragraph = new Paragraph();
-            paragraph.setChapterId(chapterId);
-            paragraph.setContent(line);
-            paragraph.setOrderNum(i + 1);
-            paragraph.setNovelId(novelId);
-            paragraphList.add(paragraph);
-        }
-        paragraphRepository.saveAll(paragraphList);
-    }
 
 
 }

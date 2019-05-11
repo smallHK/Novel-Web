@@ -7,7 +7,7 @@ import com.hk.po.NovelIndex;
 import com.hk.po.VolumeInfo;
 import com.hk.service.CreatorService;
 import com.hk.service.NovelService;
-import com.hk.util.EntityStatus;
+import com.hk.constant.EntityStatus;
 import com.hk.util.ResultUtil;
 import org.springframework.web.bind.annotation.*;
 
@@ -62,6 +62,15 @@ public class CreatorRestController {
         NovelIndex index = novelService.findNovelIndex(novelId);
         return ResultUtil.success("success!").toJSONObject().fluentPut("novelIndex", index);
 
+    }
+
+    /**
+     * 判断卷是否开放，已开放返回true
+     */
+    @GetMapping("/rest/jugdeVolumePublish/{volumeId}")
+    public @ResponseBody JSONObject judegVolumePublishByRest(@PathVariable Integer volumeId) {
+        boolean flag = novelService.judgeVolumePublished(volumeId);
+        return ResultUtil.success("success!").toJSONObject().fluentPut("flag", flag);
     }
 
 

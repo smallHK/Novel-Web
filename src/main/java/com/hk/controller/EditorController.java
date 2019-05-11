@@ -11,7 +11,7 @@ import com.hk.po.VolumeInfo;
 import com.hk.repository.EditorRepository;
 import com.hk.repository.ProfileRepository;
 import com.hk.service.NovelService;
-import com.hk.util.EntityStatus;
+import com.hk.constant.EntityStatus;
 import com.hk.util.ResultUtil;
 import com.hk.util.SessionProperty;
 import org.springframework.stereotype.Controller;
@@ -178,6 +178,7 @@ public class EditorController {
 
 
     /**
+     * 同意小说发布
      * 审批小说
      */
     @GetMapping("/publishNovel/{novelId}")

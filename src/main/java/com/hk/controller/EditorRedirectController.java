@@ -30,7 +30,7 @@ public class EditorRedirectController {
     }
 
     /**
-     * 同意小说发布
+     * 同意章节发布
      */
     @GetMapping("/passChapterPublishEvent/{eventId}")
     public ModelAndView agreeChapterPublish(Integer eventId) {

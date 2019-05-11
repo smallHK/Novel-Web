@@ -6,7 +6,9 @@ import com.hk.util.CollectionUtil;
 import com.hk.util.CosineSimilarity;
 import com.hk.util.Tuple2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 /**
@@ -15,6 +17,7 @@ import java.util.*;
  * 2019/5/7 22:12
  */
 @Service
+@EnableTransactionManagement
 public class RecommendService {
 
     private TagRepo tagRepo;
@@ -44,6 +47,7 @@ public class RecommendService {
     }
 
 
+    @Transactional
     public void calculateAllReaderVector() {
 
         Iterable<Tag> tags = tagRepo.findAll();
@@ -114,7 +118,7 @@ public class RecommendService {
                 if (i == j) continue;
 
                 Double similarity = CosineSimilarity.calculate(readerVector, readerVectors[j]);
-                Tuple2<Integer, Double> other = new Tuple2(readerList.get(j), similarity);
+                Tuple2<Integer, Double> other = new Tuple2(readerList.get(j).getId(), similarity);
                 otherSim.add(other);
 
             }
@@ -165,6 +169,9 @@ public class RecommendService {
             priority[i] = eachPriority;
 
         }
+
+        //清楚分析上一次分析结果
+        recommendPriorityRepo.deleteAll();
 
         //分析结果持久化
         for(int i = 0; i < priority.length; i++) {
