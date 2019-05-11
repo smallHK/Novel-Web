@@ -1,6 +1,6 @@
 package com.hk.controller.interceptor;
 
-import com.hk.util.SessionProperty;
+import com.hk.constant.SessionProperty;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;

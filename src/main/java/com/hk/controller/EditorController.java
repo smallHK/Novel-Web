@@ -10,10 +10,11 @@ import com.hk.po.NovelIndex;
 import com.hk.po.VolumeInfo;
 import com.hk.repository.EditorRepository;
 import com.hk.repository.ProfileRepository;
+import com.hk.service.EditorService;
 import com.hk.service.NovelService;
 import com.hk.constant.EntityStatus;
 import com.hk.util.ResultUtil;
-import com.hk.util.SessionProperty;
+import com.hk.constant.SessionProperty;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.*;
@@ -40,16 +41,17 @@ public class EditorController {
 
     private EditorRepository editorRepository;
 
+    private EditorService editorService;
+
 
     public EditorController(NovelService novelService,
                             ProfileRepository profileRepository,
-                            EditorRepository editorRepository) {
+                            EditorRepository editorRepository,
+                            EditorService editorService) {
         this.profileRepository = profileRepository;
         this.editorRepository = editorRepository;
-
-
         this.novelService = novelService;
-
+        this.editorService = editorService;
     }
 
 
@@ -121,11 +123,24 @@ public class EditorController {
         return modelAndView;
     }
 
+    /**
+     * 个人信息页
+     */
+    @GetMapping("/personalInfo")
+    public ModelAndView personalInfo(HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView();
+        Integer editorId = (Integer) session.getAttribute(SessionProperty.EDITOR_LOGIN_EDITOR_ID);
+        Profile profile = editorService.findProfileByEditorId(editorId);
+        modelAndView.setViewName("/editor/personalInfoPage");
+        modelAndView.addObject("profile", profile);
+        modelAndView.addObject("resultInfo", ResultUtil.success("success!").toJSONObject());
+        return modelAndView;
+    }
+
 
     /**
      * 修改个人信息
      */
-    @Deprecated
     @PostMapping("/updatePersonalInfo")
     public ModelAndView updatePersonalInfo(@RequestParam Map<String, String> params, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();

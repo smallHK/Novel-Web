@@ -166,7 +166,7 @@ public class CreatorRestController {
      *
      * @return 0表示不存在相同笔名，1表示存在相同笔名
      */
-    @GetMapping(path = "checkPenNameExist")
+    @GetMapping(path = "/checkPenNameExist")
     public @ResponseBody
     JSONObject existPenName(@RequestParam("penname") String penName) {
         boolean flag = creatorService.existPenName(penName);

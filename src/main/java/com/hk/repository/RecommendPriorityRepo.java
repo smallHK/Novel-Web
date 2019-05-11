@@ -12,4 +12,6 @@ import java.util.List;
 public interface RecommendPriorityRepo extends CrudRepository<RecommendPriority, Long> {
 
     void deleteAllByReaderIdIn(List<Integer> readerIdList);
+
+    List<RecommendPriority> findAllByReaderIdOrderByPriorityDesc(Integer readerId);
 }

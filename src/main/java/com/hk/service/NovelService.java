@@ -1,5 +1,7 @@
 package com.hk.service;
 
+import com.hk.constant.EntityStatus;
+import com.hk.constant.EventType;
 import com.hk.entity.*;
 import com.hk.entity.event.ChapterPublishEvent;
 import com.hk.entity.event.VolumePublishEvent;
@@ -8,16 +10,10 @@ import com.hk.repository.*;
 import com.hk.repository.event.ChapterPublishEventRepo;
 import com.hk.repository.event.VolumePublishEventRepo;
 import com.hk.util.CollectionUtil;
-import com.hk.util.CommonUtil;
-import com.hk.constant.EntityStatus;
-import com.hk.constant.EventType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.transaction.Transactional;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -62,6 +58,8 @@ public class NovelService {
 
     private TagNovelRelationRepo tagNovelRelationRepo;
 
+    private RecommendPriorityRepo recommendPriorityRepo;
+
     public NovelService(NovelRepository novelRepository,
                         NovelCommentRepo novelCommentRepo,
                         NovelPublishRepo novelPublishRepo,
@@ -74,7 +72,8 @@ public class NovelService {
                         VolumePublishEventRepo volumePublishEventRepo,
                         FavoriteRepo favoriteRepo,
                         TagRepo tagRepo,
-                        TagNovelRelationRepo tagNovelRelationRepo) {
+                        TagNovelRelationRepo tagNovelRelationRepo,
+                        RecommendPriorityRepo recommendPriorityRepo) {
         this.novelRepository = novelRepository;
         this.novelCommentRepo = novelCommentRepo;
         this.novelPublishRepo = novelPublishRepo;
@@ -88,6 +87,7 @@ public class NovelService {
         this.favoriteRepo = favoriteRepo;
         this.tagRepo = tagRepo;
         this.tagNovelRelationRepo = tagNovelRelationRepo;
+        this.recommendPriorityRepo = recommendPriorityRepo;
     }
 
     /**
@@ -418,6 +418,25 @@ public class NovelService {
         }
         return infoList;
     }
+
+    /**
+     * 获取推荐的小说
+     */
+    public List<NovelInfo> findAllRecommendNovels(Integer readerId) {
+
+        List<RecommendPriority> priorities = recommendPriorityRepo.findAllByReaderIdOrderByPriorityDesc(readerId);
+        List<Integer> novelIds = new ArrayList<>();
+        for(RecommendPriority priority: priorities) {
+            novelIds.add(priority.getNovelId());
+        }
+        List<Novel> novelList = CollectionUtil.iterableToList(novelRepository.findAllById(novelIds.subList(0, 3)));
+        List<NovelInfo> infos = new ArrayList<>();
+        for(Novel novel: novelList) {
+            infos.add(novelToNovelInfo(novel));
+        }
+        return infos;
+    }
+
 
     /**
      * 获取小说的评论信息列表

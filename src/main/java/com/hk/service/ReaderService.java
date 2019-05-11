@@ -2,10 +2,7 @@ package com.hk.service;
 
 import com.hk.entity.Reader;
 import com.hk.repository.ReaderRepo;
-import com.hk.util.ResultUtil;
-import com.hk.util.SessionProperty;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 读者服务bean

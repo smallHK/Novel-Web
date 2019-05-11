@@ -1,13 +1,12 @@
 package com.hk.controller;
 
-import com.hk.entity.Chapter;
 import com.hk.po.ChapterInfo;
 import com.hk.po.VolumeInfo;
 import com.hk.service.NovelAlterService;
 import com.hk.service.NovelService;
 import com.hk.constant.EntityStatus;
 import com.hk.util.ResultUtil;
-import com.hk.util.SessionProperty;
+import com.hk.constant.SessionProperty;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

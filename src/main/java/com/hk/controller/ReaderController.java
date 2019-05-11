@@ -1,24 +1,18 @@
 package com.hk.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hk.entity.Favorite;
-import com.hk.entity.NovelComment;
 import com.hk.entity.Reader;
 import com.hk.po.NovelCommentList;
-import com.hk.repository.NovelCommentRepo;
-import com.hk.repository.ReaderRepo;
 import com.hk.service.NovelAlterService;
 import com.hk.service.NovelService;
 import com.hk.service.ReaderService;
 import com.hk.util.ResultUtil;
-import com.hk.util.SessionProperty;
+import com.hk.constant.SessionProperty;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -140,6 +134,18 @@ public class ReaderController {
         modelAndView.setViewName("/reader/readerCenter");
         modelAndView.addObject("novelCommentList", list);
         modelAndView.addObject("resultInfo", ResultUtil.success("success!").toJSONObject());
+        return modelAndView;
+    }
+
+    /**
+     * 注销登陆
+     */
+    @GetMapping("/logout")
+    public ModelAndView readerLogout(HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView();
+        session.removeAttribute(SessionProperty.READER_LOGIN_READER_ID);
+        session.removeAttribute(SessionProperty.READER_LOGIN_READER_NAME);
+        modelAndView.setViewName("redirect:/index");
         return modelAndView;
     }
 

@@ -1,19 +1,19 @@
 <!doctype html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link href="../bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css" rel="stylesheet">
-    <link href="../bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/content.css" rel="stylesheet">
-    <script src="../js/jquery-3.3.1.js"></script>
-    <script src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+	<link th:href="@{/bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css}" href="../bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css" rel="stylesheet">
+	<link th:href="@{/bootstrap-4.3.1-dist/css/bootstrap.min.css}" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link th:href="@{/css/content.css}" href="../css/content.css" rel="stylesheet">
+	<script th:src="@{/js/jquery-3.3.1.js}" src="../js/jquery-3.3.1.js"></script>
+	<script th:src="@{/bootstrap-4.3.1-dist/js/bootstrap.min.js}" src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
     <title>个人信息页</title>
 </head>
 <body class="main-back">
 <nav class="navbar navbar-light bg-dark sticky-top mb-3" > <a class="navbar-brand text-light" href="../index.html">HK小说网</a> 
 	<div class="float-right text-white" > 
-		<a href="#">返回工作页</a> 
+		<a th:href="@{/editor/workSpacePage}" href="#">返回工作页</a>
 	</div>	
 </nav>
 
@@ -30,30 +30,30 @@
 					<div class="form-group row">
 						<label class="col-2 col-form-label">姓名</label>
 						<div class="col-10">
-							<input type="text" readonly class="form-control" value="啊哈哈">
+							<input type="text" readonly class="form-control" th:value="${profile.realName}" value="啊哈哈">
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-2 col-form-label">电话</label>
 						<div class="col-10">
-							<input type="text" readonly class="form-control" value="16866785567">
+							<input type="text" readonly class="form-control" th:value="${profile.phoneNumber}" value="16866785567">
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-2 col-form-label">身份证号</label>
 						<div class="col-10">
-							<input type="text" readonly class="form-control" value="110101201904044312">
+							<input type="text" readonly class="form-control" th:value="${profile.idNumber}" value="110101201904044312">
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-2 col-form-label">email</label>
 						<div class="col-10">
-							<input type="text" readonly class="form-control" value="sssss@hk.com">
+							<input type="email" readonly class="form-control" th:value="${profile.eMail}" value="sssss@hk.com">
 						</div>
 					</div>
 					<div class="form-group">
 						<label>个人简介</label>
-						<textarea class="form-control" readonly rows="5">深度互联网从业人员，对互联网保持高度的敏感性和关注度，熟悉产品开发流程，有很强的产品规划、需求分析、交互设计能力，能独立承担APP和WEB项目的管控工作，善于沟通，贴近用户。</textarea>
+						<textarea class="form-control" readonly rows="5" th:text="${profile.briefIntro}">深度互联网从业人员，对互联网保持高度的敏感性和关注度，熟悉产品开发流程，有很强的产品规划、需求分析、交互设计能力，能独立承担APP和WEB项目的管控工作，善于沟通，贴近用户。</textarea>
 					</div>
 				</form>
 			</div>

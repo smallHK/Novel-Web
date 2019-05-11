@@ -7,7 +7,7 @@ import com.hk.po.NovelInfo;
 import com.hk.repository.CreatorRepository;
 import com.hk.service.NovelService;
 import com.hk.util.ResultUtil;
-import com.hk.util.SessionProperty;
+import com.hk.constant.SessionProperty;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;

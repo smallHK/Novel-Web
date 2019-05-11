@@ -11,7 +11,11 @@
 </head>
 <body class="main-back">
 <nav class="navbar navbar-light bg-dark sticky-top mb-3 px-3" > <a class="navbar-brand text-primary" href="../index.html">HK小说网</a>
-	<div class="float-right text-white" > 欢迎！<span th:text="${session.login_editor_name}">小黑王HK</span> </div>
+	<div class="float-right text-white" > 
+		欢迎！<span th:text="${session.login_editor_name}">小黑王HK</span> 
+		<a href="#">注销登陆</a>
+	</div>
+
 </nav>
 <ul class="nav nav-tabs mb-5">
 	<li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#workspace">工作区域</a> </li>

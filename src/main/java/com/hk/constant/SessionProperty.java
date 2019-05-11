@@ -1,4 +1,4 @@
-package com.hk.util;
+package com.hk.constant;
 
 /**
  *

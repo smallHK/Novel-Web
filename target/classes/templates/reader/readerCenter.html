@@ -11,7 +11,12 @@
 </head>
 <body class="main-back">
 <nav class="navbar navbar-dark bg-dark mb-3"> <a class="navbar-brand mb-0 h1 text-light" th:href="@{/index}">HK小说网</a>
-    <p class="text-light mb-0">欢迎，<span th:text="${session.login_reader_name}">小黑王</span>！</p>
+   <!--<p class="text-light mb-0">欢迎，<span th:text="${session.login_reader_name}">小黑王</span>！</p>-->
+    <div class="float-right text-white" >
+        欢迎！<span th:text="${session.login_reader_name}">小黑王HK</span>
+        <a th:if="${session.login_reader_name}" th:href="@{/reader/logout}" href="#">注销登陆</a>
+    </div>
+
 </nav>
 <div class="row">
     <div class="col-2">
@@ -91,20 +96,9 @@
                             <div class=""> <a class="btn btn-block btn-light">魔弹之王与冻莲的雪姬</a> </div>
                         </div>
                     </div>
-                    <div class="col-4 text-align-center">
-                        <div class="shadow-sm rounded text-align-center">
-                            <div class="my-1"> <img th:src="@{/imgs/cover/cover-mz.jpg}" src="../imgs/cover-md.jpg" class="book-cover-img"> </div>
-                            <div class=""> <a class="btn btn-block btn-light">魔弹之王与冻莲的雪姬</a> </div>
-                        </div>
-                    </div>
-                    <div class="col-4 text-align-center">
-                        <div class="shadow-sm rounded text-align-center">
-                            <div class="my-1"> <img th:src="@{/imgs/cover/cover-md.jpg}" src="../imgs/cover-md.jpg" class="book-cover-img"> </div>
-                            <div class=""> <a class="btn btn-block btn-light">魔弹之王与冻莲的雪姬</a> </div>
-                        </div>
-                    </div>
+
                 </div>
-                <button class="btn btn-block btn-light">换一批</button>
+                <button class="btn btn-block btn-light" onclick="recommendNovels();">换一批</button>
             </div>
         </div>
     </div>
@@ -114,7 +108,10 @@
     $(document).ready(function () {
 
         //更新收藏夹
-        updateFavorite(1)
+        updateFavorite(1);
+
+        //更新推荐
+        recommendNovels();
     });
 
     function updateFavorite(pageNum) {
@@ -135,6 +132,31 @@
         novelLayWrapper.append(novelWrapper);
         novelWrapper.append($("<div class=\"my-1 book-cover-wrapper text-align-center\"> <img src=\"/imgs/cover/sao_c.jpg\" class=\"book-cover-img\"></div>"));
         novelWrapper.append($("<div class=\"rounded-0\"> <a class=\"btn btn-block btn-light\"></a> </div>"));
+        novelLayWrapper.find("a").text(novelInfo.novelName);
+        novelLayWrapper.find("a").attr("href", "/visitor/novelInfo/" + novelInfo.id);
+        return novelLayWrapper;
+    }
+
+    function recommendNovels() {
+        var container = $("#novel-recommend").find(".row");
+        container.empty();
+        $.get("/reader/gainRecommendNovels", function (data) {
+            if(data.status === 0) {
+                var list = data.infos;
+                for(var x in list) {
+                    container.append(favoriteCom(list[x]));
+                }
+            }
+        });
+
+    }
+
+    function recommendCom(novelInfo) {
+        var novelLayWrapper = $("<div class=\"col-4 text-align-center\"></div>");
+        var novelWrapper = $("<div class=\"shadow-sm rounded text-align-center\"></div>");
+        novelLayWrapper.append(novelWrapper);
+        novelWrapper.append($("<div class=\"my-1\"> <img th:src=\"@{/imgs/cover/sao_c.jpg}\" src=\"../imgs/cover-md.jpg\" class=\"book-cover-img\"> </div>"));
+        novelWrapper.append($("<div class=\"\"> <a class=\"btn btn-block btn-light\"></a> </div>"));
         novelLayWrapper.find("a").text(novelInfo.novelName);
         novelLayWrapper.find("a").attr("href", "/visitor/novelInfo/" + novelInfo.id);
         return novelLayWrapper;

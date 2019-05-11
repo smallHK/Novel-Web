@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.hk.po.NovelInfo;
 import com.hk.service.NovelService;
 import com.hk.util.ResultUtil;
-import com.hk.util.SessionProperty;
+import com.hk.constant.SessionProperty;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -88,4 +88,16 @@ public class ReaderRestController {
         return ResultUtil.success("success!").toJSONObject().fluentPut("flag", flag);
 
     }
+
+    /**
+     * 获取推荐小说
+     * 三本
+     */
+    @GetMapping("/gainRecommendNovels")
+    public @ResponseBody
+    JSONObject gainRecommendedNovels(HttpSession session) {
+        Integer readerId = (Integer) session.getAttribute(SessionProperty.READER_LOGIN_READER_ID);
+        return  ResultUtil.success("success!").toJSONObject().fluentPut("infos", novelService.findAllRecommendNovels(readerId));
+    }
+
 }

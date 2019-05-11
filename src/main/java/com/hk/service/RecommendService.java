@@ -1,6 +1,7 @@
 package com.hk.service;
 
 import com.hk.entity.*;
+import com.hk.po.NovelInfo;
 import com.hk.repository.*;
 import com.hk.util.CollectionUtil;
 import com.hk.util.CosineSimilarity;
@@ -47,6 +48,7 @@ public class RecommendService {
     }
 
 
+
     @Transactional
     public void calculateAllReaderVector() {
 
@@ -56,11 +58,7 @@ public class RecommendService {
             orderedTag.add(tag.getId());
         }
 
-        Iterable<Reader> readers = readerRepo.findAll();
-        List<Reader> readerList = new ArrayList<>();
-        for (Reader reader : readers) {
-            readerList.add(reader);
-        }
+        List<Reader> readerList = CollectionUtil.iterableToList(readerRepo.findAll());
 
 
         //所有读者的向量
@@ -68,15 +66,18 @@ public class RecommendService {
         //第二维度为tag_id
         int[][] readerVectors = new int[readerList.size()][];
 
-
         //根据每个读者建立向量
         for (int i = 0; i < readerList.size(); i++) {
             Reader reader = readerList.get(i);
 
             List<Favorite> favorites = favoriteRepo.findAllByReaderId(reader.getId());
 
-            //key为tag_id，val为数量
+            //key为tag_id，val为数量，初始化为1，避免0向量的出现
             int[] tagVector = new int[orderedTag.size()];
+            for(int j =0; j< tagVector.length; j++) {
+                tagVector[j]++;
+            }
+
 
             //tag_id
             List<Integer> favoriteTags = new ArrayList<>();
@@ -86,7 +87,7 @@ public class RecommendService {
             for (Favorite favorite : favorites) {
                 List<TagNovelRelation> tagNovelRelations = tagNovelRelationRepo.findAllByNovelId(favorite.getNovelId());
                 for (TagNovelRelation relation : tagNovelRelations) {
-                    favoriteTags.add(relation.getId());
+                    favoriteTags.add(relation.getTagId());
                 }
             }
 
@@ -116,11 +117,9 @@ public class RecommendService {
 
             for (int j = 0; j < readerList.size(); j++) {
                 if (i == j) continue;
-
-                Double similarity = CosineSimilarity.calculate(readerVector, readerVectors[j]);
+                double similarity = CosineSimilarity.calculate(readerVector, readerVectors[j]);
                 Tuple2<Integer, Double> other = new Tuple2(readerList.get(j).getId(), similarity);
                 otherSim.add(other);
-
             }
 
             relaSimilarity[i] = otherSim;
@@ -149,6 +148,8 @@ public class RecommendService {
             //搜出除了自己，所有其他用户收藏的书籍
             for(int j = 0; j < readerList.size(); j++) {
                 if(i == j) continue;
+
+                //其他用户的收藏
                 List<Favorite> favorites = favoriteRepo.findAllByReaderId(readerList.get(j).getId());
 
                 double readerSim = 0;
@@ -177,9 +178,9 @@ public class RecommendService {
         for(int i = 0; i < priority.length; i++) {
 
             for(int j = 0; j < novelList.size(); j++) {
-               Integer novelId = orderNovelList.get(i);
                Integer readerId = readerList.get(i).getId();
-               Double sim = priority[i][j];
+                Integer novelId = orderNovelList.get(j);
+                Double sim = priority[i][j];
                RecommendPriority rp = new RecommendPriority();
                rp.setNovelId(novelId);
                rp.setReaderId(readerId);
