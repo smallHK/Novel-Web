@@ -114,11 +114,11 @@ public class AdminController {
      * 创建Editor用户
      * 发送邮件进行通知
      */
-    @GetMapping("allowNewEditor/{profileId}")
+    @GetMapping("/allowNewEditor/{profileId}")
     @Transactional
     public ModelAndView allowNewEditor(@PathVariable Integer profileId) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/admin/findAllProfile");
+        modelAndView.setViewName("redirect:/admin/enterAdminCenter");
         try {
             //设置简历状态
             Optional<Profile> profileWrapper = profileRepository.findById(profileId);

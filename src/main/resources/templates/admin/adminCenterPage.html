@@ -127,14 +127,14 @@
 							</div>
 						</form>
 
-						<button class="btn btn-primary rounded-0">简历通过</button>
+						<a th:href="@{/admin/allowNewEditor/{profileId}(profileId=${profile.id})}" class="btn btn-primary rounded-0">简历通过</a>
 					</div>
 
 				</div>
 
 				<div class="p-3 back-color-white my-2 border">
 					<div class="text-align-center">
-						<h5>以通过审核</h5>
+						<h5>已通过审核</h5>
 					</div>
 					<div class="my-3 py-3 px-3 border" th:each="profile: ${passedProfiles}">
 						<form>
@@ -168,7 +168,6 @@
 							</div>
 						</form>
 
-						<button class="btn btn-primary rounded-0">简历通过</button>
 					</div>
 
 				</div>

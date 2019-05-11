@@ -59,7 +59,7 @@ public class EditorController {
     @PostMapping("/postProfile")
     public ModelAndView postProfile(@RequestParam Map<String, String> params) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/index");
+        modelAndView.setViewName("redirect:/index");
         String realName = params.get("real_name");
         String phoneNum = params.get("phone_number");
         String idNumber = params.get("id_number");
@@ -251,7 +251,6 @@ public class EditorController {
         List<EditorWorkEvent> chaPubEventList = novelService.findAllChapterPublishEvent(editorId, EntityStatus.CHAPTER_PUBLISH_EVENT_SUBMITTED);
 
         //获取所有更新事件
-        4
 
         List<EditorWorkEvent> resultList = new ArrayList<>();
         resultList.addAll(volPubEventList);
