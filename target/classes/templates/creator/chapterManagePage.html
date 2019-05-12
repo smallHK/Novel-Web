@@ -274,15 +274,16 @@
 				{
 					case 0:
 						sp.children(':first').text("未开放");
-						sp.children(':eq(1)').attr("onclick", ""); //章节开放，开放之前，需要判断是否已经
+						//章节开放按钮
+						sp.children(':eq(1)').attr("onclick", "publishChapter(" + chapterInfo.id + "," + chapterInfo.volumeId + ");"); //章节开放，开放之前，需要判断是否已经
 						sp.children(':eq(1)').show(); //章节开放，开放之前，需要判断是否已经
 						break;
 					case 1:
-						sp.children('first').text("审核中");
+						sp.find('span').text("审核中");
 						sp.children(':eq(1)').hide();
 						break;
 					case 2:
-						sp.children('first').text("已开放");
+						sp.find('span').text("已开放");
 						sp.children(':eq(1)').hide();
 						break;
 				}
@@ -306,7 +307,10 @@
 				brcv.append(ps);
 
 
+				//修改章节内容
 				$("#chapterBtn > button").attr("onclick", "updateChapterContent(" + chapterInfo.id + ");");
+
+				//查看目录
 				$("#chapterBtn > a").attr("href", "/creator/findChapterContent/" + chapterInfo.id);
 			}
 		});
@@ -345,8 +349,18 @@
 	 * 未开放，弹起modal
 	 * 已开放，开放
 	 */
-	function publishChapter(volumeId, chapterId) {
-		
+	function publishChapter(chapterId, volumeId) {
+		$.get("/creator/rest/jugdeVolumePublish/" + volumeId, function (data) {
+			if(data.status === 0) {
+				if(data.flag === true) { //卷开放
+					//申请章节开放
+					window.location.href = "/creator/applyForChapterPublish/" + chapterId;
+
+				}else {
+					$("#viewVolumeInfo").modal('toggle');//卷为开放提示开放
+				}
+			}
+		});
 	}
 	
 </script>

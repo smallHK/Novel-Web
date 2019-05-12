@@ -114,10 +114,11 @@ public class EditorController {
                 }
 
             }
+            modelAndView.setViewName("redirect:/editor/loginPage");
         } catch (Exception e) {
             e.printStackTrace();
             modelAndView.addObject("resultInfo", ResultUtil.failure("failure!").toJSONObject());
-            modelAndView.setViewName("/result");
+            modelAndView.setViewName("/loginPage");
 
         }
         return modelAndView;
@@ -144,10 +145,9 @@ public class EditorController {
     @PostMapping("/updatePersonalInfo")
     public ModelAndView updatePersonalInfo(@RequestParam Map<String, String> params, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
-        Integer loginId = (Integer) session.getAttribute("login_editor_id");
+        Integer loginId = (Integer) session.getAttribute(SessionProperty.EDITOR_LOGIN_EDITOR_ID);
 
-
-        String editorName = params.get("editor_name");
+        String editorName = params.get("username");
         String password = params.get("password");
 
         try {
@@ -160,8 +160,8 @@ public class EditorController {
             editor.setEditorName(editorName);
             editorRepository.save(editor);
 
-            session.setAttribute("login_editor_name", editorName);
-            modelAndView.setViewName("/editor/userCenter");
+            session.setAttribute(SessionProperty.EDITOR_LOGIN_EDITOR_NAME, editorName);
+            modelAndView.setViewName("redirect:/editor/personalInfo");
             modelAndView.addObject("resultInfo", ResultUtil.success("success!").toJSONObject());
 
         } catch (Exception e) {

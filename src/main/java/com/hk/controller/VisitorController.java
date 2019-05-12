@@ -1,5 +1,6 @@
 package com.hk.controller;
 
+import com.hk.constant.EntityStatus;
 import com.hk.entity.Novel;
 import com.hk.po.ChapterInfo;
 import com.hk.po.NovelCommentInfo;
@@ -109,6 +110,7 @@ public class VisitorController {
         modelAndView.setViewName("/visitor/contentPage");
         ChapterInfo chapterInfo = novelService.findNovelChapter(chapterId);
         novelService.addClickNum(chapterId);
+        modelAndView.addObject("flag", chapterInfo.getStatus().equals(EntityStatus.CHAPTER_PASSED));
         modelAndView.addObject("chapterInfo", chapterInfo);
         modelAndView.addObject("resultInfo", ResultUtil.success("success!"));
 

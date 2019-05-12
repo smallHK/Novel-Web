@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -7,25 +7,26 @@
     <link href="/css/content.css" rel="stylesheet">
     <script src="/js/jquery-3.3.1.js"></script>
     <script src="/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
-    <title>作者登陆页</title>
+    <title>编辑登陆页</title>
 </head>
 <body class="main-back">
+<nav class="navbar navbar-light bg-dark sticky-top mb-3" > <a class="navbar-brand text-primary" th:href="@{/index}" href="../index.html">HK小说网</a> </nav>
 
-<div class="text-center">
-    <form class="form-signer" action="/creator/login" method="post">
-        <h1 class="h3 mb-3 font-weight-normal">作者登陆</h1>
+<div class="text-center mt-4">
+    <form class="form-signer" action="/editor/login" method="post">
+        <h1 class="h3 mb-3 font-weight-normal">编辑登陆</h1>
         <div class="form-group">
-            <label for="signInPenName" class="sr-only">笔名</label>
-            <input id="signInPenName" type="text" name="penname" class="form-control" placeholder="笔名" required>
+            <label for="signInPenName" class="sr-only">用户名</label>
+            <input id="signInPenName" type="text" name="editor_name" class="form-control" placeholder="笔名" required>
         </div>
         <div class="form-group">
             <label for="signInPassword" class="sr-only">密码</label>
-            <input id="signInPassword" type="text" name="password" class="form-control" placeholder="密码" required>
+            <input id="signInPassword" type="password" name="password" class="form-control" placeholder="密码" required>
         </div>
         <div class="form-group">
-            <input type="button" value="登陆" id="loginButton" class="btn btn-primary btn-block" >
+            <input type="submit" value="登陆" id="loginButton" class="btn btn-primary btn-block" >
         </div>
-        <a href="/creator/registerPage">没有帐户？</a>
+        <a th:href="@{/editor/applyForPage}" href="/creator/registerPage">成为编辑？</a>
     </form>
 </div>
 

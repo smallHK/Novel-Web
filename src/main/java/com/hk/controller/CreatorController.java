@@ -64,7 +64,7 @@ public class CreatorController {
                     return modelAndView;
                 }
             }
-            modelAndView.setViewName("/result");
+            modelAndView.setViewName("redirect:/creator/loginPage");
             modelAndView.addObject("resultInfo", ResultUtil.failure("读者登陆失败！"));
             return modelAndView;
         } catch (Exception e) {

@@ -42,8 +42,10 @@
 <nav class="navbar navbar-light bg-dark sticky-top mb-3"><a class="navbar-brand text-light" th:href="@{/index}" href="../index.html">HK小说网</a></nav>
 <div class="container border-bottom p-3">
     <div class="row">
-        <div class="col-md-auto"><img th:src="@{/imgs/cover/cover2.jpg}" src="../imgs/sao_c.jpg" class="book-cover-img"
-                                      alt="..."></div>
+        <div class="col-md-auto">
+            <img th:if="not ${#strings.isEmpty(novelInfo.coverImg)}" th:src="${novelInfo.coverImg}" src="../imgs/sao_c.jpg" class="book-cover-img" alt="...">
+            <img th:if="${#strings.isEmpty(novelInfo.coverImg)}" th:src="@{/imgs/default.jpg}"  src="../imgs/sao_c.jpg" class="book-cover-img" alt="...">
+        </div>
         <div class="col">
             <h5 class="h5" th:text="${novelInfo.novelName}">刀剑神域</h5>
             <p th:text="${novelInfo.penName}"><span>川原砾</span></p>

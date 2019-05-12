@@ -40,7 +40,8 @@
         <div class="p-4 border-bottom" th:each="novel: ${novelList}">
             <div class="shadow-sm rounded row w-75 mx-auto">
                 <div class="col-4 border overflow-hidden">
-                    <img th:src="@{/imgs/cover/cover-md.jpg}" src="../imgs/cover-md.jpg" class="book-cover-img">
+                    <img th:if="not ${#strings.isEmpty(novel.coverImg)}" th:src="${novel.coverImg}" src="../imgs/cover-md.jpg" class="book-cover-img">
+                    <img th:if="${#strings.isEmpty(novel.coverImg)}" th:src="@{/imgs/default.jpg}" src="../imgs/cover-md.jpg" class="book-cover-img">
                 </div>
                 <div class="p-2 col-8 border">
                     <span th:text="${novel.novelName}">魔弹之王与战姬</span>

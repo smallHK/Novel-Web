@@ -170,7 +170,7 @@
         infoBtn.attr("href", "/creator/infoManage/" + novelInfo.id);
         cardBody.append(infoBtn);
         var editBtn = $("<a class=\"btn btn-block btn-light\">编辑内容</a>");
-        editBtn.attr("href", "/creator/chapterManage/" + novelInfo.id);
+        editBtn.attr("href", "/creator/novelIndexManage/" + novelInfo.id);
         cardBody.append(editBtn);
         card.append(cardBody);
 
@@ -238,9 +238,14 @@
         card.append(cardImgW);
 
         var cardBody = $("<div class=\"card-body\"></div>");
+
         var title = $("<p class=\"book-title-limit\"></p>");
         title.text(novelInfo.novelName);
         cardBody.append(title);
+
+        var editBtn = $("<a class=\"btn btn-block btn-light\">编辑内容</a>");
+        editBtn.attr("href", "/creator/chapterManage/" + novelInfo.id);
+        cardBody.append(editBtn);
         card.append(cardBody);
 
         return colLay;

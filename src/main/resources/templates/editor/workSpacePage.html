@@ -203,8 +203,8 @@
         <div class="c-w-60 mx-auto">
             <div class="my-3">
                 <form class="form-inline">
-                    <input type="text" class="form-control" placeholder="搜索小说">
-                    <a href="#" class="btn btn-primary">搜索</a>
+                    <input type="text" class="form-control rounded-0" placeholder="搜索小说">
+                    <a href="#" class="btn btn-primary rounded-0">搜索</a>
                 </form>
             </div>
 
@@ -262,6 +262,8 @@
                        case 0:
                            eventListWrapper.append(volumePublishEventCom(list[i]));
                            break;
+                       case 1:
+                           eventListWrapper.append(chapterPublishEventCom(list[i]));
 
                    }
                }
@@ -497,13 +499,54 @@
 
     }
 
+    //创建章节发布事件
+    function chapterPublishEventCom(event) {
+        var eventWrapper = $("<div class=\"event-width p-2 shadow-sm  mx-1 rounded my-2\"></div>");
+        eventWrapper.append($("<h5>章节开放申请</h5>"));
+
+        var novelTitle = $("<p>小说名:<span>虫之歌</span></p>");
+        novelTitle.find("span").text(event.novelTitle);
+        eventWrapper.append(novelTitle);
+
+        var volumeTitle = $("<p>章节名：<span>第一卷 Enemy of Mankind 上</span></p>");
+        volumeTitle.find("span").text(event.chapterTitle);
+        eventWrapper.append(volumeTitle);
+
+        var applyTime = $("<p>提交时间：<span>2019/5/5 20:23:23</span></p>");
+        applyTime.find("span").text(event.appearTimeStr);
+        eventWrapper.append(applyTime);
+
+        var indexBtn = $("<button class=\"btn btn-light mx-1\" data-toggle=\"modal\" data-target=\"#viewVolumeInfo\">章节内容卷</button>");
+        indexBtn.attr("onclick", "showChapterContentModal(" + event.chapterId + ")");
+        eventWrapper.append(indexBtn);
+
+        var publishBtn = $("<button class=\"btn btn-light mx-1\">同意开放</button>");
+        publishBtn.attr("onclick", "agreePublishChapter(" + event.id + ")");
+        eventWrapper.append(publishBtn);
+
+        return eventWrapper;
+
+    }
+
+
     //查看卷目录modal
     function showVolumeIndexModal(volumeId) {
 
     }
 
+    //查看章节内容modal
+    function showChapterContentModal(chapterId) {
+
+    }
+
     //同意开放卷
     function agreePublishVolume(eventId) {
+        window.location.href = "/editor/passVolumePublishEvent/" + eventId;
+    }
+
+    //同意章节开放
+    function agreePublishChapter(eventId) {
+        window.location.href = "/editor/passChapterPublishEvent/" + eventId;
 
     }
 

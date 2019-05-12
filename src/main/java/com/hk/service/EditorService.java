@@ -2,10 +2,8 @@ package com.hk.service;
 
 import com.hk.entity.Editor;
 import com.hk.entity.Profile;
-import com.hk.entity.Reader;
 import com.hk.repository.EditorRepository;
 import com.hk.repository.ProfileRepository;
-import com.hk.repository.ReaderRepo;
 import org.springframework.stereotype.Service;
 
 /**
