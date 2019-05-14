@@ -1,6 +1,7 @@
 package com.hk.service;
 
 import com.hk.constant.EntityStatus;
+import com.hk.constant.EventStatus;
 import com.hk.entity.*;
 import com.hk.repository.*;
 import com.hk.util.CommonUtil;
@@ -45,6 +46,8 @@ public class NovelAlterService {
 
     private TagNovelRelationRepo tagNovelRelationRepo;
 
+    private EditorRecommendRepo editorRecommendRepo;
+
     public NovelAlterService(NovelRepository novelRepository,
                              NovelCommentRepo novelCommentRepo,
                              NovelPublishRepo novelPublishRepo,
@@ -52,7 +55,8 @@ public class NovelAlterService {
                              ChapterRepository chapterRepository,
                              ParagraphRepository paragraphRepository,
                              TagRepo tagRepo,
-                             TagNovelRelationRepo tagNovelRelationRepo) {
+                             TagNovelRelationRepo tagNovelRelationRepo,
+                             EditorRecommendRepo editorRecommendRepo) {
         this.novelRepository = novelRepository;
         this.novelCommentRepo = novelCommentRepo;
         this.novelPublishRepo = novelPublishRepo;
@@ -61,6 +65,7 @@ public class NovelAlterService {
         this.paragraphRepository = paragraphRepository;
         this.tagRepo = tagRepo;
         this.tagNovelRelationRepo = tagNovelRelationRepo;
+        this.editorRecommendRepo = editorRecommendRepo;
     }
 
     /**
@@ -188,6 +193,19 @@ public class NovelAlterService {
         novelComment.setCreateTime(Timestamp.from(Instant.now()));
         novelCommentRepo.save(novelComment);
 
+    }
+
+    /**
+     * 添加编辑推荐
+     */
+    public void addEditorRecommend(Integer novelId, Integer editorId, String reason) {
+        EditorRecommend editorRecommend = new EditorRecommend();
+        editorRecommend.setEditorId(editorId);
+        editorRecommend.setNovelId(novelId);
+        editorRecommend.setRecommendTime(Timestamp.from(Instant.now()));
+        editorRecommend.setStatus(EventStatus.EDITOR_RECOMMEND_SUBMITTED);
+        editorRecommend.setReason(reason);
+        editorRecommendRepo.save(editorRecommend);
     }
 
     /**

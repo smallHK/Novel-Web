@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <title>编辑主页</title>
-<script src="../js/jquery-3.3.1.js"></script>
-<link href="../bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css" rel="stylesheet">
-<link href="../bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
-<link href="../css/content.css" rel="stylesheet">
+<script src="../../PageContent/js/jquery-3.3.1.js"></script>
+<link href="../../PageContent/bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css" rel="stylesheet">
+<link href="../../PageContent/bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="../../PageContent/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+<link href="../../PageContent/css/content.css" rel="stylesheet">
 </head>
 <body class="main-back">
-<nav class="navbar navbar-light bg-dark sticky-top mb-3 px-3" > <a class="navbar-brand text-primary" href="../index.html">HK小说网</a>
+<nav class="navbar navbar-light bg-dark sticky-top mb-3 px-3" > <a class="navbar-brand text-primary" href="../../PageContent/index.html">HK小说网</a>
 	<div class="float-right text-white" > 
 		欢迎！<span th:text="${session.login_editor_name}">小黑王HK</span> 
 		<a href="#">注销登陆</a>
@@ -147,7 +147,7 @@
 						<div class="tab-pane fade show active" id="work1">
 							<div class="row mb-3">
 								<div class="col-4">								
-									<img class="book-cover-wrapper" src="../imgs/cover2.jpg" alt=".."/>
+									<img class="book-cover-wrapper" src="../../PageContent/imgs/cover2.jpg" alt=".."/>
 								</div>
 								<div class="col-8">
 									<h5>东京侵域：Closed Eden</h5>
@@ -170,14 +170,19 @@
 									</p>
 								</div>
 							</div>
-							<div class="w-100">
-								<button class="btn btn-light btn-block">小说目录</button>
+							<div class="w-100 row">
+								<div class="col-6">
+									<button class="btn btn-light btn-block">小说目录</button>
+								</div>
+								<div class="col-6">
+									<button class="btn btn-light btn-block">申请推荐</button>
+								</div>
 							</div>
 						</div>	
 						<div class="tab-pane fade" id="work2">
 							<div class="row">
 								<div class="col-4">								
-									<img class="book-cover-wrapper" src="../imgs/cover-sz.jpg" alt=".."/>
+									<img class="book-cover-wrapper" src="../../PageContent/imgs/cover-sz.jpg" alt=".."/>
 								</div>
 								<div class="col-8">
 									<h5>时钟机关之星</h5>
@@ -218,7 +223,7 @@
 				<div class="row my-3">
 					<div class="col-4 my-2">
 						<div class="card">
-							<div class="book-cover-wrapper align-middle"><img src="../imgs/cover2.jpg" class="card-img-top book-cover-img" alt="..."></div>
+							<div class="book-cover-wrapper align-middle"><img src="../../PageContent/imgs/cover2.jpg" class="card-img-top book-cover-img" alt="..."></div>
 							<div class="card-body">
 								<h5 class="card-text">虫之歌</h5>
 								<a href="#" class="btn btn-primary">审核通过</a>
@@ -228,7 +233,7 @@
 					</div>
 					<div class="col-4 my-2">
 						<div class="card">
-							<div class="book-cover-wrapper align-middle"><img src="../imgs/cover2.jpg" class="card-img-top book-cover-img" alt="..."></div>
+							<div class="book-cover-wrapper align-middle"><img src="../../PageContent/imgs/cover2.jpg" class="card-img-top book-cover-img" alt="..."></div>
 							<div class="card-body">
 								<h5 class="card-text">虫之歌</h5>
 								<a href="#" class="btn btn-primary">审核通过</a>
@@ -238,7 +243,7 @@
 					</div>
 					<div class="col-4 my-2">
 						<div class="card">
-							<div class="book-cover-wrapper align-middle"><img src="../imgs/cover2.jpg" class="card-img-top book-cover-img" alt="..."></div>
+							<div class="book-cover-wrapper align-middle"><img src="../../PageContent/imgs/cover2.jpg" class="card-img-top book-cover-img" alt="..."></div>
 							<div class="card-body">
 								<h5 class="card-text">虫之歌</h5>
 								<a href="#" class="btn btn-primary">审核通过</a>
@@ -248,7 +253,7 @@
 					</div>
 										<div class="col-4 my-2">
 						<div class="card">
-							<div class="book-cover-wrapper align-middle"><img src="../imgs/cover2.jpg" class="card-img-top book-cover-img" alt="..."></div>
+							<div class="book-cover-wrapper align-middle"><img src="../../PageContent/imgs/cover2.jpg" class="card-img-top book-cover-img" alt="..."></div>
 							<div class="card-body">
 								<h5 class="card-text">虫之歌</h5>
 								<a href="#" class="btn btn-primary">审核通过</a>

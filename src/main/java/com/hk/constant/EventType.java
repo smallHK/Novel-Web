@@ -11,4 +11,5 @@ public class EventType {
 
     public static Integer CHAPTER_PUBLISH_EVENT = 1;
 
+
 }

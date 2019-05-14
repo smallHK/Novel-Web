@@ -11,4 +11,11 @@ public class EventStatus {
 
     //章节更新事件处理
     public static final Integer CHAPTER_UPDATE_PASSED = 1;
+
+
+    //编辑小说推荐时间状态
+    public static final Integer EDITOR_RECOMMEND_SUBMITTED = 0;
+
+    //编辑小说推荐时间状态
+    public static final Integer EDITOR_RECOMMEND_PASSED = 1;
 }

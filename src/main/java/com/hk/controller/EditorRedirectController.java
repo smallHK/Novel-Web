@@ -1,12 +1,17 @@
 package com.hk.controller;
 
+import com.hk.constant.SessionProperty;
+import com.hk.service.EditorService;
 import com.hk.service.NovelService;
 import com.hk.util.ResultUtil;
+import lombok.Getter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @author smallHK
@@ -18,8 +23,12 @@ public class EditorRedirectController {
 
     private NovelService novelService;
 
-    public EditorRedirectController(NovelService novelService) {
+    private EditorService editorService;
+
+    public EditorRedirectController(NovelService novelService,
+                                    EditorService editorService) {
         this.novelService = novelService;
+        this.editorService = editorService;
     }
 
     /**
@@ -43,6 +52,19 @@ public class EditorRedirectController {
         novelService.agreeChapterPublish(eventId);
         modelAndView.addObject("resultInfo", ResultUtil.success("success!"));
         modelAndView.setViewName("redirect:/editor/workSpacePage");
+        return modelAndView;
+    }
+
+    /**
+     * 推荐封面小说
+     */
+    @GetMapping("/recommendNovel/{novelId}")
+    public ModelAndView recommendNovel(@PathVariable Integer novelId, HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView();
+        Integer editorId = (Integer)session.getAttribute(SessionProperty.EDITOR_LOGIN_EDITOR_ID);
+        editorService.recommendNovel(novelId, editorId);
+        modelAndView.setViewName("redirect:/editor/workSpacePage");
+        modelAndView.addObject("resultInfo", ResultUtil.success("success!").toJSONObject());
         return modelAndView;
     }
 }

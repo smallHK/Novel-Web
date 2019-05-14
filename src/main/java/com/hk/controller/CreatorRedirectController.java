@@ -185,4 +185,14 @@ public class CreatorRedirectController {
         return modelAndView;
     }
 
+
+    //推荐小说
+    @GetMapping(path = "/recommendNovel/{novelId}")
+    public ModelAndView recommendNovel(@PathVariable Integer novelId, HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView();
+        Integer editorId = (Integer) session.getAttribute(SessionProperty.EDITOR_LOGIN_EDITOR_ID);
+        modelAndView.setViewName("redirect:/editor/workSpacePage");
+        return modelAndView;
+    }
+
 }

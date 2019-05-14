@@ -1,10 +1,12 @@
 package com.hk.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hk.entity.Creator;
 import com.hk.po.ChapterInfo;
 import com.hk.po.NovelIndex;
 import com.hk.po.NovelInfo;
 import com.hk.repository.CreatorRepository;
+import com.hk.service.CreatorService;
 import com.hk.service.NovelService;
 import com.hk.util.ResultUtil;
 import com.hk.constant.SessionProperty;
@@ -31,11 +33,15 @@ public class CreatorController {
 
     private CreatorRepository creatorRepository;
 
+    private CreatorService creatorService;
+
 
     public CreatorController(CreatorRepository creatorRepository,
-                             NovelService novelService) {
+                             NovelService novelService,
+                             CreatorService creatorService) {
         this.creatorRepository = creatorRepository;
         this.novelService = novelService;
+        this.creatorService = creatorService;
     }
 
 
@@ -76,6 +82,24 @@ public class CreatorController {
 
         }
 
+    }
+
+    /**
+     * 注册作者
+     * 注册成功，返回注册成功页面
+     * 注册失败，返回注册失败页面
+     *
+     * @return 注册是否成功，返回新的页面
+     */
+    @PostMapping(path = "/register")
+    public ModelAndView registerCreator(@RequestParam Map<String, String> params) {
+        ModelAndView modelAndView = new ModelAndView();
+        String penName = params.get("penname");
+        String password = params.get("password");
+        creatorService.registerCreator(penName, password);
+        modelAndView.setViewName("redirect:/creator/loginPage");
+        modelAndView.addObject("resultInfo", ResultUtil.success("success!").toJSONObject());
+        return modelAndView;
     }
 
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,6 +10,7 @@
     <title>作者注册页</title>
 </head>
 <body class="main-back">
+<nav class="navbar navbar-light bg-dark sticky-top mb-3" > <a class="navbar-brand text-primary" th:href="@{/index}" href="../index.html">HK小说网</a> </nav>
 
 <div class="text-center">
     <form class="form-signer" action="/creator/register" method="post">

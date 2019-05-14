@@ -1,9 +1,12 @@
 package com.hk.service;
 
 import com.hk.constant.AdminOpeType;
+import com.hk.constant.EventStatus;
 import com.hk.entity.AdminOperationLog;
+import com.hk.entity.EditorRecommend;
 import com.hk.entity.Profile;
 import com.hk.repository.AdminOperationLogRepo;
+import com.hk.repository.EditorRecommendRepo;
 import com.hk.repository.ProfileRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -27,12 +30,20 @@ public class AdminService {
 
     private AdminOperationLogRepo adminOperationLogRepo;
 
+    private EditorRecommendRepo editorRecommendRepo;
+
+    private NovelService novelService;
+
     public AdminService(ProfileRepository profileRepository,
                         RecommendService recommendService,
-                        AdminOperationLogRepo adminOperationLogRepo) {
+                        AdminOperationLogRepo adminOperationLogRepo,
+                        EditorRecommendRepo editorRecommendRepo,
+                        NovelService novelService) {
         this.profileRepository = profileRepository;
         this.recommendService = recommendService;
         this.adminOperationLogRepo = adminOperationLogRepo;
+        this.editorRecommendRepo = editorRecommendRepo;
+        this.novelService = novelService;
     }
 
     /**
@@ -55,6 +66,23 @@ public class AdminService {
         adminOperationLogRepo.save(adminOperationLog);
         recommendService.calculateAllReaderVector();
 
+    }
+
+    /**
+     * 获取搜索未处理编辑推荐
+     */
+    public List<EditorRecommend> gainAllSubmittedEditorRecommend() {
+        return editorRecommendRepo.findAllByStatus(EventStatus.EDITOR_RECOMMEND_SUBMITTED);
+    }
+
+    /**
+     * 同意编辑推荐
+     * 将所有对应的推荐全部同意
+     */
+    public void agreeEditorRecommend (Integer novelId) {
+        List<EditorRecommend> recommends = editorRecommendRepo.findAllByNovelId(novelId);
+        recommends.forEach(e->e.setStatus(EventStatus.EDITOR_RECOMMEND_PASSED));
+        editorRecommendRepo.saveAll(recommends);
 
     }
 

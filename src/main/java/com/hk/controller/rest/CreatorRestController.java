@@ -145,21 +145,6 @@ public class CreatorRestController {
     }
 
 
-    /**
-     * 注册作者
-     * 注册成功，返回注册成功页面
-     * 注册失败，返回注册失败页面
-     *
-     * @return 注册是否成功，返回新的页面
-     */
-    @PostMapping(path = "/register")
-    public @ResponseBody
-    JSONObject registerCreator(@RequestParam Map<String, String> params) {
-        String penName = params.get("penname");
-        String password = params.get("password");
-        creatorService.registerCreator(penName, password);
-        return new JSONObject().fluentPut("msg", "success!").fluentPut("status", "0");
-    }
 
     /**
      * 检验笔名是否已经存在

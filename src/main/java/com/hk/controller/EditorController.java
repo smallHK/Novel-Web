@@ -198,11 +198,10 @@ public class EditorController {
      */
     @GetMapping("/publishNovel/{novelId}")
     public ModelAndView publishNovel(@PathVariable Integer novelId, HttpSession session) {
-
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/editor/workSpacePage");
         Integer editorId = (Integer) session.getAttribute(SessionProperty.EDITOR_LOGIN_EDITOR_ID);
         novelService.publishNovel(novelId, editorId);
-        modelAndView.setViewName("redirect:/editor/workSpacePage");
         modelAndView.addObject("resultInfo", ResultUtil.success("success!").toJSONObject());
         return modelAndView;
     }

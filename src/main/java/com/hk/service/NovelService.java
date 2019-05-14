@@ -1,6 +1,7 @@
 package com.hk.service;
 
 import com.hk.constant.EntityStatus;
+import com.hk.constant.EventStatus;
 import com.hk.constant.EventType;
 import com.hk.entity.*;
 import com.hk.entity.event.ChapterPublishEvent;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 提供小说操作的业务bean
@@ -60,6 +62,8 @@ public class NovelService {
 
     private RecommendPriorityRepo recommendPriorityRepo;
 
+    private EditorRecommendRepo editorRecommendRepo;
+
     public NovelService(NovelRepository novelRepository,
                         NovelCommentRepo novelCommentRepo,
                         NovelPublishRepo novelPublishRepo,
@@ -73,7 +77,8 @@ public class NovelService {
                         FavoriteRepo favoriteRepo,
                         TagRepo tagRepo,
                         TagNovelRelationRepo tagNovelRelationRepo,
-                        RecommendPriorityRepo recommendPriorityRepo) {
+                        RecommendPriorityRepo recommendPriorityRepo,
+                        EditorRecommendRepo editorRecommendRepo) {
         this.novelRepository = novelRepository;
         this.novelCommentRepo = novelCommentRepo;
         this.novelPublishRepo = novelPublishRepo;
@@ -88,6 +93,7 @@ public class NovelService {
         this.tagRepo = tagRepo;
         this.tagNovelRelationRepo = tagNovelRelationRepo;
         this.recommendPriorityRepo = recommendPriorityRepo;
+        this.editorRecommendRepo = editorRecommendRepo;
     }
 
     /**
@@ -756,6 +762,23 @@ public class NovelService {
     }
 
 
+    /**
+     * 获取当前编辑推荐的小说
+     * 前四本
+     */
+    public List<NovelInfo> findCurrentEditorRecommendNovels() {
+
+        List<EditorRecommend> recommends = editorRecommendRepo.findAllByStatusOrderByRecommendTimeDesc(EventStatus.EDITOR_RECOMMEND_PASSED);
+        Set<Integer> novelIds = new HashSet<>();
+        for(EditorRecommend recommend: recommends) {
+            if(novelIds.size() == 4) break;
+            novelIds.add(recommend.getNovelId());
+        }
+        return  CollectionUtil
+                .iterableToList(novelRepository.findAllById(novelIds))
+                .stream()
+                .map(this::novelToNovelInfo).collect(Collectors.toList());
+    }
 
 
 
