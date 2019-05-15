@@ -13,9 +13,13 @@ public class EventStatus {
     public static final Integer CHAPTER_UPDATE_PASSED = 1;
 
 
-    //编辑小说推荐时间状态
+    //编辑小说推荐时间状态，已提交
     public static final Integer EDITOR_RECOMMEND_SUBMITTED = 0;
 
-    //编辑小说推荐时间状态
+    //编辑小说推荐时间状态，同意推荐
     public static final Integer EDITOR_RECOMMEND_PASSED = 1;
+
+    //编辑小说推荐事件状态，拒绝推荐
+    public static final Integer EDITOR_RECOMMEND_FAILURE = 2;
+
 }

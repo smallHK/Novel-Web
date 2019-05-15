@@ -26,7 +26,7 @@ public class CreatorPrincipalInterceptor implements HandlerInterceptor {
         if (Objects.nonNull(penname)) {
             return true;
         } else {
-            response.sendRedirect("/creator/creatorRegister");
+            response.sendRedirect("/creator/loginPage");
             return false;
         }
     }

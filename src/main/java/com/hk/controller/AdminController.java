@@ -1,8 +1,11 @@
 package com.hk.controller;
 
+import com.hk.constant.EventStatus;
 import com.hk.entity.Admin;
 import com.hk.entity.Editor;
+import com.hk.entity.EditorRecommend;
 import com.hk.entity.Profile;
+import com.hk.po.EditorRecommendInfo;
 import com.hk.po.NovelInfo;
 import com.hk.repository.AdminRepository;
 import com.hk.repository.EditorRepository;
@@ -98,6 +101,9 @@ public class AdminController {
         return modelAndView;
     }
 
+    /**
+     * 管理中心
+     */
     @GetMapping("/enterAdminCenter")
     public ModelAndView enterAdminCenter() {
         ModelAndView modelAndView = new ModelAndView();
@@ -106,11 +112,14 @@ public class AdminController {
         List<Profile> unreadProfiles = adminService.findAllProfileByStatus(EntityStatus.PROFILE_UNREAD);
         List<Profile> passedProfiles = adminService.findAllProfileByStatus(EntityStatus.PROFILE_PASSED);
         List<NovelInfo> infos = novelService.findAllNovelInfo();
+        List<EditorRecommendInfo> recommendInfos = adminService.gainAllSubmittedEditorRecommend();
 
         modelAndView.addObject("resultInfo", ResultUtil.success("success").toJSONObject());
         modelAndView.addObject("unreadProfiles", unreadProfiles);
         modelAndView.addObject("passedProfiles", passedProfiles);
         modelAndView.addObject("allNovelInfos", infos);
+        modelAndView.addObject("recommendInfos", recommendInfos);
+
         return modelAndView;
     }
 
@@ -174,6 +183,39 @@ public class AdminController {
         adminService.calculateCosineSim();
         modelAndView.setViewName("redirect:/admin/enterAdminCenter");
         return  modelAndView;
+    }
+
+
+    /**
+     * 同意推荐
+     */
+    @GetMapping("/agreeEditorRecommend/{novelId}")
+    public ModelAndView agreeEditorRecommend (@PathVariable Integer novelId) {
+        ModelAndView modelAndView = new ModelAndView();
+        adminService.agreeEditorRecommend(novelId);
+        modelAndView.setViewName("redirect:/admin/enterAdminCenter");
+        modelAndView.addObject("resultInfo", ResultUtil.success("success!"));
+        return modelAndView;
+    }
+
+    /**
+     * 拒绝推荐
+     */
+    @GetMapping("/rejectEditorRecommend/{novelId}")
+    public ModelAndView rejectEditorRecommend(@PathVariable  Integer novelId) {
+        ModelAndView modelAndView = new ModelAndView();
+        adminService.rejectEditorRecommend(novelId);
+        modelAndView.setViewName("redirect:/admin/enterAdminCenter");
+        modelAndView.addObject("resultInfo", ResultUtil.success("success!"));
+        return modelAndView;
+    }
+
+    /**
+     * 删除小说
+     */
+    public ModelAndView deleteAllNovelInfo(Integer novelId) {
+
+        return null;
     }
 
 }

@@ -207,19 +207,6 @@ public class EditorController {
     }
 
 
-    /**
-     * 查看登陆编辑审核管理的书籍
-     */
-    @GetMapping("/findAllManagedNovel")
-    public @ResponseBody
-    JSONObject
-    findAllPublishedNovelByEditor(HttpSession session) {
-        Integer editorId = (Integer) session.getAttribute(SessionProperty.EDITOR_LOGIN_EDITOR_ID);
-        List<Novel> novelList = novelService.listAllNovelByEditorId(editorId);
-        return ResultUtil.success("success!").toJSONObject()
-                .fluentPut("novelList", novelList);
-    }
-
 
     /**
      * 查看指定书籍目录

@@ -2,18 +2,17 @@ package com.hk.service;
 
 import com.hk.constant.AdminOpeType;
 import com.hk.constant.EventStatus;
-import com.hk.entity.AdminOperationLog;
-import com.hk.entity.EditorRecommend;
-import com.hk.entity.Profile;
-import com.hk.repository.AdminOperationLogRepo;
-import com.hk.repository.EditorRecommendRepo;
-import com.hk.repository.ProfileRepository;
+import com.hk.controller.CreatorRedirectController;
+import com.hk.entity.*;
+import com.hk.po.EditorRecommendInfo;
+import com.hk.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,18 +31,34 @@ public class AdminService {
 
     private EditorRecommendRepo editorRecommendRepo;
 
-    private NovelService novelService;
+    private NovelRepository novelRepository;
+
+    private CreatorRepository creatorRepository;
+
+    private ChapterRepository chapterRepository;
+
+    private FavoriteRepo favoriteRepo;
+
+    private EditorRepository editorRepository;
 
     public AdminService(ProfileRepository profileRepository,
                         RecommendService recommendService,
                         AdminOperationLogRepo adminOperationLogRepo,
                         EditorRecommendRepo editorRecommendRepo,
-                        NovelService novelService) {
+                        NovelRepository novelRepository,
+                        CreatorRepository creatorRepository,
+                        ChapterRepository chapterRepository,
+                        FavoriteRepo favoriteRepo,
+                        EditorRepository editorRepository) {
         this.profileRepository = profileRepository;
         this.recommendService = recommendService;
         this.adminOperationLogRepo = adminOperationLogRepo;
         this.editorRecommendRepo = editorRecommendRepo;
-        this.novelService = novelService;
+        this.novelRepository = novelRepository;
+        this.creatorRepository = creatorRepository;
+        this.chapterRepository = chapterRepository;
+        this.favoriteRepo = favoriteRepo;
+        this.editorRepository = editorRepository;
     }
 
     /**
@@ -71,8 +86,37 @@ public class AdminService {
     /**
      * 获取搜索未处理编辑推荐
      */
-    public List<EditorRecommend> gainAllSubmittedEditorRecommend() {
-        return editorRecommendRepo.findAllByStatus(EventStatus.EDITOR_RECOMMEND_SUBMITTED);
+    public List<EditorRecommendInfo> gainAllSubmittedEditorRecommend() {
+        List<EditorRecommend> recommends = editorRecommendRepo.findAllByStatus(EventStatus.EDITOR_RECOMMEND_SUBMITTED);
+        List<EditorRecommendInfo> infos = new ArrayList<>();
+        for(EditorRecommend recommend: recommends) {
+            EditorRecommendInfo info = new EditorRecommendInfo();
+            info.setId(recommend.getId());
+            info.setReason(recommend.getReason());
+            info.setNovelId(recommend.getNovelId());
+
+
+            Novel novel = novelRepository.findById(recommend.getNovelId()).orElseThrow();
+            info.setNovelName(novel.getNovelName());
+            info.setBriefIntro(novel.getBriefIntro());
+            info.setCoverImg(novel.getCoverImg());
+
+            Creator creator = creatorRepository.findById(novel.getAuthorId()).orElseThrow();
+            info.setAuthorName(creator.getPenName());
+
+            List<Chapter> chapters = chapterRepository.findAllByNovelId(novel.getId());
+            info.setClickCount(chapters.stream().mapToInt(Chapter::getClickCount).sum());
+            info.setWordCount(chapters.stream().mapToInt(Chapter::getWordCount).sum());
+
+            info.setFavoriteCount(favoriteRepo.countAllByNovelId(novel.getId()));
+
+            Editor editor = editorRepository.findById(recommend.getEditorId()).orElseThrow();
+            info.setEditorName(editor.getEditorName());
+
+
+            infos.add(info);
+        }
+        return infos;
     }
 
     /**
@@ -80,10 +124,19 @@ public class AdminService {
      * 将所有对应的推荐全部同意
      */
     public void agreeEditorRecommend (Integer novelId) {
-        List<EditorRecommend> recommends = editorRecommendRepo.findAllByNovelId(novelId);
+        List<EditorRecommend> recommends = editorRecommendRepo.findAllByNovelIdAndStatus(novelId, EventStatus.EDITOR_RECOMMEND_SUBMITTED);
         recommends.forEach(e->e.setStatus(EventStatus.EDITOR_RECOMMEND_PASSED));
         editorRecommendRepo.saveAll(recommends);
 
+    }
+
+    /**
+     * 拒绝所有推荐
+     */
+    public void rejectEditorRecommend(Integer novelId) {
+        List<EditorRecommend> recommends = editorRecommendRepo.findAllByNovelIdAndStatus(novelId, EventStatus.EDITOR_RECOMMEND_SUBMITTED);
+        recommends.forEach(e->e.setStatus(EventStatus.EDITOR_RECOMMEND_FAILURE));
+        editorRecommendRepo.saveAll(recommends);
     }
 
 }

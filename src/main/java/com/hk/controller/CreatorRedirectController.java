@@ -35,8 +35,22 @@ public class CreatorRedirectController {
         this.novelAlterService = novelAlterService;
     }
 
+
+    /**
+     * 创建新卷
+     * 小说开放页
+     **/
+    @PostMapping(path = "/addNewVolume")
+    public ModelAndView addNewVolume(@RequestParam(name = "novel-id") Integer novelId, @RequestParam(name = "volume-name") String volumeTitle) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/creator/chapterManage/" + novelId);
+        novelAlterService.addNewVolume(novelId, volumeTitle);
+        return modelAndView;
+    }
+
     /**
      * 创建新的章节
+     * 小说开放页
      */
     @PostMapping(path = "/addNewChapter")
     public ModelAndView addNewChapter(@RequestParam Map<String, String> params) {
@@ -56,6 +70,33 @@ public class CreatorRedirectController {
 
         return modelAndView;
     }
+
+
+    /**
+     * 创建新卷
+     * 小说管理页
+     */
+    @PostMapping(path = "/simplyAddNewVolume")
+    public ModelAndView simplyAddNewVolume(@RequestParam(name = "novel-id") Integer novelId, @RequestParam(name = "volume-name") String volumeTitle) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/creator/novelIndexManage/" + novelId);
+        novelAlterService.addNewVolume(novelId, volumeTitle);
+        return modelAndView;
+    }
+
+
+    /**
+     * 创建新的章节
+     * 小说管理页
+     */
+    @PostMapping(path = "/simplyAddNewChapter")
+    public ModelAndView simplyAddNewChapter(@RequestParam Map<String, String> params) {
+        Integer novelId = Integer.valueOf(params.get("novel_id"));
+        ModelAndView modelAndView = addNewChapter(params);
+        modelAndView.setViewName("redirect:/creator/novelIndexManage/" + novelId);
+        return modelAndView;
+    }
+
 
 
     /**
@@ -122,16 +163,7 @@ public class CreatorRedirectController {
 
 
 
-    /**
-     * 创建新卷
-     **/
-    @PostMapping(path = "/addNewVolume")
-    public ModelAndView createVolume(@RequestParam(name = "novel-id") Integer novelId, @RequestParam(name = "volume-name") String volumeTitle) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/creator/chapterManage/" + novelId);
-        novelAlterService.addNewVolume(novelId, volumeTitle);
-        return modelAndView;
-    }
+
 
     /**
      * 添加图书

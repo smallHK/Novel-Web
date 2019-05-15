@@ -234,21 +234,18 @@ public class NovelService {
     /**
      * 获取编辑管理的小说列表
      */
-    public List<Novel> listAllNovelByEditorId(Integer editorId) {
+    public List<NovelInfo> listAllNovelByEditorId(Integer editorId) {
         List<NovelPublish> novelPublishList = novelPublishRepo.findAllByEditorId(editorId);
-
-        List<Integer> noveIdList = new ArrayList<>();
+        List<Integer> novelIdList = new ArrayList<>();
         for (NovelPublish np : novelPublishList) {
-            noveIdList.add(np.getNovelId());
+            novelIdList.add(np.getNovelId());
         }
-
-        Iterable<Novel> novels = novelRepository.findAllById(noveIdList);
-
-        List<Novel> novelList = new ArrayList<>();
+        Iterable<Novel> novels = novelRepository.findAllById(novelIdList);
+        List<NovelInfo> infos = new ArrayList<>();
         for (Novel novel : novels) {
-            novelList.add(novel);
+            infos.add(novelToNovelInfo(novel));
         }
-        return novelList;
+        return infos;
     }
 
     /**
@@ -499,7 +496,6 @@ public class NovelService {
     private NovelInfo novelToNovelInfo(Novel novel) {
         Integer authorId = novel.getAuthorId();
         Creator creator = creatorRepository.findById(authorId).orElseThrow();
-
         NovelInfo novelInfo = new NovelInfo();
         novelInfo.setAuthorId(authorId);
         novelInfo.setBriefIntro(novel.getBriefIntro());
@@ -507,6 +503,9 @@ public class NovelService {
         novelInfo.setId(novel.getId());
         novelInfo.setNovelName(novel.getNovelName());
         novelInfo.setCoverImg(novel.getCoverImg());
+
+        List<Chapter> chapters = chapterRepository.findAllByNovelId(novel.getId());
+        novelInfo.setWordCount(chapters.stream().mapToInt(Chapter::getWordCount).sum());
 
         List<TagNovelRelation> relations = tagNovelRelationRepo.findAllByNovelId(novel.getId());
         List<Integer> tagIds = new ArrayList<>();
@@ -778,6 +777,31 @@ public class NovelService {
                 .iterableToList(novelRepository.findAllById(novelIds))
                 .stream()
                 .map(this::novelToNovelInfo).collect(Collectors.toList());
+    }
+
+    /**
+     * 获取热门小说
+     * 前四本
+     *
+     * 根据权值计算收藏*2 + 点击
+     */
+
+
+    /**
+     * 获取新开放小说
+     * 前四本
+     */
+    public List<NovelInfo> findNewPublishNovels() {
+        List<NovelPublish> novelPublishList = CollectionUtil.iterableToList(novelPublishRepo.findAll())
+                .stream().filter(e -> Objects.nonNull(e.getPublishTime()))
+                .sorted((e1, e2) -> Long.compare(e2.getPublishTime().toInstant().getEpochSecond(), e1.getPublishTime().toInstant().getEpochSecond()))
+                .collect(Collectors.toList());
+        if(novelPublishList.isEmpty()) return new ArrayList<>();
+        int limit = novelPublishList.size() < 4?novelPublishList.size(): 4;
+        List<Integer> novelIds = new ArrayList<>(novelPublishList.subList(0, limit)).stream().map(NovelPublish::getNovelId).collect(Collectors.toList());
+        List<Novel> novels = CollectionUtil.iterableToList(novelRepository.findAllById(novelIds));
+        return novels.stream().map(this::novelToNovelInfo).collect(Collectors.toList());
+
     }
 
 

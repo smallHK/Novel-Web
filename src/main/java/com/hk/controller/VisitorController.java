@@ -39,14 +39,21 @@ public class VisitorController {
     public ModelAndView novelMainPage() {
         ModelAndView modelAndView = new ModelAndView();
 
-        modelAndView.setViewName("/visitor/novelMainPage");
-        modelAndView.addObject("resultInfo", ResultUtil.success("success!"));
-
         //获取推荐页小说
+        List<NovelInfo> currentRecommendNovelInfos = novelService.findCurrentEditorRecommendNovels();
 
         //获取热门小说
 
+
         //获取新开放小说
+        List<NovelInfo> newPublishNovelInfos = novelService.findNewPublishNovels();
+
+        modelAndView.setViewName("/visitor/novelMainPage");
+        modelAndView.addObject("recommendNovelInfos", currentRecommendNovelInfos);
+        modelAndView.addObject("newPublishNovelInfos", newPublishNovelInfos);
+
+        modelAndView.addObject("resultInfo", ResultUtil.success("success!"));
+
         return modelAndView;
     }
 

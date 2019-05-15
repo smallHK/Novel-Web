@@ -16,4 +16,5 @@ public interface NovelPublishRepo extends CrudRepository<NovelPublish, Integer> 
     List<NovelPublish> findAllByEditorId(Integer editorId);
 
     NovelPublish findByNovelId(Integer novelId);
+
 }

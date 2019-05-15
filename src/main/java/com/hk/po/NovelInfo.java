@@ -28,6 +28,8 @@ public class NovelInfo {
 
     private Integer status;
 
+    private Integer wordCount;
+
     //作者笔名
     private String penName;
 

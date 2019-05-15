@@ -24,7 +24,7 @@ public class EditorPrincipalInterceptor implements HandlerInterceptor {
         if (Objects.nonNull(editorName)) {
             return true;
         } else {
-            response.sendRedirect("/editor/editorLogin");
+            response.sendRedirect("/editor/loginPage");
             return false;
         }
     }

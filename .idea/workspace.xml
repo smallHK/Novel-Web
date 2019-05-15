@@ -3,105 +3,38 @@
   <component name="ChangeListManager">
     <list default="true" id="947d06e7-2ba9-4ebf-93a8-2e6066805784" name="Default Changelist" comment="完成部分功能页面布局">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/admin/adminCenter.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/admin/adminCenterPage.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/admin/login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/adminLogin.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/bootstrap-4.3.1-dist/css/bootstrap-grid.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/bootstrap-4.3.1-dist/css/bootstrap-grid.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/bootstrap-4.3.1-dist/css/bootstrap-grid.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/bootstrap-4.3.1-dist/css/bootstrap-grid.min.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/bootstrap-4.3.1-dist/css/bootstrap-reboot.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/bootstrap-4.3.1-dist/css/bootstrap-reboot.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/bootstrap-4.3.1-dist/css/bootstrap.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/bootstrap-4.3.1-dist/css/bootstrap.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/bootstrap-4.3.1-dist/css/bootstrap.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/bootstrap-4.3.1-dist/css/bootstrap.min.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/bootstrap-4.3.1-dist/js/bootstrap.bundle.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/bootstrap-4.3.1-dist/js/bootstrap.bundle.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/bootstrap-4.3.1-dist/js/bootstrap.bundle.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/bootstrap-4.3.1-dist/js/bootstrap.bundle.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/bootstrap-4.3.1-dist/js/bootstrap.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/bootstrap-4.3.1-dist/js/bootstrap.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/bootstrap-4.3.1-dist/js/bootstrap.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/bootstrap-4.3.1-dist/js/bootstrap.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/creator/addNewChapterPage.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/creator/addNovelPage.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/creator/chapterManagePage.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/creator/novelIndexManagePage.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/creator/novelInfoManagePage.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/creator/novelManagePage.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/creator/registerPage.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/css/content.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/editor/accountInfo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/editor/applyForPage.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/editor/contentPage.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/editor/loginPage.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/editor/personalInfoPage.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/editor/workSpacePage.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/imgs/ad/ad1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/imgs/ad/ad2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/imgs/ad/ad3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/imgs/ad/ad4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/imgs/cover-md.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/imgs/cover-sc.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/imgs/cover-sz.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/imgs/cover2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/imgs/cover3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/imgs/cover5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/imgs/index/1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/imgs/index/2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/imgs/index/3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/imgs/index/4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/imgs/novelCover.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/imgs/sao_c.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/js/bs-custom-file-input.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/js/focus/mf-pattern/img/mF_kdui/.svn/all-wcprops" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/js/focus/mf-pattern/img/mF_kdui/.svn/entries" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/js/focus/mf-pattern/img/mF_kdui/.svn/prop-base/Thumbs.db.svn-base" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/js/focus/mf-pattern/img/mF_kdui/.svn/prop-base/dots.png.svn-base" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/js/focus/mf-pattern/img/mF_kdui/.svn/prop-base/slider-arrows.png.svn-base" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/js/focus/mf-pattern/img/mF_kdui/.svn/text-base/Thumbs.db.svn-base" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/js/focus/mf-pattern/img/mF_kdui/.svn/text-base/dots.png.svn-base" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/js/focus/mf-pattern/img/mF_kdui/.svn/text-base/slider-arrows.png.svn-base" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/js/focus/mf-pattern/img/mF_kdui/Thumbs.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/js/focus/mf-pattern/img/mF_kdui/dots.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/js/focus/mf-pattern/img/mF_kdui/slider-arrows.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/js/focus/mf-pattern/mF_kdui.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/js/focus/mf-pattern/mF_kdui.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/js/focus/myfocus-2.0.1.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/js/jquery-3.3.1.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/reader/loginPage.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/reader/readerCenter.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/reader/registerPage.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/release/fonts/w-e-icon.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/release/wangEditor.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/release/wangEditor.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/release/wangEditor.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/release/wangEditor.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/release/wangEditor.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/visitor/contentPage.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/visitor/novelInfo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/visitor/novelMainPage.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/visitor/novleIndex.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PageContent/visitor/searchPage.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/page/admin/adminCenterPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/page/admin/adminCenterPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/page/editor/workSpacePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/page/editor/workSpacePage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/constant/EventStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/constant/EventStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/constant/EventType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/constant/EventType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/controller/AdminController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/controller/CreatorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/controller/CreatorController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/controller/CreatorRedirectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/controller/CreatorRedirectController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/controller/EditorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/controller/EditorController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/controller/EditorRedirectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/controller/EditorRedirectController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/controller/rest/CreatorRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/controller/rest/CreatorRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/controller/VisitorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/controller/VisitorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/controller/interceptor/CreatorPrincipalInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/controller/interceptor/CreatorPrincipalInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/controller/interceptor/EditorPrincipalInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/controller/interceptor/EditorPrincipalInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/controller/rest/EditorRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/controller/rest/EditorRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/po/EditorRecommendInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/po/EditorRecommendInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/po/NovelInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/po/NovelInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/repository/EditorRecommendRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/repository/EditorRecommendRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/repository/FavoriteRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/repository/FavoriteRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/repository/NovelPublishRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/repository/NovelPublishRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/service/AdminService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/service/EditorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/service/EditorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/service/NovelAlterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/service/NovelAlterService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/adminCenterPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/adminCenterPage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/creator/novelIndexManagePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/creator/novelIndexManagePage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/creator/registerPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/creator/registerPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/editor/workSpacePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/editor/workSpacePage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/visitor/novelMainPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/visitor/novelMainPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/controller/CreatorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/controller/CreatorController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/controller/EditorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/controller/EditorController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/controller/interceptor/CreatorPrincipalInterceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/controller/interceptor/CreatorPrincipalInterceptor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/po/NovelInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/po/NovelInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/hk/service/NovelService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/hk/service/NovelService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/creator/novelIndexManagePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/creator/novelIndexManagePage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/creator/registerPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/creator/registerPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/editor/workSpacePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/editor/workSpacePage.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -121,11 +54,50 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/visitor/novelMainPage.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1539">
+              <caret line="129" column="14" selection-start-line="129" selection-start-column="14" selection-end-line="129" selection-end-column="14" />
+              <folding>
+                <element signature="n#div#1;n#body#0;n#html#0;n#!!top" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/po/NovelInfo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="95">
+              <caret line="18" column="22" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/admin/adminCenterPage.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="180" column="90" lean-forward="true" selection-start-line="180" selection-start-column="90" selection-end-line="180" selection-end-column="90" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/VisitorController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="432">
+              <caret line="52" column="71" selection-start-line="52" selection-start-column="71" selection-end-line="52" selection-end-column="71" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/CreatorRedirectController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="133" column="5" lean-forward="true" selection-start-line="133" selection-start-column="5" selection-end-line="133" selection-end-column="5" />
+            <state relative-caret-position="525">
+              <caret line="810" lean-forward="true" selection-start-line="810" selection-end-line="810" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -134,40 +106,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/service/EditorService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="292">
-              <caret line="58" column="7" selection-start-line="58" selection-start-column="7" selection-end-line="58" selection-end-column="7" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/rest/CreatorRestController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="146" selection-start-line="146" selection-end-line="146" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/creator/novelIndexManagePage.html">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/repository/NovelPublishRepo.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="285">
-              <caret line="24" column="59" selection-start-line="24" selection-start-column="59" selection-end-line="24" selection-end-column="59" />
+              <caret line="18" selection-start-line="18" selection-end-line="18" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/CreatorController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/entity/NovelPublish.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1371">
-              <caret line="104" selection-start-line="104" selection-end-line="104" />
+            <state relative-caret-position="171">
+              <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -180,9 +131,9 @@
         <option value="package-info" />
         <option value="Jsp File" />
         <option value="CSS File" />
-        <option value="HTML File" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -214,18 +165,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/repository/TagNovelRelationRepo.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/creator/novelInfoManagePage.html" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/po/ReaderCommentList.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/repository/NovelCommentRepo.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/creator/addNovelPage.html" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/repository/event/ChapterPublishEventRepo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/entity/AdminOperationLog.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/repository/AdminOperationLogRepo.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/util/ResultUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/constant/AdminOpeType.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/AdminController.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/admin/adminCenterPage.html" />
         <option value="$PROJECT_DIR$/src/main/resources/static/css/content.css" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/adminLoginPage.html" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/entity/NovelPublish.java" />
@@ -237,42 +178,52 @@
         <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/ReaderController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/reader/readerCenter.html" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/creator/novelManagePage.html" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/editor/workSpacePage.html" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/creator/chapterManagePage.html" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/creator/loginPage.html" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/visitor/contentPage.html" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/VisitorController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/visitor/searchPage.html" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/visitor/novelInfoPage.html" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/editor/personalInfoPage.html" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/editor/loginPage.html" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/CreatorRedirectController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/constant/EventType.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/constant/EventStatus.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/entity/EditorRecommend.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/service/NovelAlterService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/po/EditorRecommedInfo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/po/EditorRecommendInfo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/repository/EditorRecommendRepo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/service/AdminService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/service/EditorService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/rest/EditorRestController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/EditorRedirectController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/EditorController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/index.html" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/creator/registerPage.html" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/rest/CreatorRestController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/CreatorRedirectController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/interceptor/CreatorPrincipalInterceptor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/CreatorController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hk/config/WebConfig.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/creator/novelIndexManagePage.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/creator/addNewChapterByIndex.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/EditorController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hk/po/NovelInfo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/rest/EditorRestController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/interceptor/EditorPrincipalInterceptor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hk/service/EditorService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/EditorRedirectController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/editor/workSpacePage.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hk/constant/EventStatus.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hk/repository/EditorRecommendRepo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hk/repository/FavoriteRepo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hk/po/EditorRecommendInfo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hk/service/AdminService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/AdminController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/admin/adminCenterPage.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hk/repository/NovelPublishRepo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hk/controller/VisitorController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/visitor/novelMainPage.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="237" />
-    <option name="y" value="61" />
-    <option name="width" value="1587" />
-    <option name="height" value="1035" />
+    <option name="x" value="330" />
+    <option name="y" value="33" />
+    <option name="width" value="1589" />
+    <option name="height" value="999" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -328,6 +279,15 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="hk" type="462c0819:PsiDirectoryNode" />
+              <item name="po" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NovelWeb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Novel-Web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="hk" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -343,7 +303,33 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NovelWeb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Novel-Web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="imgs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NovelWeb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Novel-Web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NovelWeb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Novel-Web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="NovelWeb" type="b2602c69:ProjectViewProjectNode" />
@@ -354,12 +340,39 @@
               <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="creator" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="NovelWeb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Novel-Web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="editor" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NovelWeb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Novel-Web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="reader" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NovelWeb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Novel-Web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="visitor" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -371,7 +384,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557846493066" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557937925861" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="last_opened_file_path" value="D:/WorkSpace/project/api-vehicle-mppdb" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
@@ -631,6 +644,8 @@
       <workItem from="1557747375571" duration="3288000" />
       <workItem from="1557804566489" duration="773000" />
       <workItem from="1557841409675" duration="4557000" />
+      <workItem from="1557881372309" duration="605000" />
+      <workItem from="1557922600037" duration="14248000" />
     </task>
     <task id="LOCAL-00001" summary="创建文字阅读模块">
       <created>1552557105457</created>
@@ -657,7 +672,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="456424000" />
+    <option name="totallyTimeSpent" value="471277000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
@@ -671,19 +686,18 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6734375" visible="true" weight="0.2841823" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.57223797" visible="true" weight="0.2533512" />
       <window_info id="Structure" order="1" sideWeight="0.3265625" side_tool="true" weight="0.25801012" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" weight="0.23294629" />
-      <window_info id="Web" order="7" side_tool="true" weight="0.23294629" />
-      <window_info anchor="bottom" id="Duplicate detector" weight="0.3286119" />
+      <window_info id="Web" order="7" sideWeight="0.42776203" side_tool="true" weight="0.25603217" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.6888489" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49689442" weight="0.12181303" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.65882355" weight="0.37951806" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49689442" weight="0.22096318" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.65882355" weight="0.37818697" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.24362606" />
@@ -696,6 +710,7 @@
       <window_info anchor="bottom" id="Java Enterprise" order="13" weight="0.32911393" />
       <window_info anchor="bottom" id="Spring" order="14" weight="0.32911393" />
       <window_info anchor="bottom" id="JProfiler" order="15" weight="0.24074075" />
+      <window_info anchor="bottom" id="Duplicate detector" order="16" weight="0.3286119" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.41349205" />
@@ -709,32 +724,34 @@
       <window_info anchor="right" id="Coverage" order="10" side_tool="true" weight="0.3296796" />
     </layout>
     <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.9052632" visible="true" weight="0.23294629" />
-      <window_info id="Structure" order="1" sideWeight="0.3061947" side_tool="true" weight="0.31932774" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.57223797" visible="true" weight="0.25603217" />
+      <window_info id="Structure" order="1" sideWeight="0.3265625" side_tool="true" weight="0.25801012" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
-      <window_info id="Favorites" order="6" sideWeight="0.50206614" side_tool="true" weight="0.1883378" />
-      <window_info id="Web" order="7" sideWeight="0.094736844" side_tool="true" visible="true" weight="0.23294629" />
+      <window_info id="Favorites" order="6" side_tool="true" weight="0.23294629" />
+      <window_info active="true" id="Web" order="7" sideWeight="0.42776203" side_tool="true" visible="true" weight="0.25603217" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3282572" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.497479" weight="0.21246459" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.65882355" visible="true" weight="0.13636364" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.6888489" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49689442" weight="0.4587706" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.65882355" weight="0.37951806" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32747602" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.24362606" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50252104" side_tool="true" weight="0.3572543" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32747602" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.32747602" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.45865834" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5031056" side_tool="true" weight="0.17591125" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32577905" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.24645892" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.47308782" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Java Enterprise" order="13" />
-      <window_info anchor="bottom" id="Spring" order="14" weight="0.3297546" />
+      <window_info anchor="bottom" id="Java Enterprise" order="13" weight="0.32911393" />
+      <window_info anchor="bottom" id="Spring" order="14" weight="0.32911393" />
+      <window_info anchor="bottom" id="JProfiler" order="15" weight="0.24074075" />
+      <window_info anchor="bottom" id="Duplicate detector" order="16" weight="0.3286119" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.41349205" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Maven" order="4" />
       <window_info anchor="right" id="Database" order="5" />
@@ -742,6 +759,7 @@
       <window_info anchor="right" id="Capture Analysis" order="7" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info anchor="right" id="Bean Validation" order="9" />
+      <window_info anchor="right" id="Coverage" order="10" side_tool="true" weight="0.3296796" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -756,132 +774,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="完成部分功能页面布局" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/adminLoginPage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="11" column="2" lean-forward="true" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/interceptor/ReaderPrincipalInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-73">
-          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/interceptor/CreatorPrincipalInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-16">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/interceptor/EditorPrincipalInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-13">
-          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/interceptor/AdminPrincipalInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="25" column="46" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/entity/NovelPublish.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="29" selection-start-line="29" selection-end-line="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/config/WebConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1254">
-          <caret line="78" column="43" selection-start-line="78" selection-start-column="43" selection-end-line="78" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/util/CosineSimilarity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/repository/RecommendPriorityRepo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="15" column="83" selection-start-line="15" selection-start-column="83" selection-end-line="15" selection-end-column="83" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/service/RecommendService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="50" selection-start-line="50" selection-end-line="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.1.6.RELEASE/spring-core-5.1.6.RELEASE.jar!/org/springframework/cglib/proxy/MethodProxy.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="102" selection-start-line="102" selection-end-line="102" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/constant/SessionProperty.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/ReaderController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="135" column="29" selection-start-line="135" selection-start-column="29" selection-end-line="135" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/rest/ReaderRestController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="100" column="5" selection-start-line="100" selection-start-column="5" selection-end-line="100" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/reader/readerCenter.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="11" column="24" lean-forward="true" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
-          <folding>
-            <element signature="n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#2;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" />
-            <element signature="e#6356#6714#0" />
-            <element signature="e#6752#7411#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/entity/Profile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="25" column="21" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/po/ChapterInfo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
@@ -925,43 +817,10 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/static/imgs/novelCover.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/VisitorController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="912">
-          <caret line="63" column="56" selection-start-line="63" selection-start-column="56" selection-end-line="63" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/visitor/novelInfoPage.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="855">
           <caret line="45" column="88" selection-start-line="45" selection-start-column="88" selection-end-line="45" selection-end-column="88" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/visitor/searchPage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="43" column="99" selection-start-line="43" selection-start-column="25" selection-end-line="43" selection-end-column="99" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/editor/workSpacePage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7790">
-          <caret line="527" lean-forward="true" selection-start-line="527" selection-end-line="527" />
-          <folding>
-            <element signature="n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#1;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#2;n#div#2;n#body#0;n#html#0;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/entity/Novel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="31" column="27" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="27" />
         </state>
       </provider>
     </entry>
@@ -999,69 +858,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/constant/EventStatus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="19" column="60" selection-start-line="19" selection-start-column="60" selection-end-line="19" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/entity/EditorRecommend.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/repository/EditorRecommendRepo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="17" column="60" selection-start-line="17" selection-start-column="60" selection-end-line="17" selection-end-column="60" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/EditorRedirectController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="64" column="21" selection-start-line="64" selection-start-column="21" selection-end-line="64" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/EditorController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="201" column="67" selection-start-line="201" selection-start-column="67" selection-end-line="201" selection-end-column="67" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/rest/EditorRestController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="589">
-          <caret line="31" column="5" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#562#563#0" expanded="true" />
-            <element signature="e#611#612#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/po/EditorRecommendInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1075,23 +875,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="786" lean-forward="true" selection-start-line="786" selection-end-line="786" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/service/AdminService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="73" column="39" lean-forward="true" selection-start-line="73" selection-start-column="39" selection-end-line="73" selection-end-column="39" />
         </state>
       </provider>
     </entry>
@@ -1109,26 +892,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/rest/CreatorRestController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="146" selection-start-line="146" selection-end-line="146" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/creator/chapterManagePage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-323">
-          <caret line="1" column="16" selection-start-line="1" selection-end-line="2" />
-          <folding>
-            <element signature="e#5798#6235#0" />
-            <element signature="e#6280#6801#0" />
-            <element signature="e#6862#7718#0" />
-            <element signature="e#7786#8467#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="292">
@@ -1136,10 +899,127 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/service/EditorService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/config/WebConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="58" column="7" selection-start-line="58" selection-start-column="7" selection-end-line="58" selection-end-column="7" />
+        <state relative-caret-position="285">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/creator/addNewChapterPage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="20" column="34" lean-forward="true" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/rest/CreatorRestController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2128">
+          <caret line="146" selection-start-line="146" selection-end-line="146" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/interceptor/CreatorPrincipalInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="25" column="39" lean-forward="true" selection-start-line="25" selection-start-column="39" selection-end-line="25" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/creator/addNewChapterByIndex.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" column="141" selection-start-line="11" selection-start-column="141" selection-end-line="11" selection-end-column="141" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/CreatorRedirectController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="79" column="73" selection-start-line="79" selection-start-column="65" selection-end-line="79" selection-end-column="73" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/interceptor/EditorPrincipalInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="26" column="52" selection-start-line="26" selection-start-column="52" selection-end-line="26" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/EditorController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-27">
+          <caret line="209" selection-start-line="209" selection-end-line="209" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/rest/EditorRestController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="47" column="43" lean-forward="true" selection-start-line="47" selection-start-column="43" selection-end-line="47" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/EditorRedirectController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="62" column="62" selection-start-line="62" selection-start-column="54" selection-end-line="62" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/visitor/searchPage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="45" column="46" lean-forward="true" selection-start-line="45" selection-start-column="46" selection-end-line="45" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/po/NovelCommentInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/repository/FavoriteRepo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="18" column="47" selection-start-line="18" selection-start-column="47" selection-end-line="18" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/entity/Novel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="31" column="27" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/constant/EventStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" column="14" lean-forward="true" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/repository/EditorRecommendRepo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="19" column="85" selection-start-line="19" selection-start-column="85" selection-end-line="19" selection-end-column="85" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1148,22 +1028,153 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/creator/novelIndexManagePage.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="24" column="59" selection-start-line="24" selection-start-column="59" selection-end-line="24" selection-end-column="59" />
+        <state relative-caret-position="494">
+          <caret line="26" column="26" lean-forward="true" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/creator/chapterManagePage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+          <folding>
+            <element signature="e#5798#6235#0" />
+            <element signature="e#6280#6801#0" />
+            <element signature="e#6862#7718#0" />
+            <element signature="e#7786#8467#0" />
+            <element signature="e#8540#9977#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/service/EditorService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="53" column="44" lean-forward="true" selection-start-line="53" selection-start-column="44" selection-end-line="53" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/CreatorController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1371">
-          <caret line="104" selection-start-line="104" selection-end-line="104" />
+        <state relative-caret-position="331">
+          <caret line="69" column="40" lean-forward="true" selection-start-line="69" selection-start-column="40" selection-end-line="69" selection-end-column="40" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/CreatorRedirectController.java">
+    <entry file="file://$MAVEN_REPOSITORY$/org/thymeleaf/thymeleaf-spring5/3.0.11.RELEASE/thymeleaf-spring5-3.0.11.RELEASE.pom">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="133" column="5" lean-forward="true" selection-start-line="133" selection-start-column="5" selection-end-line="133" selection-end-column="5" />
+        <state relative-caret-position="-4617" />
+      </provider>
+    </entry>
+    <entry file="file://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-thymeleaf/2.1.4.RELEASE/spring-boot-starter-thymeleaf-2.1.4.RELEASE.pom">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="51" column="23" lean-forward="true" selection-start-line="51" selection-start-column="23" selection-end-line="51" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/po/EditorRecommendInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="17" column="29" lean-forward="true" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/service/AdminService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="532">
+          <caret line="139" column="5" lean-forward="true" selection-start-line="139" selection-start-column="5" selection-end-line="139" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/AdminController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="201" column="11" lean-forward="true" selection-start-line="201" selection-start-column="11" selection-end-line="201" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/editor/workSpacePage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="468" column="42" selection-start-line="468" selection-start-column="42" selection-end-line="468" selection-end-column="42" />
+          <folding>
+            <element signature="n#div#0;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#2;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#1;n#div#3;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#1;n#div#0;n#div#1;n#div#3;n#body#0;n#html#0;n#!!top" />
+            <element signature="e#11192#11808#0" />
+            <element signature="e#11898#17105#0" />
+            <element signature="e#17191#19555#0" />
+            <element signature="e#19825#20978#0" />
+            <element signature="e#21038#22199#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="47" column="42" lean-forward="true" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/po/NovelInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="18" column="22" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/admin/adminCenterPage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="180" column="90" lean-forward="true" selection-start-line="180" selection-start-column="90" selection-end-line="180" selection-end-column="90" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/repository/NovelPublishRepo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/entity/NovelPublish.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/controller/VisitorController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="52" column="71" selection-start-line="52" selection-start-column="71" selection-end-line="52" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/visitor/novelMainPage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1539">
+          <caret line="129" column="14" selection-start-line="129" selection-start-column="14" selection-end-line="129" selection-end-column="14" />
+          <folding>
+            <element signature="n#div#1;n#body#0;n#html#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hk/service/NovelService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="810" lean-forward="true" selection-start-line="810" selection-end-line="810" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

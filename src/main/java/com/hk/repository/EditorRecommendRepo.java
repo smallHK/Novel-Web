@@ -17,5 +17,7 @@ public interface EditorRecommendRepo extends CrudRepository<EditorRecommend, Int
 
     List<EditorRecommend> findAllByNovelId(Integer novelId);
 
+    List<EditorRecommend> findAllByNovelIdAndStatus(Integer novelId, Integer status);
+
 
 }

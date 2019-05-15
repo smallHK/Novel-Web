@@ -6,12 +6,11 @@ import com.hk.service.NovelService;
 import com.hk.util.ResultUtil;
 import lombok.Getter;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 /**
  * @author smallHK
@@ -58,11 +57,13 @@ public class EditorRedirectController {
     /**
      * 推荐封面小说
      */
-    @GetMapping("/recommendNovel/{novelId}")
-    public ModelAndView recommendNovel(@PathVariable Integer novelId, HttpSession session) {
+    @PostMapping("/recommendNovel")
+    public ModelAndView recommendNovel(@RequestParam Map<String, String> params, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
+        Integer novelId = Integer.valueOf(params.get("novel_id"));
+        String reason = params.get("reason");
         Integer editorId = (Integer)session.getAttribute(SessionProperty.EDITOR_LOGIN_EDITOR_ID);
-        editorService.recommendNovel(novelId, editorId);
+        editorService.recommendNovel(novelId, editorId, reason);
         modelAndView.setViewName("redirect:/editor/workSpacePage");
         modelAndView.addObject("resultInfo", ResultUtil.success("success!").toJSONObject());
         return modelAndView;

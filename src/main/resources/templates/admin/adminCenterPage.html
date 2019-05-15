@@ -3,14 +3,34 @@
 <head>
 <meta charset="utf-8">
     <title>管理页面</title>
-    <script th:src="@{/js/jquery-3.3.1.js}" src="/js/jquery-3.3.1.js"></script>
-	<link rel="stylesheet" href="/bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css">
-	<link rel="stylesheet" href="/bootstrap-4.3.1-dist/css/bootstrap.min.css">
-	<script src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="/css/content.css">
+	<script th:src="@{/js/jquery-3.3.1.js}" src="../js/jquery-3.3.1.js"></script>
+	<link th:href="@{/bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css}" rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css">
+	<link th:href="@{/bootstrap-4.3.1-dist/css/bootstrap.min.css}" rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+	<script th:src="@{/bootstrap-4.3.1-dist/js/bootstrap.min.js}" src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+	<link th:href="@{/css/content.css}" rel="stylesheet" href="../css/content.css">
 </head>
 <body class="main-back">
-<nav class="navbar navbar-light bg-dark sticky-top mb-3" > <a class="navbar-brand text-light" href="../index.html">HK小说网</a> </nav>
+<!--推荐理由modal-->
+<div class="modal fade" id="recommendReason" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">推荐理由</h5>
+			</div>
+			<div class="modal-body">
+				<p> 当朝阳自窗外洒落进来的时候，少女微微张开双眼。
+
+					那是个有点害羞、神色娴静，很适合短发的可爱女孩。
+
+					整间病房充满洁净的白色。少女或许是被消毒水的气味给弄醒的.她一脸茫然地看着周遭.
+
+					室内一片寂静，只听得见窗外传来的鸟啭。</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<nav class="navbar navbar-light bg-dark sticky-top mb-3" > <a class="navbar-brand text-light" th:href="@{/index}" href="../index.html">HK小说网</a> </nav>
 <div class = "row c-w-90 mx-auto">
 	<div class="col-4">
 		<div class="list-group">
@@ -24,66 +44,43 @@
 		<div class="tab-content">
 			<div class="tab-pane fade border back-color-white show active" id="editor-recommend-manage">
 
-				<div class="border mx-3 my-3">
+				<div class="border mx-3 my-3" th:each="info : ${recommendInfos}">
 					<div class="row">
 						<div class="col-3">
 							<div class="book-cover-wrapper">
-								<img th:src="@{/imgs/cover/cover-sc.jpg}" src="../imgs/cover-sc.jpg" class="card-img-top book-cover-img" alt="...">
+								<img th:if="not ${#strings.isEmpty(info.coverImg)}" th:src="${info.coverImg}" src="../imgs/cover-md.jpg" class="card-img-top book-cover-img" alt="...">
+								<img th:if="${#strings.isEmpty(info.coverImg)}" th:src="@{/imgs/default.jpg}" src="../imgs/cover-md.jpg" class="card-img-top book-cover-img" alt="...">
 							</div>
 						</div>
 						<div class="col-8">
 							<div class="pt-2">
-								<h4>Campione 弑神者！</h4>
+								<h4 th:text="${info.novelName}">Campione 弑神者！</h4>
 							</div>
 							<div class="py-2">
-								总字数：<span>123444</span>
-								点击数：<span>1236</span>
-								收藏数：<span>123</span>
+								总字数：<span th:text="${info.wordCount}">123444</span>
+								点击数：<span th:text="${info.clickCount}">1236</span>
+								收藏数：<span th:text="${info.favoriteCount}">123</span>
 							</div>
 							<div class="py-2">
-								作者：<span>丈月城</span>
-								<p>草薙护堂，他是一位弑神之人。弑神之人能够篡夺神的权能，而拥有那种力量的人类王者，被称为“Campione─弑神者─”，同时他们也被称为霸王或是魔王。拥有这些秘密的高中生草薙护堂，期盼的只是平淡无奇的日常生活而已，但是自称护堂爱人的女魔术师──艾莉卡，却让他卷入与不顺从之神的邂逅？！</p>
+								作者：<span th:text="${info.authorName}">丈月城</span>
+								<p th:text="${info.briefIntro}">草薙护堂，他是一位弑神之人。弑神之人能够篡夺神的权能，而拥有那种力量的人类王者，被称为“Campione─弑神者─”，同时他们也被称为霸王或是魔王。拥有这些秘密的高中生草薙护堂，期盼的只是平淡无奇的日常生活而已，但是自称护堂爱人的女魔术师──艾莉卡，却让他卷入与不顺从之神的邂逅？！</p>
 								<a class="btn btn-light">小说目录</a>
 							</div>
 							<div class="border-top py-3">
-								<p>推荐人:<span>HK</span><button class="btn btn-light float-right">推荐理由</button></p>
-
+								<p>推荐人:<span th:text="${info.editorName}">HK</span><button
+										class="btn btn-light float-right"
+										th:onclick="recommendReasonModal([[${info.reason}]]);">推荐理由</button></p>
 							</div>
 						</div>
 						<div class="col-12">
-							<a href="#" class="btn btn-primary btn-block rounded-0">同意推荐</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="border mx-3 my-3">
-					<div class="row">
-						<div class="col-3">
-							<div class="book-cover-wrapper">
-								<img th:src="@{/imgs/cover/cover-sc.jpg}" src="../imgs/cover-sc.jpg" class="card-img-top book-cover-img" alt="...">
+							<div class="row">
+								<div class="col-6">
+									<a th:href="@{/admin/agreeEditorRecommend/{novelId}(novelId=${info.novelId})}" href="#" class="btn btn-primary btn-block rounded-0">同意推荐</a>
+								</div>
+								<div class="col-6">
+									<a th:href="@{/admin/rejectEditorRecommend/{novelId}(novelId=${info.novelId})}" href="#" class="btn btn-primary btn-block rounded-0">拒绝推荐</a>
+								</div>
 							</div>
-						</div>
-						<div class="col-8">
-							<div class="pt-2">
-								<h4>Campione 弑神者！</h4>
-							</div>
-							<div class="py-2">
-								总字数：<span>123444</span>
-								点击数：<span>1236</span>
-								收藏数：<span>123</span>
-							</div>
-							<div class="py-2">
-								作者：<span>丈月城</span>
-								<p>草薙护堂，他是一位弑神之人。弑神之人能够篡夺神的权能，而拥有那种力量的人类王者，被称为“Campione─弑神者─”，同时他们也被称为霸王或是魔王。拥有这些秘密的高中生草薙护堂，期盼的只是平淡无奇的日常生活而已，但是自称护堂爱人的女魔术师──艾莉卡，却让他卷入与不顺从之神的邂逅？！</p>
-								<a class="btn btn-light">小说目录</a>
-							</div>
-							<div class="border-top py-3">
-								<p>推荐人:<span>HK</span><button class="btn btn-light float-right">推荐理由</button></p>
-
-							</div>
-						</div>
-						<div class="col-12">
-							<a href="#" class="btn btn-primary btn-block rounded-0">同意推荐</a>
 						</div>
 					</div>
 				</div>
@@ -180,7 +177,11 @@
 					<div class="col-4 my-2" th:each="info: ${allNovelInfos}">
 						<div class="shadow-sm">
 							<div class="book-cover-wrapper">
-								<a href="#"><img th:src="@{/imgs/cover/cover-sc.jpg}" src="../imgs/cover-sc.jpg" class="card-img-top book-cover-img" alt="封面"></a> </div>
+								<a href="#">
+									<img th:if="not ${#strings.isEmpty(info.coverImg)}" th:src="${info.coverImg}" src="../imgs/cover-md.jpg" class="card-img-top book-cover-img" alt="封面">
+									<img th:if="${#strings.isEmpty(info.coverImg)}" th:src="@{/imgs/default.jpg}" src="../imgs/cover-md.jpg" class="card-img-top book-cover-img" alt="封面">
+								</a>
+							</div>
 							<div class="">
 								<p class="book-title-limit" th:text="${info.novelName}">Campione 弑神者！</p>
 								<a href="#" class="btn btn-primary btn-block rounded-0">删除小说</a> </div>
@@ -207,5 +208,17 @@
 
 	</div>
 </div>
+
+<script>
+
+	//推荐理由modal
+	function recommendReasonModal(reason) {
+		var modal = $("#recommendReason");
+		modal.find("p").text(reason);
+		modal.modal('toggle');
+	}
+
+
+</script>
 </body>
 </html>

@@ -165,6 +165,17 @@ public class CreatorController {
         return modelAndView;
     }
 
+    /**
+     * 跳转添加新章节页面(目录管理)
+     **/
+    @GetMapping(path = "/enterSimplyAddChapterPage/{novelId}/{volumeId}")
+    public ModelAndView simplyAddNewChapter(@PathVariable("novelId") Integer novelId, @PathVariable("volumeId") Integer volumeId) {
+        ModelAndView modelAndView = addNewChapter(novelId, volumeId);
+        modelAndView.setViewName("/creator/addNewChapterByIndex");
+        return modelAndView;
+    }
+
+
 
     /**
      * 获取章节内容

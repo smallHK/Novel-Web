@@ -21,63 +21,27 @@
 </nav>
 
 
+<!--推荐页-->
 <div class="my-4">
     <div id="novelNav" class="carousel slide rounded overflow-hidden mx-auto shadow w-50" data-ride="carousel">
         <div class="carousel-inner">
-            <div class="carousel-item active">
+            <div th:each="info, ite: ${recommendNovelInfos}" th:class="${ite.first}?'carousel-item active':'carousel-item'" class="carousel-item active">
                 <div class="row p-2">
                     <div class="col-4 book-cover-wrapper text-align-center">
-                        <img class="book-cover-img rounded" th:src="@{/imgs/cover/cover-sc.jpg}" src="../imgs/cover-sz.jpg" alt="">
+                        <img th:if="not ${#strings.isEmpty(info.coverImg)}" th:src="${info.coverImg}" src="../imgs/cover-md.jpg" class="book-cover-img rounded" alt="封面">
+                        <img th:if="${#strings.isEmpty(info.coverImg)}" th:src="@{/imgs/default.jpg}" src="../imgs/cover-md.jpg" class="book-cover-img rounded" alt="封面">
                     </div>
                     <div class="col-8">
                         <div class="p-2">
-                            <h5>时钟机关之星</h5>
+                            <h5 th:text="${info.novelName}">时钟机关之星</h5>
                             <hr>
-                            <p>——说来突兀，不过世界早就灭亡了。死亡后的地球，变成一切都是用齿轮与发条加以重现、再度建构的世界——“时钟机关之星”。
+                            <p th:text="${info.briefIntro}">——说来突兀，不过世界早就灭亡了。死亡后的地球，变成一切都是用齿轮与发条加以重现、再度建构的世界——“时钟机关之星”。
 
                                 见浦直人是个成绩吊车尾的高中生，某一天突然有个黑色箱子坠落在他家里，箱子里头是一具自动人偶少女。少女:“不过是一处故障，就被迫停止运转两百年，人类的智能恐怕还没超越跳蚤的水准吧——？”
 
                                 在崩毁与残存之间来回反复，被改造的世界与不变的人类，当理想与现实产生剧烈冲突之时，直人与机械少女琉紫，以及天才少女玛莉与保镖哈尔达的两场相遇推动了命运的齿轮！</p>
                         </div>
-                        <a class="btn btn-primary">小说详情</a>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="row p-2">
-                    <div class="col-4 book-cover-wrapper text-align-center">
-                        <img class="book-cover-img rounded" th:src="@{/imgs/cover/cover-sz.jpg}" src="../imgs/cover-sz.jpg" alt="">
-                    </div>
-                    <div class="col-8">
-                        <div class="p-2">
-                            <h5>时钟机关之星</h5>
-                            <hr>
-                            <p>——说来突兀，不过世界早就灭亡了。死亡后的地球，变成一切都是用齿轮与发条加以重现、再度建构的世界——“时钟机关之星”。
-
-                                见浦直人是个成绩吊车尾的高中生，某一天突然有个黑色箱子坠落在他家里，箱子里头是一具自动人偶少女。少女:“不过是一处故障，就被迫停止运转两百年，人类的智能恐怕还没超越跳蚤的水准吧——？”
-
-                                在崩毁与残存之间来回反复，被改造的世界与不变的人类，当理想与现实产生剧烈冲突之时，直人与机械少女琉紫，以及天才少女玛莉与保镖哈尔达的两场相遇推动了命运的齿轮！</p>
-                        </div>
-                        <a class="btn btn-primary">小说详情</a>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="row p-2">
-                    <div class="col-4 book-cover-wrapper text-align-center">
-                        <img class="book-cover-img rounded" th:src="@{/imgs/cover/cover-sc.jpg}" src="../imgs/cover-sz.jpg" alt="">
-                    </div>
-                    <div class="col-8">
-                        <div class="p-2">
-                            <h5>时钟机关之星</h5>
-                            <hr>
-                            <p>——说来突兀，不过世界早就灭亡了。死亡后的地球，变成一切都是用齿轮与发条加以重现、再度建构的世界——“时钟机关之星”。
-
-                                见浦直人是个成绩吊车尾的高中生，某一天突然有个黑色箱子坠落在他家里，箱子里头是一具自动人偶少女。少女:“不过是一处故障，就被迫停止运转两百年，人类的智能恐怕还没超越跳蚤的水准吧——？”
-
-                                在崩毁与残存之间来回反复，被改造的世界与不变的人类，当理想与现实产生剧烈冲突之时，直人与机械少女琉紫，以及天才少女玛莉与保镖哈尔达的两场相遇推动了命运的齿轮！</p>
-                        </div>
-                        <a class="btn btn-primary">小说详情</a>
+                        <a class="btn btn-primary" th:href="@{/visitor/novelInfo/{novelId}(novelId=${info.id})}">小说详情</a>
                     </div>
                 </div>
             </div>
@@ -153,41 +117,11 @@
 
     </div>
     <div class="row">
-        <div class="col-3 text-align-center p-2">
+        <div class="col-3 text-align-center p-2" th:each="info:${newPublishNovelInfos}">
             <div class="shadow-sm rounded text-align-center">
                 <div class="my-1">
-                    <img th:src="@{/imgs/cover/cover-sc.jpg}" src="../imgs/cover-md.jpg" class="book-cover-img">
-                </div>
-                <div class="p-2">
-                    <h5 class="">魔弹之王与冻莲的雪姬</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-3 text-align-center p-2">
-            <div class="shadow-sm rounded text-align-center">
-                <div class="my-1">
-                    <img th:src="@{/imgs/cover/cover-mz.jpg}" src="../imgs/cover-md.jpg" class="book-cover-img">
-                </div>
-                <div class="p-2">
-                    <h5 class="">魔弹之王与冻莲的雪姬</h5>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-3 text-align-center p-2">
-            <div class="shadow-sm rounded text-align-center">
-                <div class="my-1">
-                    <img th:src="@{/imgs/cover/cover-md.jpg}" src="../imgs/cover-md.jpg" class="book-cover-img">
-                </div>
-                <div class="p-2">
-                    <h5 class="">魔弹之王与冻莲的雪姬</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-3 text-align-center p-2">
-            <div class="shadow-sm rounded text-align-center">
-                <div class="my-1">
-                    <img th:src="@{/imgs/cover/cover-cb.jpg}" src="../imgs/cover-md.jpg" class="book-cover-img">
+                    <img th:if="not ${#strings.isEmpty(info.coverImg)}" th:src="${info.coverImg}" src="../imgs/cover-md.jpg"  class="book-cover-img" alt="封面">
+                    <img th:if="${#strings.isEmpty(info.coverImg)}" th:src="@{/imgs/default.jpg}" src="../imgs/cover-md.jpg"  class="book-cover-img" alt="封面">
                 </div>
                 <div class="p-2">
                     <h5 class="">魔弹之王与冻莲的雪姬</h5>
