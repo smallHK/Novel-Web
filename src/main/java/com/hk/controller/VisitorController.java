@@ -43,6 +43,7 @@ public class VisitorController {
         List<NovelInfo> currentRecommendNovelInfos = novelService.findCurrentEditorRecommendNovels();
 
         //获取热门小说
+        List<NovelInfo> hotNovelInfos = novelService.findAllHotNovel();
 
 
         //获取新开放小说
@@ -51,7 +52,7 @@ public class VisitorController {
         modelAndView.setViewName("/visitor/novelMainPage");
         modelAndView.addObject("recommendNovelInfos", currentRecommendNovelInfos);
         modelAndView.addObject("newPublishNovelInfos", newPublishNovelInfos);
-
+        modelAndView.addObject("hotNovelInfos", hotNovelInfos);
         modelAndView.addObject("resultInfo", ResultUtil.success("success!"));
 
         return modelAndView;

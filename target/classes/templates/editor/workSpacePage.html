@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>编辑主页</title>
-    <script src="/js/jquery-3.3.1.js"></script>
-    <link href="/bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css" rel="stylesheet">
-    <link href="/bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
-    <link href="/css/content.css" rel="stylesheet">
+    <script th:src="@{/js/jquery-3.3.1.js}" src="../js/jquery-3.3.1.js"></script>
+    <link th:href="@{/bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css}" rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap-reboot.min.css">
+    <link th:href="@{/bootstrap-4.3.1-dist/css/bootstrap.min.css}" rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <script th:src="@{/bootstrap-4.3.1-dist/js/bootstrap.min.js}" src="../bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    <link th:href="@{/css/content.css}" rel="stylesheet" href="../css/content.css">
 </head>
 <body class="main-back">
 <nav class="navbar navbar-light bg-dark sticky-top mb-3 px-3"><a class="navbar-brand text-light" th:href="@{/index}"
@@ -316,22 +316,18 @@
                     //封装小说信息布局
                     var noInC = $("<div class=\"col-8\"></div>");
                     row.append(noInC);
-
                     //-小说标题
                     var noTitle = $("<h5></h5>");
                     noTitle.text(infos[i].novelName);
                     noInC.append(noTitle);
-
                     // -小说作者
                     var noAuthor = $("<span></span>");
                     noAuthor.text(infos[i].penName);
                     noInC.append(noAuthor);
-
                     //-小说字数
                     var noWordCount = $("<p>字数：<span>12045</span></p>");
                     noWordCount.find("span").text(infos[i].wordCount);
                     noInC.append(noWordCount);
-
                     //-小说简介
                     var noBriIntro = $("<p></p>");
                     noBriIntro.text(infos[i].briefIntro);
@@ -389,7 +385,6 @@
             }
 
         });
-
 
         //填充审核中小说
         $.get("/editor/checkingNovelList/1/6", function (data) {
@@ -526,12 +521,16 @@
 
     //查看卷目录modal
     function showVolumeIndexModal(volumeId) {
-
+        var modal = $("#viewVolumeInfo");
+        modal.find("form").find("input:eq(0)").val(novelId);
+        modal.modal('toggle');
     }
 
     //查看章节内容modal
     function showChapterContentModal(chapterId) {
-
+        var modal = $("#viewChapterInfo");
+        modal.find("form").find("input:eq(0)").val(novelId);
+        modal.modal('toggle');
     }
 
     //同意开放卷

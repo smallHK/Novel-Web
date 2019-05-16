@@ -2,8 +2,11 @@ package com.hk.controller.rest;
 
 import com.alibaba.fastjson.JSONObject;
 import com.hk.constant.SessionProperty;
+import com.hk.entity.Chapter;
 import com.hk.entity.Novel;
+import com.hk.po.ChapterInfo;
 import com.hk.po.NovelInfo;
+import com.hk.po.VolumeInfo;
 import com.hk.service.EditorService;
 import com.hk.service.NovelService;
 import com.hk.util.ResultUtil;
@@ -51,6 +54,27 @@ public class EditorRestController {
         List<NovelInfo> novelList = novelService.listAllNovelByEditorId(editorId);
         return ResultUtil.success("success!").toJSONObject()
                 .fluentPut("infos", novelList);
+    }
+
+    /**
+     * 获取章节内容
+     */
+    @RequestMapping("/gainChapterInfo/{chapterId}")
+    public @ResponseBody JSONObject gainChapterContent(@PathVariable Integer chapterId) {
+        ChapterInfo info = novelService.findNovelChapter(chapterId);
+        return ResultUtil.success("success!").toJSONObject()
+                .fluentPut("info", info);
+    }
+
+
+    /**
+     * 获取卷目录
+     */
+    @RequestMapping("/gainVolumeIndex/{volumeId}")
+    public @ResponseBody JSONObject gainVolumeIndex(@PathVariable Integer volumeId) {
+        VolumeInfo info = novelService.findVolumeInfo(volumeId);
+        return ResultUtil.success("success!").toJSONObject()
+                .fluentPut("info", info);
     }
 
 

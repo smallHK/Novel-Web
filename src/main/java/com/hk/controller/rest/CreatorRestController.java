@@ -1,6 +1,7 @@
 package com.hk.controller.rest;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hk.constant.SessionProperty;
 import com.hk.entity.Novel;
 import com.hk.po.ChapterInfo;
 import com.hk.po.NovelIndex;
@@ -76,8 +77,8 @@ public class CreatorRestController {
 
 
     /**
-     * 显示登陆作者指定页的所有创作书籍
-     *
+     * 获取作者所有图书
+     * 条件：页码
      * @return 成功返回小说列表
      */
     @GetMapping("/createdNovelList/{pageNum}/{pageSize}")
@@ -91,6 +92,16 @@ public class CreatorRestController {
         return ResultUtil.success("加载成功").toJSONObject()
                 .fluentPut("novelList", novelList)
                 .fluentPut("totalNum", totalNum);
+    }
+
+    /**
+     * 获取所有图书总页数
+     */
+    @GetMapping("/createdNovelList/size")
+    public @ResponseBody JSONObject countNovelPageAmount(HttpSession session) {
+        Integer creatorId = (Integer) session.getAttribute(SessionProperty.CREATOR_LOGIN_CREATOR_ID);
+        Integer novelTotalNum = novelService.countSpecialCreatorAllNovelList(creatorId);
+       return ResultUtil.success("success!").toJSONObject().fluentPut("allNovelPageSum", novelTotalNum % 12 == 0 ? novelTotalNum/12 : novelTotalNum/12 + 1);
     }
 
     /**

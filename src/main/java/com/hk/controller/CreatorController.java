@@ -103,6 +103,22 @@ public class CreatorController {
     }
 
 
+//    /**
+//     * 进入小说管理页
+//     */
+//    @GetMapping("/enterNovelManage")
+//    public ModelAndView enterNovelManage(HttpSession session) {
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName("/creator/novelManagePage");
+//
+//        Integer creatorId = (Integer) session.getAttribute(SessionProperty.CREATOR_LOGIN_CREATOR_ID);
+//        Integer novelTotalNum = novelService.countSpecialCreatorAllNovelList(creatorId);
+//        modelAndView.addObject("allNovelPageSum", novelTotalNum % 12 == 0 ? novelTotalNum/12 : novelTotalNum/12 + 1);
+//
+//        return modelAndView;
+//    }
+
+
     /**
      * 小说信息编辑页
      */

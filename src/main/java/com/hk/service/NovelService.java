@@ -64,6 +64,8 @@ public class NovelService {
 
     private EditorRecommendRepo editorRecommendRepo;
 
+    private NovelInfoService novelInfoService;
+
     public NovelService(NovelRepository novelRepository,
                         NovelCommentRepo novelCommentRepo,
                         NovelPublishRepo novelPublishRepo,
@@ -78,7 +80,8 @@ public class NovelService {
                         TagRepo tagRepo,
                         TagNovelRelationRepo tagNovelRelationRepo,
                         RecommendPriorityRepo recommendPriorityRepo,
-                        EditorRecommendRepo editorRecommendRepo) {
+                        EditorRecommendRepo editorRecommendRepo,
+                        NovelInfoService novelInfoService) {
         this.novelRepository = novelRepository;
         this.novelCommentRepo = novelCommentRepo;
         this.novelPublishRepo = novelPublishRepo;
@@ -94,6 +97,7 @@ public class NovelService {
         this.tagNovelRelationRepo = tagNovelRelationRepo;
         this.recommendPriorityRepo = recommendPriorityRepo;
         this.editorRecommendRepo = editorRecommendRepo;
+        this.novelInfoService = novelInfoService;
     }
 
     /**
@@ -402,7 +406,28 @@ public class NovelService {
      * 点击数 + 收藏数 * 2
      */
     public List<NovelInfo> findAllHotNovel() {
-        return null;
+
+        List<Novel> novels = CollectionUtil.iterableToList(novelRepository.findAll());
+
+        class NovelData {
+            private Novel novel;
+            private Integer favoriteCount = 0;
+            private Integer clickCount = 0;
+        }
+        List<NovelData> datas = novels.stream().map(e -> {
+            NovelData data = new NovelData();
+            data.novel = e;
+            data.favoriteCount = novelInfoService.gainNovelTotalFavorite(e.getId());
+            data.clickCount = novelInfoService.gainNovelTotalClick(e.getId());
+            return data;
+        }).sorted((e1, e2) -> Integer.compare(e2.favoriteCount*2 + e2.clickCount, e1.favoriteCount*2 + e1.favoriteCount))
+                .collect(Collectors.toList());
+
+        //截取前四
+        int limit = datas.size() < 4?datas.size(): 4;
+        return new ArrayList<>(datas.subList(0, limit))
+                .stream().map(e->e.novel)
+                .map(this::novelToNovelInfo).collect(Collectors.toList());
     }
 
     /**
@@ -778,13 +803,6 @@ public class NovelService {
                 .stream()
                 .map(this::novelToNovelInfo).collect(Collectors.toList());
     }
-
-    /**
-     * 获取热门小说
-     * 前四本
-     *
-     * 根据权值计算收藏*2 + 点击
-     */
 
 
     /**

@@ -58,7 +58,7 @@
 
 </div>
 
-<!--高点击图书-->
+<!--热门图书-->
 
 <div class="mb-5 c-w-80 mx-auto">
     <div class="text-align-center border-bottom">
@@ -66,44 +66,14 @@
 
     </div>
     <div class="row">
-        <div class="col-3 text-align-center p-2">
+        <div class="col-3 text-align-center p-2" th:each="info:${hotNovelInfos}">
             <div class="shadow-sm rounded text-align-center">
                 <div class="my-1">
-                    <img th:src="@{/imgs/cover/cover-sc.jpg}" src="../imgs/cover-md.jpg" class="book-cover-img">
+                    <img th:if="not ${#strings.isEmpty(info.coverImg)}" th:src="${info.coverImg}" src="../imgs/cover-md.jpg"  class="book-cover-img" alt="封面">
+                    <img th:if="${#strings.isEmpty(info.coverImg)}" th:src="@{/imgs/default.jpg}" src="../imgs/cover-md.jpg"  class="book-cover-img" alt="封面">
                 </div>
                 <div class="p-2">
-                    <h5 class="">魔弹之王与冻莲的雪姬</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-3 text-align-center p-2">
-            <div class="shadow-sm rounded text-align-center">
-                <div class="my-1">
-                    <img th:src="@{/imgs/cover/cover-md.jpg}" src="../imgs/cover-md.jpg" class="book-cover-img">
-                </div>
-                <div class="p-2">
-                    <h5 class="">魔弹之王与冻莲的雪姬</h5>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-3 text-align-center p-2">
-            <div class="shadow-sm rounded text-align-center">
-                <div class="my-1">
-                    <img th:src="@{/imgs/cover/cover-md.jpg}" src="../imgs/cover-md.jpg" class="book-cover-img">
-                </div>
-                <div class="p-2">
-                    <h5 class="">魔弹之王与冻莲的雪姬</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-3 text-align-center p-2">
-            <div class="shadow-sm rounded text-align-center">
-                <div class="my-1">
-                    <img th:src="@{/imgs/cover/cover-md.jpg}" src="../imgs/cover-md.jpg" class="book-cover-img">
-                </div>
-                <div class="p-2">
-                    <h5 class="">魔弹之王与冻莲的雪姬</h5>
+                    <h5 class="" th:text="${info.novelName}">魔弹之王与冻莲的雪姬</h5>
                 </div>
             </div>
         </div>
@@ -124,7 +94,7 @@
                     <img th:if="${#strings.isEmpty(info.coverImg)}" th:src="@{/imgs/default.jpg}" src="../imgs/cover-md.jpg"  class="book-cover-img" alt="封面">
                 </div>
                 <div class="p-2">
-                    <h5 class="">魔弹之王与冻莲的雪姬</h5>
+                    <h5 class="" th:text="${info.novelName}">魔弹之王与冻莲的雪姬</h5>
                 </div>
             </div>
         </div>
