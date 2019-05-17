@@ -1,8 +1,10 @@
 package com.hk.service;
 
 import com.hk.entity.Chapter;
+import com.hk.po.NovelInfo;
 import com.hk.repository.ChapterRepository;
 import com.hk.repository.FavoriteRepo;
+import com.hk.repository.NovelRepository;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,6 +17,7 @@ public class NovelInfoService {
     private FavoriteRepo favoriteRepo;
 
     private ChapterRepository chapterRepository;
+
 
     public NovelInfoService(FavoriteRepo favoriteRepo,
                             ChapterRepository chapterRepository) {
@@ -36,5 +39,6 @@ public class NovelInfoService {
     public Integer gainNovelTotalFavorite(Integer novelId) {
         return favoriteRepo.countAllByNovelId(novelId);
     }
+
 
 }

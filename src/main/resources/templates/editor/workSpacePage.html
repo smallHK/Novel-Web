@@ -44,7 +44,7 @@
 
 <!--章节开放-->
 <div class="modal fade" id="viewChapterInfo" tabindex="-1">
-    <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">终曲 MARRY CHRISMAS</h5>
@@ -61,7 +61,6 @@
         </div>
     </div>
 </div>
-
 
 <!--推荐小说-->
 <div class="modal fade" id="recommendNovel" tabindex="-1">
@@ -405,7 +404,7 @@
                     var imgWrapper = $("<div class=\"book-cover-wrapper align-middle\"></div>");
                     var img = $("<img src=\"/imgs/default.jpg\" class=\"card-img-top book-cover-img\" alt=\"...\">");
                     if (novelList[i].coverImg !== null && novelList[i].coverImg.length !== 0) {
-                        img.attr("src", infos[i].coverImg);
+                        img.attr("src", novelList[i].coverImg);
                     }
                     imgWrapper.add(img);
                     card.append(img);
@@ -521,24 +520,47 @@
 
     //查看卷目录modal
     function showVolumeIndexModal(volumeId) {
-
         $.get("/editor/gainVolumeIndex/" + volumeId, function (data) {
+            if(data.status === 0) {
+                var modal = $("#viewVolumeInfo");
+                var info = data.info;
+                modal.find("h5").text(info.volumeTitle);
 
+                var indexContainer = modal.find("ul");
+                indexContainer.empty();
+
+                var chapterList = info.chapterList;
+                for(var i = 0; i < chapterList.length; i++) {
+                    var item = $("<li class=\"list-group-item\"></li>");
+                    item.text(chapterList[i].title);
+                    indexContainer.append(item);
+                }
+                modal.modal('toggle');
+            }
         });
-        var modal = $("#viewVolumeInfo");
-        modal.find("form").find("input:eq(0)").val(novelId);
-        modal.modal('toggle');
     }
 
     //查看章节内容modal
     function showChapterContentModal(chapterId) {
         $.get("/editor/gainChapterInfo/" + chapterId, function (data) {
+            var info = data.info;
+            var modal = $("#viewChapterInfo");
 
+            modal.find("h5").text(info.title);
+
+            var contentContainer = modal.find(".modal-body");
+            contentContainer.empty();
+
+            var paraList = info.paragraphList;
+
+            for(var i = 0; i < paraList.length; i++) {
+                var para = $("<p></p>");
+                para.text(paraList[i].content);
+                contentContainer.append(para);
+            }
+
+            modal.modal('toggle');
         });
-
-        var modal = $("#viewChapterInfo");
-        modal.find("form").find("input:eq(0)").val(novelId);
-        modal.modal('toggle');
     }
 
     //同意开放卷

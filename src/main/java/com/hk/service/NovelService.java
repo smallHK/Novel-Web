@@ -518,7 +518,7 @@ public class NovelService {
     /**
      * 将novel转化为novelInfo
      */
-    private NovelInfo novelToNovelInfo(Novel novel) {
+    public NovelInfo novelToNovelInfo(Novel novel) {
         Integer authorId = novel.getAuthorId();
         Creator creator = creatorRepository.findById(authorId).orElseThrow();
         NovelInfo novelInfo = new NovelInfo();

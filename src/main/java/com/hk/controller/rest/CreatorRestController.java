@@ -105,6 +105,37 @@ public class CreatorRestController {
     }
 
     /**
+     * 获取所有未开放图书总数
+     */
+    @GetMapping("/unpublishedNovelList/size")
+    public JSONObject countUnpublishedNovelPageAmount(HttpSession session) {
+        Integer creatorId = (Integer) session.getAttribute(SessionProperty.CREATOR_LOGIN_CREATOR_ID);
+        Integer novelTotalNum = novelService.countSpeCreSpePubStaNovel(creatorId, EntityStatus.NOVLE_CREATED);
+        return ResultUtil.success("success!").toJSONObject().fluentPut("novelPageSum", novelTotalNum % 12 == 0 ? novelTotalNum/12 : novelTotalNum/12 + 1);
+    }
+
+    /**
+     * 获取所有审核中小说总数
+     */
+    @GetMapping("/checkingNovelList/size")
+    public JSONObject countCheckingNovelPageAmount(HttpSession session) {
+        Integer creatorId = (Integer) session.getAttribute(SessionProperty.CREATOR_LOGIN_CREATOR_ID);
+        Integer novelTotalNum = novelService.countSpeCreSpePubStaNovel(creatorId, EntityStatus.NOVEL_CHECKING);
+        return ResultUtil.success("success!").toJSONObject().fluentPut("novelPageSum", novelTotalNum % 12 == 0 ? novelTotalNum/12 : novelTotalNum/12 + 1);
+    }
+
+    /**
+     * 获取所有开放小说总数
+     */
+    @GetMapping("/publishedNovelList/size")
+    public JSONObject countPublishedNovelPageAmount(HttpSession session) {
+        Integer creatorId = (Integer) session.getAttribute(SessionProperty.CREATOR_LOGIN_CREATOR_ID);
+        Integer novelTotalNum = novelService.countSpeCreSpePubStaNovel(creatorId, EntityStatus.NOVEL_PASSED);
+        return ResultUtil.success("success!").toJSONObject().fluentPut("novelPageSum", novelTotalNum % 12 == 0 ? novelTotalNum/12 : novelTotalNum/12 + 1);
+    }
+
+
+    /**
      * 获取作者指定页的所有未开放小说
      */
     @GetMapping("/unpublishedNovelList/{pageNum}/{pageSize}")

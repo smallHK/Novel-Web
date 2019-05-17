@@ -5,6 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * smallHK
@@ -32,7 +33,7 @@ public interface NovelRepository extends CrudRepository<Novel, Integer> {
 
     List<Novel> findAllByNovelNameContainingAndStatus(String novelName, Integer status);
 
-
+    Optional<Novel> findAllByNovelName(String novelName);
 
 
 }

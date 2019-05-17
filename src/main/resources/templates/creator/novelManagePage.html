@@ -29,15 +29,6 @@
         </div>
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center border-top pt-4">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                </li>
-                <li class="page-item"><a class="page-link active" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
             </ul>
         </nav>
     </div>
@@ -46,28 +37,33 @@
     <div class="tab-pane  mx-auto c-w-90" id="all-unpublished-novels">
         <div class="row mb-3 mx-auto" style="height: 860px;">
 
-
         </div>
-
         <nav>
             <ul class="pagination justify-content-center border-top pt-4">
-                <li class="page-item disabled"><a class="page-link" >Previous</a></li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
             </ul>
         </nav>
     </div>
 
     <!--正在审核小说-->
     <div class="tab-pane mx-auto c-w-90" id="all-checking-novels">
+        <div class="row mb-3 mx-auto" style="height: 860px;">
 
+        </div>
+        <nav>
+            <ul class="pagination justify-content-center border-top pt-4">
+            </ul>
+        </nav>
     </div>
 
     <!--已开放小说-->
     <div class="tab-pane mx-auto c-w-90" id="all-published-novels">
+        <div class="row mb-3 mx-auto" style="height: 860px;">
 
+        </div>
+        <nav>
+            <ul class="pagination justify-content-center border-top pt-4">
+            </ul>
+        </nav>
     </div>
 </div>
 
@@ -80,29 +76,7 @@
         //添加编辑小说翻页栏
         $.get("/creator/createdNovelList/size", function (data) {
            if(data.status === 0) {
-               var len = data.allNovelPageSum;
-               var pageContainer = $("#all-created-novels").find("ul");
-               pageContainer.empty();
-
-               var prev = $("<li class=\"page-item disabled\"><a class=\"page-link\">Previous</a></li>");
-               pageContainer.append(prev);
-
-               for(var i = 1; i <= len; i++) {
-                   var item = $("<li class=\"page-item\"><a class=\"page-link\"></a></li>");
-                   item.find("a").text(i);
-                   if(i === 1) {
-                       item.addClass("active");
-                   }
-                   item.find("a").attr("onclick", "showEditNovelByPage(" + i + ");");
-                   pageContainer.append(item);
-               }
-
-               var next = $("<li class=\"page-item\"><a class=\"page-link\">Next</a></li>");
-               next.find("a").attr("onclick", "showEditNovelByPage(2);");
-               pageContainer.append(next);
-               if(len === 1 || len === 0) {
-                   next.addClass("disabled");
-               }
+               addPageItem($("#all-created-novels").find("ul"), data.allNovelPageSum, "showEditNovelByPage");
 
            }
         });
@@ -110,12 +84,35 @@
         //显示未开放小说
         showUnpublishedNovelByPage(1);
 
+        //添加未开放小说翻页栏
+        $.get("/creator/unpublishedNovelList/size", function (data) {
+            if(data.status === 0) {
+                addPageItem($("#all-unpublished-novels").find("ul"), data.novelPageSum, "showUnpublishedNovelByPage");
+
+            }
+        });
+
         //显示审核中小说
         showCheckingNovelByPage(1);
+
+        //添加审核中小说翻页栏
+        $.get("/creator/checkingNovelList/size", function (data) {
+            if(data.status === 0) {
+                addPageItem($("#all-checking-novels").find("ul"), data.novelPageSum, "showCheckingNovelByPage");
+
+            }
+        });
 
         //显示已开放小说
         showPublishedNovelByPage(1);
 
+        //添加已开放小说翻页栏
+        $.get("/creator/publishedNovelList/size", function (data) {
+            if(data.status === 0) {
+                addPageItem($("#all-published-novels").find("ul"), data.novelPageSum, "showPublishedNovelByPage");
+
+            }
+        });
 
     });
 
@@ -141,77 +138,70 @@
         });
 
         //处理翻页
-        var pageContainer = $("#all-created-novels").find("ul");
-        pageContainer.children().removeClass("active");
-        pageContainer.children().removeClass("disabled");
-        pageContainer.children().eq(pageNum).addClass("active");
-        pageContainer.children().eq(0).attr("onclick", "showEditNovelByPage(" + (pageNum-1) + ");");
-        pageContainer.children().eq(pageContainer.children().length - 1)
-            .attr("onclick", "showEditNovelByPage(" + pageNum + 1+");");
-        if(pageNum === 1) {
-            pageContainer.children().eq(0).addClass("disabled");
-            pageContainer.children().eq(0).removeAttr("onclick");
-        }
-        if(pageNum === pageContainer.children().length - 2) {
-            pageContainer.children().eq(pageContainer.children().length - 1).addClass("disabled");
-            pageContainer.children().eq(pageContainer.children().length - 1).removeAttr("onclick");
-        }
+        switchPage($("#all-created-novels").find("ul"), "showEditNovelByPage", pageNum);
 
     }
+
 
     //未开放小说填充
     function showUnpublishedNovelByPage(pageNum) {
         $.get("/creator/unpublishedNovelList/" + pageNum + "/12", function (data) {
-            var container = $("#all-unpublished-novels");
             if (data.status === 0) {
-                container.empty();
+                //清空小说
+                var row = $("#all-unpublished-novels").find(".row");
+                row.empty();
+
                 //填充内容
                 var novelList = data.novelList;
-                var row = $("<div class=\"row mb-3 mx-auto\" style=\"height: 860px;\"></div>");
                 //将小说数据封装成列
                 for (var i = 0; i < novelList.length; i++) {
                     row.append(unpublishedNovelColLay(novelList[i]));
                 }
-                container.append(row);
-
             }
         });
+
+        //处理翻页
+        switchPage($("#all-unpublished-novels").find("ul"), "showUnpublishedNovelByPage", pageNum);
     }
 
     //审核中小说填充
     function showCheckingNovelByPage(pageNum) {
         $.get("/creator/checkingNovelList/" + pageNum + "/12", function (data) {
-            var container = $("#all-checking-novels");
             if (data.status === 0) {
-                container.empty();
+                //清空小说
+                var row = $("#all-checking-novels").find(".row");
+                row.empty();
                 //填充内容
                 var novelList = data.novelList;
-                var row = $("<div class=\"row mb-3 mx-auto\" style=\"height: 860px;\"></div>");
                 //将小说数据封装成列
                 for (var i = 0; i < novelList.length; i++) {
                     row.append(checkingNovelColLay(novelList[i]));
                 }
-                container.append(row);
             }
         });
+
+        //处理翻页
+        switchPage($("#all-checking-novels").find("ul"), "showCheckingNovelByPage", pageNum);
     }
 
     //已开放小说填充
     function showPublishedNovelByPage(pageNum) {
         $.get("/creator/publishedNovelList/" + pageNum + "/12", function (data) {
-            var container = $("#all-published-novels");
             if (data.status === 0) {
-                container.empty();
+                //清空小说
+                var row = $("#all-published-novels").find(".row");
+                row.empty();
                 //填充内容
                 var novelList = data.novelList;
-                var row = $("<div class=\"row mb-3 mx-auto\" style=\"height: 860px;\"></div>");
                 //将小说数据封装成列
                 for (var i = 0; i < novelList.length; i++) {
                     row.append(publishedNovelColLay(novelList[i]));
                 }
-                container.append(row);
             }
         });
+
+        //处理翻页
+        switchPage($("#all-published-novels").find("ul"), "showPublishedNovelByPage", pageNum);
     }
 
 
@@ -327,6 +317,52 @@
         card.append(cardBody);
 
         return colLay;
+    }
+
+
+    //添加页码
+    function addPageItem(pageContainer, len, funcName) {
+        pageContainer.empty();
+
+        var prev = $("<li class=\"page-item disabled\"><a class=\"page-link\">Previous</a></li>");
+        pageContainer.append(prev);
+
+        for(var i = 1; i <= len; i++) {
+            var item = $("<li class=\"page-item\"><a class=\"page-link\"></a></li>");
+            item.find("a").text(i);
+            if(i === 1) {
+                item.addClass("active");
+            }
+            item.find("a").attr("onclick", funcName + "(" + i + ");");
+            pageContainer.append(item);
+        }
+
+        var next = $("<li class=\"page-item\"><a class=\"page-link\">Next</a></li>");
+        next.find("a").attr("onclick", funcName + "(2);");
+        pageContainer.append(next);
+        if(len === 1 || len === 0) {
+            next.addClass("disabled");
+            next.find("a").removeAttr("onclick");
+        }
+    }
+
+    //翻页封装
+    function switchPage(pageContainer, funcName, pageNum) {
+        pageContainer.children().removeClass("active");
+        pageContainer.children().removeClass("disabled");
+        pageContainer.children().eq(pageNum).addClass("active");
+        pageContainer.children().eq(0).attr("onclick",  funcName + "(" + (pageNum-1) + ");");
+        pageContainer.children().eq(pageContainer.children().length - 1)
+            .attr("onclick",  funcName + "(" + pageNum + 1+");");
+
+        if(pageNum === 1) {
+            pageContainer.children().eq(0).addClass("disabled");
+            pageContainer.children().eq(0).removeAttr("onclick");
+        }
+        if(pageNum === pageContainer.children().length - 2) {
+            pageContainer.children().eq(pageContainer.children().length - 1).addClass("disabled");
+            pageContainer.children().eq(pageContainer.children().length - 1).removeAttr("onclick");
+        }
     }
 
 </script>
