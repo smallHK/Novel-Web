@@ -15,4 +15,6 @@ public interface TagNovelRelationRepo extends CrudRepository<TagNovelRelation, I
 
     TagNovelRelation findAllByNovelIdAndTagId(Integer novelId, Integer tagId);
 
+    void deleteAllByNovelId(Integer novelId);
+
 }

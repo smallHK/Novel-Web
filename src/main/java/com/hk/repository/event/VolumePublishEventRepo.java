@@ -12,4 +12,6 @@ import java.util.List;
 public interface VolumePublishEventRepo extends CrudRepository<VolumePublishEvent, Integer> {
 
     List<VolumePublishEvent> findAllByEditorIdAndStatus(Integer editorId, Integer status);
+
+    void deleteAllByVolumeId(List<Integer> volumeIds);
 }

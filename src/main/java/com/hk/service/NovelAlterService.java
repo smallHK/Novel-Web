@@ -4,6 +4,8 @@ import com.hk.constant.EntityStatus;
 import com.hk.constant.EventStatus;
 import com.hk.entity.*;
 import com.hk.repository.*;
+import com.hk.repository.event.ChapterPublishEventRepo;
+import com.hk.repository.event.VolumePublishEventRepo;
 import com.hk.util.CommonUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -17,6 +19,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -40,6 +43,15 @@ public class NovelAlterService {
 
     private ParagraphRepository paragraphRepository;
 
+    private FavoriteRepo favoriteRepo;
+
+    private RecommendPriorityRepo recommendPriorityRepo;
+
+
+    private VolumePublishEventRepo volumePublishEventRepo;
+
+    private ChapterPublishEventRepo chapterPublishEventRepo;
+
 
 
     private TagRepo tagRepo;
@@ -47,6 +59,8 @@ public class NovelAlterService {
     private TagNovelRelationRepo tagNovelRelationRepo;
 
     private EditorRecommendRepo editorRecommendRepo;
+
+    private ImgStoreService imgStoreService;
 
     public NovelAlterService(NovelRepository novelRepository,
                              NovelCommentRepo novelCommentRepo,
@@ -56,7 +70,12 @@ public class NovelAlterService {
                              ParagraphRepository paragraphRepository,
                              TagRepo tagRepo,
                              TagNovelRelationRepo tagNovelRelationRepo,
-                             EditorRecommendRepo editorRecommendRepo) {
+                             EditorRecommendRepo editorRecommendRepo,
+                             FavoriteRepo favoriteRepo,
+                             RecommendPriorityRepo recommendPriorityRepo,
+                             VolumePublishEventRepo volumePublishEventRepo,
+                             ChapterPublishEventRepo chapterPublishEventRepo,
+                             ImgStoreService imgStoreService) {
         this.novelRepository = novelRepository;
         this.novelCommentRepo = novelCommentRepo;
         this.novelPublishRepo = novelPublishRepo;
@@ -66,6 +85,11 @@ public class NovelAlterService {
         this.tagRepo = tagRepo;
         this.tagNovelRelationRepo = tagNovelRelationRepo;
         this.editorRecommendRepo = editorRecommendRepo;
+        this.favoriteRepo = favoriteRepo;
+        this.recommendPriorityRepo = recommendPriorityRepo;
+        this.volumePublishEventRepo = volumePublishEventRepo;
+        this.chapterPublishEventRepo = chapterPublishEventRepo;
+        this.imgStoreService = imgStoreService;
     }
 
     /**
@@ -274,6 +298,21 @@ public class NovelAlterService {
     @Transactional
     public void deleteNovel(Integer novelId) {
 
+        //删除小说的相关事件，卷发布事件、章节更新事件
+        //卷发布事件删除
+        List<Volume> volumeList = volumeRepository.findAllByNovelId(novelId);
+        volumePublishEventRepo.deleteAllByVolumeId(volumeList.stream().map(Volume::getId).collect(Collectors.toList()));
+
+        //章节发布事件删除
+        List<Chapter> chapterList = chapterRepository.findAllByNovelId(novelId);
+        chapterPublishEventRepo.deleteAllByChapterId(chapterList.stream().map(Chapter::getId).collect(Collectors.toList()));
+
+        //删除优先度
+        recommendPriorityRepo.deleteAllByNovelId(novelId);
+
+        //删除推荐
+        editorRecommendRepo.deleteAllByNovelId(novelId);
+
         //删除小说
         novelRepository.deleteAllById(novelId);
 
@@ -293,11 +332,34 @@ public class NovelAlterService {
         paragraphRepository.deleteAllByNovelId(novelId);
 
         //删除对小说的收藏
+        favoriteRepo.deleteAllByNovelId(novelId);
 
         //删除对小说的标签
+        tagNovelRelationRepo.deleteAllByNovelId(novelId);
 
-        //删除小说的相关事件，小说发布事件、卷发布事件、章节更新事件
+    }
 
 
+    /**
+     * 更新小说信息
+     */
+    @Transactional
+    public void updateNovelInfo(Novel novel, String novelName, String briefIntro, String coverFileName, byte[] coverData) {
+        if(!novel.getNovelName().equals(novelName)) {
+            novel.setNovelName(novelName);
+        }
+
+        if(!novel.getBriefIntro().equals(briefIntro)) {
+            novel.setBriefIntro(briefIntro);
+        }
+
+        if(Objects.nonNull(coverFileName)) {
+            String coverImg = String.format("%s/%s/%s","/data/novelCover/cover/", novel.getAuthorId().toString(), coverFileName);
+            if(!novel.getCoverImg().equals(coverImg)) {
+                novel.setCoverImg(coverImg);
+                imgStoreService.storeCoverImg(novel.getAuthorId(), coverFileName, coverData);
+            }
+        }
+        novelRepository.save(novel);
     }
 }

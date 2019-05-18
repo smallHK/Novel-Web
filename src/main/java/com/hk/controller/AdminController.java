@@ -11,6 +11,7 @@ import com.hk.repository.AdminRepository;
 import com.hk.repository.EditorRepository;
 import com.hk.repository.ProfileRepository;
 import com.hk.service.AdminService;
+import com.hk.service.NovelAlterService;
 import com.hk.service.NovelService;
 import com.hk.constant.EntityStatus;
 import com.hk.util.ResultUtil;
@@ -25,13 +26,14 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
 /**
  * @author smallHK
  * 2019/3/19 21:03
- *
+ * <p>
  * 提供管理员服务
  */
 @Controller
@@ -52,19 +54,23 @@ public class AdminController {
 
     private NovelService novelService;
 
+    private NovelAlterService novelAlterService;
+
     public AdminController(AdminRepository adminRepository,
                            ProfileRepository profileRepository,
                            EditorRepository editorRepository,
                            JavaMailSender mailSender,
                            AdminService adminService,
-                           NovelService novelService
-                        ) {
+                           NovelService novelService,
+                           NovelAlterService novelAlterService
+    ) {
         this.adminRepository = adminRepository;
         this.profileRepository = profileRepository;
         this.editorRepository = editorRepository;
         this.mailSender = mailSender;
         this.adminService = adminService;
         this.novelService = novelService;
+        this.novelAlterService = novelAlterService;
     }
 
     /**
@@ -72,32 +78,24 @@ public class AdminController {
      * 返回判断结果
      *
      * @param username 用户名
-     * @param pwd 密码
+     * @param pwd      密码
      * @return status=0登陆成功，status=1登陆失败
      */
-    @PostMapping(path="/login")
+    @PostMapping(path = "/login")
     public ModelAndView login(@RequestParam("username") String username, @RequestParam("password") String pwd, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
-
-        try {
-            Iterable<Admin> adminList = adminRepository.findAll();
-
-            for (Admin admin :adminList) {
-                if(admin.getUsername().equals(username) && admin.getPassword().equals(pwd)){
-                    modelAndView.addObject("loginName", username);
-                    session.setAttribute(SessionProperty.ROOT_LOGIN_NAME, username);
-                    session.setAttribute(SessionProperty.ROOT_LOGIN_ID, admin.getId());
-                    modelAndView.addObject("resultInfo", ResultUtil.success("Success!").toJSONObject());
-                    modelAndView.setViewName("redirect:/admin/enterAdminCenter");
-                    return modelAndView;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            modelAndView.addObject("resultInfo", ResultUtil.failure("fail!").toJSONObject());
-            modelAndView.setViewName("/result");
-
+        Admin admin = adminService.login(username, pwd);
+        if (Objects.nonNull(admin)) {
+            session.setAttribute(SessionProperty.ROOT_LOGIN_NAME, username);
+            session.setAttribute(SessionProperty.ROOT_LOGIN_ID, admin.getId());
+            modelAndView.addObject("loginName", username);
+            modelAndView.addObject("resultInfo", ResultUtil.success("Success!").toJSONObject());
+            modelAndView.setViewName("redirect:/admin/enterAdminCenter");
+            return modelAndView;
         }
+
+        modelAndView.addObject("resultInfo", ResultUtil.failure("fail!").toJSONObject());
+        modelAndView.setViewName("redirect:/admin/loginPage");
         return modelAndView;
     }
 
@@ -126,7 +124,7 @@ public class AdminController {
 
     /**
      * 通过审核，创建编辑用户
-     *
+     * <p>
      * 指定简历审核通过
      * 创建Editor用户
      * 发送邮件进行通知
@@ -139,7 +137,7 @@ public class AdminController {
         try {
             //设置简历状态
             Optional<Profile> profileWrapper = profileRepository.findById(profileId);
-            if(profileWrapper.isEmpty()) {
+            if (profileWrapper.isEmpty()) {
                 throw new RuntimeException("找不到简历!");
             }
             Profile profile = profileWrapper.get();
@@ -182,7 +180,7 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView();
         adminService.calculateCosineSim();
         modelAndView.setViewName("redirect:/admin/enterAdminCenter");
-        return  modelAndView;
+        return modelAndView;
     }
 
 
@@ -190,7 +188,7 @@ public class AdminController {
      * 同意推荐
      */
     @GetMapping("/agreeEditorRecommend/{novelId}")
-    public ModelAndView agreeEditorRecommend (@PathVariable Integer novelId) {
+    public ModelAndView agreeEditorRecommend(@PathVariable Integer novelId) {
         ModelAndView modelAndView = new ModelAndView();
         adminService.agreeEditorRecommend(novelId);
         modelAndView.setViewName("redirect:/admin/enterAdminCenter");
@@ -202,7 +200,7 @@ public class AdminController {
      * 拒绝推荐
      */
     @GetMapping("/rejectEditorRecommend/{novelId}")
-    public ModelAndView rejectEditorRecommend(@PathVariable  Integer novelId) {
+    public ModelAndView rejectEditorRecommend(@PathVariable Integer novelId) {
         ModelAndView modelAndView = new ModelAndView();
         adminService.rejectEditorRecommend(novelId);
         modelAndView.setViewName("redirect:/admin/enterAdminCenter");
@@ -213,9 +211,13 @@ public class AdminController {
     /**
      * 删除小说
      */
-    public ModelAndView deleteAllNovelInfo(Integer novelId) {
-
-        return null;
+    @GetMapping("/deleteNovel/{novelId}")
+    public ModelAndView deleteAllNovelInfo(@PathVariable Integer novelId) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/admin/enterAdminCenter");
+        novelAlterService.deleteNovel(novelId);
+        modelAndView.addObject("resultInfo", ResultUtil.success("success!"));
+        return modelAndView;
     }
 
 }

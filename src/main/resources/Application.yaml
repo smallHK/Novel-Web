@@ -12,3 +12,6 @@ spring:
   jpa:
     hibernate:
       dll-auto: none
+
+cover:
+  location: D:\CurriculumDesign\Novel-Web\src\main\resources\static\data\novelCover\cover

@@ -184,7 +184,7 @@
 							</div>
 							<div class="">
 								<p class="book-title-limit" th:text="${info.novelName}">Campione 弑神者！</p>
-								<a href="#" class="btn btn-primary btn-block rounded-0">删除小说</a> </div>
+								<a th:href="@{/admin/deleteNovel/{novelId}(novelId=${info.id})}" class="btn btn-primary btn-block rounded-0">删除小说</a> </div>
 						</div>
 					</div>
 				</div>

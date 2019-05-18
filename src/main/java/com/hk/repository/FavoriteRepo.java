@@ -17,4 +17,6 @@ public interface FavoriteRepo extends CrudRepository<Favorite, Integer> {
     List<Favorite> findAllByReaderId(Integer readerId);
 
     Integer countAllByNovelId(Integer novelId);
+
+    void deleteAllByNovelId(Integer novelId);
 }

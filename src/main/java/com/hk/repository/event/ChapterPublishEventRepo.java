@@ -13,4 +13,6 @@ public interface ChapterPublishEventRepo extends CrudRepository<ChapterPublishEv
 
     List<ChapterPublishEvent> findAllByEditorIdAndStatus(Integer editorId, Integer status);
 
+    void deleteAllByChapterId(List<Integer> chapterIds);
+
 }

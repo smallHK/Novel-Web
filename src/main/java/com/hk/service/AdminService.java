@@ -2,10 +2,12 @@ package com.hk.service;
 
 import com.hk.constant.AdminOpeType;
 import com.hk.constant.EventStatus;
+import com.hk.constant.SessionProperty;
 import com.hk.controller.CreatorRedirectController;
 import com.hk.entity.*;
 import com.hk.po.EditorRecommendInfo;
 import com.hk.repository.*;
+import com.hk.util.ResultUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -41,6 +43,8 @@ public class AdminService {
 
     private EditorRepository editorRepository;
 
+    private AdminRepository adminRepository;
+
     public AdminService(ProfileRepository profileRepository,
                         RecommendService recommendService,
                         AdminOperationLogRepo adminOperationLogRepo,
@@ -49,7 +53,8 @@ public class AdminService {
                         CreatorRepository creatorRepository,
                         ChapterRepository chapterRepository,
                         FavoriteRepo favoriteRepo,
-                        EditorRepository editorRepository) {
+                        EditorRepository editorRepository,
+                        AdminRepository adminRepository) {
         this.profileRepository = profileRepository;
         this.recommendService = recommendService;
         this.adminOperationLogRepo = adminOperationLogRepo;
@@ -59,7 +64,25 @@ public class AdminService {
         this.chapterRepository = chapterRepository;
         this.favoriteRepo = favoriteRepo;
         this.editorRepository = editorRepository;
+        this.adminRepository = adminRepository;
     }
+
+    /**
+     * 登陆功能
+     * 成功登陆返回admin
+     * 失败返回null
+     */
+    public Admin login(String username, String password) {
+        Iterable<Admin> adminList = adminRepository.findAll();
+        for (Admin admin :adminList) {
+            if(admin.getUsername().equals(username) && admin.getPassword().equals(password)){
+                return admin;
+            }
+        }
+        return null;
+    }
+
+
 
     /**
      * 获取指定状态简历

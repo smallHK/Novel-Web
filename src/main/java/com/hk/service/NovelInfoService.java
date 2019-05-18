@@ -1,6 +1,7 @@
 package com.hk.service;
 
 import com.hk.entity.Chapter;
+import com.hk.entity.Novel;
 import com.hk.po.NovelInfo;
 import com.hk.repository.ChapterRepository;
 import com.hk.repository.FavoriteRepo;
@@ -18,11 +19,14 @@ public class NovelInfoService {
 
     private ChapterRepository chapterRepository;
 
+    private NovelRepository novelRepository;
 
     public NovelInfoService(FavoriteRepo favoriteRepo,
-                            ChapterRepository chapterRepository) {
+                            ChapterRepository chapterRepository,
+                            NovelRepository novelRepository) {
         this.favoriteRepo = favoriteRepo;
         this.chapterRepository = chapterRepository;
+        this.novelRepository = novelRepository;
     }
 
 
@@ -40,5 +44,11 @@ public class NovelInfoService {
         return favoriteRepo.countAllByNovelId(novelId);
     }
 
+    /**
+     * 小说信息
+     */
+    public Novel gainPlainNovelInfo(Integer novelId) {
+        return novelRepository.findById(novelId).orElseThrow();
+    }
 
 }

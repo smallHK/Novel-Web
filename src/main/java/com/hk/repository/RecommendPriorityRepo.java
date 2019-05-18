@@ -14,4 +14,6 @@ public interface RecommendPriorityRepo extends CrudRepository<RecommendPriority,
     void deleteAllByReaderIdIn(List<Integer> readerIdList);
 
     List<RecommendPriority> findAllByReaderIdOrderByPriorityDesc(Integer readerId);
+
+    void deleteAllByNovelId(Integer novelId);
 }

@@ -1,8 +1,11 @@
 package com.hk.controller;
 
+import com.hk.entity.Novel;
 import com.hk.po.ChapterInfo;
+import com.hk.po.NovelCommentList;
 import com.hk.po.VolumeInfo;
 import com.hk.service.NovelAlterService;
+import com.hk.service.NovelInfoService;
 import com.hk.service.NovelService;
 import com.hk.constant.EntityStatus;
 import com.hk.util.ResultUtil;
@@ -13,7 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.Map;
+import java.util.Objects;
 
 import static com.hk.util.ResultUtil.success;
 
@@ -29,10 +34,14 @@ public class CreatorRedirectController {
 
     private NovelAlterService novelAlterService;
 
+    private NovelInfoService novelInfoService;
+
     public CreatorRedirectController(NovelService novelService,
-                                     NovelAlterService novelAlterService) {
+                                     NovelAlterService novelAlterService,
+                                     NovelInfoService novelInfoService) {
         this.novelService = novelService;
         this.novelAlterService = novelAlterService;
+        this.novelInfoService = novelInfoService;
     }
 
 
@@ -191,6 +200,32 @@ public class CreatorRedirectController {
             modelAndView.setViewName("/result");
             return modelAndView;
         }
+    }
+
+    /**
+     * 更新小说信息
+     */
+    @PostMapping("/updateNovelInfo/{novelId}")
+    public ModelAndView updateNovelInfo(@RequestParam Map<String, String> params, @RequestParam Map<String, MultipartFile> fileData, @PathVariable Integer novelId) {
+        ModelAndView modelAndView = new ModelAndView();
+        Novel novel = novelInfoService.gainPlainNovelInfo(novelId);
+        String novelName = params.get("novel_title");
+        String briefIntro = params.get("brief_intro");
+        try {
+            String coverFileName = null;
+            byte[] coverData = null;
+            if(Objects.nonNull(fileData.get("coverCoverImg"))) {
+                 coverFileName = fileData.get("coverCoverImg").getOriginalFilename();
+                 coverData = fileData.get("coverCoverImg").getBytes();
+            }
+            novelAlterService.updateNovelInfo(novel, novelName, briefIntro, coverFileName, coverData);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        modelAndView.addObject("resultInfo", success("更新成功！"));
+        modelAndView.setViewName("redirect:/creator/infoManage/" + novelId);
+        return modelAndView;
     }
 
 

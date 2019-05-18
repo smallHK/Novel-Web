@@ -73,15 +73,15 @@
 		</div>
 	</div>
 	<div class="tab-pane fade" id="edit-page">
-		<form enctype="multipart/form-data">
+		<form enctype="multipart/form-data" action="/creator/updateNovelInfo/" th:action="@{/creator/updateNovelInfo/{novelId}(novelId=${info.id})}" method="post">
 			<div class="row w-75 mx-auto mt-5 p-3  back-color-white rounded shadow-sm">
 				<div class="col-4 border rounded mr-2">
 					<div>
-						<img th:if="not ${#strings.isEmpty(info.coverImg)}" th:src="${info.coverImg}" src="../imgs/cover-md.jpg"  class="book-cover-img" alt="封面">
-						<img th:if="${#strings.isEmpty(info.coverImg)}" th:src="@{/imgs/default.jpg}" src="../imgs/cover-md.jpg"  class="book-cover-img" alt="封面">
+						<img th:id="novelCoverImg" th:if="not ${#strings.isEmpty(info.coverImg)}" th:src="${info.coverImg}" src="../imgs/cover-md.jpg"  class="book-cover-img" alt="封面">
+						<img th:id="novelCoverImg" th:if="${#strings.isEmpty(info.coverImg)}" th:src="@{/imgs/default.jpg}" src="../imgs/cover-md.jpg"  class="book-cover-img" alt="封面">
 					</div>
 		<div class="custom-file mt-3">
-			<input type="file" class="custom-file-input" id="novelCover" onchange="showPreview(this, 'novelCoverImg')"/>
+			<input type="file" class="custom-file-input" id="novelCover" name="coverCoverImg" onchange="showPreview(this, 'novelCoverImg')"/>
 			<label class="custom-file-label" for="novelCover">小说封面</label>
  		</div>
 				</div>
@@ -89,7 +89,7 @@
 					<div class="form-group row">
 						<label class="col-2 col-form-label">小说名</label>
 						<div class="col-10">
-							<input type="text" class="form-control" value="aaa" th:value="${info.novelName}">
+							<input type="text" class="form-control" value="aaa" name="novel_title" th:value="${info.novelName}">
 						</div>
 					</div>
 					<div class="form-group">
@@ -101,9 +101,9 @@
 					</div>
 					<div class="form-group">
 						<label>小说简介</label>
-						<textarea class="form-control" rows="6" th:text="${info.briefIntro}">2003年，一个名叫岩井恭平的青年，创造了一个叫做“日本”的平行世界，并在其中撒下了无数少年少女。这些少年少女们的命运，让他们相识、相爱、相恨、相战。这些“虫子”的愤怒、欢喜、绝望、毁灭，组成了一个个美妙的乐章，名为《虫之歌》...</textarea>
+						<textarea class="form-control" rows="6" name="brief_intro" th:text="${info.briefIntro}">2003年，一个名叫岩井恭平的青年，创造了一个叫做“日本”的平行世界，并在其中撒下了无数少年少女。这些少年少女们的命运，让他们相识、相爱、相恨、相战。这些“虫子”的愤怒、欢喜、绝望、毁灭，组成了一个个美妙的乐章，名为《虫之歌》...</textarea>
 					</div>
-					<button class="btn btn-primary">提交修改</button>
+					<input type="submit" class="btn btn-primary" value="提交修改">
 				</div>
 			</div>
 		</form>
