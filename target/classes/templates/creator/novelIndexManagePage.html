@@ -33,20 +33,21 @@
 </div>
 <!--修改章节内容-->
 <div class="modal fade" id="updateChapter" tabindex="-1">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">修改章节内容</h5>
             </div>
             <div class="modal-body">
-                <form action="" method="post">
+                <form action="/creator/simplyUpdateChapter" method="post">
+                    <input type="hidden" name="chapter_id">
                     <div class="form-group">
                         <label>新章节名</label>
-                        <input type="text" class="form-control" placeholder="新章节名称" name="chapter-name" required>
+                        <input type="text" class="form-control" placeholder="新章节名称" name="chapter_title" required>
                     </div>
                     <div class="form-group">
                         <label>新章节内容</label>
-                        <textarea class="form-control" placeholder="新章节内容" name="chapter-content" required></textarea>
+                        <textarea class="form-control" placeholder="新章节内容" name="chapter_content" required></textarea>
                     </div>
                     <input class="btn btn-primary" type="submit" value="确认" >
                 </form>
@@ -63,7 +64,7 @@
             <h5 th:text="${volumeInfo.volumeTitle}"> 第零卷 </h5>
         </div>
         <div class="row my-3">
-            <div th:each="chapter: ${volumeInfo.chapterList}" class="col-3 my-2"><a class="btn btn-light btn-block" href="#" title="" th:text="${chapter.title}">0.00 诗歌 The firs</a> </div>
+            <div th:each="chapter: ${volumeInfo.chapterList}" class="col-3 my-2"><button class="btn btn-light btn-block" th:onclick="updateChapter([[${chapter.id}]]);" title="" th:text="${chapter.title}">0.00 诗歌 The firs</button> </div>
             <div class="col-3 my-2"><a class="btn btn-light btn-block"  th:href="@{/creator/enterSimplyAddChapterPage/{novelId}/{volumeId}(novelId=${novelIndexInfo.novelId}, volumeId=${volumeInfo.volumeId})}" href="/creator/enterAddChapterPage" title="">+添加章节</a> </div>
         </div>
     </div>
@@ -74,7 +75,25 @@
 </div>
 <script>
     function updateChapter(chapterId) {
-        $("#updateChapter").modal('toggle');
+        $.get("/creator/rest/chapterInfo/" + chapterId, function (data) {
+            if(data.status === 0) {
+                var info = data.chapterInfo;
+                var paraList = info.paragraphList;
+                var content = "";
+                for(var i  = 0; i< paraList.length; i++) {
+                    if(i !== 0) content += "\n" + paraList[i].content;
+                    else content += paraList[i].content;
+                }
+
+                var modal = $("#updateChapter");
+                modal.find("form").find("input:eq(0)").val(info.id);
+                modal.find("form").find("input:eq(1)").val(info.title);
+                modal.find("form").find("textarea").text(content);
+                modal.modal('toggle');
+
+
+            }
+        });
     }
 </script>
 </body>

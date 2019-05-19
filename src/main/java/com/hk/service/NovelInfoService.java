@@ -51,4 +51,12 @@ public class NovelInfoService {
         return novelRepository.findById(novelId).orElseThrow();
     }
 
+    /**
+     * 小说信息
+     * 通过章节Id
+     */
+    public Novel gainPlainNovelInfoByChapterId(Integer chapterId) {
+        return  novelRepository.findById(chapterRepository.findById(chapterId).orElseThrow().getNovelId()).orElseThrow();
+    }
+
 }

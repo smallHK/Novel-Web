@@ -1,15 +1,15 @@
 package com.hk.controller;
 
+import com.hk.constant.EntityStatus;
+import com.hk.constant.SessionProperty;
 import com.hk.entity.Novel;
 import com.hk.po.ChapterInfo;
-import com.hk.po.NovelCommentList;
+import com.hk.po.NovelIndex;
 import com.hk.po.VolumeInfo;
 import com.hk.service.NovelAlterService;
 import com.hk.service.NovelInfoService;
 import com.hk.service.NovelService;
-import com.hk.constant.EntityStatus;
 import com.hk.util.ResultUtil;
-import com.hk.constant.SessionProperty;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -120,10 +120,22 @@ public class CreatorRedirectController {
         Integer novelId = novelService.findNovelIdByChapterId(chapterId);
         novelAlterService.updateChapter(chapterId, chapterTitle, originChapterContent);
         modelAndView.setViewName("redirect:/creator/chapterManage/" + novelId);
-        modelAndView.addObject("resultInfo", ResultUtil.success("创建成功！"));
+        modelAndView.addObject("resultInfo", ResultUtil.success("更新成功！"));
         return modelAndView;
     }
 
+    /**
+     * 更新章节
+     * 目录管理页
+     */
+    @PostMapping(path = "/simplyUpdateChapter")
+    public ModelAndView simplyUpdateChapter(@RequestParam Map<String, String> params) {
+        Integer chapterId = Integer.valueOf(params.get("chapter_id"));
+        Integer novelId = novelInfoService.gainPlainNovelInfoByChapterId(chapterId).getId();
+        ModelAndView modelAndView = updateChapter(params);
+        modelAndView.setViewName("redirect:/creator/novelIndexManage/" + novelId);
+        return modelAndView;
+    }
 
 
     /**
