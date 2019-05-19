@@ -449,6 +449,7 @@ public class NovelService {
 
     /**
      * 获取推荐的小说
+     * 获取三本
      */
     public List<NovelInfo> findAllRecommendNovels(Integer readerId) {
 
@@ -457,12 +458,24 @@ public class NovelService {
         for(RecommendPriority priority: priorities) {
             novelIds.add(priority.getNovelId());
         }
-        List<Novel> novelList = CollectionUtil.iterableToList(novelRepository.findAllById(novelIds.subList(0, 3)));
-        List<NovelInfo> infos = new ArrayList<>();
-        for(Novel novel: novelList) {
-            infos.add(novelToNovelInfo(novel));
+
+        //如果小说总数少于三本直接全部推荐
+        if(novelIds.size() <= 3) {
+            return CollectionUtil
+                    .iterableToList(novelRepository.findAllById(novelIds))
+                    .stream().map(this::novelToNovelInfo).collect(Collectors.toList());
         }
-        return infos;
+
+        //如果小说数量小于10，以全部小说乱序
+        int limit = novelIds.size() < 10 ? novelIds.size() : 10;
+
+        //截取前十本，乱序，然后抽出三本推荐
+        List<Integer> candidateNovelIds = novelIds.subList(0, limit);
+        Collections.shuffle(candidateNovelIds);
+
+       return  CollectionUtil.iterableToList(novelRepository.findAllById(candidateNovelIds.subList(0, 3)))
+               .stream().map(this::novelToNovelInfo).collect(Collectors.toList());
+
     }
 
 
