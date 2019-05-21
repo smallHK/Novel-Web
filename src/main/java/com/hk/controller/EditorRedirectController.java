@@ -1,6 +1,7 @@
 package com.hk.controller;
 
 import com.hk.constant.SessionProperty;
+import com.hk.entity.Profile;
 import com.hk.service.EditorService;
 import com.hk.service.NovelService;
 import com.hk.util.ResultUtil;
@@ -65,6 +66,19 @@ public class EditorRedirectController {
         Integer editorId = (Integer)session.getAttribute(SessionProperty.EDITOR_LOGIN_EDITOR_ID);
         editorService.recommendNovel(novelId, editorId, reason);
         modelAndView.setViewName("redirect:/editor/workSpacePage");
+        modelAndView.addObject("resultInfo", ResultUtil.success("success!").toJSONObject());
+        return modelAndView;
+    }
+
+    /**
+     * 更新简历信息
+     */
+    @PostMapping("/updateProfileInfo")
+    public ModelAndView updateProfileInfo(@RequestParam Map<String, String> params, HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView();
+        Integer editorId = (Integer)session.getAttribute(SessionProperty.EDITOR_LOGIN_EDITOR_ID);
+        editorService.updateProfileInfo(params, editorId);
+        modelAndView.setViewName("redirect:/editor/personalInfo");
         modelAndView.addObject("resultInfo", ResultUtil.success("success!").toJSONObject());
         return modelAndView;
     }

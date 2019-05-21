@@ -11,5 +11,7 @@ import java.util.List;
  */
 public interface AdminOperationLogRepo extends CrudRepository<AdminOperationLog, Integer> {
 
-    List<AdminOperationLog> findAllByType(Integer type);
+    List<AdminOperationLog> findAllByTypeOrderByOperateTimeDesc(Integer type);
+
+
 }

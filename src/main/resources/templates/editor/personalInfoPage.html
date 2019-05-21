@@ -60,36 +60,36 @@
 		</div>
 	</div>
 	<div class="tab-pane fade" id="edit-page">
-		<form>
+		<form action="/editor/updateProfileInfo" method="post">
 			<div class="row w-75 mx-auto mt-5 p-3  back-color-white rounded shadow-sm">
 				<div class="col p-2">
 					<div class="form-group row">
 						<label class="col-2 col-form-label">姓名</label>
 						<div class="col-10">
-							<input type="text" class="form-control" th:value="${profile.realName}" value="啊啊" required>
+							<input type="text" class="form-control" name="real_name" th:value="${profile.realName}" value="啊啊" required>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-2 col-form-label">电话</label>
 						<div class="col-10">
-							<input type="text" class="form-control" th:value="${profile.phoneNumber}" value="16866785567" required>
+							<input type="text" class="form-control" name="phone_number" th:value="${profile.phoneNumber}" value="16866785567" required>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-2 col-form-label">身份证号</label>
 						<div class="col-10">
-							<input type="text" class="form-control"  th:value="${profile.idNumber}"  value="110101201904044312" required>
+							<input type="text" class="form-control" name="id_number"  th:value="${profile.idNumber}"  value="110101201904044312" required>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-2 col-form-label">email</label>
 						<div class="col-10">
-							<input type="email" class="form-control"  th:value="${profile.eMail}"  value="sssss@hk.com" required>
+							<input type="email" class="form-control" name="e_mail" th:value="${profile.eMail}"  value="sssss@hk.com" required>
 						</div>
 					</div>
 					<div class="form-group">
 						<label>个人简介</label>
-						<textarea class="form-control" rows="4" th:text="${profile.briefIntro}">深度互联网从业人员，对互联网保持高度的敏感性和关注度，熟悉产品开发流程，有很强的产品规划、需求分析、交互设计能力，能独立承担APP和WEB项目的管控工作，善于沟通，贴近用户。</textarea>
+						<textarea class="form-control" rows="4" name="brief_intro" th:text="${profile.briefIntro}">深度互联网从业人员，对互联网保持高度的敏感性和关注度，熟悉产品开发流程，有很强的产品规划、需求分析、交互设计能力，能独立承担APP和WEB项目的管控工作，善于沟通，贴近用户。</textarea>
 					</div>
 					<button class="btn btn-primary">提交修改</button>
 				</div>

@@ -197,7 +197,7 @@
 				</div>
 
 				<div class="m-4 p-2 border rounded">
-					<p>上一次个性推荐分析：<span>2019/05/08 12:45:23</span></p>
+					<p th:if="${lastCalTime}">上一次个性推荐分析：<span  th:text="${lastCalTime}">2019/05/08 12:45:23</span></p>
 					<a th:href="@{/admin/calculateCosineSim}" class="btn btn-light rounded-0">余弦值分析</a>
 				</div>
 

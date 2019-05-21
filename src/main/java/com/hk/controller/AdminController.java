@@ -42,7 +42,6 @@ import java.util.UUID;
 public class AdminController {
 
 
-    private AdminRepository adminRepository;
 
     private ProfileRepository profileRepository;
 
@@ -56,15 +55,13 @@ public class AdminController {
 
     private NovelAlterService novelAlterService;
 
-    public AdminController(AdminRepository adminRepository,
-                           ProfileRepository profileRepository,
+    public AdminController(ProfileRepository profileRepository,
                            EditorRepository editorRepository,
                            JavaMailSender mailSender,
                            AdminService adminService,
                            NovelService novelService,
                            NovelAlterService novelAlterService
     ) {
-        this.adminRepository = adminRepository;
         this.profileRepository = profileRepository;
         this.editorRepository = editorRepository;
         this.mailSender = mailSender;
@@ -112,11 +109,14 @@ public class AdminController {
         List<NovelInfo> infos = novelService.findAllNovelInfo();
         List<EditorRecommendInfo> recommendInfos = adminService.gainAllSubmittedEditorRecommend();
 
+        String lastCalTime = adminService.gainLastCalConsineTime();
+
         modelAndView.addObject("resultInfo", ResultUtil.success("success").toJSONObject());
         modelAndView.addObject("unreadProfiles", unreadProfiles);
         modelAndView.addObject("passedProfiles", passedProfiles);
         modelAndView.addObject("allNovelInfos", infos);
         modelAndView.addObject("recommendInfos", recommendInfos);
+        modelAndView.addObject("lastCalTime", lastCalTime);
 
         return modelAndView;
     }

@@ -14,8 +14,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author smallHK
@@ -104,6 +108,19 @@ public class AdminService {
         adminOperationLogRepo.save(adminOperationLog);
         recommendService.calculateAllReaderVector();
 
+    }
+
+    /**
+     * 获取最后一次计算余弦值事件
+     */
+    public String gainLastCalConsineTime() {
+        List<AdminOperationLog> ops = adminOperationLogRepo.findAllByTypeOrderByOperateTimeDesc(AdminOpeType.COSINE_SIM);
+        if(Objects.nonNull(ops) && !ops.isEmpty()) {
+            return LocalDateTime.ofInstant(ops.get(0).getOperateTime().toInstant(), ZoneOffset.ofHours(8))
+                    .format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
+        }
+
+        return null;
     }
 
     /**

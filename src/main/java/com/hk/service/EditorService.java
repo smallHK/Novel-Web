@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author smallHK
@@ -88,6 +90,30 @@ public class EditorService {
           return !judgeNovelRecommendStatus((novelId));
 
       }
+
+    /**
+     * 更新简历信息
+     */
+    public void updateProfileInfo(Map<String, String> newInfos, Integer editorId) {
+
+        Profile old = profileRepository.findById(editorRepository.findById(editorId).orElseThrow().getProfileId()).orElseThrow();
+        if(Objects.nonNull(newInfos.get("real_name")) && !newInfos.get("real_name").equals(old.getRealName())) {
+            old.setRealName(newInfos.get("real_name"));
+        }
+        if(Objects.nonNull(newInfos.get("phone_number")) && !newInfos.get("phone_number").equals(old.getPhoneNumber())) {
+            old.setPhoneNumber(newInfos.get("phone_number"));
+        }
+        if(Objects.nonNull(newInfos.get("id_number")) && !newInfos.get("id_number").equals(old.getIdNumber())) {
+            old.setIdNumber(newInfos.get("id_number"));
+        }
+        if(Objects.nonNull(newInfos.get("e_mail")) && !newInfos.get("e_mail").equals(old.getEMail())) {
+            old.setEMail(newInfos.get("e_mail"));
+        }
+        if(Objects.nonNull(newInfos.get("brief_intro")) && !newInfos.get("brief_intro").equals(old.getBriefIntro())) {
+            old.setBriefIntro(newInfos.get("brief_intro"));
+        }
+        profileRepository.save(old);
+    }
 
 
 }

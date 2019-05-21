@@ -149,5 +149,18 @@ public class ReaderController {
         return modelAndView;
     }
 
+    /**
+     * 修改用户信息
+     */
+    @PostMapping("/updateUserInfo")
+    public ModelAndView updateUserInfo(@RequestParam Map<String, String> params,  HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView();
+        Integer readerId = (Integer) session.getAttribute(SessionProperty.READER_LOGIN_READER_ID);
+        readerService.updateUserInfo(readerId, params.get("username"), params.get("password"));
+        session.setAttribute(SessionProperty.READER_LOGIN_READER_NAME, params.get("username"));
+        modelAndView.setViewName("redirect:/reader/enterReaderCenter");
+        return modelAndView;
+    }
+
 
 }

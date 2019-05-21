@@ -45,4 +45,13 @@ public class ReaderService {
         return null;
     }
 
+    /**
+     * 修改用户信息
+     */
+    public void updateUserInfo(Integer readerId, String username, String password) {
+        Reader reader = readerRepo.findById(readerId).orElseThrow();
+        reader.setUsername(username);
+        reader.setPassword(password);
+        readerRepo.save(reader);
+    }
 }
